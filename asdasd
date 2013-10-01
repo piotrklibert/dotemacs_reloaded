@@ -1,0 +1,56 @@
+By default Emacs is a piece of shit editor.
+* looks ancient and ugly!
+* completely non-standard binding for even simple commands
+    - copy/paste
+    - undo/redo
+    - search
+    - even opening files
+
+By default Emacs is a great bare-bones framework for creating editors.
+* nice scripting language with byte-compilation and macros
+* *HUGE* stdlib with things from reading directories to HTTP server
+* everything that Emacs is is exposed to (and changeable) ELisp
+
+Default is not what you should use by default.
+* list-packages
+* customize
+
+Diving into the depths of Emacs code
+* find-library, locate-library
+* find-file-at-point
+* find-function
+* describe-function/variable/key
+
+Drowning in the plugins
+* installed plugins
+
+There's a mode for this!
+
+Random:                                     Sublime:
+* moving line/region up and down            * otwieranie plikow
+* incremental search                        * rectangular editing
+* macros                                    * instalacja pluginow
+* multiple-cursors/iedit                    * up-down line or region
+* narrow to region                          * support for different languages
+* shell/eshell                              * szukanie po plikach, w projekcie
+* ediff
+* calculator
+* ielm
+* windows + screens + cycle layouts
+* dired/wdired
+* artist mode
+* magit
+
+
+  ___  _ __ ___   __ _
+ / _ \| '_ ` _ \ / _` |
+| (_) | | | | | | (_| |
+ \___/|_| |_| |_|\__, |
+                 |___/
+
+
+  __            _
+ / _|_   _  ___| | __
+| |_| | | |/ __| |/ /
+|  _| |_| | (__|   <
+|_|  \__,_|\___|_|\_\

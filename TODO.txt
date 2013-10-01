@@ -1,0 +1,30 @@
+https://github.com/m2ym/direx-el
+https://github.com/tkf/emacs-jedi-direx/blob/master/jedi-direx.el
+http://tkf.github.io/emacs-jedi/released/
+https://github.com/kiwanami/emacs-epc
+https://github.com/tkf/python-epc
+
+Installed:
+    elpa/ac-js2-20130619.1934/
+    elpa/ac-geiser-20130929.1447/
+    elpa/concurrent-20130914.1658/
+    elpa/ctable-20130706.1939/
+    elpa/direx-20130815.1006/
+    elpa/epc-20130804.1428/
+    elpa/geiser-20130930.515/
+    elpa/jedi-20130714.1415/
+    elpa/simple-httpd-20130908.1604/
+    elpa/skewer-mode-20130925.1123/
+    plugins2/emacs-jedi-direx/
+
+Nastepne installed:
+    outline-magic        outline mode extensions for Emacs [github]
+    outlined-elisp-      outline-minor-mode settings for emacs lisp [github]
+    parenface          Provide a face for parens in lisp modes. [github]
+    parenface-plus       Provide a face for parens in lispy modes.
+    pcre2el            parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
+    peg                Parsing Expression Grammars in Emacs Lisp [wiki]
+    pep8               run the python pep8 checker putting hits in a grep buffer
+    phi-rectangle      another rectangle-mark command (rewrite of rect-mark) [github]
+    phi-search         another incremental search command, compatible with "multiple-cursors" [github]
+    phi-search-mc      multiple-cursors extension for phi-search [github]
