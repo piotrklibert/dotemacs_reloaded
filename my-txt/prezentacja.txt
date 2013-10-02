@@ -27,23 +27,38 @@ Drowning in the plugins
 There's a mode for this!
 
 
-Random:                                             Sublime:
-* moving line/region up and down                    * otwieranie plikow
-* incremental search                                * rectangular editing
-* macros                                            * instalacja pluginow
-* multiple-cursors/iedit                            * up-down line or region
-* narrow to region                                  * support for different languages
-* shell/eshell                                      * szukanie po plikach, w projekcie
-* ediff                                             * pluginy, mozliwosc synchronizacji
-* calculator                                        * szybkosc
-* ielm                                              * pluginy: pep8, auto-completion, multi-cursors
-* windows + screens + cycle layouts                 * fuzzy-search po plikach
-* dired/wdired                                      * snippets
-* flymake/flyspell                                  * makra
-* artist mode                                       * minimalny edytor
+Emacs:                                                           Sublime:
+* moving line/region up and down                                 * up-down line or region
+* list-packages/package-install                                  * instalacja pluginow
+* fuzzy-find-in-project                                          * otwieranie plikow (fuzzy matching)
+* kill-rectangle and friends, also iedit                         * rectangular editing
+* support wszystkich istniejacych languages                      * support for different languages
+* ag, ack, many greps                                            * szukanie po plikach, w projekcie
+* startuje przez godzine, potem jest ok                          * szybkosc
+* multiple-cursors/iedit, flymake/flyspell, auto-complete        * pluginy: pep8, auto-completion, multi-cursors
+* yasnippet, dabbrev, others                                     * snippets
+* macros                                                         * makra
+* 40 lat narastania kodu                                         * minimalny edytor
+
+Inne ficzersy:
+* narrow to region
+* shell/eshell
+* term
+* org-mode (tyle, ze nic nie wiem o nim...)
+* table-mode
+* EDE
+* semantic: imenu, speedbar
+* ediff
+* calculator
+* ielm
+* windows + screens + cycle layouts
+* dired/wdired
+* artist mode
 * magit
 * figlet
+* incremental search
 * numerical prefixes
+* exchange point and mark
 
 
   ___  _ __ ___   __ _

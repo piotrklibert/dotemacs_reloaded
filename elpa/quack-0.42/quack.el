@@ -81,7 +81,7 @@ please contact Neil Van Dyke.")
 ;;     GNU/Linux distributions and is available for most other platforms.
 ;;
 ;;     Note to PLT Scheme users: If you do not already have the PLT manuals
-;;     installed, they can be downloaded from 
+;;     installed, they can be downloaded from
 ;;     `http://download.plt-scheme.org/doc/' and installed in your PLT `doc'
 ;;     collection.  If Quack is not finding installed PLT manuals, then be sure
 ;;     that the `quack-pltcollect-dirs' variable contains the appropriate
@@ -225,7 +225,7 @@ please contact Neil Van Dyke.")
 ;;         * Made `quack-pltish-keywords-to-fontify' and
 ;;           `quack-emacs-keywords-to-fontify' custom changes update
 ;;           immediately.  Bug reported by Taylor Campbell.
-;;         * Removed some non-syntax names from  
+;;         * Removed some non-syntax names from
 ;;           `quack-pltish-keywords-to-fontify'.
 ;;         * Documentation changes.
 ;;
@@ -258,7 +258,7 @@ please contact Neil Van Dyke.")
 ;;         * Added indent and fontify for additional PLT syntax.
 ;;         * Added `quack-fontify-threesemi-p'.
 ;;         * `quack-tidy-buffer' sets `fill-prefix' to nil when running.
-;;         * Added messages to `run-scheme', if only to get rid of annoying 
+;;         * Added messages to `run-scheme', if only to get rid of annoying
 ;;           "Mark set" message.
 ;;         * Added "mzscheme -M errortrace" to `quack-programs'.
 ;;         * `quack-dired-pltcollect' prompt defaults to `mzlib'.
@@ -803,7 +803,7 @@ This only has effect when `quack-fontify-style' is `plt'."
     "namespace-variable-bind/invoke-unit/sig" "parameterize" "parameterize*"
     "parameterize-break" "private"
     "private*" "protect" "provide" "provide-signature-elements"
-    "provide/contract" "public" "public*" "quasiquote" 
+    "provide/contract" "public" "public*" "quasiquote"
     "quasisyntax" "quasisyntax/loc" "quote" "receive"
     "rename" "require" "require-for-syntax" "send" "send*" "set!" "set!-values"
     "signature->symbols" "super-instantiate" "syntax" "syntax/loc"
@@ -1776,7 +1776,7 @@ For PLT-style when `quack-pltish-fontify-keywords-p' is non-nil."
          (default (if (assoc "mzlib" alist) "mzlib" nil))
          (dir (cdr (assoc
                     (completing-read
-                     (if default 
+                     (if default
                          (format "Dired for PLT collection (default %S): "
                                  default)
                        "Dired for PLT collection: ")
@@ -3027,7 +3027,7 @@ Can be used in your `~/.emacs' file something like this:
     (message "Switched to running Scheme: %s" scheme-program-name)))
 
 (defadvice scheme-interactively-start-process (around
-                                               quack-ad-sisp 
+                                               quack-ad-sisp
                                                first
                                                (&optional cmd)
                                                activate)
@@ -3116,8 +3116,8 @@ Can be used in your `~/.emacs' file something like this:
                   (reverse retained)))))
 
 (quack-add-auto-mode-alist '(("\\.ccl\\'"    . scheme-mode)
-                             ("\\.rkt\\'"    . scheme-mode)
-                             ("\\.rktd\\'"   . scheme-mode)
+                             ;; ("\\.rkt\\'"    . scheme-mode)
+                             ;; ("\\.rktd\\'"   . scheme-mode)
                              ("\\.sch\\'"    . scheme-mode)
                              ("\\.scm\\'"    . scheme-mode)
                              ("\\.ss\\'"     . scheme-mode)
@@ -3401,8 +3401,8 @@ Can be used in your `~/.emacs' file something like this:
      ;;(mapcar (function (lambda (n)
      ;;(delete-menu-item '("Quack") n)
      ;;(add-submenu nil quack-global-menuspec "Help" n)))
-     ;;(list 
-     ;;;;current-menubar 
+     ;;(list
+     ;;;;current-menubar
      ;;default-menubar
      ;;))
      (delete-menu-item '("Quack") current-menubar)
@@ -3549,7 +3549,7 @@ Can be used in your `~/.emacs' file something like this:
   ;;           Updating Scheme Mode buffers...done
   ;;           Updating Scheme Mode buffers...done
   ;;           Loading ~/emacs/my-custom.el (source)...done
-  
+
   ;; Update dependent program state.
   (cond ((memq sym '(quack-emacsish-keywords-to-fontify
                      quack-fontify-style
@@ -3903,8 +3903,8 @@ Can be used in your `~/.emacs' file something like this:
                  (1 quack-threesemi-h1-face prepend))
                 ("^\;\;\; @subsection\\(?:\\[[^]]*\\]\\)?{\\([^\r\n]*\\)}"
                  (1 quack-threesemi-h2-face prepend))
-                
-                
+
+
                 )
             '()))
          (fld `(,(cond
@@ -4101,7 +4101,7 @@ Can be used in your `~/.emacs' file something like this:
 
 (defun quack-install-compilation-mode-stuff ()
   (unless quack-saved-compilation-error-regexp-alist
-    (setq quack-saved-compilation-error-regexp-alist 
+    (setq quack-saved-compilation-error-regexp-alist
           compilation-error-regexp-alist))
   (setq compilation-error-regexp-alist
         (append quack-compilation-error-regexp-alist-additions
@@ -4518,11 +4518,11 @@ Provided by Quack: http://www.neilvandyke.org/quack/"
 ;; TODO: Clickable URLs
 ;;
 ;; (defvar quack-url-keymap)
-;; 
+;;
 ;; (setq quack-url-keymap (make-sparse-keymap))
 ;; (define-key quack-url-keymap "\r" 'quack-browse-overlaid-url)
 ;; (define-key quack-url-keymap "q" 'quack-browse-overlaid-url)
-;; 
+;;
 ;; (defun quack-make-url-overlay (beg end &optional url)
 ;;   (let ((ovl (make-overlay beg end nil t)))
 ;;     (overlay-put ovl 'face      'underline)
@@ -4531,12 +4531,12 @@ Provided by Quack: http://www.neilvandyke.org/quack/"
 ;;     (overlay-put ovl 'quack-url
 ;;                      (or url (buffer-substring-no-properties beg end)))
 ;;     ovl))
-;; 
+;;
 ;; (defun quack-insert-url (url)
 ;;   (let* ((beg (point)))
 ;;     (insert url)
 ;;     (quack-make-url-overlay beg (point))))
-;; 
+;;
 ;; (defun quack-overlaid-url-at-point (&optional pt)
 ;;   (let ((overlays (overlays-at (or pt (point))))
 ;;         (url      nil))
@@ -4545,7 +4545,7 @@ Provided by Quack: http://www.neilvandyke.org/quack/"
 ;;                          (cdr overlays)
 ;;                        '())))
 ;;     url))
-;; 
+;;
 ;; (defun quack-browse-overlaid-url (pt)
 ;;   ;; Dehydration.
 ;;   (interactive "d")
@@ -4677,8 +4677,8 @@ Provided by Quack: http://www.neilvandyke.org/quack/"
 
 ;; TODO: Way to get default collects directories.  From Matthew Flatt,
 ;; 2006-04-22:
-;; 
-;; env PLTCOLLECTS="" mzscheme -mvqe '(printf "~s\n" (map path->string 
+;;
+;; env PLTCOLLECTS="" mzscheme -mvqe '(printf "~s\n" (map path->string
 ;; (current-library-collection-paths)))'
 
 ;; TODO: Have key binding to insert "lambda" (for use with pretty-lambda).

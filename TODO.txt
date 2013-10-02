@@ -1,48 +1,47 @@
 DONE:
 * move data files to data dir
+* racket mode as a default
+* configure:
+    elpa/ac-geiser
+    elpa/geiser
+* make geiser STOP reverting auto-mode-alist to scheme for racket
 
 --------------------------------------------------------------------------------
 
+* check what is inside semanticdb files
 * take a look at `delim-col' library
 * sort buffers in iswitchb somehow
-
-Installed:
-    elpa/ac-js2
-    elpa/ac-geiser
-    elpa/concurrent
-    elpa/ctable
-    elpa/direx
-    elpa/epc
-    elpa/geiser
-    elpa/jedi
-    elpa/simple-httpd
-    elpa/skewer-mode
-    plugins2/emacs-jedi-direx/
-
-Nastepne installed:
-    outline-magic        outline mode extensions for Emacs [github]
-    outlined-elisp-      outline-minor-mode settings for emacs lisp [github]
-    parenface            Provide a face for parens in lisp modes. [github]
-    parenface-plus       Provide a face for parens in lispy modes.
-    pcre2el              parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
-    peg                  Parsing Expression Grammars in Emacs Lisp [wiki]
-    pep8                 run the python pep8 checker putting hits in a grep buffer
-    phi-rectangle        another rectangle-mark command (rewrite of rect-mark) [github]
-    phi-search           another incremental search command, compatible with "multiple-cursors" [github]
-    phi-search-mc        multiple-cursors extension for phi-search [github]
+* see what quack does and maybe drop it completely
+* fix grep-todos a bit
+* setup python shell with auto-complete, like geiser
+* configure installed:
+        elpa/ac-js2
+        elpa/jedi
+        elpa/direx
+        plugins2/emacs-jedi-direx/
+        outline-magic                    outline mode extensions for Emacs [github]
+        outlined-elisp-                  outline-minor-mode settings for emacs lisp [github]
+        parenface                        Provide a face for parens in lisp modes. [github]
+        parenface-plus                   Provide a face for parens in lispy modes.
+        pcre2el                          parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
+        peg                              Parsing Expression Grammars in Emacs Lisp [wiki]
+        pep8                             run the python pep8 checker putting hits in a grep buffer
+        phi-rectangle                    another rectangle-mark command (rewrite of rect-mark) [github]
+        phi-search                       another incremental search command, compatible with "multiple-cursors" [github]
+        phi-search-mc                    multiple-cursors extension for phi-search [github]
 
 
 ;;        my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
-;;              my-python-config.el::    54 ;; TODO:
-;;              my-python-config.el::     4 ;; TODO:
-;;                my-other-langs.el::   153 ;; TODO:
+;;              my-python-config.el::    53 ;; TODO: flycheckers/flycheck-mode pylint/pyflakes settings
+;;              my-python-config.el::     4 ;; TODO: make python, python-mode and elpy work together (auto-completion,
+;;                my-other-langs.el::   142 ;; TODO: check if quack can work with racket-mode and if so - what it offers
 ;;                my-other-langs.el::    53 ;; TODO: make it better or use a plugin (auto-compile elisp)
-;;               my-menus-config.el::     1 ;; TODO:
-;;             my-highlight-word.el::     3 ;; TODO:
-;; my-generic-programming-config.el::   118 ;; TODO:
-;; my-generic-programming-config.el::    43 ;; TODO:
+;;               my-menus-config.el::     1 ;; TODO: Icicles! at least partially
+;;             my-highlight-word.el::     3 ;; TODO: make it into minor mode
+;; my-generic-programming-config.el::    43 ;; TODO: etags-update
 ;; my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
 ;; my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
 ;;     my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
 ;;          my-deprecated-defuns.el::    20 ;; TODO: make a macro for writing commands in the form of
+;;            my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
 ;;            my-auto-completion.el::     8 ;; TODO: hippie, company

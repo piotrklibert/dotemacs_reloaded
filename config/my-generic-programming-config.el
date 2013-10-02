@@ -40,7 +40,7 @@
 ;; It's not used right now because it's muuuch too slow for my Python projects,
 ;; and on the other hand it's unwieldy to reindex tags by hand everytime I
 ;; change something.
-;; TODO:
+;; TODO: etags-update
 ;; look into it once more before discarding
 ;; (require 'etags-update)
 ;; (etags-update-mode 1)
@@ -115,9 +115,6 @@
 ;;
 ;; Utilities for navigating around the codebase: searching, greping, jumping...
 ;;
-;; TODO:
-;; * icicles-locate
-
 (define-key my-find-keys (kbd "C-o")      'occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (global-set-key (kbd "C-M-y")             'fuzzy-find-in-project)

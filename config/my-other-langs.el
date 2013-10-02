@@ -128,38 +128,51 @@
 ;;                            (autopair-mode -1)))
 
 
-;;
-;; Racket and Geiser (Racket shell integration) config
-;;
-
+;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
+;;      |  _ \    / \  / ___| |/ / ____|_   _| |  \/  |/ _ \|  _ \| ____|
+;;      | |_) |  / _ \| |   | ' /|  _|   | |   | |\/| | | | | | | |  _|
+;;      |  _ <  / ___ \ |___| . \| |___  | |   | |  | | |_| | |_| | |___
+;;      |_| \_\/_/   \_\____|_|\_\_____| |_|   |_|  |_|\___/|____/|_____|
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 's)
+(require 'cl)
+(require 'dash)
 (require 'racket-mode)
-(require 'quack)  ; better syntax highlighting
 
-(defun my-set-ctrl-meta-l ()
-  (local-set-key (kbd "C-M-l") (lambda ()
-                                  (interactive)
-                                  (ucs-insert #x3BB))))
+;; TODO: check if quack can work with racket-mode and if so - what it offers
+;; (require 'quack)
 
-
-
-
-;; (add-hook 'racket-mode-hook 'my-set-ctrl-meta-l)
-
-(if-bsd
- (setq geiser-racket-binary "/usr/local/bin/racket"))
-
-
-
-;; TODO:
-;; use company to auto-complete bridge to get autocompletions in geiser
-;; ac-company.el
-(setq
- geiser-mode-company-p nil
- geiser-repl-company-p nil)
-
-(setq geiser-eval--get-module-function       'geiser-racket--get-module)
-(setq geiser-eval--get-impl-module           'geiser-racket--get-module)
-(setq geiser-eval--geiser-procedure-function 'geiser-racket--geiser-procedure)
-
-;; Make Geiser use Racket as a default REPL
+;; Geiser config
+(setq geiser-racket-binary          "/usr/local/bin/racket")
 (setq geiser-active-implementations '(racket))
+
+(setq geiser-mode-company-p t)          ; not sure if it's needed
+(setq geiser-repl-company-p t)          ; not sure if it's needed
+
+;; BTW:
+;; insert lambda char: C-M-y or C-c C-\
+;; start geiser:       C-c C-z or C-c C-a
+
+(defvar racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
+
+(defun my-sanitize-auto-modes-racket ()
+  (setq auto-mode-alist
+        (--remove  (string-match ".rkt" (car it)) auto-mode-alist))
+  ;; add racket-mode to auto-mode-alist
+  (loop for ext in racket-file-exts
+        do (push `(,ext . racket-mode) auto-mode-alist)))
+
+;; (assoc "\\.rkt\\'" auto-mode-alist)
+
+;; geiser uses autoloads and sets auto-mode-alist then, so we need to change it
+;; back when it happens
+(eval-after-load "geiser-autoloads" '(my-sanitize-auto-modes-racket))
+(eval-after-load "geiser"           '(my-sanitize-auto-modes-racket))
+
+;; But even if Geiser never loads we still want racket-mode in auto-mode-alist,
+;; so we set it right now too.
+(my-sanitize-auto-modes-racket)
+
+(add-hook 'geiser-repl-mode-hook 'my-geiser-repl-hook)
+(defun my-geiser-repl-hook ()
+  (auto-complete-mode 1))

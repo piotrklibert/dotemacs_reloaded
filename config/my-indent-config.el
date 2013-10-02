@@ -1,16 +1,17 @@
 (require 'dash)
 (require 'my-utils)
 
-(defvar my-indent-auto-mark-excludes '((indent-region-or-line     . ignore)
-                                       (indent-for-tab-command    . ignore)
-                                       (python-indent-shift-right . ignore)
-                                       (python-indent-shift-left  . ignore)
-                                       (my-indent                 . ignore)
-                                       (my-dedent                 . ignore)
-                                       (open-rectangle            . ignore)))
+(defvar my-auto-mark-excludes '((indent-region-or-line               . ignore)
+                                (indent-for-tab-command              . ignore)
+                                (python-indent-shift-right           . ignore)
+                                (python-indent-shift-left            . ignore)
+                                (my-indent                           . ignore)
+                                (my-dedent                           . ignore)
+                                (open-rectangle                      . ignore)
+                                (comment-or-uncomment-region-or-line . ignore)))
 
 (setq auto-mark-command-class-alist (-union auto-mark-command-class-alist
-                                            my-indent-auto-mark-excludes))
+                                            my-auto-mark-excludes))
 
 (global-set-key (kbd "C-M->") 'my-indent)
 (global-set-key (kbd "C-M-<") 'my-dedent)

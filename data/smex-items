@@ -1,18 +1,31 @@
 
 ;; ----- smex-history -----
 (
+ ffap
  customize-group
+ shrink-window-if-larger-than-buffer
+ run-geiser
+ list-colors-display
+ desktop-read
+ desktop-save
+ list-faces-display
+ apropos
+ customize-option
+ find-library
+ scheme-mode
+ facemenu-read-color
+ all
+ auto-complete-mode
+ run-racket
+ recover-this-file
  smex
  replace-string
  dired-x-find-file
- auto-complete-mode
  eval-buffer
  table-unrecognize-table
  replace-regexp
- find-library
  table-shorten-cell
  center-line
- apropos
  kill-rectangle
  delete-trailing-whitespace
  vc-annotate
@@ -20,7 +33,6 @@
  electric-buffer-list
  list-processes
  indent-rigidly
- customize-option
  string-rectangle
  table-narrow-cell
  table-widen-cell
@@ -28,7 +40,6 @@
  center-region
  hs-minor-mode
  byte-compile-file
- all
  text-mode
  allout-mode
  flymake-mode
@@ -36,7 +47,6 @@
  emacs-lisp-mode
  replace-rectangle
  cd
- ffap
  ielm
  bs-show
  org-mode
@@ -68,8 +78,6 @@
  elint-file
  multi-occur
  python-mode
- scheme-mode
- desktop-save
  ediff-backup
  forward-char
  recentf-mode
@@ -86,7 +94,6 @@
  center-paragraph
  fundamental-mode
  describe-bindings
- recover-this-file
  ediff-current-file
  checkdoc-minor-mode
  elint-current-buffer
@@ -94,28 +101,21 @@
  delete-selection-mode
  switch-to-prev-buffer
  table-recognize-region
- byte-recompile-directory
- 5x5
- arp
- dbx
- dig
- ede
- erc
 )
 
 ;; ----- smex-data -----
 (
  (byte-recompile-directory . 1)
  (erlang-mode . 2)
- (find-library . 20)
+ (find-library . 24)
  (vc-annotate . 10)
  (git-log-file . 1)
  (auto-complete . 2)
- (auto-complete-mode . 8)
+ (auto-complete-mode . 9)
  (crontab-get . 1)
  (crontab-mode . 1)
  (replace-rectangle . 3)
- (apropos . 15)
+ (apropos . 17)
  (iedit-mode . 2)
  (eval-region . 2)
  (eval-print-last-sexp . 1)
@@ -127,10 +127,10 @@
  (paredit-kill . 2)
  (paredit-mode . 21)
  (geiser . 2)
- (run-geiser . 5)
- (run-racket . 1)
+ (run-geiser . 7)
+ (run-racket . 2)
  (eval-buffer . 49)
- (scheme-mode . 1)
+ (scheme-mode . 3)
  (quack-about . 1)
  (calc . 1)
  (calculator . 2)
@@ -138,8 +138,8 @@
  (open-rectangle . 2)
  (string-rectangle . 6)
  (emacs-lisp-mode . 3)
- (customize-group . 11)
- (customize-option . 7)
+ (customize-group . 13)
+ (customize-option . 9)
  (ediff . 1)
  (coffee-mode . 1)
  (package-install . 2)
@@ -163,10 +163,10 @@
  (paredit-comment-dwim . 1)
  (center-line . 16)
  (byte-compile-file . 4)
- (ffap . 2)
+ (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 1)
+ (recover-this-file . 2)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
@@ -177,7 +177,7 @@
  (ielm . 2)
  (goto-char . 1)
  (recentf-mode . 1)
- (all . 3)
+ (all . 4)
  (center-region . 4)
  (switch-to-prev-buffer . 1)
  (hl-line-mode . 4)
@@ -188,7 +188,7 @@
  (electric-buffer-list . 9)
  (set-rectangular-region-anchor . 1)
  (customize-face . 1)
- (desktop-save . 1)
+ (desktop-save . 2)
  (ace-jump-buffer . 1)
  (eshell . 1)
  (transpose-lines . 1)
@@ -238,4 +238,11 @@
  (table-unrecognize-table . 1)
  (dired-x-find-file . 1)
  (smex . 1)
+ (racket-send-last-sexp . 2)
+ (racket-run-racket . 1)
+ (facemenu-read-color . 2)
+ (list-colors-display . 2)
+ (list-faces-display . 1)
+ (desktop-read . 1)
+ (shrink-window-if-larger-than-buffer . 2)
 )

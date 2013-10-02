@@ -1,4 +1,4 @@
-;; TODO:
+;; TODO: Icicles! at least partially
 ;; 1* learn more about these tools and configure them better
 ;; 2* The problem is that they are all very similar
 ;; 3* check out Helm, too: https://github.com/emacs-helm/helm

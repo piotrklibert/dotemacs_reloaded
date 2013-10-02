@@ -35,7 +35,8 @@
 
 ;; Code goes here
 
-(eval-when-compile (require 'cl))
+(eval-when-compile
+  (require 'cl))
 (require 'geiser)
 (require 'auto-complete)
 

@@ -16,7 +16,9 @@
 ;;   and pretty lambda.
 
 (defconst racket-mode-copyright
-  "Copyright (c) 2013 by Greg Hendershott. Portions Copyright (c) Free Software Foundation and Copyright (c) 2002-2012 Neil Van Dyke.")
+  "Copyright (c) 2013 by Greg Hendershott. Portions Copyright (c)
+  Free Software Foundation and Copyright (c) 2002-2012 Neil Van
+  Dyke.")
 
 (defconst racket-mode-legal-notice
   "This is free software; you can redistribute it and/or modify it under the
@@ -54,7 +56,7 @@ http://www.gnu.org/licenses/ for details.")
           (select-window rw)
         (other-window -1)))
 
-    (run-racket)
+    (racket-run-racket)
     (select-window w)
 
     (comint-send-string (get-inferior-racket-buffer-process) str)
@@ -252,7 +254,7 @@ To run <file>'s `test` submodule."
 
 (defconst racket-keyword-argument-face 'racket-keyword-argument-face)
 (defface racket-keyword-argument-face
-  '((t (:foreground "IndianRed")))
+  '((t (:foreground "OliveDrab")))
   "Face used for #:keywords."
   :group 'racket)
 
@@ -1584,7 +1586,9 @@ To run <file>'s `test` submodule."
     ;; paren
     ("[][(){}]"                 . racket-paren-face)
 
-    (,(regexp-opt racket-builtins 'symbols) . font-lock-builtin-face)
+    (,(regexp-opt racket-builtins 'symbols) . racket-keyword-argument-face
+     ;; font-lock-builtin-face
+     )
     (,(regexp-opt racket-keywords 'symbols) . font-lock-keyword-face)
 
     ;; define -- vars
@@ -1715,10 +1719,10 @@ All commands in `lisp-mode-shared-map' are inherited by this map.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Files
 
-(setq auto-mode-alist
-      (append '(("\\.rkt\\'" . racket-mode)
-                ("\\.rktd\\'" . racket-mode))
-              auto-mode-alist))
+;; (setq auto-mode-alist
+;;       (append '(("\\.rkt\\'" . racket-mode)
+;;                 ("\\.rktd\\'" . racket-mode))
+;;               auto-mode-alist))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1796,7 +1800,7 @@ Defaults to a regexp ignoring all inputs of 0, 1, or 2 letters."
 (setq sandbox-rkt (expand-file-name "sandbox.rkt" elisp-dir))
 
 ;;;###autoload
-(defun run-racket ()
+(defun racket-run-racket ()
   "Run an inferior Racket process, input and output via buffer `*racket*'.
 If there is a process already running in `*racket*', switch to that buffer.
 Runs the hook `inferior-racket-mode-hook' \(after the `comint-mode-hook'

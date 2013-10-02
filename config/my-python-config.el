@@ -1,8 +1,7 @@
 ;; no idea what needs tramp here...
 (require 'tramp)
 
-;; TODO:
-;; make python, python-mode and elpy work together (auto-completion,
+;; TODO: make python, python-mode and elpy work together (auto-completion,
 ;; editing, etc.)
 ;; the problem: python-mode replaces python.el and overwrites my bindings
 ;; try jedi.el and the other plugin from jedi author (class tree visualiser or
@@ -51,10 +50,7 @@
 ;; Linters configuration
 ;;
 
-;; TODO:
-;; convince flycheckers/flycheck-mode to use only pyflakes and not pylint
-;; (as a default at least)
-
+;; TODO: flycheckers/flycheck-mode pylint/pyflakes settings
 (require 'flymake)
 (add-hook 'prog-mode-hook 'flymake-mode)
 

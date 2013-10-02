@@ -47,17 +47,18 @@
 ;; (length (walk-d))
 
 
+(defvar my-config-path "~/.emacs.d/config/")
 
 (defun grep-todos ()
   "Grep files in config/ directory for TODOs and insert them
 after point."
   (interactive)
   (let ((files (--filter (string-match "^[a-z].*.el$" it)
-                         (directory-files "~/.emacs.d/config/")))
+                         (directory-files my-config-path)))
         (todos '()))
     (loop for file in files
           do (with-temp-buffer
-               (insert-file-contents file)
+               (insert-file-contents (concat my-config-path file))
                (goto-char (point-min))
                (while (condition-case nil
                           (search-forward "TODO")

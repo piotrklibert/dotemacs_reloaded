@@ -88,11 +88,9 @@
   :type 'boolean
   :group 'auto-complete)
 
-(defcustom ac-disable-faces '(
-                              ;; font-lock-comment-face
-                              ;; font-lock-string-face
-                              ;; font-lock-doc-face
-                              )
+(defcustom ac-disable-faces '(font-lock-comment-face
+                              font-lock-string-face
+                              font-lock-doc-face)
   "Non-nil means disable automatic completion on specified faces."
   :type '(repeat symbol)
   :group 'auto-complete)
@@ -639,6 +637,7 @@ You can not use it in source definition like (prefix . `NAME')."
         if (ac-source-available-p source)
         do
         (setq source (ac-source-entity source))
+        ;; TODO: use cl-flet/cl-labels here
         (flet ((add-attribute (name value &optional append) (add-to-list 'source (cons name value) append)))
           ;; prefix
           (let* ((prefix (assoc 'prefix source))
