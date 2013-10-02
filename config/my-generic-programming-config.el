@@ -1,9 +1,3 @@
-;; TODO:
-;; upcase-word-or-region
-;; register-list
-;; relative-linum
-;; electric-layout-mode
-;; electric-buffer-list
 ;;
 ;; TODO: maybe do a screencast?
 ;;
@@ -33,6 +27,11 @@
 
 (require 'magit)
 (define-key magit-mode-map (kbd "C-w") my-wnd-keys)
+
+;; edit all occurances of a regexp in a separate buffer
+;; TODO: I'm rewriting it, it's not ready yet
+(require 'all)
+(require 'all-ext)
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
@@ -106,7 +105,7 @@
 (define-key my-toggle-keys (kbd "C-t") 'my-toggle-true-false-none)
 
 (global-set-key (kbd "C-c C-l") 'pygmentize)
-(global-set-key (kbd "C-=")     'indent-region-or-line)
+(global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
 (global-set-key (kbd "C-M-\"")  'my-toggle-quotes)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
@@ -205,20 +204,6 @@
       (delete-char 1)
       (insert replace))))
 
-
-(defun indent-region-or-line()
-  "Re-indent marked region or current line if no region is active.
-
-  TODO: actually I made std indent-for-tab behave nicely and this
-  should be removed and unbound."
-  (interactive)
-  (let (beg end)
-    (if (use-region-p)
-        (setq beg (region-beginning) end (line-end-position))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (indent-region beg end)
-    (setq deactivate-mark nil)
-    (setq mark-active t)))
 
 
 (defun comment-or-uncomment-region-or-line ()

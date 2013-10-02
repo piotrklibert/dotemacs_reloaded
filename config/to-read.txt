@@ -70,11 +70,10 @@ C-c . M-v       follow-scroll-down
 
 Type M-x apropos-follow on an entry to view its full documentation.
 
-calc-grab-rectangle           M-x ... RET
-   Parse a rectangle as a matrix of numbers and push it on the
-   Calculator stack.
 clear-rectangle               C-x r c
    Blank out the region-rectangle.
+delete-whitespace-rectangle   M-x ... RET
+   Delete all whitespace following a specified column in each line.
 close-rectangle               M-x ... RET
    Delete all whitespace following a specified column in each line.
 copy-rectangle-as-kill        C-x r M-w
@@ -83,16 +82,12 @@ copy-rectangle-to-register    C-x r r
    Copy rectangular region into register REGISTER.
 delete-rectangle              C-x r d
    Delete (don't save) text in the region-rectangle.
-delete-whitespace-rectangle   M-x ... RET
-   Delete all whitespace following a specified column in each line.
 delimit-columns-rectangle     M-x ... RET
    Prettify all columns in a text rectangle.
 kill-rectangle                C-x r k
    Delete the region-rectangle and save it as the last killed one.
 open-rectangle                C-x r o
    Blank out the region-rectangle, shifting text right.
-org-table-paste-rectangle     M-x ... RET
-   Paste a rectangular region into a table.
 rectangle-number-lines        C-x r N
    Insert numbers in front of the region-rectangle.
 replace-rectangle             M-x ... RET
@@ -136,5 +131,5 @@ yank-rectangle                C-x r y
 ;; (require 'hackernews)
 ;; (require 'worklog)
 
-;(setq org-default-notes-file (concat org-directory "/notes.org"))
-;(define-key global-map (kbd "C-c c") 'org-capture)
+;; (setq org-default-notes-file (concat org-directory "/notes.org"))
+;; (define-key global-map (kbd "C-c c") 'org-capture)

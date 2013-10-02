@@ -1,28 +1,6 @@
-;; **SCRATCH BUFFER **
-
 (require 's)
 (require 'dash)
 (require 'cl)
-
-
-(defun dirz ()
-  (let ((stack '()))
-    )
-  )
-(setq x '(8  (9 8 7 (0 1 0)) 8 7 6))
-(pop x)
-(defun walk-x ()
-  (let ((z x)
-        (s '()))
-    (while (or s z)
-      (if (not z)
-          (setq z (pop s)))
-      (message "%s" (car z))
-      (if (not (listp (car z)))
-          (setq z (cdr z))
-        (when (cdr z)
-          (push (cdr z) s))
-        (setq z (car z))))))
 
 (defun magic-dir-p (dir)
   (member dir (list "." "..")))
@@ -46,4 +24,24 @@
         (setq z (directory-files (car z)))))
     f))
 
-(length (walk-d))
+;; (length (walk-d))
+
+(defun grep-todos ()
+  (let
+      ((files (--filter (string-match "^[a-z].*.el$" it)
+                        (directory-files "~/.emacs.d/config/")))
+       (todos '()))
+    (loop for file in files
+          do (with-temp-buffer
+               (insert-file-contents file)
+               (goto-char (point-min))
+               (message (buffer-substring (line-beginning-position)
+                                          (line-end-position))
+               (while (condition-case nil
+                          (search-forward "TODO")
+                        (error nil))
+                 (push (buffer-substring-no-properties (line-beginning-position)
+                                                       (line-end-position))
+                       todos))))
+          todos))
+(grep-todos)

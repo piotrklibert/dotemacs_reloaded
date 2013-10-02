@@ -7,6 +7,7 @@
 
 (elscreen-start)
 
+
 (global-set-key (kbd "C-<tab>")           'elscreen-next)
 (global-set-key (kbd "C-<next>")          'elscreen-next)
 
@@ -16,6 +17,8 @@
 
 ;; was overwritten
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
+
+
 
 (define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)
 (define-key my-wnd-keys (kbd "C-<right>")           'windmove-right)
@@ -33,6 +36,8 @@
 (define-key my-wnd-keys (kbd "C-k")                 'kill-buffer-and-window)
 (define-key my-wnd-keys (kbd "C-M-d")               'kill-buffer-and-window)
 (define-key my-wnd-keys (kbd "C-d")                 'force-kill-buffer)
+;; ie. C-x C-M-f
+(define-key ctl-x-map (kbd "C-M-f")                 'find-file-other-window)
 
 (define-key my-wnd-keys (kbd "C-o")                 'delete-other-windows)
 (define-key my-wnd-keys (kbd "C-M-o")               'kill-other-window-and-buffer)

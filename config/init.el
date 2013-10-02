@@ -99,16 +99,6 @@
   '(require 'thingatpt+))
 
 
-;; TODO:
-;; all -- make all-global
-;; helm - bo anything poszlo do piachu
-;; auto-indent-mode
-;; buffer-stack
-;; grin! instead of ack
-;; idle-highlight-mode
-;; todotxt
-;; ehh... auto-complete w minibuffer / hippie-expand: C-c . (!!!)
-
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts
 (load "my-keymaps-config")
 
@@ -140,8 +130,6 @@
 
 ;; git configuration, not much there
 (load "my-vcs-config")
-
-
 
 
 
@@ -242,6 +230,7 @@
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
+ '(ispell-program-name " /usr/local/bin/ispell")
  '(mumamo-background-colors nil)
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)

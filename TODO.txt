@@ -1,3 +1,5 @@
+delim-col
+
 https://github.com/m2ym/direx-el
 https://github.com/tkf/emacs-jedi-direx/blob/master/jedi-direx.el
 http://tkf.github.io/emacs-jedi/released/

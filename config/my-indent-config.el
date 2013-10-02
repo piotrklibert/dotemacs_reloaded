@@ -1,4 +1,5 @@
 (require 'dash)
+(require 'my-utils)
 
 (defvar my-indent-auto-mark-excludes '((indent-region-or-line     . ignore)
                                        (indent-for-tab-command    . ignore)
@@ -14,14 +15,6 @@
 (global-set-key (kbd "C-M->") 'my-indent)
 (global-set-key (kbd "C-M-<") 'my-dedent)
 
-;; TODO: Move to utils module
-(defun my-get-region-or-line-bounds ()
-  (let ((active? (use-region-p)))
-    (list active?
-          (or (and active? (region-beginning))
-              (line-beginning-position))
-          (or (and active? (region-end))
-              (line-end-position)))))
 
 (defadvice indent-rigidly
   (after indent-rigidly-keep-region activate)

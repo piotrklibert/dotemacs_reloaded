@@ -44,9 +44,10 @@
 ;; - A single change in the *All* buffer must be limited to a single match.
 
 ;;; Code:
+(require 'simple)
 
-(defvar all-mode-map (map (make-sparse-keymap)))
-(define-key map "\C-c\C-c" 'all-mode-goto)
+(defvar all-mode-map (make-sparse-keymap))
+(define-key all-mode-map "\C-c\C-c" 'all-mode-goto)
 
 (defvar all-buffer nil)
 (make-variable-buffer-local 'all-buffer)

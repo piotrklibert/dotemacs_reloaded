@@ -50,8 +50,7 @@
 
 
 
-;; TODO:
-;; make it better or use a plugin
+;; TODO: make it better or use a plugin (auto-compile elisp)
 ;; (add-hook 'after-save-hook
 ;;  (lambda ()
 ;;    (message (buffer-file-name))
@@ -146,6 +145,7 @@
 
 ;; TODO:
 ;; use company to auto-complete bridge to get autocompletions in geiser
+;; ac-company.el
 (setq
  geiser-mode-company-p nil
  geiser-repl-company-p nil)

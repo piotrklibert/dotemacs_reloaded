@@ -5,7 +5,7 @@
 ;;  \____\___/|_|  |_|_|   |_____|_____| |_| |_____|_| \_\____/
 ;;
 ;;
-;; TODO:
+;; TODO: hippie, company
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 3* instead of geiser completion below use company<->auto-complete layer
 ;; 4* carefully check where which completion is active (config of auto-complete)

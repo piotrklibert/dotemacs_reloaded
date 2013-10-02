@@ -2,7 +2,8 @@
 
 ;; TODO:
 ;; 1* make it into minor mode
-;; 2. check if it really provides anything that isearch does not
+;; 2* check if it really provides anything that isearch does not
+;; 3* remove if not
 ;;
 
 (defvar highlight-words-at-point-last-search nil)

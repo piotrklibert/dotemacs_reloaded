@@ -1,7 +1,7 @@
 *~
 *#
 *.elc
-
+*.core
 .svn
 .smex-items
 ac-comphist.dat
