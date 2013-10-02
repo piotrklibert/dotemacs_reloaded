@@ -41,7 +41,7 @@ Random:                                             Sublime:
 * dired/wdired                                      * snippets
 * flymake/flyspell                                  * makra
 * artist mode                                       * minimalny edytor
-* magit                                             * something else entirely
+* magit
 * figlet
 * numerical prefixes
 
@@ -52,7 +52,7 @@ Random:                                             Sublime:
  \___/|_| |_| |_|\__, |
                  |___/
 
-
+======================
   __            _
  / _|_   _  ___| | __
 | |_| | | |/ __| |/ /

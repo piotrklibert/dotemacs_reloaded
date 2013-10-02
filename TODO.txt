@@ -1,22 +1,17 @@
-delim-col
-
-https://github.com/m2ym/direx-el
-https://github.com/tkf/emacs-jedi-direx/blob/master/jedi-direx.el
-http://tkf.github.io/emacs-jedi/released/
-https://github.com/kiwanami/emacs-epc
-https://github.com/tkf/python-epc
+* take a look at `delim-col' library
+* sort buffers in iswitchb somehow
 
 Installed:
-    elpa/ac-js2-20130619.1934/
-    elpa/ac-geiser-20130929.1447/
-    elpa/concurrent-20130914.1658/
-    elpa/ctable-20130706.1939/
-    elpa/direx-20130815.1006/
-    elpa/epc-20130804.1428/
-    elpa/geiser-20130930.515/
-    elpa/jedi-20130714.1415/
-    elpa/simple-httpd-20130908.1604/
-    elpa/skewer-mode-20130925.1123/
+    elpa/ac-js2
+    elpa/ac-geiser
+    elpa/concurrent
+    elpa/ctable
+    elpa/direx
+    elpa/epc
+    elpa/geiser
+    elpa/jedi
+    elpa/simple-httpd
+    elpa/skewer-mode
     plugins2/emacs-jedi-direx/
 
 Nastepne installed:
@@ -31,6 +26,7 @@ Nastepne installed:
     phi-search           another incremental search command, compatible with "multiple-cursors" [github]
     phi-search-mc        multiple-cursors extension for phi-search [github]
 
+
 ;;        my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
 ;;              my-python-config.el::    54 ;; TODO:
 ;;              my-python-config.el::     4 ;; TODO:
@@ -43,12 +39,5 @@ Nastepne installed:
 ;; my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
 ;; my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
 ;;     my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
-;;          my-deprecated-defuns.el::    20   ;; TODO: make a macro for writing commands in the form of
+;;          my-deprecated-defuns.el::    20 ;; TODO: make a macro for writing commands in the form of
 ;;            my-auto-completion.el::     8 ;; TODO: hippie, company
-;;                          init.el::   215  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
-;;                 fuckin-around.el::    49 (grep-todos)
-;;                 fuckin-around.el::    48           todos))
-;;                 fuckin-around.el::    47                        todos))))
-;;                 fuckin-around.el::    43                           (search-forward "TODO")
-;;                 fuckin-around.el::    35        (todos '()))
-;;                 fuckin-around.el::    31 (defun grep-todos ()
