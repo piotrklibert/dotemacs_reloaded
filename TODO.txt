@@ -30,3 +30,25 @@ Nastepne installed:
     phi-rectangle        another rectangle-mark command (rewrite of rect-mark) [github]
     phi-search           another incremental search command, compatible with "multiple-cursors" [github]
     phi-search-mc        multiple-cursors extension for phi-search [github]
+
+;;        my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
+;;              my-python-config.el::    54 ;; TODO:
+;;              my-python-config.el::     4 ;; TODO:
+;;                my-other-langs.el::   153 ;; TODO:
+;;                my-other-langs.el::    53 ;; TODO: make it better or use a plugin (auto-compile elisp)
+;;               my-menus-config.el::     1 ;; TODO:
+;;             my-highlight-word.el::     3 ;; TODO:
+;; my-generic-programming-config.el::   118 ;; TODO:
+;; my-generic-programming-config.el::    43 ;; TODO:
+;; my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
+;; my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
+;;     my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
+;;          my-deprecated-defuns.el::    20   ;; TODO: make a macro for writing commands in the form of
+;;            my-auto-completion.el::     8 ;; TODO: hippie, company
+;;                          init.el::   215  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
+;;                 fuckin-around.el::    49 (grep-todos)
+;;                 fuckin-around.el::    48           todos))
+;;                 fuckin-around.el::    47                        todos))))
+;;                 fuckin-around.el::    43                           (search-forward "TODO")
+;;                 fuckin-around.el::    35        (todos '()))
+;;                 fuckin-around.el::    31 (defun grep-todos ()
