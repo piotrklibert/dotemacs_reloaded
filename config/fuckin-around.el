@@ -45,3 +45,5 @@
                        todos))))
           todos))
 (grep-todos)
+
+;; find . -not -iname "*.elc" -not -ipath "*.git*" -not -path "*semanticdb*" -type f -exec ls -l \{\} \; | column -t | awk '{print $5}' | sum
