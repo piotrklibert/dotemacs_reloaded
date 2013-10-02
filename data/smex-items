@@ -1,0 +1,241 @@
+
+;; ----- smex-history -----
+(
+ customize-group
+ smex
+ replace-string
+ dired-x-find-file
+ auto-complete-mode
+ eval-buffer
+ table-unrecognize-table
+ replace-regexp
+ find-library
+ table-shorten-cell
+ center-line
+ apropos
+ kill-rectangle
+ delete-trailing-whitespace
+ vc-annotate
+ list-packages
+ electric-buffer-list
+ list-processes
+ indent-rigidly
+ customize-option
+ string-rectangle
+ table-narrow-cell
+ table-widen-cell
+ hl-line-mode
+ center-region
+ hs-minor-mode
+ byte-compile-file
+ all
+ text-mode
+ allout-mode
+ flymake-mode
+ locate-library
+ emacs-lisp-mode
+ replace-rectangle
+ cd
+ ffap
+ ielm
+ bs-show
+ org-mode
+ calculator
+ artist-mode
+ eval-region
+ follow-mode
+ erase-buffer
+ auto-complete
+ find-variable
+ flyspell-mode
+ open-rectangle
+ describe-keymap
+ package-install
+ describe-unbound-keys
+ table-recognize-table
+ temp-buffer-resize-mode
+ calc
+ term
+ dired
+ ediff
+ occur
+ shell
+ eshell
+ recenter
+ find-file
+ goto-char
+ ido-dired
+ elint-file
+ multi-occur
+ python-mode
+ scheme-mode
+ desktop-save
+ ediff-backup
+ forward-char
+ recentf-mode
+ recover-file
+ describe-mode
+ find-function
+ insert-buffer
+ upcase-region
+ customize-face
+ display-buffer
+ ido-edit-input
+ transpose-lines
+ transpose-sexps
+ center-paragraph
+ fundamental-mode
+ describe-bindings
+ recover-this-file
+ ediff-current-file
+ checkdoc-minor-mode
+ elint-current-buffer
+ eval-print-last-sexp
+ delete-selection-mode
+ switch-to-prev-buffer
+ table-recognize-region
+ byte-recompile-directory
+ 5x5
+ arp
+ dbx
+ dig
+ ede
+ erc
+)
+
+;; ----- smex-data -----
+(
+ (byte-recompile-directory . 1)
+ (erlang-mode . 2)
+ (find-library . 20)
+ (vc-annotate . 10)
+ (git-log-file . 1)
+ (auto-complete . 2)
+ (auto-complete-mode . 8)
+ (crontab-get . 1)
+ (crontab-mode . 1)
+ (replace-rectangle . 3)
+ (apropos . 15)
+ (iedit-mode . 2)
+ (eval-region . 2)
+ (eval-print-last-sexp . 1)
+ (iedit-rectangle-mode . 13)
+ (kill-rectangle . 14)
+ (replace-string . 9)
+ (upcase-region . 1)
+ (upcase-word-or-region . 5)
+ (paredit-kill . 2)
+ (paredit-mode . 21)
+ (geiser . 2)
+ (run-geiser . 5)
+ (run-racket . 1)
+ (eval-buffer . 49)
+ (scheme-mode . 1)
+ (quack-about . 1)
+ (calc . 1)
+ (calculator . 2)
+ (replace-regexp . 23)
+ (open-rectangle . 2)
+ (string-rectangle . 6)
+ (emacs-lisp-mode . 3)
+ (customize-group . 11)
+ (customize-option . 7)
+ (ediff . 1)
+ (coffee-mode . 1)
+ (package-install . 2)
+ (list-packages . 9)
+ (cd . 2)
+ (turn-off-fci-mode . 2)
+ (flyspell-mode . 2)
+ (delete-selection-mode . 1)
+ (text-mode . 3)
+ (allout-mode . 3)
+ (hs-minor-mode . 4)
+ (hs-hide-all . 4)
+ (hs-hide-block . 5)
+ (list-processes . 8)
+ (find-function . 1)
+ (find-file . 1)
+ (recover-file . 1)
+ (flymake-mode . 3)
+ (flymake-checkers-mode . 2)
+ (display-buffer . 1)
+ (paredit-comment-dwim . 1)
+ (center-line . 16)
+ (byte-compile-file . 4)
+ (ffap . 2)
+ (ack . 2)
+ (erase-buffer . 2)
+ (recover-this-file . 1)
+ (artist-mode . 2)
+ (find-variable . 2)
+ (describe-bindings . 1)
+ (ediff-current-file . 1)
+ (describe-keymap . 2)
+ (delete-trailing-whitespace . 11)
+ (magit-status . 10)
+ (ielm . 2)
+ (goto-char . 1)
+ (recentf-mode . 1)
+ (all . 3)
+ (center-region . 4)
+ (switch-to-prev-buffer . 1)
+ (hl-line-mode . 4)
+ (grin . 3)
+ (describe-unbound-keys . 2)
+ (ag . 2)
+ (bs-show . 2)
+ (electric-buffer-list . 9)
+ (set-rectangular-region-anchor . 1)
+ (customize-face . 1)
+ (desktop-save . 1)
+ (ace-jump-buffer . 1)
+ (eshell . 1)
+ (transpose-lines . 1)
+ (center-paragraph . 1)
+ (recenter . 1)
+ (table-recognize-table . 2)
+ (table-recognize-region . 1)
+ (free-rectangle-mode . 31)
+ (auto-mark-mode . 7)
+ (forward-char . 1)
+ (transpose-sexps . 1)
+ (multi-occur . 1)
+ (ido-dired . 1)
+ (ido-edit-input . 1)
+ (py-guess-pdb-path . 1)
+ (py-shell . 1)
+ (hs-show-block . 1)
+ (fuzzy-find-change-root . 1)
+ (show-all . 1)
+ (org-mode . 2)
+ (fundamental-mode . 1)
+ (locate-library . 3)
+ (python-mode . 1)
+ (py-execute-statement . 1)
+ (temp-buffer-resize-mode . 2)
+ (term . 1)
+ (ediff-backup . 1)
+ (paredit-join-sexps . 4)
+ (paredit-split-sexp . 1)
+ (checkdoc-minor-mode . 1)
+ (indent-rigidly . 7)
+ (elint-file . 1)
+ (elint-current-buffer . 1)
+ (python-shell-switch-to-shell . 1)
+ (shell . 1)
+ (my-indent . 3)
+ (my-dedent . 1)
+ (occur . 1)
+ (insert-buffer . 1)
+ (highline-mode . 3)
+ (dired . 1)
+ (describe-mode . 1)
+ (follow-mode . 2)
+ (table-shorten-cell . 18)
+ (table-widen-cell . 5)
+ (table-narrow-cell . 6)
+ (table-unrecognize-table . 1)
+ (dired-x-find-file . 1)
+ (smex . 1)
+)

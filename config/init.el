@@ -1,3 +1,4 @@
+(setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 (load "~/cedet/cedet-devel-load.el")
 (load "~/cedet/contrib/cedet-contrib-load.el")
 
@@ -185,11 +186,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-show-menu 0.3)
+ '(ac-comphist-file "/root/.emacs.d/data/ac-comphist.dat")
  '(ac-quick-help-prefer-x t)
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline t)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
    (quote
@@ -225,6 +228,9 @@
  '(icicle-files-ido-like-flag t)
  '(icicle-mode t)
  '(icicle-show-Completions-initially-flag nil)
+ '(ido-create-new-buffer (quote always))
+ '(ido-enable-flex-matching t)
+ '(ido-save-directory-list-file "~/.emacs.d/data/ido.last")
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
@@ -247,6 +253,7 @@
  '(recentf-max-menu-items 100)
  '(recentf-max-saved-items 100)
  '(recentf-menu-action (quote find-file))
+ '(recentf-save-file "~/.emacs.d/data/recentf")
  '(scroll-conservatively 108)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
@@ -257,6 +264,7 @@
  '(speedbar-tag-regroup-maximum-length 4)
  '(speedbar-verbosity-level 1)
  '(sr-speedbar-right-side nil)
+ '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
@@ -289,6 +297,6 @@
  '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))))
  '(visible-mark-face ((t (:background "gray26")))))
 
-(toggle-diredp-find-file-reuse-dir t)
+(toggle-diredp-find-file-reuse-dir 1)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)

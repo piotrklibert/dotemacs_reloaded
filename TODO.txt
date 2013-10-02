@@ -1,3 +1,8 @@
+DONE:
+* move data files to data dir
+
+--------------------------------------------------------------------------------
+
 * take a look at `delim-col' library
 * sort buffers in iswitchb somehow
 

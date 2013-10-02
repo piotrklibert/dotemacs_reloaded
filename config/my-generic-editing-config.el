@@ -21,6 +21,7 @@
 
 (require 'iedit)
 
+(setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
