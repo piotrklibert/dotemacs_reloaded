@@ -1,6 +1,11 @@
 
 ;; ----- smex-history -----
 (
+ free-rectangle-mode
+ 2C-split
+ 2C-merge
+ iedit-rectangle-mode
+ grep-todos
  ffap
  customize-group
  shrink-window-if-larger-than-buffer
@@ -96,11 +101,6 @@
  describe-bindings
  ediff-current-file
  checkdoc-minor-mode
- elint-current-buffer
- eval-print-last-sexp
- delete-selection-mode
- switch-to-prev-buffer
- table-recognize-region
 )
 
 ;; ----- smex-data -----
@@ -119,7 +119,7 @@
  (iedit-mode . 2)
  (eval-region . 2)
  (eval-print-last-sexp . 1)
- (iedit-rectangle-mode . 13)
+ (iedit-rectangle-mode . 15)
  (kill-rectangle . 14)
  (replace-string . 9)
  (upcase-region . 1)
@@ -196,7 +196,7 @@
  (recenter . 1)
  (table-recognize-table . 2)
  (table-recognize-region . 1)
- (free-rectangle-mode . 31)
+ (free-rectangle-mode . 32)
  (auto-mark-mode . 7)
  (forward-char . 1)
  (transpose-sexps . 1)
@@ -245,4 +245,7 @@
  (list-faces-display . 1)
  (desktop-read . 1)
  (shrink-window-if-larger-than-buffer . 2)
+ (grep-todos . 3)
+ (2C-split . 3)
+ (2C-merge . 1)
 )
