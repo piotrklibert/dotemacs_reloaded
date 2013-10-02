@@ -22,11 +22,11 @@ Installed:
 Nastepne installed:
     outline-magic        outline mode extensions for Emacs [github]
     outlined-elisp-      outline-minor-mode settings for emacs lisp [github]
-    parenface          Provide a face for parens in lisp modes. [github]
+    parenface            Provide a face for parens in lisp modes. [github]
     parenface-plus       Provide a face for parens in lispy modes.
-    pcre2el            parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
-    peg                Parsing Expression Grammars in Emacs Lisp [wiki]
-    pep8               run the python pep8 checker putting hits in a grep buffer
-    phi-rectangle      another rectangle-mark command (rewrite of rect-mark) [github]
-    phi-search         another incremental search command, compatible with "multiple-cursors" [github]
-    phi-search-mc      multiple-cursors extension for phi-search [github]
+    pcre2el              parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
+    peg                  Parsing Expression Grammars in Emacs Lisp [wiki]
+    pep8                 run the python pep8 checker putting hits in a grep buffer
+    phi-rectangle        another rectangle-mark command (rewrite of rect-mark) [github]
+    phi-search           another incremental search command, compatible with "multiple-cursors" [github]
+    phi-search-mc        multiple-cursors extension for phi-search [github]

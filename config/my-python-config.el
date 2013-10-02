@@ -4,6 +4,7 @@
 ;; TODO:
 ;; make python, python-mode and elpy work together (auto-completion,
 ;; editing, etc.)
+;; the problem: python-mode replaces python.el and overwrites my bindings
 ;; try jedi.el and the other plugin from jedi author (class tree visualiser or
 ;; something)
 ;; clean this mess up!

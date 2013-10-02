@@ -121,7 +121,7 @@
 ;; JavaScript mode
 ;;
 (require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
 
 ;; js2-mode refuses to work with autopair-mode, so we need to switch it off
 ;; (add-hook 'js2-mode-hook (lambda ()
@@ -131,6 +131,8 @@
 ;;
 ;; Racket and Geiser (Racket shell integration) config
 ;;
+
+(require 'racket-mode)
 (require 'quack)  ; better syntax highlighting
 
 (defun my-set-ctrl-meta-l ()
@@ -138,10 +140,15 @@
                                   (interactive)
                                   (ucs-insert #x3BB))))
 
-(add-hook 'racket-mode-hook 'my-set-ctrl-meta-l)
+
+
+
+;; (add-hook 'racket-mode-hook 'my-set-ctrl-meta-l)
 
 (if-bsd
  (setq geiser-racket-binary "/usr/local/bin/racket"))
+
+
 
 ;; TODO:
 ;; use company to auto-complete bridge to get autocompletions in geiser

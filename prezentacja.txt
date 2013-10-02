@@ -26,20 +26,24 @@ Drowning in the plugins
 
 There's a mode for this!
 
-Random:                                     Sublime:
-* moving line/region up and down            * otwieranie plikow
-* incremental search                        * rectangular editing
-* macros                                    * instalacja pluginow
-* multiple-cursors/iedit                    * up-down line or region
-* narrow to region                          * support for different languages
-* shell/eshell                              * szukanie po plikach, w projekcie
-* ediff
-* calculator
-* ielm
-* windows + screens + cycle layouts
-* dired/wdired
-* artist mode
-* magit
+
+Random:                                             Sublime:
+* moving line/region up and down                    * otwieranie plikow
+* incremental search                                * rectangular editing
+* macros                                            * instalacja pluginow
+* multiple-cursors/iedit                            * up-down line or region
+* narrow to region                                  * support for different languages
+* shell/eshell                                      * szukanie po plikach, w projekcie
+* ediff                                             * pluginy, mozliwosc synchronizacji
+* calculator                                        * szybkosc
+* ielm                                              * pluginy: pep8, auto-completion, multi-cursors
+* windows + screens + cycle layouts                 * fuzzy-search po plikach
+* dired/wdired                                      * snippets
+* flymake/flyspell                                  * makra
+* artist mode                                       * minimalny edytor
+* magit                                             * something else entirely
+* figlet
+* numerical prefixes
 
 
   ___  _ __ ___   __ _
