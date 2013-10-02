@@ -189,7 +189,7 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline t)
- '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
    (quote
