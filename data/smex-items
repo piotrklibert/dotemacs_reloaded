@@ -1,11 +1,7 @@
 
 ;; ----- smex-history -----
 (
- free-rectangle-mode
  2C-split
- 2C-merge
- iedit-rectangle-mode
- grep-todos
  ffap
  customize-group
  shrink-window-if-larger-than-buffer
@@ -101,6 +97,10 @@
  describe-bindings
  ediff-current-file
  checkdoc-minor-mode
+ geiser
+ elint-current-buffer
+ eval-print-last-sexp
+ delete-selection-mode
 )
 
 ;; ----- smex-data -----
