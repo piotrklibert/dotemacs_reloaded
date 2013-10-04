@@ -29,6 +29,7 @@
   (require 'cl))
 (require 'thingatpt)
 (require 'dash)
+(require 'align-string)
 
 (defvar abc-skip-chars '(" " "\t" "\n"))
 

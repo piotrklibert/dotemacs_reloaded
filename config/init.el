@@ -304,3 +304,4 @@
 (toggle-diredp-find-file-reuse-dir 1)
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)

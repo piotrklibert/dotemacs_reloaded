@@ -1,9 +1,3 @@
-;;
-;; TODO: maybe do a screencast?
-;;
-;; 1* customize-group semantic - look at what can be done
-;; 5* CEDET: EDE, Semantic works I think, but is not customized
-;;
 (require 'cl)
 (require 'eassist)
 (require 'electric)
@@ -307,21 +301,7 @@ default git diff is sooo weak..."
       (ediff-buffers buf (current-buffer)))
     ))
 
-(defun get-defuns-from-file ()
-  "Append a list of defuns in the current buffer at the and of it"
-  (interactive)
-  (let ((forms '()) (form '()) (funs '()))
-    (save-excursion
-      (goto-char 1)
-      (while (setq form (safe-read-sexp))
-        (setq forms (cons form forms))))
-    (setq funs (--keep (when (eq 'defun (car it))
-                         (cadr it))
-                       (reverse forms)))
-    (save-excursion
-      (goto-char 1) (search-forward ";; ToC") (forward-line 1)
-      (delete-region (line-beginning-position) (point-max))
-      (--each funs (insert (format ";; %s\n" it))))))
+
 
 (defun safe-read-sexp (&optional buf)
   (setq buf (or buf (current-buffer)))

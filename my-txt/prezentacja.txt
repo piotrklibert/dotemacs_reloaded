@@ -27,20 +27,20 @@ Drowning in the plugins
 There's a mode for this!
 
 
-Emacs:                                                           Sublime:
-* moving line/region up and down                                 * up-down line or region
-* list-packages/package-install                                  * instalacja pluginow
-* fuzzy-find-in-project                                          * otwieranie plikow (fuzzy matching)
-* kill-rectangle and friends, also iedit                         * rectangular editing
-* support wszystkich istniejacych languages                      * support for different languages
-* ag, ack, many greps                                            * szukanie po plikach, w projekcie
-* startuje przez godzine, potem jest ok                          * szybkosc
-* multiple-cursors/iedit, flymake/flyspell, auto-complete        * pluginy: pep8, auto-completion, multi-cursors
-* yasnippet, dabbrev, others                                     * snippets
-* macros                                                         * makra
-* 40 lat narastania kodu                                         * minimalny edytor
+Emacs:                                                              Sublime:
+* line/region up and down                                           * up-down line or region
+* list-packages/package-install                                     * instalacja pluginow
+* fuzzy-find-in-project                                             * otwieranie plikow (fuzzy matching)
+* kill-rectangle and friends, also iedit                            * rectangular editing
+* support wszystkich istniejacych languages                         * support for different languages
+* ag, ack, many greps                                               * szukanie po plikach, w projekcie
+* startuje przez godzine, potem jest ok                             * szybkosc
+* multiple-cursors/iedit, flymake/flyspell, auto-complete           * pluginy: pep8, auto-completion, multi-cursors
+* yasnippet, dabbrev, others                                        * snippets
+* macros                                                            * makra
+* 40 lat narastania kodu                                            * minimalny edytor
 
-Inne ficzersy:
+Emacs, inne ficzersy:
 * narrow to region
 * shell/eshell
 * term
@@ -61,13 +61,23 @@ Inne ficzersy:
 * exchange point and mark
 
 
+                      ____                _ _ _
+                     |  _ \ ___  __ _  __| | (_)_ __   ___
+                     | |_) / _ \/ _` |/ _` | | | '_ \ / _ \
+                     |  _ <  __/ (_| | (_| | | | | | |  __/
+                     |_| \_\___|\__,_|\__,_|_|_|_| |_|\___|
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
   ___  _ __ ___   __ _
  / _ \| '_ ` _ \ / _` |
 | (_) | | | | | | (_| |
  \___/|_| |_| |_|\__, |
                  |___/
 
-======================
+                        ======================
   __            _
  / _|_   _  ___| | __
 | |_| | | |/ __| |/ /
