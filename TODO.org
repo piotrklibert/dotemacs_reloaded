@@ -1,4 +1,5 @@
 * TODO:
+** dump emacs so that it opens instantly
 ** finish rewriting `align-by-current-symbol', also:
    - remaining:
      1. make region detecting function check presence of a symbol
