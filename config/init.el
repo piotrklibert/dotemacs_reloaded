@@ -85,6 +85,7 @@
 (require 'cl)
 (require 'nxml-mode)
 (require 's-autoloads)
+(require 'dired+)
 
 (eval-after-load "info"
   '(require 'info+))
@@ -195,7 +196,7 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline t)
- '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/data/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/data/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
@@ -214,6 +215,7 @@
  '(ecb-vc-enable-support t)
  '(ecb-windows-width 0.13)
  '(ediff-keep-variants nil)
+ '(ediff-make-buffers-readonly-at-startup nil)
  '(ediff-merge-split-window-function (quote split-window-horizontally))
  '(ediff-no-emacs-help-in-control-buffer t)
  '(ediff-split-window-function (quote split-window-horizontally))

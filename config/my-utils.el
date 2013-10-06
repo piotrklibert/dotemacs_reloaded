@@ -2,6 +2,14 @@
 (require 's)
 (require 'dash)
 
+(defvar my-debug-flag t)
+(defun my-log (&rest things)
+  (when my-debug-flag
+    (with-current-buffer (get-buffer "*Messages*")
+      (loop for thing in things
+            do (insert (format "%s\n" thing))))))
+
+
 (defun buffer-line (&optional lineno)
   (when lineno
     (goto-line lineno))

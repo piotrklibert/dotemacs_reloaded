@@ -1,34 +1,48 @@
 
 ;; ----- smex-history -----
 (
+ text-mode
+ lisp-interaction-mode
+ eval-buffer
+ desktop-read
+ desktop-save
+ transpose-sexps
+ recover-this-file
+ find-library
+ locate-library
+ hl-line-mode
+ cd
+ calendar
+ pwd
+ woman
+ center-region
+ ediff-current-file
+ delete-trailing-whitespace
+ font-lock-mode
+ describe-syntax
  2C-split
+ which-function-mode
+ which-func-mode
+ locate
  ffap
  customize-group
  shrink-window-if-larger-than-buffer
  run-geiser
  list-colors-display
- desktop-read
- desktop-save
  list-faces-display
  apropos
  customize-option
- find-library
  scheme-mode
  facemenu-read-color
- all
  auto-complete-mode
  run-racket
- recover-this-file
  smex
  replace-string
- dired-x-find-file
- eval-buffer
  table-unrecognize-table
  replace-regexp
  table-shorten-cell
  center-line
  kill-rectangle
- delete-trailing-whitespace
  vc-annotate
  list-packages
  electric-buffer-list
@@ -37,17 +51,12 @@
  string-rectangle
  table-narrow-cell
  table-widen-cell
- hl-line-mode
- center-region
  hs-minor-mode
  byte-compile-file
- text-mode
  allout-mode
  flymake-mode
- locate-library
  emacs-lisp-mode
  replace-rectangle
- cd
  ielm
  bs-show
  org-mode
@@ -85,29 +94,20 @@
  recover-file
  describe-mode
  find-function
+ geiser
  insert-buffer
  upcase-region
  customize-face
  display-buffer
  ido-edit-input
  transpose-lines
- transpose-sexps
- center-paragraph
- fundamental-mode
- describe-bindings
- ediff-current-file
- checkdoc-minor-mode
- geiser
- elint-current-buffer
- eval-print-last-sexp
- delete-selection-mode
 )
 
 ;; ----- smex-data -----
 (
  (byte-recompile-directory . 1)
  (erlang-mode . 2)
- (find-library . 24)
+ (find-library . 31)
  (vc-annotate . 10)
  (git-log-file . 1)
  (auto-complete . 2)
@@ -129,7 +129,7 @@
  (geiser . 2)
  (run-geiser . 7)
  (run-racket . 2)
- (eval-buffer . 49)
+ (eval-buffer . 53)
  (scheme-mode . 3)
  (quack-about . 1)
  (calc . 1)
@@ -144,14 +144,14 @@
  (coffee-mode . 1)
  (package-install . 2)
  (list-packages . 9)
- (cd . 2)
+ (cd . 3)
  (turn-off-fci-mode . 2)
  (flyspell-mode . 2)
  (delete-selection-mode . 1)
- (text-mode . 3)
+ (text-mode . 4)
  (allout-mode . 3)
  (hs-minor-mode . 4)
- (hs-hide-all . 4)
+ (hs-hide-all . 6)
  (hs-hide-block . 5)
  (list-processes . 8)
  (find-function . 1)
@@ -166,21 +166,21 @@
  (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 2)
+ (recover-this-file . 3)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
- (ediff-current-file . 1)
+ (ediff-current-file . 2)
  (describe-keymap . 2)
- (delete-trailing-whitespace . 11)
+ (delete-trailing-whitespace . 13)
  (magit-status . 10)
  (ielm . 2)
  (goto-char . 1)
  (recentf-mode . 1)
- (all . 4)
- (center-region . 4)
+ (all . 5)
+ (center-region . 6)
  (switch-to-prev-buffer . 1)
- (hl-line-mode . 4)
+ (hl-line-mode . 7)
  (grin . 3)
  (describe-unbound-keys . 2)
  (ag . 2)
@@ -188,7 +188,7 @@
  (electric-buffer-list . 9)
  (set-rectangular-region-anchor . 1)
  (customize-face . 1)
- (desktop-save . 2)
+ (desktop-save . 3)
  (ace-jump-buffer . 1)
  (eshell . 1)
  (transpose-lines . 1)
@@ -196,10 +196,10 @@
  (recenter . 1)
  (table-recognize-table . 2)
  (table-recognize-region . 1)
- (free-rectangle-mode . 32)
+ (free-rectangle-mode . 36)
  (auto-mark-mode . 7)
  (forward-char . 1)
- (transpose-sexps . 1)
+ (transpose-sexps . 2)
  (multi-occur . 1)
  (ido-dired . 1)
  (ido-edit-input . 1)
@@ -210,13 +210,13 @@
  (show-all . 1)
  (org-mode . 2)
  (fundamental-mode . 1)
- (locate-library . 3)
+ (locate-library . 8)
  (python-mode . 1)
  (py-execute-statement . 1)
  (temp-buffer-resize-mode . 2)
  (term . 1)
  (ediff-backup . 1)
- (paredit-join-sexps . 4)
+ (paredit-join-sexps . 6)
  (paredit-split-sexp . 1)
  (checkdoc-minor-mode . 1)
  (indent-rigidly . 7)
@@ -243,9 +243,21 @@
  (facemenu-read-color . 2)
  (list-colors-display . 2)
  (list-faces-display . 1)
- (desktop-read . 1)
+ (desktop-read . 2)
  (shrink-window-if-larger-than-buffer . 2)
- (grep-todos . 3)
- (2C-split . 3)
- (2C-merge . 1)
+ (grep-todos . 4)
+ (2C-split . 5)
+ (2C-merge . 3)
+ (locate . 1)
+ (hs-show-all . 2)
+ (which-func-mode . 2)
+ (which-function-mode . 1)
+ (get-defuns-from-file . 13)
+ (describe-syntax . 1)
+ (font-lock-mode . 2)
+ (woman . 4)
+ (pwd . 1)
+ (calendar . 3)
+ (org-show-block-all . 1)
+ (lisp-interaction-mode . 1)
 )

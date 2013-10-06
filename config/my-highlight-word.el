@@ -12,7 +12,7 @@
   (interactive)
   (let ((word (thing-at-point 'sexp)))
     (setq highlight-words-at-point-last-search word)
-    (highlight-regexp word)))
+    (highlight-regexp word 'hi-blue)))
 
 (defun unhighlight-words-at-point ()
   (interactive)

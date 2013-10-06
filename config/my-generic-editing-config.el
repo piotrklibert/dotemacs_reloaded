@@ -1,5 +1,6 @@
 (require 's)
 (require 'recentf)
+(recentf-mode 1)
 
 (require 'delim-col)
 
@@ -11,27 +12,32 @@
 ;;    (require 'synonyms)
 
 (require 'auto-mark)
-(require 'mark-lines)
+(global-auto-mark-mode 1)
+
+(require 'mark-lines)                   ; mark whole line no matter where pt is
 (require 'visible-mark)
+(global-visible-mark-mode 1)
+
+(require 'wrap-region)                  ; select region and press " to wrap it
+                                        ; with quotes
 
 (require 'fill-column-indicator)        ; vertical line on the 'fill' col
 (require 'undo-tree)                    ; visualisation of undo/redo
+
 (require 'browse-kill-ring)             ; visualisation of kill-ring
+(browse-kill-ring-default-keybindings)
 
+(require 'iedit)                        ; edit many ocurrences of string at once
+                                        ; (in the same buffer)
 
-(require 'iedit)
+(require 'all)                          ; edit all occurances of a regexp in a
+(require 'all-ext)                      ; separate buffer
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
-(recentf-mode 1)
-(global-auto-mark-mode 1)
-(global-visible-mark-mode 1)
-(browse-kill-ring-default-keybindings)
+
+
 
 
 ;;                           _  _________   ______
@@ -40,6 +46,11 @@
 ;;                          | . \| |___  | |  ___) |
 ;;                          |_|\_\_____| |_| |____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-set-key (kbd "C->")         'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
 (global-set-key (kbd "C-x C-d")    'ido-dired)
 
@@ -125,15 +136,16 @@
   "Insert a copy of current line below it. Leaves point at the
 end of the second line."
   (interactive)
-  (move-beginning-of-line 1)
-  (kill-line)
-  (yank)
-  (open-line 1)
-  (next-line 1)
+  (copy-region-as-kill (line-end-position 0)
+                       (line-end-position 1))
+  (move-end-of-line 1)
+  ;; handle special case of bob
+  (when (equal (line-end-position 0) (point-min))
+    (newline))
   (yank))
 
 (defun join-region()
-  "Remove indentation and newline characters from a region."
+  "Remove indentation and newline characters between point and mark."
   (interactive)
   (let
       ((beg (region-beginning)))
@@ -142,6 +154,8 @@ end of the second line."
       (delete-indentation))))
 
 (defun unix-line-endings ()
+  "Make current file's newlines converted to unix format if they
+are not already."
   (interactive)
   (when (not (s-contains? "unix" (symbol-name buffer-file-coding-system)))
     (set-buffer-file-coding-system 'utf-8-unix)))

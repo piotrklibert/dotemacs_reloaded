@@ -22,6 +22,11 @@
 
 (define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)
 (define-key my-wnd-keys (kbd "C-<right>")           'windmove-right)
+
+(define-key my-wnd-keys (kbd "<right>")             'my-enlarge-window-horizontally)
+(define-key my-wnd-keys (kbd "<left>")              'my-shrink-window-horizontally)
+
+
 (define-key my-wnd-keys (kbd "C-<up>")              'windmove-up)
 (define-key my-wnd-keys (kbd "C-<down>")            'windmove-down)
 (define-key my-wnd-keys (kbd "M-<up>"   )           'buf-move-up)
@@ -70,3 +75,17 @@ but call from elisp works. Dunno why."
   (when arg
     (save-buffer))
   (kill-buffer))
+
+(defun my-enlarge-window-horizontally (&optional delta)
+  (interactive "P")
+  (when (not delta)
+    (setq delta 4))
+  (enlarge-window-horizontally (if (listp delta) (car delta) delta)))
+
+(defun my-shrink-window-horizontally (&optional delta)
+  (interactive "P")
+  (when (not delta)
+    (setq delta 4))
+  (shrink-window-horizontally (if (listp delta) (car delta) delta)))
+
+;; (my-shrink-window-horizontally)

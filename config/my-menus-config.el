@@ -1,20 +1,12 @@
-;; TODO: Icicles! at least partially
-;; 1* learn more about these tools and configure them better
-;; 2* The problem is that they are all very similar
-;; 3* check out Helm, too: https://github.com/emacs-helm/helm
-;; 4* ICICLES!!! Make them alive in some parts.
 (require 'ido)
 (require 'idomenu)
-;; (require 'icicles)
 (require 'smex)
 (require 'sr-speedbar)
 (require 'edmacro)
 (require 'unbound)
 
-(require 'all)
-(require 'all-ext)
-
-(require 'bookmark+)
+(eval-after-load "bookmark"
+  '(require 'bookmark+))
 (define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
 (define-key my-bookmarks-keys (kbd "C-l") 'list-bookmarks)
 (define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
@@ -27,7 +19,6 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 
-(global-set-key (kbd "M-c")      'anything)
 (global-set-key (kbd "M-X")      'smex-major-mode-commands)
 (global-set-key (kbd "M-x")      'smex)
 
@@ -36,10 +27,6 @@
 
 
 ;; \/\/\/\/\/PLUGIN INITIALIZATIONS\/\/\/\/\/
-
-;; Icicles - http://www.emacswiki.org/emacs/Icicles
-;; (icy-mode 1)
-
 
 ;; IDo - Interactively Do Things.
 ;; Has autocompletions in minibufer and jumping to things, and more.

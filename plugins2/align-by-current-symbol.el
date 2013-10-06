@@ -4,21 +4,14 @@
 ;; Rewrittent by Piotr Klibert, because it was shit.
 ;;
 ;; TODO:
-;; 1* change region finding algorithm so that it handles eob and bob
-;; 2* make adding of a space work (that's not that important tough)
+;; 1. make region detecting function check presence of a symbol
+;; 2. make adding spaces to the symbol possible
 ;;
 ;; Example usage:
 ;;
 ;; (load "align-by-current-symbol.el")
 ;; (global-set-key (kbd "C-c C-.") 'align-by-current-symbol)
 ;;
-;; By default it requires spaces to be around the symbol.
-;;
-;; Use the following to turn this off:
-;;
-;; (global-set-key (kbd "C-c C-.")
-;;    (lambda ()
-;;       (interactive) (align-by-current-symbol t)))
 
 ;; mumumu = zotzot
 ;; chi = far
@@ -27,66 +20,97 @@
 
 (eval-when-compile
   (require 'cl))
-(require 'thingatpt)
+(require 'rx)
 (require 'dash)
+(require 'thingatpt)
 (require 'align-string)
 
-(defvar abc-skip-chars '(" " "\t" "\n"))
+(require 'my-utils)
+
+
+(defvar abc-skip-chars " \t\n")
 
 (defun abc-skip-regexp ()
-  (concat "[" (-reduce 'concat abc-skip-chars) "]"))
+  (rx-to-string `(any ,abc-skip-chars) t))
+
+
+;;;###autoload
+(defun align-by-current-symbol (&optional raw)
+  (interactive "P")
+  (let ((region-data (abc-find-region))
+        (symbol-data (abc-current-symbol raw)))
+    (message "%s %s" (car symbol-data) (cdr symbol-data))
+    (and (car symbol-data)
+         (align-string (car region-data) (cdr region-data)
+                       (cdr symbol-data) (car symbol-data)))))
+
 
 (defun abc-find-region ()
-  (cons (save-excursion
-          (search-backward "\n\n" (point-min)))
+  "Returns beginning and end of a region surrounding point,
+starting at the closests two newlines backwards and ending on
+closest two newlines forward. In both cases, if two newlines are
+not found before bob or eob the beggining or end of buffer are
+correspondingly returned."
+  ;; TODO: Make it check for presence of current symbol
+  (cons (or (1+ (save-excursion
+                  (search-backward "\n\n" (point-min) t)))
+            (point-min))
+        (or (save-excursion
+              (search-forward "\n\n" (point-max) t))
+            (point-max))))
+
+
+(defun abc-current-symbol (&optional arg)
+  (cond
+   (arg                                 ; return just the current char if raw
+    (let ((char (string (char-after))))
+      (abc--find-occurence-number char (current-column))))
+
+   ((member (string (char-after))       ; without raw return nils if current
+            abc-skip-chars)             ; char is skip-char
+    (cons nil nil))
+
+   (t (abc--find-whole-symbol))))       ; otherwise find a whole symbol at point
+
+
+(defun abc--find-whole-symbol ()
+  (let* ((symbol-bounds (abc--find-symbol-bounds))
+         (symbol (buffer-substring (car symbol-bounds)
+                                   (cdr symbol-bounds))))
+    (abc--find-occurence-number symbol (current-column))))
+
+
+(defun abc--find-occurence-number (str col)
+  (let ((line (buffer-line-np))
+        (str-re (rx-to-string str))
+        (occurence 0)
+        (match-pos -1))
+    (while (and match-pos (< match-pos col))
+      (setq match-pos (string-match str-re line (1+ match-pos)))
+      (when match-pos
+        (setq occurence (1+ occurence))))
+    (cons occurence str)))
+
+
+(defun abc--find-symbol-bounds ()
+  (cons (progn
+          (search-backward-regexp (abc-skip-regexp))
+          (forward-char)
+          (point))
+
         (save-excursion
-          (search-forward "\n\n" (point-max)))))
-
-(defun abc-quoting-match (symbol line &optional symbol-match)
-  (string-match (regexp-quote symbol) line (or symbol-match 0)))
-
-(defun abc-regexp-symbol (symbol add-space)
-  (let ((symbol (or (and add-space symbol)
-                    (concat " " symbol " "))))
-    (regexp-opt (list symbol))))
-
-
-(defun align-by-current-symbol (&optional add-space)
-  "Indent all the lines above and below the current by the
-current non-whitespace symbol."
-  (interactive "P")
-  (destructuring-bind (symbol-number . symbol) (abc-current-symbol)
-    (message "%s %s" symbol-number symbol)
-    (when symbol
-      (destructuring-bind
-          (start . end) (if (use-region-p)
-                            (cons (region-beginning) (region-end))
-                          (abc-find-region))
-        (align-string start end (abc-regexp-symbol symbol add-space) symbol-number)))))
-
-
-
-(defun abc-current-symbol ()
-  "Get the consecutive string of non-whitespace characters under
-point. Count how many occurances of this string there are in
-current line. Return a (cons occurances-before string-at-point)."
-  (if (member (string (char-after)) abc-skip-chars)
-      (cons nil nil)
-    (let ((line (buf-substr-np (line-beginning-position) (line-end-position)))
-          (symbol-number 0)
-          (symbol-match -1)
-          symbol symbol-beg symbol-end symbol-col )
-      (save-excursion
-        (setq symbol-beg (1+ (search-backward-regexp (abc-skip-regexp))))
-        (forward-char)
-        (setq symbol-col (current-column))
-        (setq symbol-end (1- (search-forward-regexp (abc-skip-regexp))))
-        (setq symbol (buf-substr-np symbol-beg symbol-end)))
-      (while (and (< symbol-match symbol-col)
-                  (setq symbol-match (abc-quoting-match symbol line
-                                                        (1+ symbol-match))))
-        (setq symbol-number (1+ symbol-number)))
-      (cons symbol-number symbol))))
+          (search-forward-regexp (abc-skip-regexp))
+          (backward-char)
+          (point))))
 
 
 (provide 'align-by-current-symbol)
+
+;; ToC
+;; abc-skip-regexp
+;; align-by-current-symbol
+;; abc-find-region
+;; abc-current-symbol
+;; abc--find-whole-symbol
+;; abc--find-occurence-number
+;; abc--find-symbol-bounds

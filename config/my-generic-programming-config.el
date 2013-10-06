@@ -6,29 +6,26 @@
 (require 'rainbow-delimiters)
 
 (require 'columnize)
+
 (require 'align-string)
 (require 'align-regexp)
 (require 'align-by-current-symbol)      ; use with C-u for "strange" symbols,
                                         ; like ' ( ; and so on
-(require 'wrap-region)                  ; select region and press " to wrap it
-                                        ; with quotes
+
 (require 'ag)                           ; ack replacement in C
 (require 'ffap)                         ; find file at point
 (require 'fuzzy)                        ; fuzzy isearch support
 
 (require 'jka-compr)                    ; searches tags in gzipped sources too
-(require 'ls-lisp)
+(require 'ls-lisp)                      ; elisp ls replacement
 
 (require 'magit)
 (define-key magit-mode-map (kbd "C-w") my-wnd-keys)
 
-;; edit all occurances of a regexp in a separate buffer
-;; TODO: I'm rewriting it, it's not ready yet
-(require 'all)
-(require 'all-ext)
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
+(define-key mode-specific-map (kbd "C-g") 'magit-status)     ; C-c C-g
 
 
 ;; It's not used right now because it's muuuch too slow for my Python projects,
@@ -41,8 +38,7 @@
 ;; default tag table file
 ;; (visit-tags-table "~/.emacs.d/TAGS")
 
-(eval-after-load "dired"
-  '(require 'dired+))
+
 
 
 ;;              ____  _____ _____ _____ ___ _   _  ____ ____
@@ -56,9 +52,9 @@
 
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)                     ; Maintain tag database.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)            ; Show completions when idle.
-;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)                  ; Additional tag decorations.
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
+(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)            ; Show completions when idle.
+(add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)                  ; Additional tag decorations.
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
 (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
@@ -111,7 +107,7 @@
 ;;
 (define-key my-find-keys (kbd "C-o")      'occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
-(global-set-key (kbd "C-M-y")             'fuzzy-find-in-project)
+;; (global-set-key (kbd "C-M-y")             'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
@@ -142,22 +138,37 @@
 ;;                              PROG-MODE HOOKS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'prog-mode-hook   'fic-ext-mode)
-(add-hook 'prog-mode-hook   'rainbow-delimiters-mode)
-(add-hook 'prog-mode-hook   'rainbow-mode)
-(add-hook 'prog-mode-hook   'hl-line-mode)
-(add-hook 'prog-mode-hook   'fci-mode)
-(add-hook 'prog-mode-hook   'undo-tree-mode)
-(add-hook 'prog-mode-hook   'delete-selection-mode)
+;; these should be autloaded:
+;; (require 'fic-ext-mode)
+;; (require 'rainbow-mode)
+;; (add-hook 'prog-mode-hook   'fic-ext-mode)
+;; (add-hook 'prog-mode-hook   'rainbow-delimiters-mode)
+;; (add-hook 'prog-mode-hook   'rainbow-mode)
+;; (add-hook 'prog-mode-hook   'hl-line-mode)
+;; (add-hook 'prog-mode-hook   'fci-mode)
+;; (add-hook 'prog-mode-hook   'undo-tree-mode)
+;; (add-hook 'prog-mode-hook   'delete-selection-mode)
+
 
 (add-hook 'prog-mode-hook 'my-init-prog-mode)
 
 (defun my-init-prog-mode ()
+  ;; modes which should be enabled by default:
+  (fic-ext-mode 1)
+  (rainbow-delimiters-mode 1)
+  (rainbow-mode 1)
+  (hl-line-mode 1)
+  (fci-mode 1)
+  (undo-tree-mode 1)
+  (delete-selection-mode 1)
+
+  ;; TODO: why not in python-mode?
   (when (not (memq major-mode '(python-mode sh-mode)))
     (hs-minor-mode)
     (local-set-key (kbd "C-c C-c C-h") 'hs-hide-all)
     (local-set-key (kbd "C-c C-c C-s") 'hs-show-all)
     (local-set-key (kbd "C-c C-c C-t") 'hs-toggle-hiding))
+
   (local-set-key (kbd "C-x C-x") 'exchange-point-and-mark)
   (local-set-key (kbd "<return>") 'newline-and-indent))
 
