@@ -46,6 +46,7 @@
 
 ;; Smex - built on top of IDo M-x replacement.
 ;; http://www.emacswiki.org/emacs/Smex
-(setq smex-save-file (concat user-emacs-directory "data/smex-items")
+;; (concat user-emacs-directory )
+(setq smex-save-file "/root/.emacs.d/data/smex-items"
       smex-history-length 100)
 (smex-initialize)

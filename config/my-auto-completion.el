@@ -24,7 +24,7 @@
 
 
 (ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories "/root/.emacs.d/ac-dict")
 (add-to-list 'ac-sources 'ac-source-semantic)
 
 ;;
@@ -32,7 +32,7 @@
 ;;
 
 ;; NOTE: my version of yasnippet (from git) had to be gutted of TAB bindings
-(yas-load-directory "~/.emacs.d/plugins2/yasnippet/snippets")
+(yas-load-directory "/root/.emacs.d/plugins2/yasnippet/snippets")
 (setq yas-snippet-dirs
       (remove-if (lambda (x)
                    (string= x "~/.emacs.d/snippets"))

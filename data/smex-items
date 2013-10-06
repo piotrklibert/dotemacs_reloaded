@@ -1,14 +1,16 @@
 
 ;; ----- smex-history -----
 (
+ version
+ ediff-backup
+ find-library
+ recover-this-file
  text-mode
  lisp-interaction-mode
  eval-buffer
  desktop-read
  desktop-save
  transpose-sexps
- recover-this-file
- find-library
  locate-library
  hl-line-mode
  cd
@@ -88,7 +90,6 @@
  elint-file
  multi-occur
  python-mode
- ediff-backup
  forward-char
  recentf-mode
  recover-file
@@ -100,14 +101,13 @@
  customize-face
  display-buffer
  ido-edit-input
- transpose-lines
 )
 
 ;; ----- smex-data -----
 (
  (byte-recompile-directory . 1)
  (erlang-mode . 2)
- (find-library . 31)
+ (find-library . 32)
  (vc-annotate . 10)
  (git-log-file . 1)
  (auto-complete . 2)
@@ -166,7 +166,7 @@
  (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 3)
+ (recover-this-file . 4)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
@@ -215,7 +215,7 @@
  (py-execute-statement . 1)
  (temp-buffer-resize-mode . 2)
  (term . 1)
- (ediff-backup . 1)
+ (ediff-backup . 2)
  (paredit-join-sexps . 6)
  (paredit-split-sexp . 1)
  (checkdoc-minor-mode . 1)
@@ -260,4 +260,6 @@
  (calendar . 3)
  (org-show-block-all . 1)
  (lisp-interaction-mode . 1)
+ (unix-line-endings . 1)
+ (version . 1)
 )

@@ -1,6 +1,6 @@
-(setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
-(load "~/cedet/cedet-devel-load.el")
-(load "~/cedet/contrib/cedet-contrib-load.el")
+(setq srecode-map-save-file "/root/.emacs.d/data/srecode-map.el")
+(load "/root/cedet/cedet-devel-load.el")
+(load "/root/cedet/contrib/cedet-contrib-load.el")
 
 (defmacro add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
@@ -13,14 +13,14 @@
 
 ;; we don't want to add direct children of Emacs home directory to path,
 ;; because there are many non-lisp dirs in there
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "/root/.emacs.d/")
+(add-to-list 'load-path "/root/.emacs.d/config")
 
 
 (add-subdirs-to-path
-  "~/.emacs.d/elpa"
-  "~/.emacs.d/pkg-langs"
-  "~/.emacs.d/plugins2")
+  "/root/.emacs.d/elpa"
+  "/root/.emacs.d/pkg-langs"
+  "/root/.emacs.d/plugins2")
 
 
 ;; import IF-WINDOWS and IF-BSD macros - very important!
@@ -42,6 +42,8 @@
 (scroll-bar-mode     -1)
 (fringe-mode         '(4 . 8))
 (set-cursor-color    "white")
+(font-lock-mode 1)
+(global-font-lock-mode t)
 (when window-system
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)
@@ -196,8 +198,8 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline t)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/data/bookmarks")
- '(bookmark-default-file "~/.emacs.d/data/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/data/bookmarks")
+ '(bookmark-default-file "/root/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
    (quote
@@ -236,7 +238,7 @@
  '(icicle-show-Completions-initially-flag nil)
  '(ido-create-new-buffer (quote always))
  '(ido-enable-flex-matching t)
- '(ido-save-directory-list-file "~/.emacs.d/data/ido.last")
+ '(ido-save-directory-list-file "/root/.emacs.d/data/ido.last")
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
@@ -259,7 +261,7 @@
  '(recentf-max-menu-items 100)
  '(recentf-max-saved-items 100)
  '(recentf-menu-action (quote find-file))
- '(recentf-save-file "~/.emacs.d/data/recentf")
+ '(recentf-save-file "/root/.emacs.d/data/recentf")
  '(scroll-conservatively 108)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
@@ -270,7 +272,7 @@
  '(speedbar-tag-regroup-maximum-length 4)
  '(speedbar-verbosity-level 1)
  '(sr-speedbar-right-side nil)
- '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
+ '(srecode-map-save-file "/root/.emacs.d/data/srecode-map.el")
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
