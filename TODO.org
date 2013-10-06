@@ -1,0 +1,99 @@
+* TODO:
+** finish rewriting `align-by-current-symbol', also:
+   - http://www.emacswiki.org/emacs/AlignCommands
+   - http://stackoverflow.com/questions/10895930/right-align-text-in-emacs
+   - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
+   - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
+   - http://www.emacswiki.org/emacs/CategoryAlignment
+   - parse-partial-sexp
+** make `fuzzy-find-in-project' pull request on github
+** look at columnize.el
+** wrap `table-mode' commads and bind them somewhere
+** finish rewriting `all.el':
+   - in a single buffer iedit with C-; C-' works well too
+   - miltiple buffers
+   - no shitty setq to undeclared globals
+   - iedit and multiple cursors do something similar
+** make text-mode half useful with binding and default minor modes and such
+** ace jump - config
+** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
+** ogarnac readline do prezentacji
+** take a look at `delim-col' library, wrap it and bind it
+** fix `semantic/wisent/python.el':
+   - make `from...import...' forms create $1.$2 tags
+   - later - create `semanticdb files' browser/fuzzy-search
+** `sort buffers' in `ibuffer' somehow
+   - even better, just reposition point upon entering the ibuffer buffer
+   to be always on the current buffer
+   - see the code of it ^
+   - write defadvice for it
+** see what `quack-mode' does and maybe drop it completely in favor of
+   pure racket-mode
+** fix `grep-todos' a bit
+** setup `python shell' or `py-shell' with auto-complete, like geiser
+** setup more shell-like modes with autocomplete, with `ac-readline'
+** configure installed:
+     ;; elpa/ac-js2
+     ;; elpa/jedi
+     ;; elpa/direx
+     ;; plugins2/emacs-jedi-direx/
+     ;; outline-magic              outline mode extensions for Emacs [github]
+     ;; outlined-elisp-            outline-minor-mode settings for emacs lisp [github]
+     ;; parenface                  Provide a face for parens in lisp modes. [github]
+     ;; parenface-plus             Provide a face for parens in lispy modes.
+     ;; pcre2el                    parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
+     ;; peg                        Parsing Expression Grammars in Emacs Lisp [wiki]
+     ;; pep8                       run the python pep8 checker putting hits in a grep buffer
+     ;; phi-rectangle              another rectangle-mark command (rewrite of rect-mark) [github]
+     ;; phi-search                 another incremental search command, compatible with "multiple-cursors" [github]
+     ;; phi-search-mc              multiple-cursors extension for phi-search [github]
+
+
+     ;;       my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
+     ;;             my-python-config.el::    53 ;; TODO: flycheckers/flycheck-mode pylint/pyflakes settings
+     ;;             my-python-config.el::     4 ;; TODO: make python, python-mode and elpy work together (auto-completion,
+     ;;               my-other-langs.el::   142 ;; TODO: check if quack can work with racket-mode and if so - what it offers
+     ;;               my-other-langs.el::    53 ;; TODO: make it better or use a plugin (auto-compile elisp)
+     ;;              my-menus-config.el::     1 ;; TODO: Icicles! at least partially
+     ;;            my-highlight-word.el::     3 ;; TODO: make it into minor mode
+     ;;my-generic-programming-config.el::    43 ;; TODO: etags-update
+     ;;my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
+     ;;my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
+     ;;    my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
+     ;;         my-deprecated-defuns.el::    20 ;; TODO: make a macro for writing commands in the form of
+     ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
+     ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
+     ;;
+* DONE:
+** moj highlight word - przepisac, wyrzucic, albo cos. Look at:
+   http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
+   It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
+   other commands work similarly and can serve the same purpose, but that's not
+   a reason for killing this command :)
+** newer files than byte compiled form
+** make windows resizing saner (C-w left and C-w right)
+** move data files to data dir
+** racket mode as a default
+** configure:
+     elpa/ac-geiser
+     elpa/geiser
+** make geiser STOP reverting auto-mode-alist to scheme for racket
+** alist helper functions in utils
+** make elscreen hide it's tabbar in 2C-mode:
+   - C-M-z T
+** check what is inside semanticdb files (it's a list of tokens/tags)
+** make del, home, etc. `work in urxvt' (man urxvt: keysym)
+   - post mortem:
+     bindkey in .zshrc works
+     it seems that the keycode for bindkey can be got from `read' command
+     tmux maps some keycodes to others, so we need to `bindkey's twice
+     syntax of bindkey (keycode and command) seems to be that of `readline'
+     (not 100% sure)
+     xmodmap works as well
+** look at elisp `regexp dsl' in rx library - nice!
+  - there is a `highlight-regex' fun from hi-lock library or something
+* WONTFIX/MAYBE_LATER
+** Icicles - try to enable them... or not?
+** ogarnac nowego wombata theme
+** Backspace in tmux too!
+--------------------------------------------------------------------------------
