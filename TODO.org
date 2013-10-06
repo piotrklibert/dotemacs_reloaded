@@ -1,11 +1,16 @@
 * TODO:
 ** finish rewriting `align-by-current-symbol', also:
-   - http://www.emacswiki.org/emacs/AlignCommands
-   - http://stackoverflow.com/questions/10895930/right-align-text-in-emacs
-   - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
-   - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
-   - http://www.emacswiki.org/emacs/CategoryAlignment
-   - parse-partial-sexp
+   - remaining:
+     1. make region detecting function check presence of a symbol
+     2. make adding spaces to the symbol possible
+   - see:
+     - parse-partial-sexp
+   - links
+     - http://www.emacswiki.org/emacs/AlignCommands
+     - http://stackoverflow.com/questions/10895930/right-align-text-in-emacs
+     - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
+     - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
+     - http://www.emacswiki.org/emacs/CategoryAlignment
 ** make `fuzzy-find-in-project' pull request on github
 ** look at columnize.el
 ** wrap `table-mode' commads and bind them somewhere
