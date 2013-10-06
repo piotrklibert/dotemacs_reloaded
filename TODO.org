@@ -1,5 +1,4 @@
 * TODO:
-** dump emacs so that it opens instantly
 ** finish rewriting `align-by-current-symbol', also:
    - remaining:
      1. make region detecting function check presence of a symbol
@@ -71,6 +70,13 @@
      ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
      ;;
 * DONE:
+** dump emacs so that it opens instantly
+   - Fresh build of emacs from ports
+   - do this:
+    ./emacs --batch --load "/root/.emacs.d/init.el" \
+            --execute '(dump-emacs "omg" "temacs")'
+   - in /usr/ports/editors/emacs-devel/work/emacs-24.3.50.112532/src
+   - it needs absolute paths in init.el - checkout the `for_dump' git branch
 ** moj highlight word - przepisac, wyrzucic, albo cos. Look at:
    http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
    It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and

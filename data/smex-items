@@ -1,15 +1,19 @@
 
 ;; ----- smex-history -----
 (
+ magit-status
+ locate-library
+ font-lock-mode
+ version
+ ediff-backup
+ find-library
+ recover-this-file
  text-mode
  lisp-interaction-mode
  eval-buffer
  desktop-read
  desktop-save
  transpose-sexps
- recover-this-file
- find-library
- locate-library
  hl-line-mode
  cd
  calendar
@@ -18,7 +22,6 @@
  center-region
  ediff-current-file
  delete-trailing-whitespace
- font-lock-mode
  describe-syntax
  2C-split
  which-function-mode
@@ -88,7 +91,6 @@
  elint-file
  multi-occur
  python-mode
- ediff-backup
  forward-char
  recentf-mode
  recover-file
@@ -99,15 +101,13 @@
  upcase-region
  customize-face
  display-buffer
- ido-edit-input
- transpose-lines
 )
 
 ;; ----- smex-data -----
 (
  (byte-recompile-directory . 1)
  (erlang-mode . 2)
- (find-library . 31)
+ (find-library . 32)
  (vc-annotate . 10)
  (git-log-file . 1)
  (auto-complete . 2)
@@ -166,14 +166,14 @@
  (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 3)
+ (recover-this-file . 4)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
  (ediff-current-file . 2)
  (describe-keymap . 2)
  (delete-trailing-whitespace . 13)
- (magit-status . 10)
+ (magit-status . 11)
  (ielm . 2)
  (goto-char . 1)
  (recentf-mode . 1)
@@ -210,12 +210,12 @@
  (show-all . 1)
  (org-mode . 2)
  (fundamental-mode . 1)
- (locate-library . 8)
+ (locate-library . 9)
  (python-mode . 1)
  (py-execute-statement . 1)
  (temp-buffer-resize-mode . 2)
  (term . 1)
- (ediff-backup . 1)
+ (ediff-backup . 2)
  (paredit-join-sexps . 6)
  (paredit-split-sexp . 1)
  (checkdoc-minor-mode . 1)
@@ -254,10 +254,12 @@
  (which-function-mode . 1)
  (get-defuns-from-file . 13)
  (describe-syntax . 1)
- (font-lock-mode . 2)
+ (font-lock-mode . 3)
  (woman . 4)
  (pwd . 1)
  (calendar . 3)
  (org-show-block-all . 1)
  (lisp-interaction-mode . 1)
+ (unix-line-endings . 1)
+ (version . 1)
 )
