@@ -1,6 +1,7 @@
 
 ;; ----- smex-history -----
 (
+ list-packages
  version
  ediff-backup
  find-library
@@ -46,7 +47,6 @@
  center-line
  kill-rectangle
  vc-annotate
- list-packages
  electric-buffer-list
  list-processes
  indent-rigidly
@@ -143,7 +143,7 @@
  (ediff . 1)
  (coffee-mode . 1)
  (package-install . 2)
- (list-packages . 9)
+ (list-packages . 10)
  (cd . 3)
  (turn-off-fci-mode . 2)
  (flyspell-mode . 2)
@@ -261,5 +261,5 @@
  (org-show-block-all . 1)
  (lisp-interaction-mode . 1)
  (unix-line-endings . 1)
- (version . 1)
+ (version . 2)
 )
