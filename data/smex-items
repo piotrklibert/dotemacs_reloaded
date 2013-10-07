@@ -1,11 +1,11 @@
 
 ;; ----- smex-history -----
 (
- desktop-save
+ desktop-read
  cd
+ desktop-save
  customize-group
  org-mode
- visible-mark-mode
  visible-mode
  delete-trailing-whitespace
  recover-this-file
@@ -17,7 +17,6 @@
  text-mode
  lisp-interaction-mode
  eval-buffer
- desktop-read
  transpose-sexps
  hl-line-mode
  calendar
@@ -101,6 +100,7 @@
  insert-buffer
  upcase-region
  customize-face
+ display-buffer
 )
 
 ;; ----- smex-data -----
@@ -144,7 +144,7 @@
  (coffee-mode . 1)
  (package-install . 2)
  (list-packages . 9)
- (cd . 4)
+ (cd . 5)
  (turn-off-fci-mode . 2)
  (flyspell-mode . 2)
  (delete-selection-mode . 1)
@@ -243,7 +243,7 @@
  (facemenu-read-color . 2)
  (list-colors-display . 2)
  (list-faces-display . 1)
- (desktop-read . 2)
+ (desktop-read . 5)
  (shrink-window-if-larger-than-buffer . 2)
  (grep-todos . 4)
  (2C-split . 5)
