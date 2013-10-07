@@ -247,6 +247,7 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
+ '(org-hide-leading-stars t)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
@@ -281,6 +282,7 @@
  '(uniquify-separator ":")
  '(uniquify-strip-common-suffix t)
  '(uniquify-trailing-separator-p t)
+ '(visible-mark-max 7)
  '(web-mode-code-indent-offset 4)
  '(web-mode-comment-style 2)
  '(web-mode-css-indent-offset 4)
