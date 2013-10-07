@@ -1,9 +1,13 @@
+* WORK
+** dla przyjemnosci w sumie przejsc przez PR Justyny
+** start working on TAGASAURIS-2276
 * TODO:
-** TODO make a keybinding for magit-status already                     :work:
 ** TODO ogarnac readline do prezentacji                                :work:
 ** TODO footnote.el
 ** TODO dalsze czytanie org-mode info
 *** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
+** DONE make a keybinding for magit-status already                     :work:
+   bound to `C-c C-g'
 ** EMACS
 *** fix `semantic/wisent/python.el':                                   :work:
     - make `from...import...' forms create $1.$2 tags
@@ -85,13 +89,17 @@
       ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
       ;;
 * HOME TODO
+** Zwierzaki
+*** TODO nakarmic zwierzaki
+**** DONE niedziela wieczor
+**** DONE poniedzialek rano
+*** TODO ogarnac zwierzakom wode!
+**** DONE pon rano
 ** TODO ogarnac problem z omdleniem w niedziele wieczor
-** TODO nakarmic zwierzaki
-*** DONE niedziela wieczor
-*** DONE poniedzialek rano
 ** TODO rzeczy na jutro/do pracy
 ** TODO picie i jedzenie
 ** DONE umyc jakos ta cholerna miskie
+   sama sie odmoczyla
 ** DONE zmyc podloge
 ** DONE zrobic miejsce do pracy przy biurku
 ** DONE wyjac z kuwet
@@ -136,4 +144,4 @@
 * WONTFIX/MAYBE_LATER
 ** Icicles - try to enable them... or not?
 ** ogarnac nowego wombata theme
-** TODO Backspace in tmux too!
+** Backspace in tmux too!

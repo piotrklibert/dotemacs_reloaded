@@ -282,7 +282,7 @@
  '(uniquify-separator ":")
  '(uniquify-strip-common-suffix t)
  '(uniquify-trailing-separator-p t)
- '(visible-mark-max 7)
+ '(visible-mark-max 3)
  '(web-mode-code-indent-offset 4)
  '(web-mode-comment-style 2)
  '(web-mode-css-indent-offset 4)

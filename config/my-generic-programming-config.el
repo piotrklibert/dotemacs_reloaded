@@ -19,13 +19,10 @@
 (require 'jka-compr)                    ; searches tags in gzipped sources too
 (require 'ls-lisp)                      ; elisp ls replacement
 
-(require 'magit)
-(define-key magit-mode-map (kbd "C-w") my-wnd-keys)
 
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
-(define-key mode-specific-map (kbd "C-g") 'magit-status)     ; C-c C-g
 
 
 ;; It's not used right now because it's muuuch too slow for my Python projects,

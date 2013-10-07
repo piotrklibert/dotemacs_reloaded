@@ -1,6 +1,12 @@
 
 ;; ----- smex-history -----
 (
+ desktop-save
+ cd
+ customize-group
+ org-mode
+ visible-mark-mode
+ visible-mode
  delete-trailing-whitespace
  recover-this-file
  locate-library
@@ -12,10 +18,8 @@
  lisp-interaction-mode
  eval-buffer
  desktop-read
- desktop-save
  transpose-sexps
  hl-line-mode
- cd
  calendar
  pwd
  woman
@@ -27,7 +31,6 @@
  which-func-mode
  locate
  ffap
- customize-group
  shrink-window-if-larger-than-buffer
  run-geiser
  list-colors-display
@@ -61,7 +64,6 @@
  replace-rectangle
  ielm
  bs-show
- org-mode
  calculator
  artist-mode
  eval-region
@@ -99,8 +101,6 @@
  insert-buffer
  upcase-region
  customize-face
- display-buffer
- ido-edit-input
 )
 
 ;; ----- smex-data -----
@@ -138,13 +138,13 @@
  (open-rectangle . 2)
  (string-rectangle . 6)
  (emacs-lisp-mode . 3)
- (customize-group . 13)
+ (customize-group . 14)
  (customize-option . 9)
  (ediff . 1)
  (coffee-mode . 1)
  (package-install . 2)
  (list-packages . 9)
- (cd . 3)
+ (cd . 4)
  (turn-off-fci-mode . 2)
  (flyspell-mode . 2)
  (delete-selection-mode . 1)
@@ -188,7 +188,7 @@
  (electric-buffer-list . 9)
  (set-rectangular-region-anchor . 1)
  (customize-face . 1)
- (desktop-save . 3)
+ (desktop-save . 4)
  (ace-jump-buffer . 1)
  (eshell . 1)
  (transpose-lines . 1)
@@ -208,7 +208,7 @@
  (hs-show-block . 1)
  (fuzzy-find-change-root . 1)
  (show-all . 1)
- (org-mode . 2)
+ (org-mode . 4)
  (fundamental-mode . 1)
  (locate-library . 9)
  (python-mode . 1)
@@ -262,4 +262,6 @@
  (lisp-interaction-mode . 1)
  (unix-line-endings . 1)
  (version . 1)
+ (visible-mode . 2)
+ (visible-mark-mode . 1)
 )
