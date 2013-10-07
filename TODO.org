@@ -1,6 +1,12 @@
 * WORK
-** start working on TAGASAURIS-2276
-** dla przyjemnosci w sumie przejsc przez PR Justyny
+** TODO start working on TAGASAURIS-2276
+*** TODO mockup jest w tickecie
+*** TODO zrobic transforme
+*** TODO zestawic srodowisko testowe
+** DONE dla przyjemnosci w sumie przejsc przez PR Justyny
+*** changed sorting by priority code
+** DONE wyslany email do Lory i Dana z workerami
+*** DONE najpierw trzeba bylo poprawic ten skrypt
 * TODO:
 ** TODO ogarnac readline do prezentacji                                :work:
 ** TODO footnote.el
@@ -93,13 +99,15 @@
 *** TODO nakarmic zwierzaki
 **** DONE niedziela wieczor
 **** DONE poniedzialek rano
+**** TODO poniedzialek wieczor
 *** TODO ogarnac zwierzakom wode!
-**** DONE pon rano
+**** DONE poniedzialek rano
+**** TODO wtorek rano
 ** TODO ogarnac problem z omdleniem w niedziele wieczor
 ** TODO rzeczy na jutro/do pracy
 ** TODO picie i jedzenie
 ** DONE umyc jakos ta cholerna miskie
-   sama sie odmoczyla
+   - sama sie odmoczyla
 ** DONE zmyc podloge
 ** DONE zrobic miejsce do pracy przy biurku
 ** DONE wyjac z kuwet
@@ -115,6 +123,7 @@
     NOTE: xrdb .Xdefaults reloads X resources
 
 *** report:
+   - at work, the difference is 3x - ~3sec vs. ~9 sec undumped
    - on VIRTUALBOX it loads in 7 seconds while dumped (and with unoptimized
      init.el) while it takes nearly 4x more time (24s) to load standard EMACS
    - Fresh build of emacs from ports
