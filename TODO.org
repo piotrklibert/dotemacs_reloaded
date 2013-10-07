@@ -11,7 +11,7 @@
 *** newer files than byte compiled form
 **** TODO make a script for this
 *** ace jump - config
-    - how fast it is?<2013-10-07 pon>
+    - how fast it is?
 *** make `fuzzy-find-in-project' pull request on github
 *** finish rewriting `align-by-current-symbol', also:
     - remaining:

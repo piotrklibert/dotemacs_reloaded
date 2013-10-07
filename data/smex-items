@@ -1,13 +1,13 @@
 
 ;; ----- smex-history -----
 (
- magit-status
+ delete-trailing-whitespace
+ recover-this-file
  locate-library
  font-lock-mode
  version
  ediff-backup
  find-library
- recover-this-file
  text-mode
  lisp-interaction-mode
  eval-buffer
@@ -21,7 +21,6 @@
  woman
  center-region
  ediff-current-file
- delete-trailing-whitespace
  describe-syntax
  2C-split
  which-function-mode
@@ -101,6 +100,7 @@
  upcase-region
  customize-face
  display-buffer
+ ido-edit-input
 )
 
 ;; ----- smex-data -----
@@ -166,13 +166,13 @@
  (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 4)
+ (recover-this-file . 5)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
  (ediff-current-file . 2)
  (describe-keymap . 2)
- (delete-trailing-whitespace . 13)
+ (delete-trailing-whitespace . 14)
  (magit-status . 11)
  (ielm . 2)
  (goto-char . 1)
