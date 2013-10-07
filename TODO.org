@@ -1,4 +1,24 @@
-* WORK
+* HOME TODO
+** Zwierzaki
+*** TODO nakarmic zwierzaki
+**** DONE niedziela wieczor
+**** DONE poniedzialek rano
+**** TODO poniedzialek wieczor
+*** TODO ogarnac zwierzakom wode!
+**** DONE poniedzialek rano
+**** TODO wtorek rano
+*** TODO wyjac z kuwet
+**** DONE niedziela
+**** TODO poniedzialek
+** TODO ogarnac problem z omdleniem w niedziele wieczor
+** TODO rzeczy na jutro/do pracy
+** TODO picie i jedzenie
+** DONE umyc jakos ta cholerna miskie
+   - sama sie odmoczyla
+** DONE zmyc podloge
+** DONE zrobic miejsce do pracy przy biurku
+** DONE zrobic mleczko
+* WORK TODO
 ** TODO start working on TAGASAURIS-2276
 *** TODO mockup jest w tickecie
 *** TODO zrobic transforme
@@ -7,7 +27,7 @@
 *** changed sorting by priority code
 ** DONE wyslany email do Lory i Dana z workerami
 *** DONE najpierw trzeba bylo poprawic ten skrypt
-* TODO:
+* FREE TIME TODO:
 ** TODO ogarnac readline do prezentacji                                :work:
 ** TODO footnote.el
 ** TODO dalsze czytanie org-mode info
@@ -94,24 +114,6 @@
       ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
       ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
       ;;
-* HOME TODO
-** Zwierzaki
-*** TODO nakarmic zwierzaki
-**** DONE niedziela wieczor
-**** DONE poniedzialek rano
-**** TODO poniedzialek wieczor
-*** TODO ogarnac zwierzakom wode!
-**** DONE poniedzialek rano
-**** TODO wtorek rano
-** TODO ogarnac problem z omdleniem w niedziele wieczor
-** TODO rzeczy na jutro/do pracy
-** TODO picie i jedzenie
-** DONE umyc jakos ta cholerna miskie
-   - sama sie odmoczyla
-** DONE zmyc podloge
-** DONE zrobic miejsce do pracy przy biurku
-** DONE wyjac z kuwet
-** DONE zrobic mleczko
 * DONE:
 ** dump emacs so that it opens instantly
 *** DONE It doesn't work at work, fails with:
