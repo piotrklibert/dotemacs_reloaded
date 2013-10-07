@@ -248,6 +248,7 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
+ '(org-hide-leading-stars t)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")

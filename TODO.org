@@ -1,6 +1,50 @@
+* HOME TODO
+** Zwierzaki
+*** TODO nakarmic zwierzaki
+**** DONE niedziela wieczor
+**** DONE poniedzialek rano
+**** DONE poniedzialek wieczor
+     - te kurwy nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko pol
+       saszetki
+**** TODO wtorek rano
+*** TODO ogarnac zwierzakom wode!
+**** DONE poniedzialek rano
+**** TODO wtorek rano
+*** TODO wyjac z kuwet
+**** DONE niedziela
+**** DONE poniedzialek
+     - nie smierdzi jeszcze...
+**** TODO wtorek
+** TODO rzeczy na jutro/do pracy
+   - ubranie
+   - picie
+   - jedzenie
+   - tabletki
+** TODO ogarnac problem z omdleniem w niedziele wieczor
+   - dzisiaj jest znacznie lepiej
+** TODO fotel ciagle jest mokry!
+** TODO picie i jedzenie
+** TODO zmywarka
+   - wlaczyc, jak sie do konca zapelni
+** DONE umyc jakos ta cholerna miskie
+   - sama sie odmoczyla
+** DONE zmyc podloge
+** DONE zrobic miejsce do pracy przy biurku
+   - nawet zadzialalo
+** DONE zrobic mleczko
 * FREE TIME TODO:
-** TODO swiezo skompilowany emacs
-** TODO dalsze czytanie org-mode info
+** TODO ogarnac readline do prezentacji                    :work:prezentacja:
+   - praktycznie wszystko, co dziala w konsoli i nie jest napisane w curses
+     dziala na readline
+   - podstawowe skroty klawiszowe
+   - bardziej zaawansowane skroty klawiszowe
+     - kill-ring
+     - searching
+     - completion
+   - customizacja w inputrc
+   - zsh nie korzysta z readline, tylko z zle
+   - ale wg. mojej wiedzy bash juz tak
+** TODO Ogarnianie Org Mode                                       :emacs:org:
 *** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
 *** debug core dumped after insert timestamp
    - C-c . - insert timestamp
@@ -10,7 +54,10 @@
      something
    - zwiekszyc ram w wirtualce przy okazji
    - wyglada na to, ze build ze zrodel zadzialal
+   - tyle, ze nie dziala jego dump
+*** TODO zdefiniowanie wlasnych stanow TODO
 *** podsumowujac:
+    - posprzatac tu
     - M-strzalka - zmienia glebokosc albo przenosi wpis
     - C-c TAB - show children
     - C-c C-u - backward to higher level heading
@@ -21,6 +68,7 @@
     - C-c @ - mark current subtree
     - C-c C-x C-w - kill subtree
     - C-c C-x C-y - yank subtree
+      + znalezc narrow to subtree
     - C-c ^ - sort
     - C-c * - heading to normal list i odrotnie
     - C-c C-* - wsadz current liste w drzewo jako subtree
@@ -41,25 +89,15 @@
     - check habits
     - S-up/down - priority
     - C-c C-q/c - set tag
-** TODO ogarnac readline do prezentacji                                :work:
-   - praktycznie wszystko, co dziala w konsoli i nie jest napisane w curses
-     dziala na readline
-   - podstawowe skroty klawiszowe
-   - bardziej zaawansowane skroty klawiszone
-   - customizacja w inputrc
-** TODO footnote.el
 ** DONE make a keybinding for magit-status already                     :work:
    bound to `C-c C-g'
-** EMACS
-*** fix `semantic/wisent/python.el':                                   :work:
-    - make `from...import...' forms create $1.$2 tags
-    - later - create `semanticdb files' browser/fuzzy-search
-*** newer files than byte compiled form
-**** TODO make a script for this
-*** ace jump - config
-    - how fast it is?
-*** make `fuzzy-find-in-project' pull request on github
-*** finish rewriting `align-by-current-symbol', also:
+** make an org-mode ready emacs for Martun
+*** TODO make a cheatsheet of org-mode
+*** TODO download windows version of Emacs
+*** TODO add basic init.el with theme and some settings
+    - which settings?
+* EMACS                                                               :emacs:
+*** TODO finish rewriting `align-by-current-symbol', also:
     - remaining:
       1. make region detecting function check presence of a symbol
       2. make adding spaces to the symbol possible
@@ -71,33 +109,44 @@
       - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
       - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
       - http://www.emacswiki.org/emacs/CategoryAlignment
-*** look at columnize.el
-*** wrap `table-mode' commads and bind them somewhere
+*** TODO [#A] make `fuzzy-find-in-project' pull request on github
+**** some ideas for improvements?
+     - auto add dir of current file to the list
+*** TODO try working with emacs trunk                               :upgrade:
+*** TODO take a look at footnote.el
+*** TODO fix `semantic/wisent/python.el':                              :work:
+    - make `from...import...' forms create $1.$2 tags
+    - later - create `semanticdb files' browser/fuzzy-search
+*** TODO newer files than byte compiled form
+**** make a script for this
+*** ace jump - config
+    - how fast it is?
 *** finish rewriting `all.el':
-    - in a single buffer iedit with C-; C-' works well too
     - miltiple buffers
+    - in a single buffer iedit with C-; C-' works well too
     - no shitty setq to undeclared globals
     - iedit and multiple cursors do something similar
-*** make text-mode half useful with binding and default minor modes and such
-**** orgstruct-minor-mode
-*** make an org-mode ready emacs for Martun
-**** TODO make a cheatsheet of org-mode
-**** TODO download windows version of Emacs
-**** TODO add basic init.el with theme and some settings
-     - which settings?
-*** take a look at `delim-col' library, wrap it and bind it
-*** `sort buffers' in `ibuffer' somehow
+*** columns and tables handling                                 :tables:cols:
+**** check out `DELIM-COL'                                      :tables:cols:
+     - wrap it and bind it
+     - but there is org-mode for tables
+**** look at columnize.el                                              :cols:
+**** wrap `table-mode' commads and bind them somewhere               :tables:
+*** TODO `sort buffers' in `ibuffer' somehow
     - even better, just reposition point upon entering the ibuffer buffer
     to be always on the current buffer
     - see the code of it ^
     - write defadvice for it
-*** see what `quack-mode' does and maybe drop it completely in favor of
-    pure racket-mode
+*** see QUACK-MODE                                                   :racket:
+    see what `quack-mode' does and maybe drop it completely in favor of pure
+    racket-mode
 *** fix `grep-todos' a bit
 **** TODO make it format output a bit
 **** TODO make it stop inserting so many newlines
-*** setup `python shell' or `py-shell' with auto-complete, like geiser :work:
-*** setup more shell-like modes with autocomplete, with `ac-readline'
+*** TODO setup `python shell' with auto-complete                :work:python:
+    - or `py-shell', like geiser
+*** TODO setup more shells  with AC
+    - with `ac-readline'
 *** configure installed:
       ;; elpa/ac-js2
       ;; elpa/jedi
@@ -130,36 +179,26 @@
       ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
       ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
       ;;
-* HOME TODO
-** Zwierzaki
-*** TODO nakarmic zwierzaki
-**** DONE niedziela wieczor
-**** DONE poniedzialek rano
-**** DONE poniedzialek wieczor
-     - te kurwy nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko pol
-       saszetki
-**** TODO wtorek rano
-*** TODO ogarnac zwierzakom wode!
-**** DONE poniedzialek rano
-**** TODO wtorek rano
-*** TODO wyjac z kuwet
-**** DONE niedziela
-**** TODO poniedzialek
-     - nie smierdzi jeszcze...
-** TODO rzeczy na jutro/do pracy
-   - ubranie
-   - picie
-   - jedzenie
-   - tabletki
-** TODO ogarnac problem z omdleniem w niedziele wieczor
-   - dzisiaj jest znacznie lepiej
-** TODO fotel ciagle jest mokry!
-** TODO picie i jedzenie
-** DONE umyc jakos ta cholerna miskie
-   - sama sie odmoczyla
-** DONE zmyc podloge
-** DONE zrobic miejsce do pracy przy biurku
-** DONE zrobic mleczko
+*** DONE make text-mode half useful
+**** with binding and default minor modes and such
+**** orgstruct-minor-mode
+**** ale genralnie org-mode po prostu
+*** DONE update magit to git master                            :upgrade:dump:
+*** DONE swiezo skompilowany emacs                                     :dump:
+    - u mnie nie dziala, ale mozna zobaczyc w pracy
+    - skompilowany i zdumpowany emacs z portow, bez initfile, otwiera sie w
+      sekunde - a ma wszytko co trzeba!
+    - trzeba ogarnac tego osobnego brancha dla niego
+    - zobaczyc, czego (jesli czegos) brakuje, co sie nie zaladowalo
+    - w zsh dodalem:
+     #+NAME: zsh_function
+     #+BEGIN_SRC sh
+       function  qemacs(){
+           /root/portless/portbld-emacs/emacs-24.3.50.112532/src/omg -Q --execute "(set-face-attribute 'default nil :font \"Bitstream Vera Sans Mono-13\")" $*
+       }
+     #+END_SRC
+    - mysle, ze mozna to tak zostawic - generalnie i tak niezbyt czesto
+      uruchamiam emacsa... raz, dwa razy dziennie, mysle.
 * WORK TODO
 ** TODO start working on TAGASAURIS-2276
 *** TODO mockup jest w tickecie
@@ -171,7 +210,7 @@
 ** DONE wyslany email do Lory i Dana z workerami
 *** DONE najpierw trzeba bylo poprawic ten skrypt
 * DONE:
-** DONE dump emacs so that it opens instantly
+** DONE dump emacs so that it opens instantly                     :emacsdump:
 *** DONE It doesn't work at work, fails with:
 
     Font `"xft:Bitstream Vera Sans Mono:pixelsize=15:antialias=True"' is not
@@ -191,23 +230,24 @@
    - in /usr/ports/editors/emacs-devel/work/emacs-24.3.50.112532/src
    - it needs absolute paths in /init.el - checkout the `for_dump' git branch
      - anyway, how many times a day I launch Emacs?
-** moj highlight word - przepisac, wyrzucic, albo cos. Look at:
+** DONE moj highlight word - przepisac, wyrzucic, albo cos. Look at:
    http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
    It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
    other commands work similarly and can serve the same purpose, but that's not
    a reason for killing this command :)
-** make windows resizing saner (C-w left and C-w right)
-** move data files to data dir
-** racket mode as a default
-** configure:
+** DONE make windows resizing saner (C-w left and C-w right)
+** DONE move data files to data dir
+** DONE racket mode as a default
+** DONE configure:
      elpa/ac-geiser
      elpa/geiser
-** make geiser STOP reverting auto-mode-alist to scheme for racket
-** alist helper functions in utils
-** make elscreen hide it's tabbar in 2C-mode:
+** DONE make geiser STOP reverting auto-mode-alist to scheme for racket
+** DONE alist helper functions in utils
+** DONE make elscreen hide it's tabbar in 2C-mode:
    - C-M-z T
-** check what is inside semanticdb files (it's a list of tokens/tags)
-** make del, home, etc. `work in urxvt' (man urxvt: keysym)
+** DONE check what is inside semanticdb files
+   - it's a list of tokens/tags
+** DONE make del, home, etc. `work in urxvt' (man urxvt: keysym)
    - post mortem:
      bindkey in .zshrc works
      it seems that the keycode for bindkey can be got from `read' command
@@ -215,7 +255,7 @@
      syntax of bindkey (keycode and command) seems to be that of `readline'
      (not 100% sure)
      xmodmap works as well
-** look at elisp `regexp dsl' in rx library - nice!
+** DONE look at elisp `regexp dsl' in rx library - nice!
   - there is a `highlight-regex' fun from hi-lock library or something
 * WONTFIX/MAYBE_LATER
 ** Icicles - try to enable them... or not?
