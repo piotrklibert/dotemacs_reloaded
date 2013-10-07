@@ -1,6 +1,6 @@
 * WORK
-** dla przyjemnosci w sumie przejsc przez PR Justyny
 ** start working on TAGASAURIS-2276
+** dla przyjemnosci w sumie przejsc przez PR Justyny
 * TODO:
 ** TODO ogarnac readline do prezentacji                                :work:
 ** TODO footnote.el
@@ -106,11 +106,20 @@
 ** DONE zrobic mleczko
 * DONE:
 ** dump emacs so that it opens instantly
+*** DONE It doesn't work at work, fails with:
+
+    Font `"xft:Bitstream Vera Sans Mono:pixelsize=15:antialias=True"' is not
+    defined error
+
+    It worked when I removed an entry from .Xdefaults.
+    NOTE: xrdb .Xdefaults reloads X resources
+
+*** report:
    - on VIRTUALBOX it loads in 7 seconds while dumped (and with unoptimized
      init.el) while it takes nearly 4x more time (24s) to load standard EMACS
    - Fresh build of emacs from ports
    - do this:
-    ./emacs --batch --load "/root/.emacs.d/init.el" \
+     ./emacs --batch --load "/root/.emacs.d/init.el" \
             --execute '(dump-emacs "omg" "temacs")'
    - in /usr/ports/editors/emacs-devel/work/emacs-24.3.50.112532/src
    - it needs absolute paths in /init.el - checkout the `for_dump' git branch

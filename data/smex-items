@@ -1,35 +1,33 @@
 
 ;; ----- smex-history -----
 (
- desktop-read
- cd
- desktop-save
- customize-group
- org-mode
- visible-mode
- delete-trailing-whitespace
- recover-this-file
- locate-library
- font-lock-mode
  version
  ediff-backup
  find-library
+ recover-this-file
  text-mode
  lisp-interaction-mode
  eval-buffer
+ desktop-read
+ desktop-save
  transpose-sexps
+ locate-library
  hl-line-mode
+ cd
  calendar
  pwd
  woman
  center-region
  ediff-current-file
+ delete-trailing-whitespace
+ font-lock-mode
  describe-syntax
  2C-split
  which-function-mode
  which-func-mode
  locate
  ffap
+ customize-group
  shrink-window-if-larger-than-buffer
  run-geiser
  list-colors-display
@@ -63,6 +61,7 @@
  replace-rectangle
  ielm
  bs-show
+ org-mode
  calculator
  artist-mode
  eval-region
@@ -101,6 +100,7 @@
  upcase-region
  customize-face
  display-buffer
+ ido-edit-input
 )
 
 ;; ----- smex-data -----
@@ -138,13 +138,13 @@
  (open-rectangle . 2)
  (string-rectangle . 6)
  (emacs-lisp-mode . 3)
- (customize-group . 14)
+ (customize-group . 13)
  (customize-option . 9)
  (ediff . 1)
  (coffee-mode . 1)
  (package-install . 2)
  (list-packages . 9)
- (cd . 5)
+ (cd . 3)
  (turn-off-fci-mode . 2)
  (flyspell-mode . 2)
  (delete-selection-mode . 1)
@@ -166,14 +166,14 @@
  (ffap . 4)
  (ack . 2)
  (erase-buffer . 2)
- (recover-this-file . 5)
+ (recover-this-file . 4)
  (artist-mode . 2)
  (find-variable . 2)
  (describe-bindings . 1)
  (ediff-current-file . 2)
  (describe-keymap . 2)
- (delete-trailing-whitespace . 14)
- (magit-status . 11)
+ (delete-trailing-whitespace . 13)
+ (magit-status . 10)
  (ielm . 2)
  (goto-char . 1)
  (recentf-mode . 1)
@@ -188,7 +188,7 @@
  (electric-buffer-list . 9)
  (set-rectangular-region-anchor . 1)
  (customize-face . 1)
- (desktop-save . 4)
+ (desktop-save . 3)
  (ace-jump-buffer . 1)
  (eshell . 1)
  (transpose-lines . 1)
@@ -208,9 +208,9 @@
  (hs-show-block . 1)
  (fuzzy-find-change-root . 1)
  (show-all . 1)
- (org-mode . 4)
+ (org-mode . 2)
  (fundamental-mode . 1)
- (locate-library . 9)
+ (locate-library . 8)
  (python-mode . 1)
  (py-execute-statement . 1)
  (temp-buffer-resize-mode . 2)
@@ -243,7 +243,7 @@
  (facemenu-read-color . 2)
  (list-colors-display . 2)
  (list-faces-display . 1)
- (desktop-read . 5)
+ (desktop-read . 2)
  (shrink-window-if-larger-than-buffer . 2)
  (grep-todos . 4)
  (2C-split . 5)
@@ -254,7 +254,7 @@
  (which-function-mode . 1)
  (get-defuns-from-file . 13)
  (describe-syntax . 1)
- (font-lock-mode . 3)
+ (font-lock-mode . 2)
  (woman . 4)
  (pwd . 1)
  (calendar . 3)
@@ -262,6 +262,4 @@
  (lisp-interaction-mode . 1)
  (unix-line-endings . 1)
  (version . 1)
- (visible-mode . 2)
- (visible-mark-mode . 1)
 )

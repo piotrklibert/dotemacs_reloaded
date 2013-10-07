@@ -1,4 +1,5 @@
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
+;; TODO: find a way of conditionally loading this
 (load "~/cedet/cedet-devel-load.el")
 (load "~/cedet/contrib/cedet-contrib-load.el")
 
