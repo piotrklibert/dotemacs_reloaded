@@ -199,13 +199,14 @@
  '(ac-quick-help-prefer-x t)
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
- '(auto-mark-ignore-move-on-sameline t)
+ '(auto-mark-ignore-move-on-sameline nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/data/bookmarks")
- '(bookmark-default-file "/root/.emacs.d/data/bookmarks")
+ '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
    (quote
     (".o" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo")))
+ '(css-indent-offset 2)
  '(debug-on-quit nil)
  '(delete-selection-mode nil)
  '(dired-use-ls-dired (quote unspecified))
@@ -240,7 +241,7 @@
  '(icicle-show-Completions-initially-flag nil)
  '(ido-create-new-buffer (quote always))
  '(ido-enable-flex-matching t)
- '(ido-save-directory-list-file "/root/.emacs.d/data/ido.last")
+ '(ido-save-directory-list-file "~/.emacs.d/data/ido.last")
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
@@ -264,7 +265,7 @@
  '(recentf-max-menu-items 100)
  '(recentf-max-saved-items 100)
  '(recentf-menu-action (quote find-file))
- '(recentf-save-file "/root/.emacs.d/data/recentf")
+ '(recentf-save-file "~/.emacs.d/data/recentf")
  '(scroll-conservatively 108)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
@@ -275,7 +276,7 @@
  '(speedbar-tag-regroup-maximum-length 4)
  '(speedbar-verbosity-level 1)
  '(sr-speedbar-right-side nil)
- '(srecode-map-save-file "/root/.emacs.d/data/srecode-map.el")
+ '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
@@ -286,6 +287,7 @@
  '(uniquify-separator ":")
  '(uniquify-strip-common-suffix t)
  '(uniquify-trailing-separator-p t)
+ '(visible-mark-max 3)
  '(web-mode-code-indent-offset 4)
  '(web-mode-comment-style 2)
  '(web-mode-css-indent-offset 4)

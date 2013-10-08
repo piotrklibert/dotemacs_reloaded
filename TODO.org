@@ -1,123 +1,28 @@
 * WORK TODO
-** TODO start working on TAGASAURIS-2276
-*** TODO mockup jest w tickecie
+** TODO check if Pawel fixed flyouts
+** TODO ogarnianie Justyny
+*** still ongoing!
+** TODO start working on TAGASAURIS-2276 [40%]
+*** DONE nowy branch
+*** DONE mockup jest w tickecie
     - jako psd zalaczony do ticketu
 *** TODO zrobic transforme
 *** TODO zestawic srodowisko testowe
 *** TODO wykorzystac JS template do developmentu
+** DONE review Pawel's pull request
+** DONE some tinkering with SSL middleware
+** DONE change new message display to display message center
+   TAGASAURIS-2287
+   - zrobione
+   - warto by bylo odswiezac dashboard, ale niech sie sami skapna
+   - 2h zalogowane
+** DONE comment on Konrad code
+   - he's just dumb :)
 ** DONE dla przyjemnosci w sumie przejsc przez PR Justyny
 *** changed sorting by priority code
 *** merged, okazalo sie, ze niepotrzebnie
 ** DONE wyslany email do Lory i Dana z workerami
 *** DONE najpierw trzeba bylo poprawic ten skrypt
-* EMACS                                                               :emacs:
-*** TODO finish rewriting `align-by-current-symbol', also:
-    - remaining:
-      1. make region detecting function check presence of a symbol
-      2. make adding spaces to the symbol possible
-    - see:
-      - parse-partial-sexp
-    - links
-      - http://www.emacswiki.org/emacs/AlignCommands
-      - http://stackoverflow.com/questions/10895930/right-align-text-in-emacs
-      - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
-      - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
-      - http://www.emacswiki.org/emacs/CategoryAlignment
-*** TODO [#A] make `fuzzy-find-in-project' pull request on github
-**** some ideas for improvements?
-     - auto add dir of current file to the list
-*** TODO try working with emacs trunk                               :upgrade:
-*** TODO take a look at footnote.el
-*** TODO fix `semantic/wisent/python.el':                              :work:
-    - make `from...import...' forms create $1.$2 tags
-    - later - create `semanticdb files' browser/fuzzy-search
-*** TODO newer files than byte compiled form
-**** make a script for this
-*** ace jump - config
-    - how fast it is?
-*** finish rewriting `all.el':
-    - miltiple buffers
-    - in a single buffer iedit with C-; C-' works well too
-    - no shitty setq to undeclared globals
-    - iedit and multiple cursors do something similar
-*** columns and tables handling                                 :tables:cols:
-**** check out `DELIM-COL'                                      :tables:cols:
-     - wrap it and bind it
-     - but there is org-mode for tables
-**** look at columnize.el                                              :cols:
-**** wrap `table-mode' commads and bind them somewhere               :tables:
-*** TODO `sort buffers' in `ibuffer' somehow
-    - even better, just reposition point upon entering the ibuffer buffer
-    to be always on the current buffer
-    - see the code of it ^
-    - write defadvice for it
-*** see QUACK-MODE                                                   :racket:
-    see what `quack-mode' does and maybe drop it completely in favor of pure
-    racket-mode
-*** fix `grep-todos' a bit
-**** TODO make it format output a bit
-**** TODO make it stop inserting so many newlines
-*** TODO setup `python shell' with auto-complete                :work:python:
-    - or `py-shell', like geiser
-*** TODO setup more shells  with AC
-    - with `ac-readline'
-*** configure installed:
-      ;; elpa/ac-js2
-      ;; elpa/jedi
-      ;; elpa/direx
-      ;; plugins2/emacs-jedi-direx/
-      ;; outline-magic              outline mode extensions for Emacs [github]
-      ;; outlined-elisp-            outline-minor-mode settings for emacs lisp [github]
-      ;; parenface                  Provide a face for parens in lisp modes. [github]
-      ;; parenface-plus             Provide a face for parens in lispy modes.
-      ;; pcre2el                    parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
-      ;; peg                        Parsing Expression Grammars in Emacs Lisp [wiki]
-      ;; pep8                       run the python pep8 checker putting hits in a grep buffer
-      ;; phi-rectangle              another rectangle-mark command (rewrite of rect-mark) [github]
-      ;; phi-search                 another incremental search command, compatible with "multiple-cursors" [github]
-      ;; phi-search-mc              multiple-cursors extension for phi-search [github]
-
-
-      ;;       my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
-      ;;             my-python-config.el::    53 ;; TODO: flycheckers/flycheck-mode pylint/pyflakes settings
-      ;;             my-python-config.el::     4 ;; TODO: make python, python-mode and elpy work together (auto-completion,
-      ;;               my-other-langs.el::   142 ;; TODO: check if quack can work with racket-mode and if so - what it offers
-      ;;               my-other-langs.el::    53 ;; TODO: make it better or use a plugin (auto-compile elisp)
-      ;;              my-menus-config.el::     1 ;; TODO: Icicles! at least partially
-      ;;            my-highlight-word.el::     3 ;; TODO: make it into minor mode
-      ;;my-generic-programming-config.el::    43 ;; TODO: etags-update
-      ;;my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
-      ;;my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
-      ;;    my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
-      ;;         my-deprecated-defuns.el::    20 ;; TODO: make a macro for writing commands in the form of
-      ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
-      ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
-      ;;
-*** DONE make text-mode half useful
-**** with binding and default minor modes and such
-**** orgstruct-minor-mode
-**** ale genralnie org-mode po prostu
-*** DONE update magit to git master                            :upgrade:dump:
-*** DONE swiezo skompilowany emacs                                     :dump:
-    - u mnie nie dziala, ale mozna zobaczyc w pracy
-    - skompilowany i zdumpowany emacs z portow, bez initfile, otwiera sie w
-      sekunde - a ma wszytko co trzeba!
-    - trzeba ogarnac tego osobnego brancha dla niego
-    - zobaczyc, czego (jesli czegos) brakuje, co sie nie zaladowalo
-    - w zsh dodalem:
-     #+NAME: zsh_function
-     #+BEGIN_SRC sh
-       function  qemacs(){
-           /root/portless/portbld-emacs/emacs-24.3.50.112532/src/omg -Q --execute "(set-face-attribute 'default nil :font \"Bitstream Vera Sans Mono-13\")" $*
-       }
-     #+END_SRC
-    - mysle, ze mozna to tak zostawic - generalnie i tak niezbyt czesto
-      uruchamiam emacsa... raz, dwa razy dziennie, mysle.
-*** TODO moj highlight word - przepisac, wyrzucic, albo cos. Look at:
-    http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
-    It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
-    other commands work similarly and can serve the same purpose, but that's not
-    a reason for killing this command :)
 * HOME TODO
 ** Zwierzaki
 *** TODO nakarmic zwierzaki
@@ -171,6 +76,7 @@
    - customizacja w inputrc
    - zsh nie korzysta z readline, tylko z zle
    - ale wg. mojej wiedzy bash juz tak
+*** slideshow Racketa! Bo jest super.
 ** TODO Ogarnianie Org Mode                                       :emacs:org:
 *** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
 *** debug core dumped after insert timestamp
@@ -183,6 +89,8 @@
    - wyglada na to, ze build ze zrodel zadzialal
    - tyle, ze nie dziala jego dump
 *** TODO zdefiniowanie wlasnych stanow TODO
+    - takie jak na Jirze?
+    - priorities chyba tez sie da
 *** podsumowujac:
     - posprzatac tu
     - M-strzalka - zmienia glebokosc albo przenosi wpis
@@ -223,6 +131,114 @@
 *** TODO download windows version of Emacs
 *** TODO add basic init.el with theme and some settings
     - which settings?
+** EMACS [23%]                                                        :emacs:
+**** TODO finish rewriting `align-by-current-symbol', also:
+     - remaining:
+       1. make region detecting function check presence of a symbol
+       2. make adding spaces to the symbol possible
+     - see:
+       - parse-partial-sexp
+     - links
+       - http://www.emacswiki.org/emacs/AlignCommands
+       - http://stackoverflow.com/questions/10895930/right-align-text-in-emacs
+       - http://stackoverflow.com/questions/16411045/emacs-align-function-parameters-vertically
+       - http://marc-abramowitz.com/archives/2006/04/07/aligning-columns-in-emacs/
+       - http://www.emacswiki.org/emacs/CategoryAlignment
+**** TODO [#A] make `fuzzy-find-in-project' pull request on github
+***** some ideas for improvements?
+      - auto add dir of current file to the list
+**** TODO try working with emacs trunk                              :upgrade:
+**** TODO take a look at footnote.el
+**** TODO fix `semantic/wisent/python.el':                             :work:
+     - make `from...import...' forms create $1.$2 tags
+     - later - create `semanticdb files' browser/fuzzy-search
+**** TODO newer files than byte compiled form
+***** make a script for this
+**** ace jump - config
+     - how fast it is?
+**** finish rewriting `all.el':
+     - miltiple buffers
+     - in a single buffer iedit with C-; C-' works well too
+     - no shitty setq to undeclared globals
+     - iedit and multiple cursors do something similar
+**** columns and tables handling                                :tables:cols:
+***** check out `DELIM-COL'                                     :tables:cols:
+      - wrap it and bind it
+      - but there is org-mode for tables
+***** look at columnize.el                                             :cols:
+***** wrap `table-mode' commads and bind them somewhere              :tables:
+**** TODO `sort buffers' in `ibuffer' somehow
+     - even better, just reposition point upon entering the ibuffer buffer
+     to be always on the current buffer
+     - see the code of it ^
+     - write defadvice for it
+**** see QUACK-MODE                                                  :racket:
+     see what `quack-mode' does and maybe drop it completely in favor of pure
+     racket-mode
+**** fix `grep-todos' a bit
+***** TODO make it format output a bit
+***** TODO make it stop inserting so many newlines
+**** TODO setup `python shell' with auto-complete               :work:python:
+     - or `py-shell', like geiser
+**** TODO setup more shells  with AC
+     - with `ac-readline'
+**** configure installed:
+       ;; elpa/ac-js2
+       ;; elpa/jedi
+       ;; elpa/direx
+       ;; plugins2/emacs-jedi-direx/
+       ;; outline-magic              outline mode extensions for Emacs [github]
+       ;; outlined-elisp-            outline-minor-mode settings for emacs lisp [github]
+       ;; parenface                  Provide a face for parens in lisp modes. [github]
+       ;; parenface-plus             Provide a face for parens in lispy modes.
+       ;; pcre2el                    parse, convert, and font-lock PCRE, Emacs and rx regexps [github]
+       ;; peg                        Parsing Expression Grammars in Emacs Lisp [wiki]
+       ;; pep8                       run the python pep8 checker putting hits in a grep buffer
+       ;; phi-rectangle              another rectangle-mark command (rewrite of rect-mark) [github]
+       ;; phi-search                 another incremental search command, compatible with "multiple-cursors" [github]
+       ;; phi-search-mc              multiple-cursors extension for phi-search [github]
+
+
+       ;;       my-rectangular-editing.el::     7 ;; TODO: make next-line also append spaces at the end of line if needed
+       ;;             my-python-config.el::    53 ;; TODO: flycheckers/flycheck-mode pylint/pyflakes settings
+       ;;             my-python-config.el::     4 ;; TODO: make python, python-mode and elpy work together (auto-completion,
+       ;;               my-other-langs.el::   142 ;; TODO: check if quack can work with racket-mode and if so - what it offers
+       ;;               my-other-langs.el::    53 ;; TODO: make it better or use a plugin (auto-compile elisp)
+       ;;              my-menus-config.el::     1 ;; TODO: Icicles! at least partially
+       ;;            my-highlight-word.el::     3 ;; TODO: make it into minor mode
+       ;;my-generic-programming-config.el::    43 ;; TODO: etags-update
+       ;;my-generic-programming-config.el::    32 ;; TODO: I'm rewriting it, it's not ready yet
+       ;;my-generic-programming-config.el::     2 ;; TODO: maybe do a screencast?
+       ;;    my-generic-editing-config.el::     7 ;; TODO: figure out why it was disabled ;)
+       ;;         my-deprecated-defuns.el::    20 ;; TODO: make a macro for writing commands in the form of
+       ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
+       ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
+       ;;
+**** DONE make text-mode half useful
+***** with binding and default minor modes and such
+***** orgstruct-minor-mode
+***** ale genralnie org-mode po prostu
+**** DONE update magit to git master                           :upgrade:dump:
+**** DONE swiezo skompilowany emacs                                    :dump:
+     - u mnie nie dziala, ale mozna zobaczyc w pracy
+     - skompilowany i zdumpowany emacs z portow, bez initfile, otwiera sie w
+       sekunde - a ma wszytko co trzeba!
+     - trzeba ogarnac tego osobnego brancha dla niego
+     - zobaczyc, czego (jesli czegos) brakuje, co sie nie zaladowalo
+     - w zsh dodalem:
+      #+NAME: zsh_function
+      #+BEGIN_SRC sh
+        function  qemacs(){
+            /root/portless/portbld-emacs/emacs-24.3.50.112532/src/omg -Q --execute "(set-face-attribute 'default nil :font \"Bitstream Vera Sans Mono-13\")" $*
+        }
+      #+END_SRC
+     - mysle, ze mozna to tak zostawic - generalnie i tak niezbyt czesto
+       uruchamiam emacsa... raz, dwa razy dziennie, mysle.
+**** TODO moj highlight word - przepisac, wyrzucic, albo cos. Look at:
+     http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
+     It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
+     other commands work similarly and can serve the same purpose, but that's not
+     a reason for killing this command :)
 * DONE:
 ** DONE dump emacs so that it opens instantly                    :emacs:dump:
 *** DONE load Cedet conditionally
@@ -272,3 +288,7 @@
 ** Icicles - try to enable them... or not?
 ** ogarnac nowego wombata theme
 ** Backspace in tmux too!
+* REFERENCES
+** Konrad:
+   - Sorry for example but there is no point showing shit and say that it stinks
+     and based on this claim that everything stinks
