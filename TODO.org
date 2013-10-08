@@ -1,101 +1,15 @@
-* HOME TODO
-** Zwierzaki
-*** TODO nakarmic zwierzaki
-**** DONE niedziela wieczor
-**** DONE poniedzialek rano
-**** DONE poniedzialek wieczor
-     - te kurwy nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko pol
-       saszetki
-**** TODO wtorek rano
-*** TODO ogarnac zwierzakom wode!
-**** DONE poniedzialek rano
-**** TODO wtorek rano
-*** TODO wyjac z kuwet
-**** DONE niedziela
-**** DONE poniedzialek
-     - nie smierdzi jeszcze...
-**** TODO wtorek
-** TODO rzeczy na jutro/do pracy
-   - ubranie
-   - picie
-   - jedzenie
-   - tabletki
-** TODO ogarnac problem z omdleniem w niedziele wieczor
-   - dzisiaj jest znacznie lepiej
-** TODO fotel ciagle jest mokry!
-** TODO picie i jedzenie
-** TODO zmywarka
-   - wlaczyc, jak sie do konca zapelni
-** DONE umyc jakos ta cholerna miskie
-   - sama sie odmoczyla
-** DONE zmyc podloge
-** DONE zrobic miejsce do pracy przy biurku
-   - nawet zadzialalo
-** DONE zrobic mleczko
-* FREE TIME TODO:
-** TODO ogarnac readline do prezentacji                    :work:prezentacja:
-   - praktycznie wszystko, co dziala w konsoli i nie jest napisane w curses
-     dziala na readline
-   - podstawowe skroty klawiszowe
-   - bardziej zaawansowane skroty klawiszowe
-     - kill-ring
-     - searching
-     - completion
-   - customizacja w inputrc
-   - zsh nie korzysta z readline, tylko z zle
-   - ale wg. mojej wiedzy bash juz tak
-** TODO Ogarnianie Org Mode                                       :emacs:org:
-*** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
-*** debug core dumped after insert timestamp
-   - C-c . - insert timestamp
-   - gdb twierdzi, ze cos zlego sie stalo w Cairo
-   - wiec je rekompiluje
-   - jak to nie pomoze, to moze rekompilacja emacsa z innym backendem, GTK3 or
-     something
-   - zwiekszyc ram w wirtualce przy okazji
-   - wyglada na to, ze build ze zrodel zadzialal
-   - tyle, ze nie dziala jego dump
-*** TODO zdefiniowanie wlasnych stanow TODO
-*** podsumowujac:
-    - posprzatac tu
-    - M-strzalka - zmienia glebokosc albo przenosi wpis
-    - C-c TAB - show children
-    - C-c C-u - backward to higher level heading
-    - C-c C-j - jump, ale jeszcze nie probowalem
-    - C-enter, M-enter - nowy heading, po lub przed obecnym
-    - M-S-enter - new todo entry
-    - M-h - mark current element
-    - C-c @ - mark current subtree
-    - C-c C-x C-w - kill subtree
-    - C-c C-x C-y - yank subtree
-      + znalezc narrow to subtree
-    - C-c ^ - sort
-    - C-c * - heading to normal list i odrotnie
-    - C-c C-* - wsadz current liste w drzewo jako subtree
-    - C-c - - zmien marker wpisow w liscie
-    - C-c C-x d - insert drawer
-    - C-c C-z - time-stamped note at point (in drawer)
-    - tables
-    - links
-    - C-c C-t - zmien stan TODO
-    - S-<right>  /  S-<left> - zmien stan w jedna lub druga strone
-    - C-c / t - view TODO items in buffer
-    - C-c a t - collect all todos
-    - customize
-      - org-todo-keywords
-      - org-todo-keyword-faces
-      - org-log-done 'time
-    - Na poczatku pliku #+TODO: TODO FEEDBACK VERIFY | DONE CANCELED
-    - check habits
-    - S-up/down - priority
-    - C-c C-q/c - set tag
-** DONE make a keybinding for magit-status already                     :work:
-   bound to `C-c C-g'
-** make an org-mode ready emacs for Martun
-*** TODO make a cheatsheet of org-mode
-*** TODO download windows version of Emacs
-*** TODO add basic init.el with theme and some settings
-    - which settings?
+* WORK TODO
+** TODO start working on TAGASAURIS-2276
+*** TODO mockup jest w tickecie
+    - jako psd zalaczony do ticketu
+*** TODO zrobic transforme
+*** TODO zestawic srodowisko testowe
+*** TODO wykorzystac JS template do developmentu
+** DONE dla przyjemnosci w sumie przejsc przez PR Justyny
+*** changed sorting by priority code
+*** merged, okazalo sie, ze niepotrzebnie
+** DONE wyslany email do Lory i Dana z workerami
+*** DONE najpierw trzeba bylo poprawic ten skrypt
 * EMACS                                                               :emacs:
 *** TODO finish rewriting `align-by-current-symbol', also:
     - remaining:
@@ -199,16 +113,111 @@
      #+END_SRC
     - mysle, ze mozna to tak zostawic - generalnie i tak niezbyt czesto
       uruchamiam emacsa... raz, dwa razy dziennie, mysle.
-* WORK TODO
-** TODO start working on TAGASAURIS-2276
-*** TODO mockup jest w tickecie
-    - jako psd zalaczony do ticketu
-*** TODO zrobic transforme
-*** TODO zestawic srodowisko testowe
-** DONE dla przyjemnosci w sumie przejsc przez PR Justyny
-*** changed sorting by priority code
-** DONE wyslany email do Lory i Dana z workerami
-*** DONE najpierw trzeba bylo poprawic ten skrypt
+* HOME TODO
+** Zwierzaki
+*** TODO nakarmic zwierzaki
+**** DONE niedziela wieczor
+**** DONE poniedzialek rano
+**** DONE poniedzialek wieczor
+     - te kurwy nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko pol
+       saszetki
+**** DONE wtorek rano
+*** TODO ogarnac zwierzakom wode!
+**** DONE poniedzialek rano
+**** DONE wtorek rano
+     - dziwne, ale maja jeszcze pelno
+**** TODO wtorek wieczor
+*** TODO wyjac z kuwet
+**** DONE niedziela
+**** DONE poniedzialek
+     - nie smierdzi jeszcze...
+**** TODO wtorek (juz trzeba)
+** TODO rzeczy na jutro/do pracy
+   - ubranie
+   - picie
+   - jedzenie
+   - tabletki
+** TODO ogarnac problem z omdleniem w niedziele wieczor
+   - dzisiaj jest znacznie lepiej
+   - wtorek: prawie normalnie sie juz czuje, polknalem 2 tabl rano
+** TODO fotel ciagle jest mokry!
+** TODO picie i jedzenie
+   - cos do pracy? nie mam pomyslu
+** TODO zmywarka
+   - wlaczyc, jak sie do konca zapelni
+** TODO zmyc podloge
+*** DONE w niedziele
+*** DONE poniedzialek
+*** TODO wtorek
+** DONE umyc jakos ta cholerna miskie
+   - sama sie odmoczyla
+** DONE zrobic miejsce do pracy przy biurku
+   - nawet zadzialalo
+** DONE zrobic mleczko
+* FREE TIME TODO:
+** TODO ogarnac readline do prezentacji                    :work:prezentacja:
+   - praktycznie wszystko, co dziala w konsoli i nie jest napisane w curses
+     dziala na readline
+   - podstawowe skroty klawiszowe
+   - bardziej zaawansowane skroty klawiszowe
+     - kill-ring
+     - searching
+     - completion
+   - customizacja w inputrc
+   - zsh nie korzysta z readline, tylko z zle
+   - ale wg. mojej wiedzy bash juz tak
+** TODO Ogarnianie Org Mode                                       :emacs:org:
+*** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
+*** debug core dumped after insert timestamp
+   - C-c . - insert timestamp
+   - gdb twierdzi, ze cos zlego sie stalo w Cairo
+   - wiec je rekompiluje
+   - jak to nie pomoze, to moze rekompilacja emacsa z innym backendem, GTK3 or
+     something
+   - zwiekszyc ram w wirtualce przy okazji
+   - wyglada na to, ze build ze zrodel zadzialal
+   - tyle, ze nie dziala jego dump
+*** TODO zdefiniowanie wlasnych stanow TODO
+*** podsumowujac:
+    - posprzatac tu
+    - M-strzalka - zmienia glebokosc albo przenosi wpis
+    - C-c TAB - show children
+    - C-c C-u - backward to higher level heading
+    - C-c C-j - jump, ale jeszcze nie probowalem
+    - C-enter, M-enter - nowy heading, po lub przed obecnym
+    - M-S-enter - new todo entry
+    - M-h - mark current element
+    - C-c @ - mark current subtree
+    - C-c C-x C-w - kill subtree
+    - C-c C-x C-y - yank subtree
+      + znalezc narrow to subtree
+    - C-c ^ - sort
+    - C-c * - heading to normal list i odrotnie
+    - C-c C-* - wsadz current liste w drzewo jako subtree
+    - C-c - - zmien marker wpisow w liscie
+    - C-c C-x d - insert drawer
+    - C-c C-z - time-stamped note at point (in drawer)
+    - tables
+    - links
+    - C-c C-t - zmien stan TODO
+    - S-<right>  /  S-<left> - zmien stan w jedna lub druga strone
+    - C-c / t - view TODO items in buffer
+    - C-c a t - collect all todos
+    - customize
+      - org-todo-keywords
+      - org-todo-keyword-faces
+      - org-log-done 'time
+    - Na poczatku pliku #+TODO: TODO FEEDBACK VERIFY | DONE CANCELED
+    - check habits
+    - S-up/down - priority
+    - C-c C-q/c - set tag
+** DONE make a keybinding for magit-status already                     :work:
+   bound to `C-c C-g'
+** make an org-mode ready emacs for Martun
+*** TODO make a cheatsheet of org-mode
+*** TODO download windows version of Emacs
+*** TODO add basic init.el with theme and some settings
+    - which settings?
 * DONE:
 ** DONE dump emacs so that it opens instantly                     :emacsdump:
 *** DONE It doesn't work at work, fails with:
