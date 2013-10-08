@@ -1,7 +1,10 @@
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
-;; TODO: find a way of conditionally loading this
-(load "~/cedet/cedet-devel-load.el")
-(load "~/cedet/contrib/cedet-contrib-load.el")
+
+(unless (featurep 'cedet-devel-load)
+  ;; do not load cedet if it's loaded already - happens when using dumped
+  ;; emacs with normal init file
+  (load "~/cedet/cedet-devel-load.el")
+  (load "~/cedet/contrib/cedet-contrib-load.el"))
 
 (defmacro add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
