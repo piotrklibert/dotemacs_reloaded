@@ -113,6 +113,11 @@
      #+END_SRC
     - mysle, ze mozna to tak zostawic - generalnie i tak niezbyt czesto
       uruchamiam emacsa... raz, dwa razy dziennie, mysle.
+*** TODO moj highlight word - przepisac, wyrzucic, albo cos. Look at:
+    http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
+    It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
+    other commands work similarly and can serve the same purpose, but that's not
+    a reason for killing this command :)
 * HOME TODO
 ** Zwierzaki
 *** TODO nakarmic zwierzaki
@@ -219,7 +224,9 @@
 *** TODO add basic init.el with theme and some settings
     - which settings?
 * DONE:
-** DONE dump emacs so that it opens instantly                     :emacsdump:
+** DONE dump emacs so that it opens instantly                    :emacs:dump:
+*** DONE load Cedet conditionally
+    - when using dumped emacs with normal init.el it raises error
 *** DONE It doesn't work at work, fails with:
 
     Font `"xft:Bitstream Vera Sans Mono:pixelsize=15:antialias=True"' is not
@@ -239,14 +246,9 @@
    - in /usr/ports/editors/emacs-devel/work/emacs-24.3.50.112532/src
    - it needs absolute paths in /init.el - checkout the `for_dump' git branch
      - anyway, how many times a day I launch Emacs?
-** DONE moj highlight word - przepisac, wyrzucic, albo cos. Look at:
-   http://stackoverflow.com/questions/385661/emacs-highlight-all-occurences-of-a-word
-   It's generally ok wrapper around highlight-regexp. C-s, C-; C-', C-f C-o and
-   other commands work similarly and can serve the same purpose, but that's not
-   a reason for killing this command :)
 ** DONE make windows resizing saner (C-w left and C-w right)
 ** DONE move data files to data dir
-** DONE racket mode as a default
+** DONE racket mode as a default                                     :racket:
 ** DONE configure:
      elpa/ac-geiser
      elpa/geiser
