@@ -20,7 +20,6 @@
 (require 'ls-lisp)                      ; elisp ls replacement
 
 
-
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
 
@@ -312,9 +311,30 @@ default git diff is sooo weak..."
     ))
 
 
-
 (defun safe-read-sexp (&optional buf)
   (setq buf (or buf (current-buffer)))
   (condition-case ex
      (let ((r (read buf))) (if (listp r) r (list r)))
    ('end-of-file nil)))
+
+
+;; ____   _____        ___   _ _     ___    _    ____    ____   _    ____ _____
+;;|  _ \ / _ \ \      / / \ | | |   / _ \  / \  |  _ \  |  _ \ / \  / ___| ____|
+;;| | | | | | \ \ /\ / /|  \| | |  | | | |/ _ \ | | | | | |_) / _ \| |  _|  _|
+;;| |_| | |_| |\ V  V / | |\  | |__| |_| / ___ \| |_| | |  __/ ___ \ |_| | |___
+;;|____/ \___/  \_/\_/  |_| \_|_____\___/_/   \_\____/  |_| /_/   \_\____|_____|
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun my-fetch-page (page-url)
+  "Fetch a HTTP page and insert it's body at point."
+  (interactive "sURL to fetch: ")
+  (lexical-let ((target (current-buffer)))
+    (url-retrieve
+     page-url
+     (lambda (status)
+       (search-forward "\n\n")
+       (let
+           ((body (buffer-substring (point) (point-max))))
+         (message "%s" target)
+         (with-current-buffer target
+           (insert body)))))))

@@ -1,14 +1,20 @@
 * WORK TODO
-** TODO check if Pawel fixed flyouts
-** TODO ogarnianie Justyny
-*** still ongoing!
-** TODO start working on TAGASAURIS-2276 [40%]
+** TODO start working on TAGASAURIS-2276 [66%]
+*** TODO zestawic srodowisko testowe
+*** TODO zrobic transforme
+*** DONE obracanie obrazka
+    - uzywamy http://jquery.eiremedia.netdna-cdn.com/plugins/misc/transit/index.html
+    - <2013-10-09 śro 15:17>
 *** DONE nowy branch
 *** DONE mockup jest w tickecie
     - jako psd zalaczony do ticketu
-*** TODO zrobic transforme
-*** TODO zestawic srodowisko testowe
-*** TODO wykorzystac JS template do developmentu
+*** DONE wykorzystac JS template do developmentu
+    - dziala i jest fajne
+** TODO ogarnianie Justyny
+*** still ongoing!
+*** and still as hard as ever
+** DONE check if Pawel fixed flyouts
+   - he did
 ** DONE review Pawel's pull request
 ** DONE some tinkering with SSL middleware
 ** DONE change new message display to display message center
@@ -153,7 +159,7 @@
 *** TODO download windows version of Emacs
 *** TODO add basic init.el with theme and some settings
     - which settings?
-** EMACS [21%]                                                        :emacs:
+** EMACS [26%]                                                        :emacs:
 **** TODO Look at el-get instead of package.el
      - because it's just better (I think)
      - remove this hackish macro for adding packages to load-path when done
@@ -240,6 +246,11 @@
        ;;           my-auto-completion.el::    88 ;; TODO: make it work or check if it's not provided with ac by default
        ;;           my-auto-completion.el::     8 ;; TODO: hippie, company
        ;;
+**** DONE fetch web page
+     - and insert it at point
+     - ~/.emacs.d/my-generic-programming-config.el
+     - my-fetch-page
+     - <2013-10-09 śro 15:20>
 **** DONE make text-mode half useful
 ***** with binding and default minor modes and such
 ***** orgstruct-minor-mode
