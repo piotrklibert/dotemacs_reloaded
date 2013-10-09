@@ -45,6 +45,7 @@
        + C-g aborts
        + M-p, M-n (nonincremental searches)
     9. misc
+       + quoted insert (C-v)
        + cancel current line (C-c)
        + clear screen (C-l)
        + transpose-chars, transpose-words (C-t, M-t)
