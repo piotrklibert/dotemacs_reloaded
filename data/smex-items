@@ -1,18 +1,11 @@
 
 ;; ----- smex-history -----
 (
- skewer-coffee-mode
- run-skewer
- eval-buffer
- coffee-mode
- auto-complete-mode
- skewer-mode
- js2-mode
- direx:jump-to-directory
  recover-this-file
  global-hl-line-mode
  byte-recompile-directory
  ffap
+ eval-buffer
  list-packages
  version
  ediff-backup
@@ -46,6 +39,7 @@
  customize-option
  scheme-mode
  facemenu-read-color
+ auto-complete-mode
  run-racket
  smex
  replace-string
@@ -101,6 +95,12 @@
  forward-char
  recentf-mode
  recover-file
+ describe-mode
+ find-function
+ geiser
+ insert-buffer
+ upcase-region
+ customize-face
 )
 
 ;; ----- smex-data -----
@@ -111,7 +111,7 @@
  (vc-annotate . 10)
  (git-log-file . 1)
  (auto-complete . 2)
- (auto-complete-mode . 10)
+ (auto-complete-mode . 9)
  (crontab-get . 1)
  (crontab-mode . 1)
  (replace-rectangle . 3)
@@ -129,7 +129,7 @@
  (geiser . 2)
  (run-geiser . 7)
  (run-racket . 2)
- (eval-buffer . 55)
+ (eval-buffer . 54)
  (scheme-mode . 3)
  (quack-about . 1)
  (calc . 1)
@@ -141,7 +141,7 @@
  (customize-group . 13)
  (customize-option . 9)
  (ediff . 1)
- (coffee-mode . 2)
+ (coffee-mode . 1)
  (package-install . 2)
  (list-packages . 10)
  (cd . 3)
@@ -269,9 +269,4 @@
  >>>>>>>
  master
  (global-hl-line-mode . 1)
- (direx:jump-to-directory . 1)
- (run-skewer . 5)
- (js2-mode . 1)
- (skewer-mode . 1)
- (skewer-coffee-mode . 1)
 )

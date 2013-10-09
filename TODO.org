@@ -2,8 +2,8 @@
 ** przyjscie/wyjscie:
 *** sroda
 **** <2013-10-09 śro 11:50>
-**** <2013-10-09 śro 17:20>
-**** 6h 30m na razie
+**** <2013-10-09 śro 18:20>
+**** 7h 30m
 *** czwartek
 ** TODO ogarnac readline do prezentacji           :work:prezentacja:readline:
    - praktycznie wszystko, co dziala w konsoli i nie jest napisane w curses
@@ -85,10 +85,19 @@
 *** DONE wykorzystac JS template do developmentu
     - dziala i jest fajne
 ** TODO ogarnianie Justyny
-*** still ongoing!
-*** and still as hard as ever
+*** still as hard as ever <2013-10-08>
     dzisiaj ja ladnie zignorowalem, zakladajac sluchawki na uszy... nie wiem,
     czy sie obrazila, ale nie wyglada na to, niestety
+*** dzisiaj znow sie scielismy <2013-10-09>
+    Chodzilo o Scale. Scala jest strasznie bloated (co niektorzy nazywaja
+    feature-rich), ale w sumie nie o to poszlo, a o sposob w jaki kto sie uczy
+    jezyka. Stwierdzila, ze ona uczyla sie Scali w trakcie budowania
+    polrocznego projektu i ze (w domysle) jest to lepszy sposob nauki niz
+    ksiazka i REPL.
+
+    No wiec niewatpliwie ma racje, ale to nie ma nic wspolnego z tym czy Scala
+    jest bloated. Obawiam sie, ze dalem sie znow wyprowadzic w pole - zamiast
+    twardo wracac do tematu, dalem sie wciagnac w dygresje.  Ech.
 ** DONE check if Pawel fixed flyouts
    - he did
 ** DONE review Pawel's pull request
@@ -107,15 +116,11 @@
 *** DONE najpierw trzeba bylo poprawic ten skrypt
 * HOME TODO
 ** TODO smieci wyrzucic
+   - te z lazienki tez
 ** TODO zaplacic czynsz
    - umowic sie z kolesiem, zeby wpadl
    - wlasciwie to zmusic Marte, zeby go umowila
-** TODO zakupy po drodze do domu
-*** simply
-*** mrozonke jakas/zapiekanke/pizze
-*** nestea
-*** mleczko
-*** rekawiczki gumowe
+** TODO kupic nowe rekawiczki gumowe
 ** zwierzaki
 *** TODO nakarmic zwierzaki
     - okazuje, ze jak sie im wrzuca po pol saszetki, to nie dosc, ze zjadaja,
@@ -130,24 +135,28 @@
 **** DONE wtorek wieczor
 **** DONE sroda rano
      - dostaly 3/4 saszetki, ale chyba im nie dosypalem suchego
+**** DONE sroda wieczor
 *** TODO ogarnac zwierzakom wode!
 **** DONE poniedzialek rano
 **** DONE wtorek rano
      - dziwne, ale maja jeszcze pelno
 **** DONE wtorek wieczor
 **** TODO sroda
+     - ciagle maja, ale doleje wieczorem <2013-10-09 śro 19:00>
 *** TODO wyjac z kuwet
 **** DONE niedziela
 **** DONE poniedzialek
      - nie smierdzi jeszcze...
 **** DONE wtorek (juz trzeba)
-**** TODO sroda
-** rzeczy do pracy
+**** DONE sroda
+     - <2013-10-09 śro 19:01>
+** rzeczy do pracy                                                :reference:
    - picie
    - efajka
    - tabletki
    - portfel
    - telefon
+   - noz!
 ** TODO ogarnac problem z omdleniem w niedziele wieczor
    - dzisiaj jest znacznie lepiej
    - wtorek: prawie normalnie sie juz czuje, 2 rano
@@ -156,10 +165,17 @@
 ** DONE fotel ciagle jest mokry!
    - ciekawe, co z nim?
    - no wlasnie? <2013-10-09 śro 15:32>
-** TODO zmywarka
+** DONE zmywarka
    - wlaczyc, jak sie do konca zapelni
    - pewnie jutro <2013-10-09 śro 02:06>
    - rano wlaczylem (sroda)
+   - zrobilo sie <2013-10-09 śro 19:01>
+** DONE zakupy po drodze do domu
+*** simply
+*** mrozonke jakas/zapiekanke/pizze
+*** nestea
+*** mleczko
+*** DONE <2013-10-09 śro 19:17>
 ** DONE zmyc podloge
 *** DONE w niedziele
 *** DONE poniedzialek
@@ -175,10 +191,10 @@
    - w dodatku prywatnego
    - na ec2
 ** TODO Ogarnianie Org Mode                                       :emacs:org:
+*** TODO co Org robi z czasem?
 *** TODO zdefiniowanie wlasnych stanow TODO
     - takie jak na Jirze?
     - priorities chyba tez sie da
-*** co Org robi z czasem?
 *** DONE czas pod C-t C-t
     <2013-10-09 śro 01:58>
     - troche niewygodnie, ale calendar sie wysypuje namietnie
@@ -192,41 +208,41 @@
    - zwiekszyc ram w wirtualce przy okazji
    - wyglada na to, ze build ze zrodel zadzialal
    - tyle, ze nie dziala jego dump
-*** podsumowujac:
-**** skroty do uporzadkowania
-    - posprzatac tu!!!
-    - M-strzalka - zmienia glebokosc albo przenosi wpis
-    - C-c TAB - show children
-    - C-c C-u - backward to higher level heading
-    - C-c C-j - jump, ale jeszcze nie probowalem
-    - C-enter, M-enter - nowy heading, po lub przed obecnym
-    - M-S-enter - new todo entry
-    - M-h - mark current element
-    - C-c @ - mark current subtree
-    - C-c C-x C-w - kill subtree
-    - C-c C-x C-y - yank subtree
-      + znalezc narrow to subtree
-    - C-c ^ - sort
-    - C-c * - heading to normal list i odrotnie
-    - C-c C-* - wsadz current liste w drzewo jako subtree
-    - C-c - - zmien marker wpisow w liscie
-    - C-c C-x d - insert drawer
-    - C-c C-z - time-stamped note at point (in drawer)
-    - tables
-    - links
-    - C-c C-t - zmien stan TODO
-    - S-<right>  /  S-<left> - zmien stan w jedna lub druga strone
-    - C-c / t - view TODO items in buffer
-    - C-c a t - collect all todos
-    - customize
+*** klawiszologia:                                            :org:reference:
+**** poruszanie sie
+     - M-strzalka - zmienia glebokosc albo przenosi wpis
+     - C-c TAB - show children
+     - C-c C-u - backward to higher level heading
+     - C-c C-j - jump, ale jeszcze nie probowalem
+     - C-enter, M-enter - nowy heading, po lub przed obecnym
+     - M-S-enter - new todo entry
+**** mark/kill commands
+     - M-h - mark current element
+     - C-c @ - mark current subtree
+     - C-c C-x C-w - kill subtree
+     - C-c C-x C-y - yank subtree
+       - znalezc narrow to subtree
+**** C-c ^ - sort
+     - C-c C-x d - insert drawer
+     - C-c - - zmien marker wpisow w liscie (S-left/right too)
+     - C-c * - heading to normal list i odrotnie
+     - C-c C-* - wsadz current liste w drzewo jako subtree
+     - C-c C-z - time-stamped note at point (in drawer)
+     - tables
+     - links
+**** Todo/tags related
+     - Na poczatku pliku #+TODO: TODO FEEDBACK VERIFY | DONE CANCELED
+     - C-c C-q/c - set tag
+     - S-up/down - zmien priority
+     - C-c C-t - zmien stan TODO
+     - S-<right>  /  S-<left> - zmien stan TODO w jedna lub druga strone
+     - C-c / t - view TODO items in buffer
+     - C-c a t - collect all todos
+     - check habits, what are they
+**** customization
       - org-todo-keywords
       - org-todo-keyword-faces
       - org-log-done 'time
-    - Na poczatku pliku #+TODO: TODO FEEDBACK VERIFY | DONE CANCELED
-    - check habits
-    - S-up/down - priority
-    - C-c C-q/c - set tag
-**** C-c C-u - move up in the tree
 ** DONE make a keybinding for magit-status already                     :work:
    bound to `C-c C-g'
 ** make an org-mode ready emacs for Martun
@@ -414,7 +430,7 @@
 ** Icicles - try to enable them... or not?
 ** ogarnac nowego wombata theme
 ** Backspace in tmux too!
-* REFERENCES
+* REFERENCES                                                      :reference:
 ** Konrad:
    - Sorry for example but there is no point showing shit and say that it stinks
      and based on this claim that everything stinks
