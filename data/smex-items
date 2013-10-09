@@ -1,6 +1,16 @@
 
 ;; ----- smex-history -----
 (
+ apropos
+ my-fetch-page
+ table-unrecognize-table
+ table-recognize-table
+ replace-regexp
+ fill-individual-paragraphs
+ fill-region
+ orgtbl-mode
+ my-insert-today
+ vc-ediff
  recover-this-file
  global-hl-line-mode
  byte-recompile-directory
@@ -35,7 +45,6 @@
  run-geiser
  list-colors-display
  list-faces-display
- apropos
  customize-option
  scheme-mode
  facemenu-read-color
@@ -43,8 +52,6 @@
  run-racket
  smex
  replace-string
- table-unrecognize-table
- replace-regexp
  table-shorten-cell
  center-line
  kill-rectangle
@@ -76,7 +83,6 @@
  describe-keymap
  package-install
  describe-unbound-keys
- table-recognize-table
  temp-buffer-resize-mode
  calc
  term
@@ -95,12 +101,6 @@
  forward-char
  recentf-mode
  recover-file
- describe-mode
- find-function
- geiser
- insert-buffer
- upcase-region
- customize-face
 )
 
 ;; ----- smex-data -----
@@ -115,7 +115,7 @@
  (crontab-get . 1)
  (crontab-mode . 1)
  (replace-rectangle . 3)
- (apropos . 17)
+ (apropos . 21)
  (iedit-mode . 2)
  (eval-region . 2)
  (eval-print-last-sexp . 1)
@@ -134,7 +134,7 @@
  (quack-about . 1)
  (calc . 1)
  (calculator . 2)
- (replace-regexp . 23)
+ (replace-regexp . 25)
  (open-rectangle . 2)
  (string-rectangle . 6)
  (emacs-lisp-mode . 3)
@@ -194,7 +194,7 @@
  (transpose-lines . 1)
  (center-paragraph . 1)
  (recenter . 1)
- (table-recognize-table . 2)
+ (table-recognize-table . 3)
  (table-recognize-region . 1)
  (free-rectangle-mode . 36)
  (auto-mark-mode . 7)
@@ -235,7 +235,7 @@
  (table-shorten-cell . 18)
  (table-widen-cell . 5)
  (table-narrow-cell . 6)
- (table-unrecognize-table . 1)
+ (table-unrecognize-table . 2)
  (dired-x-find-file . 1)
  (smex . 1)
  (racket-send-last-sexp . 2)
@@ -269,4 +269,10 @@
  >>>>>>>
  master
  (global-hl-line-mode . 1)
+ (vc-ediff . 1)
+ (my-insert-today . 1)
+ (orgtbl-mode . 1)
+ (fill-region . 1)
+ (fill-individual-paragraphs . 4)
+ (my-fetch-page . 1)
 )
