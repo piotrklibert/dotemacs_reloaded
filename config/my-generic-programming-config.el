@@ -50,7 +50,7 @@
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)                     ; Maintain tag database.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)            ; Show completions when idle.
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)            ; Show completions when idle.
 ;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)                  ; Additional tag decorations.
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
 (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.

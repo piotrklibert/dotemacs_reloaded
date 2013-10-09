@@ -38,8 +38,6 @@
 
 
 
-
-
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
 ;;                          | ' /|  _|  \ V /\___ \
@@ -159,3 +157,27 @@ are not already."
   (interactive)
   (when (not (s-contains? "unix" (symbol-name buffer-file-coding-system)))
     (set-buffer-file-coding-system 'utf-8-unix)))
+
+;; Stolen from: http://www.emacswiki.org/cgi-bin/wiki/Journal
+
+(add-hook 'org-mode-hook 'my-org-hook)
+(defun my-org-hook ()
+  (define-key special-mode-map (kbd ".") 'my-insert-now))
+
+(defun my-now (&optional arg)
+  "Insert string for the current time formatted like '2:34 PM'."
+  (interactive "p")
+  (format-time-string "%H:%M"))
+
+(defun my-insert-today ()
+  "Insert string for today's date nicely formatted in American style,
+e.g. Sunday, September 17, 2000."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (concat "<"
+                  (format-time-string "%Y-%m-%d %a")
+                  " "
+                  (my-now)
+                  ">")))
+
+(define-key my-toggle-keys (kbd "t") 'my-insert-today)
+(define-key my-toggle-keys (kbd "C-t") 'my-insert-today)

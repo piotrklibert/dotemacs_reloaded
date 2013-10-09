@@ -1,3 +1,8 @@
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(fringe-mode '(4 . 8))
+
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
 (unless (featurep 'cedet-devel-load)
@@ -6,6 +11,7 @@
   (load "~/cedet/cedet-devel-load.el")
   (load "~/cedet/contrib/cedet-contrib-load.el"))
 
+;; TODO: this is generally what package-initialize does.
 (defmacro add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
   `(dolist (dir (list ,@dirs))
@@ -41,10 +47,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Beware: Help At Pt group!
 
+
 (load-theme          'wombat)
-(tool-bar-mode       -1)
-(scroll-bar-mode     -1)
-(fringe-mode         '(4 . 8))
 (set-cursor-color    "white")
 (when window-system
   (mouse-wheel-mode t)

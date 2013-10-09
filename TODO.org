@@ -24,24 +24,37 @@
 ** DONE wyslany email do Lory i Dana z workerami
 *** DONE najpierw trzeba bylo poprawic ten skrypt
 * HOME TODO
+** TODO smieci wyrzucic
+** TODO zakupy:
+*** cos do pracy? nie mam pomyslu
+*** nestea
+*** rekawiczki gumowe
+*** mleczko
 ** Zwierzaki
 *** TODO nakarmic zwierzaki
+    - okazuje, ze jak sie im wrzuca po pol saszetki, to nie dosc, ze zjadaja,
+      to jeszcze chca wiecej. Co za koszmarne, zlosliwe potwory.
+    <2013-10-09 śro 01:57>
 **** DONE niedziela wieczor
 **** DONE poniedzialek rano
 **** DONE poniedzialek wieczor
-     - te kurwy nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko pol
-       saszetki
+     - te szczury wredne nie zjadly wszystkiego, wiec wrzucilem im dzisiaj tylko
+       pol saszetki
 **** DONE wtorek rano
+**** DONE wtorek wieczor
+**** TODO sroda rano
 *** TODO ogarnac zwierzakom wode!
 **** DONE poniedzialek rano
 **** DONE wtorek rano
      - dziwne, ale maja jeszcze pelno
-**** TODO wtorek wieczor
+**** DONE wtorek wieczor
+**** TODO sroda
 *** TODO wyjac z kuwet
 **** DONE niedziela
 **** DONE poniedzialek
      - nie smierdzi jeszcze...
-**** TODO wtorek (juz trzeba)
+**** DONE wtorek (juz trzeba)
+**** TODO sroda
 ** TODO rzeczy na jutro/do pracy
    - ubranie
    - picie
@@ -49,16 +62,19 @@
    - tabletki
 ** TODO ogarnac problem z omdleniem w niedziele wieczor
    - dzisiaj jest znacznie lepiej
-   - wtorek: prawie normalnie sie juz czuje, polknalem 2 tabl rano
-** TODO fotel ciagle jest mokry!
-** TODO picie i jedzenie
-   - cos do pracy? nie mam pomyslu
+   - wtorek: prawie normalnie sie juz czuje, 2 rano
+   - dzisiaj bylo calkiem spoko, wieczorem lepiej. 4 albo 5
+     <2013-10-09 śro 02:04>
+** DONE fotel ciagle jest mokry!
+   - ciekawe, co z nim?
 ** TODO zmywarka
    - wlaczyc, jak sie do konca zapelni
-** TODO zmyc podloge
+   - pewnie jutro <2013-10-09 śro 02:06>
+** DONE zmyc podloge
 *** DONE w niedziele
 *** DONE poniedzialek
-*** TODO wtorek
+*** DONE wtorek - nie
+*** sroda
 ** DONE umyc jakos ta cholerna miskie
    - sama sie odmoczyla
 ** DONE zrobic miejsce do pracy przy biurku
@@ -78,8 +94,15 @@
    - ale wg. mojej wiedzy bash juz tak
 *** slideshow Racketa! Bo jest super.
 ** TODO Ogarnianie Org Mode                                       :emacs:org:
-*** ogarnac troche org-mode, zaczynajac od tego pliku tutaj
-*** debug core dumped after insert timestamp
+*** TODO zdefiniowanie wlasnych stanow TODO
+    - takie jak na Jirze?
+    - priorities chyba tez sie da
+*** co Org robi z czasem?
+*** DONE czas pod C-t C-t
+    <2013-10-09 śro 01:58>
+    - troche niewygodnie, ale calendar sie wysypuje namietnie
+    - a org-mode przepisuje keymaps w zaleznosci od kontekstu...
+*** DONE debug core dumped after insert timestamp
    - C-c . - insert timestamp
    - gdb twierdzi, ze cos zlego sie stalo w Cairo
    - wiec je rekompiluje
@@ -88,11 +111,9 @@
    - zwiekszyc ram w wirtualce przy okazji
    - wyglada na to, ze build ze zrodel zadzialal
    - tyle, ze nie dziala jego dump
-*** TODO zdefiniowanie wlasnych stanow TODO
-    - takie jak na Jirze?
-    - priorities chyba tez sie da
 *** podsumowujac:
-    - posprzatac tu
+**** skroty do uporzadkowania
+    - posprzatac tu!!!
     - M-strzalka - zmienia glebokosc albo przenosi wpis
     - C-c TAB - show children
     - C-c C-u - backward to higher level heading
@@ -124,6 +145,7 @@
     - check habits
     - S-up/down - priority
     - C-c C-q/c - set tag
+**** C-c C-u - move up in the tree
 ** DONE make a keybinding for magit-status already                     :work:
    bound to `C-c C-g'
 ** make an org-mode ready emacs for Martun
@@ -131,7 +153,10 @@
 *** TODO download windows version of Emacs
 *** TODO add basic init.el with theme and some settings
     - which settings?
-** EMACS [23%]                                                        :emacs:
+** EMACS [21%]                                                        :emacs:
+**** TODO Look at el-get instead of package.el
+     - because it's just better (I think)
+     - remove this hackish macro for adding packages to load-path when done
 **** TODO finish rewriting `align-by-current-symbol', also:
      - remaining:
        1. make region detecting function check presence of a symbol
@@ -157,6 +182,7 @@
 **** ace jump - config
      - how fast it is?
 **** finish rewriting `all.el':
+     - thinking about this a bit: it's only good for demos?
      - miltiple buffers
      - in a single buffer iedit with C-; C-' works well too
      - no shitty setq to undeclared globals
