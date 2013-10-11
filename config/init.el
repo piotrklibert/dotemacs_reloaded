@@ -256,6 +256,8 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
+ '(org-agenda-files (quote ("/root/todo/")))
+ '(org-drawers (quote ("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES")))
  '(org-hide-leading-stars t)
  '(package-archives
    (quote

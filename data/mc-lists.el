@@ -11,6 +11,8 @@
         indent-for-tab-command
         kill-sexp
         mark-word
+        org-beginning-of-line
+        org-end-of-line
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-open-round

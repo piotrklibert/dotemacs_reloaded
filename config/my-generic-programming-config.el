@@ -63,7 +63,9 @@
 (global-auto-mark-mode 1)
 (wrap-region-global-mode t)
 (electric-pair-mode 1)
-(global-linum-mode 1)                   ; Show line numbers on buffers
+;; this makes pdf viewing unusable, and offers no way of excluding some modes,
+;; so I will enable it for programming modes only
+;; (global-linum-mode 1)                   ; Show line numbers on buffers
 (column-number-mode t)
 (show-paren-mode t)
 
@@ -157,6 +159,7 @@
   (fci-mode 1)
   (undo-tree-mode 1)
   (delete-selection-mode 1)
+  (linum-mode 1)
 
   ;; TODO: why not in python-mode?
   (when (not (memq major-mode '(python-mode
