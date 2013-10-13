@@ -1,3 +1,11 @@
+;; TODO:
+;; save all org mode buffers on push/pull
+;; success message
+;; * parse rsync output
+;; * one line message only
+;; * notify about failure too
+
+
 (setq org-directory "~/todo/")
 (setq org-agenda-files (list "~/todo/"))
 (setq org-mobile-directory "~/orgmobile/")
@@ -14,6 +22,9 @@
 ;;| |_| |  _ <| |_| |_____|  __/| |_| |___) |  _  |/ / |  __/| |_| | |___| |___
 ;; \___/|_| \_\\____|     |_|    \___/|____/|_| |_/_/  |_|    \___/|_____|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; YaSnippet: mo - insert my-org defun
+;;
 
 
 (defvar my-org-rsync-output "")
