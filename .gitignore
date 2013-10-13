@@ -55,3 +55,6 @@ semanticdb/
 srecode-map.el
 url/cookies
 .ropeproject
+.org-id-locations
+data/smex-items
+places

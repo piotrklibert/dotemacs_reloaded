@@ -141,6 +141,7 @@
 ;; git configuration, not much there
 (load "my-vcs-config")
 
+(load "my-org-config")
 
 
 ;;
@@ -258,6 +259,17 @@
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("/root/todo/")))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES")))
+ '(org-emphasis-alist
+   (quote
+    (("*" bold "<b>" "</b>")
+     ("/" italic "<i>" "</i>")
+     ("_" underline "<span style=\"text-decoration:underline;\">" "</span>")
+     ("=" org-code "<code>" "</code>" verbatim)
+     ("`" org-code "<code>" "</code>" verbatim)
+     ("~" org-verbatim "<code>" "</code>" verbatim)
+     ("+"
+      (:strike-through t)
+      "<del>" "</del>"))))
  '(org-hide-leading-stars t)
  '(package-archives
    (quote
@@ -320,3 +332,4 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+(put 'erase-buffer 'disabled nil)
