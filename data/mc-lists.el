@@ -15,7 +15,10 @@
         org-end-of-line
         paredit-forward-delete
         paredit-forward-kill-word
+        paredit-forward-slurp-sexp
+        paredit-meta-doublequote
         paredit-open-round
+        paredit-wrap-round
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         ))

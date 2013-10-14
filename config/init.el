@@ -141,6 +141,7 @@
 ;; git configuration, not much there
 (load "my-vcs-config")
 
+;; org-mode customizations
 (load "my-org-config")
 
 
@@ -270,7 +271,12 @@
      ("+"
       (:strike-through t)
       "<del>" "</del>"))))
+ '(org-enforce-todo-dependencies t)
  '(org-hide-leading-stars t)
+ '(org-log-into-drawer t)
+ '(org-show-siblings (quote ((default . t) (isearch t))))
+ '(org-special-ctrl-a/e t)
+ '(org-special-ctrl-k t)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")

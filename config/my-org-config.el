@@ -5,14 +5,48 @@
 ;; * one line message only
 ;; * notify about failure too
 
-
 (setq org-directory "~/todo/")
 (setq org-agenda-files (list "~/todo/"))
 (setq org-mobile-directory "~/orgmobile/")
 (setq org-mobile-inbox-for-pull "~/todo/mobile-pull.org")
-;; (setq org-mobile-force-id-on-agenda-items nil)
+
 
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+(defun my-org-hook ()
+  (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
+  (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
+  (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
+  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level))
+
+
+(add-hook 'org-mode-hook 'my-org-hook)
+
+
+;; org-goto-interface
+;; org-goto-auto-isearch
+
+
+;; Stolen from: http://www.emacswiki.org/cgi-bin/wiki/Journal
+
+(defun my-now (&optional arg)
+  "Insert string for the current time formatted like '2:34 PM'."
+  (interactive "p")
+  (format-time-string "%H:%M"))
+
+(defun my-insert-today ()
+  "Insert string for today's date nicely formatted in American style,
+e.g. Sunday, September 17, 2000."
+  (interactive)                 ; permit invocation in minibuffer
+  (insert (concat "<"
+                  (format-time-string "%Y-%m-%d %a")
+                  " "
+                  (my-now)
+                  ">")))
+
+(define-key my-toggle-keys (kbd "t") 'my-insert-today)
+(define-key my-toggle-keys (kbd "C-t") 'my-insert-today)
+
 
 
 
