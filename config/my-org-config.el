@@ -10,6 +10,7 @@
 (setq org-mobile-directory "~/orgmobile/")
 (setq org-mobile-inbox-for-pull "~/todo/mobile-pull.org")
 
+(require 'org)
 (org-remember-insinuate)
 
 (global-set-key (kbd "C-c a") 'org-agenda)

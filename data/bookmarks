@@ -2,7 +2,20 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("*info*: Document Viewing *******************" 0 44
+(#1=(#("org-refile-last-stored" 0 22
+      (bmkp-full-record #1#))
+    (filename . "~/my-todo/todo.org")
+    (buffer-name . "todo.org")
+    (front-context-string . "*** customowe ag")
+    (rear-context-string . " 0:10\n    :END:\n")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21085 21186 771960 373000))
+    (created . #2#)
+    (position . 16992)
+    (end-position . 16992))
+#1=(#("*info*: Document Viewing *******************" 0 44
       (bmkp-full-record #1#))
     (buffer-name . "*info*")
     (front-context-string . "Document Viewing\n*******************")

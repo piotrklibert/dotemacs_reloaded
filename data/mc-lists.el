@@ -5,6 +5,7 @@
       '(
         backward-sexp
         beginning-of-buffer
+        coffee-dedent-line-backspace
         elscreen-create
         end-of-buffer
         forward-sexp

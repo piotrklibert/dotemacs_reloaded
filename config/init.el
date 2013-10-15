@@ -274,6 +274,7 @@
  '(org-enforce-todo-dependencies t)
  '(org-hide-leading-stars t)
  '(org-log-into-drawer t)
+ '(org-refile-targets (quote ((nil :maxlevel . 3))))
  '(org-show-siblings (quote ((default . t) (isearch t))))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)

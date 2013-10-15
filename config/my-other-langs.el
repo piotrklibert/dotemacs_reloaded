@@ -1,7 +1,6 @@
 ;;
 ;; Django templates mode
 ;;
-
 ;; Alternative (does not work very well):
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
@@ -9,7 +8,9 @@
 (add-hook 'web-mode-hook (lambda ()
                            (define-key web-mode-map (kbd "C-c C-s") 'web-mode-scan-buffer)
                            (electric-pair-mode -10)
-                           (hs-minor-mode -1)))
+                           (hs-minor-mode -1)
+                           (fci-mode -1)))
+(delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
 ;; (add-to-list 'load-path "path-to/django-mode/")
 ;; (require 'django-html-mode)

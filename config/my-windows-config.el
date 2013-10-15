@@ -26,6 +26,9 @@
 (define-key my-wnd-keys (kbd "<right>")             'my-enlarge-window-horizontally)
 (define-key my-wnd-keys (kbd "<left>")              'my-shrink-window-horizontally)
 
+(define-key my-wnd-keys (kbd "<up>")                'enlarge-window)
+(define-key my-wnd-keys (kbd "<down>")              'shrink-window)
+
 
 (define-key my-wnd-keys (kbd "C-<up>")              'windmove-up)
 (define-key my-wnd-keys (kbd "C-<down>")            'windmove-down)
