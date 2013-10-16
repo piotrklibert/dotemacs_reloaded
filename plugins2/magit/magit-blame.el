@@ -103,11 +103,13 @@
          (setq magit-blame-buffer-read-only buffer-read-only)
          (magit-blame-file-on (current-buffer))
          (set-buffer-modified-p nil)
-         (setq buffer-read-only t))
+         (setq buffer-read-only t)
+         (fci-mode -1))
         (t
          (magit-blame-file-off (current-buffer))
          (set-buffer-modified-p nil)
-         (setq buffer-read-only magit-blame-buffer-read-only))))
+         (setq buffer-read-only magit-blame-buffer-read-only)
+         (fci-mode 1))))
 
 (defun magit-blame-file-off (buffer)
   (save-excursion

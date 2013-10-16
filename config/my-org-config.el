@@ -12,6 +12,7 @@
 
 (setq org-default-notes-file "~/todo/notes")
 
+
 (require 'org)
 (org-remember-insinuate)
 (setq remember-annotation-functions '(org-remember-annotation))
@@ -19,10 +20,12 @@
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
 
-
 (setq org-remember-templates '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i"
-                                "~/todo/todo.org" "TASKS")
-                               ))
+                                "~/todo/todo.org" "TASKS")))
+
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "runchrome.sh")
 
 ;; ("Journal" ?j "\n* %^{topic} %T \n%i%?\n" "L:journal.org")
 ;; ("Book" ?b "\n* %^{Book Title} %t :READING: \n%[l:/booktemp.txt]\n"
@@ -46,10 +49,6 @@
 ;;      ("Vocab"   ?v "** %^{Word?}\n%?\n"  "~/GTD/vocab.org")
 ;;     )
 ;;   )
-
-
-
-
 
 
 (global-set-key (kbd "C-c a") 'org-agenda)
