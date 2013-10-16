@@ -27,29 +27,6 @@
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "runchrome.sh")
 
-;; ("Journal" ?j "\n* %^{topic} %T \n%i%?\n" "L:journal.org")
-;; ("Book" ?b "\n* %^{Book Title} %t :READING: \n%[l:/booktemp.txt]\n"
-;;  "L:journal.org")
-;; ("Private" ?p "\n* %^{topic} %T \n%i%?\n" "F:/gtd/privnotes.org")
-;; ("Contact" ?c "\n* %^{Name} :CONTACT:\n%[l:/contemp.txt]\n"
-;;  "F:/gtd/privnotes.org")
-
-;; (setq org-remember-templates
-;;    '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/GTD/newgtd.org" "Tasks")
-;;      ("Journal"   ?j "** %^{Head Line} %U %^g\n%i%?"  "~/GTD/journal.org")
-;;      ("Clipboard" ?c "** %^{Head Line} %U %^g\n%c\n%?"  "~/GTD/journal.org")
-;;      ("Receipt"   ?r "** %^{BriefDesc} %U %^g\n%?"   "~/GTD/finances.org")
-;;      ("Book" ?b "** %^{Book Title} %t :BOOK: \n%[~/.book_template.txt]\n"
-;;         "~/GTD/journal.org")
-;;          ("Film" ?f "** %^{Film Title} %t :FILM: \n%[~/.film_template.txt]\n"
-;;         "~/GTD/journal.org")
-;;      ("Daily Review" ?a "** %t :COACH: \n%[~/.daily_review.txt]\n"
-;;         "~/GTD/journal.org")
-;;      ("Someday"   ?s "** %^{Someday Heading} %U\n%?\n"  "~/GTD/someday.org")
-;;      ("Vocab"   ?v "** %^{Word?}\n%?\n"  "~/GTD/vocab.org")
-;;     )
-;;   )
-
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c r") 'org-remember)
@@ -101,11 +78,9 @@ e.g. Sunday, September 17, 2000."
 ;;
 ;; YaSnippet: mo - insert my-org defun
 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'deferred)
 
-
-(defvar my-org-rsync-output "")
-(defvar my-org-rsync-pname "*OrgSync*")
-(defvar my-org-rsync nil)
 
 ;;
 ;; INTERFACE
@@ -113,57 +88,42 @@ e.g. Sunday, September 17, 2000."
 
 ;;;###autoload
 (defun my-org-export ()
-  "Export org files to OrgMobile."
   (interactive)
-  (org-mobile-push)
-  (my-org-start-rsync "orgmobile ec2:" )
-  (my-org-start-timer))
+  (deferred:$
+    (deferred:call 'org-mobile-push)
+    (deferred:nextc it (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
+    (deferred:nextc it (lambda (p)         (my-bzr-commit-and-push)))
+    (deferred:error it (lambda (er)        (message "err: %s" er)))
+    (deferred:nextc it (lambda (&rest arg) (message "export finished")))))
 
 ;;;###autoload
 (defun my-org-import ()
-  "Fetch changes from OrgMobile and pull them into org."
   (interactive)
-  (my-org-start-rsync "ec2:orgmobile/ orgmobile")
-  (my-org-start-timer 'org-mobile-pull))
-
+  (deferred:$
+    (my-start-rsync "ec2:orgmobile/ orgmobile")
+    (deferred:nextc it
+      (lambda (out)
+        (message "import finished")))))
 
 
 ;;
 ;; IMPLEMENTATION
 ;;
 
-(defun bzr-commit ()
-  (start-process-shell-command "bzr" "bzr" "bzr commit -m '.'")
-  (start-process-shell-command "bzr" "bzr" "bzr push"))
-
-(defun my-org-start-rsync (spec)
-  "Start a new async rsync process. It will be started from home
-directory. A `spec' arg is a string with two paths, FROM and TO,
-in a format rsync will recognize."
-  (let ((pname my-org-rsync-pname)
-        (cmd (concat "cd ~/ && rsync --rsh=\"ssh\" -avc "
-                     spec)))
-    (setq my-org-rsync (start-process-shell-command pname pname cmd))
-    (set-process-filter my-org-rsync 'my-org-rsync-filter)))
-
-(defun my-org-rsync-filter (process output)
-  (setq my-org-rsync-output (concat my-org-rsync-output output)))
+(defun my-bzr-commit-and-push ()
+  (deferred:$
+    (deferred:process-shell "cd ~/todo/ && bzr ci -m \"commit\"")
+    (deferred:nextc it (lambda (output)
+                         (deferred:process-shell "cd ~/todo/ && bzr push")))
+    (deferred:nextc it (lambda (output)
+                         (message "bzr finished")))))
 
 
-(defun my-org-start-timer (&optional callback)
-  "Schedule an rsync status checker to run in a bit. Pass a
-callback to the checker if specified."
-  (run-at-time "2 sec" nil 'my-org-check-rsync-status callback))
-
-(defun my-org-check-rsync-status (&optional callback)
-  "Check if rsync process finished. If not, try again in a bit.
-It it finished print a message, clean-up it's buffer, output and
-process. At the end (optionally) execute given callback."
-  (if (not (eq (process-status my-org-rsync) 'exit))
-      (my-org-start-timer callback)
-    (message "Rsync finished with:\n'%s'" my-org-rsync-output)
-    (setq my-org-rsync nil
-          my-org-rsync-output "")
-    (kill-buffer my-org-rsync-pname)
-    (when callback
-      (funcall callback))))
+(defun my-start-rsync (spec)
+  (message "start-rsync being called")
+  (let ((cmd (concat "cd ~/ && rsync --rsh=\"ssh\" -avc " spec)))
+    (deferred:$
+      (deferred:process-shell cmd)
+      (deferred:nextc it (lambda (out)
+                           (message "rsync finished" out)
+                           (deferred:succeed out))))))
