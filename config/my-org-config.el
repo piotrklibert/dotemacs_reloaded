@@ -133,6 +133,10 @@ e.g. Sunday, September 17, 2000."
 ;; IMPLEMENTATION
 ;;
 
+(defun bzr-commit ()
+  (start-process-shell-command "bzr" "bzr" "bzr commit -m '.'")
+  (start-process-shell-command "bzr" "bzr" "bzr push"))
+
 (defun my-org-start-rsync (spec)
   "Start a new async rsync process. It will be started from home
 directory. A `spec' arg is a string with two paths, FROM and TO,
