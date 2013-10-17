@@ -2,19 +2,32 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("org-refile-last-stored" 0 22
+(#1=(#("org-remember-last-stored" 0 24
       (bmkp-full-record #1#))
-    (filename . "~/my-todo/todo.org")
+    (filename . "~/todo/todo.org")
     (buffer-name . "todo.org")
-    (front-context-string . "*** customowe ag")
-    (rear-context-string . " 0:10\n    :END:\n")
+    (front-context-string . "** TODO moar rem")
+    (rear-context-string . "ll callback))))\n")
     (front-context-region-string)
     (rear-context-region-string)
     (visits . 0)
-    (time . #2=(21085 21186 771960 373000))
+    (time . #2=(21087 8277 215708 327000))
     (created . #2#)
-    (position . 16992)
-    (end-position . 16992))
+    (position . 2604)
+    (end-position . 2604))
+#1=(#("org-refile-last-stored" 0 22
+      (bmkp-full-record #1#))
+    (filename . "~/todo/todo.org")
+    (buffer-name . "todo.org")
+    (front-context-string . "*** TODO moar re")
+    (rear-context-string . "ing work time]]\n")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21087 8392 42841 270000))
+    (created . #2#)
+    (position . 21877)
+    (end-position . 21877))
 #1=(#("*info*: Document Viewing *******************" 0 44
       (bmkp-full-record #1#))
     (buffer-name . "*info*")
@@ -260,9 +273,9 @@
     (position . 194)
     (end-position . 194))
 #1=(#("other-langs" 0 1
-      (help-echo #2="File `~/.emacs.d/config/my-other-langs.el', position 171" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
+      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/.emacs.d/config/my-other-langs.el', position 171" help-echo #2#)
       1 11
-      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
+      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
     (filename . "~/.emacs.d/config/my-other-langs.el")
     (buffer-name . "my-other-langs.el")
     (front-context-string . "(setq mumamo-bac")
@@ -275,9 +288,9 @@
     (position . 833)
     (end-position . 833))
 #1=(#("modern_base.html" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `/usr/www/tagasauris/tagasauris/templates/actions/modern_base.html', position 1" help-echo #2#)
+      (help-echo #2="File `/usr/www/tagasauris/tagasauris/templates/actions/modern_base.html', position 1" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 16
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (filename . "/usr/www/tagasauris/tagasauris/templates/actions/modern_base.html")
     (buffer-name . "modern_base.html")
     (front-context-string . "{% load compress")
@@ -290,9 +303,9 @@
     (position . 1)
     (end-position . 1))
 #1=(#("general-config" 0 1
-      (help-echo #2="File `~/.emacs.d/config/my-general-config.el', position 1" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
+      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/.emacs.d/config/my-general-config.el', position 1" help-echo #2#)
       1 14
-      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
+      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
     (filename . "~/.emacs.d/config/my-general-config.el")
     (buffer-name . "my-general-config.el")
     (front-context-string . "(require 'cl)\n\n\n")
@@ -305,9 +318,9 @@
     (position . 1)
     (end-position . 1))
 #1=(#("common" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="Dired /usr/www/productozauris/src/10coluds-common.egg/tenclouds/, position 220" help-echo #2#)
+      (help-echo #2="Dired /usr/www/productozauris/src/10coluds-common.egg/tenclouds/, position 220" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 6
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (buffer-name . "tenclouds")
     (front-context-string . ".ropeproject\n  -")
     (rear-context-string . "512 01-10 14:55 ")
@@ -339,9 +352,9 @@
     (position . 37)
     (end-position . 37))
 #1=(#("org-capture-last-stored" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/org/notes.org', position 340" help-echo #2#)
+      (help-echo #2="File `~/org/notes.org', position 340" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 23
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (filename . "~/org/notes.org")
     (buffer-name . "notes.org")
     (front-context-string . "** TODO wefwef\nf")
@@ -354,9 +367,9 @@
     (position . 340)
     (end-position . 340))
 #1=(#("dynamic-scoping.txt" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/dynamic-scoping.txt', position 1" help-echo #2#)
+      (help-echo #2="File `~/dynamic-scoping.txt', position 1" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 19
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (filename . "~/dynamic-scoping.txt")
     (buffer-name . "dynamic-scoping.txt")
     (front-context-string)
@@ -369,9 +382,9 @@
     (position . 1)
     (end-position . 1))
 #1=(#("config" 0 1
-      (face bmkp-local-directory bmkp-full-record #1#)
+      (bmkp-full-record #1# face bmkp-local-directory)
       1 6
-      (face bmkp-local-directory bmkp-full-record #1#))
+      (bmkp-full-record #1# face bmkp-local-directory))
     (buffer-name . "config")
     (front-context-string . "init-config.el\n ")
     (rear-context-string . "387 05-20 08:49 ")
@@ -390,9 +403,9 @@
     (dired-hidden-dirs)
     (handler . bmkp-jump-dired))
 #1=(#("define-key" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/.emacs.d/config/my-other-modes.el', position 451" help-echo #2#)
+      (help-echo #2="File `~/.emacs.d/config/my-other-modes.el', position 451" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 10
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (filename . "~/.emacs.d/config/my-other-modes.el")
     (buffer-name . "my-other-modes.el")
     (front-context-string . "(define-key my-b")
@@ -405,9 +418,9 @@
     (position . 451)
     (end-position . 451))
 #1=(#("my-general-config.el" 0 1
-      (bmkp-full-record #1# face bmkp-local-file-without-region icicle-mode-line-help #2="File `~/.emacs.d/config/my-general-config.el', position 1335" help-echo #2#)
+      (help-echo #2="File `~/.emacs.d/config/my-general-config.el', position 1335" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 20
-      (bmkp-full-record #1# face bmkp-local-file-without-region help-echo #2#))
+      (help-echo #2# face bmkp-local-file-without-region bmkp-full-record #1#))
     (end-position . 1335)
     (time 20890 42548 918676 546000)
     (visits . 1)
