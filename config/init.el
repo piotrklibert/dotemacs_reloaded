@@ -300,6 +300,7 @@
      ("ERRAND" . 108)
      ("WISDOM" . 100)
      ("ARCHIVE" . 107))))
+ '(org-tags-column -95)
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
