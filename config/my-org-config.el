@@ -12,6 +12,25 @@
 
 (setq org-default-notes-file "~/todo/notes")
 
+;; This is customized:
+;; (setq-default org-tag-alist '((:startgroup)
+;;                               ("WORK" . 119)
+;;                               ("HOME" . 104)
+;;                               (:endgroup)
+;;                               ("COMPUTER" . 99)
+;;                               ("PROJECT" . 112)
+;;                               ("READING" . 114)
+;;                               ("WATCHING" . 116)
+;;                               (:newline)
+;;                               ("ERRAND" . 108)
+;;                               ("WISDOM" . 100)
+;;                               ("ARCHIVE" . 107)))
+;; (setq-default org-todo-keywords
+;;               '((sequence "TODO(t)" "STARTED(s!)"
+;;                           "WAITING(w@)" "|"
+;;                           "DONE(d@)" "CANCELED(c@)")
+;;                 (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|"
+;;                           "FINISHED(f@)")))
 
 (require 'org)
 (org-remember-insinuate)
@@ -32,11 +51,21 @@
 (global-set-key (kbd "C-c r") 'org-remember)
 
 
+(defun my-org-jump-to-heading (heading)
+  (interactive
+   (list (org-icompleting-read "Value: "
+                               (mapcar 'list (org-property-values "CUSTOM_ID")))))
+  (org-match-sparse-tree nil (concat "CUSTOM_ID=\"" heading "\"")))
+
+
 (defun my-org-hook ()
   (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
   (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
-  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level))
+  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
+  (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading))
+
+
 
 
 (add-hook 'org-mode-hook 'my-org-hook)

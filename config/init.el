@@ -259,6 +259,8 @@
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("/root/todo/")))
+ '(org-columns-default-format
+   "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES")))
  '(org-emphasis-alist
    (quote
@@ -272,12 +274,36 @@
       (:strike-through t)
       "<del>" "</del>"))))
  '(org-enforce-todo-dependencies t)
+ '(org-global-properties
+   (quote
+    (("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00"))))
  '(org-hide-leading-stars t)
+ '(org-hierarchical-todo-statistics t)
+ '(org-log-done (quote note))
  '(org-log-into-drawer t)
+ '(org-log-repeat (quote note))
  '(org-refile-targets (quote ((nil :maxlevel . 3))))
  '(org-show-siblings (quote ((default . t) (isearch t))))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)
+ '(org-tag-alist
+   (quote
+    ((:startgroup)
+     ("WORK" . 119)
+     ("HOME" . 104)
+     (:endgroup)
+     ("COMPUTER" . 99)
+     ("PROJECT" . 112)
+     ("READING" . 114)
+     ("WATCHING" . 116)
+     (:newline)
+     ("ERRAND" . 108)
+     ("WISDOM" . 100)
+     ("ARCHIVE" . 107))))
+ '(org-todo-keywords
+   (quote
+    ((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
+     (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|" "FINISHED(f@)"))))
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
