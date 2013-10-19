@@ -132,6 +132,7 @@ e.g. Sunday, September 17, 2000."
     (my-start-rsync "ec2:orgmobile/ orgmobile")
     (deferred:nextc it
       (lambda (out)
+        (org-mobile-pull)
         (message "import finished")))))
 
 

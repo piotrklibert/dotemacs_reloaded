@@ -282,7 +282,10 @@
  '(org-log-done (quote note))
  '(org-log-into-drawer t)
  '(org-log-repeat (quote note))
- '(org-refile-targets (quote ((nil :maxlevel . 3))))
+ '(org-refile-targets
+   (quote
+    ((nil :maxlevel . 3)
+     (org-agenda-files :maxlevel . 1))))
  '(org-show-siblings (quote ((default . t) (isearch t))))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)
@@ -302,7 +305,7 @@
      ("ARCHIVE" . 107))))
  '(org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
+    ((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
      (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|" "FINISHED(f@)"))))
  '(package-archives
    (quote
