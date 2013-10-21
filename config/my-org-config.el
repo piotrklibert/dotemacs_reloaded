@@ -12,25 +12,6 @@
 
 (setq org-default-notes-file "~/todo/notes")
 
-;; This is customized:
-;; (setq-default org-tag-alist '((:startgroup)
-;;                               ("WORK" . 119)
-;;                               ("HOME" . 104)
-;;                               (:endgroup)
-;;                               ("COMPUTER" . 99)
-;;                               ("PROJECT" . 112)
-;;                               ("READING" . 114)
-;;                               ("WATCHING" . 116)
-;;                               (:newline)
-;;                               ("ERRAND" . 108)
-;;                               ("WISDOM" . 100)
-;;                               ("ARCHIVE" . 107)))
-;; (setq-default org-todo-keywords
-;;               '((sequence "TODO(t)" "STARTED(s!)"
-;;                           "WAITING(w@)" "|"
-;;                           "DONE(d@)" "CANCELED(c@)")
-;;                 (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|"
-;;                           "FINISHED(f@)")))
 
 (require 'org)
 (org-remember-insinuate)
@@ -39,8 +20,11 @@
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
 
-(setq org-remember-templates '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i"
-                                "~/todo/todo.org" "TASKS")))
+(setq org-remember-templates
+      '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i" "~/todo/todo.org" "TASKS")
+        ("Post" ?p "* %T %^{topic}\n %?" "~/todo/posty.org")
+        ("Journal" ?j "* %T\n\t%?" "~/todo/journal.org")
+        ("Browsing" ?j "* %T\n\t%?" "~/todo/journal.org")))
 
 
 (setq browse-url-browser-function 'browse-url-generic
@@ -49,6 +33,7 @@
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c r") 'org-remember)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 
 (defun my-org-jump-to-heading (heading)
@@ -141,6 +126,7 @@ e.g. Sunday, September 17, 2000."
 ;;
 
 (defun my-bzr-commit-and-push ()
+  (message "bzr commit & push being called")
   (deferred:$
     (deferred:process-shell "cd ~/todo/ && bzr ci -m \"commit\"")
     (deferred:nextc it (lambda (output)
