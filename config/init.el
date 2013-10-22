@@ -259,8 +259,17 @@
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("/root/todo/")))
+ '(org-capture-templates
+   (quote
+    (("t" "New TODO task" entry
+      (file+headline "~/todo/todo.org" "TASKS")
+      "* TODO %? %^g
+Added: %U
+%i" :prepend t))))
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
+ '(org-default-notes-file "~/todo/notes")
+ '(org-directory "~/todo/")
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES")))
  '(org-emphasis-alist
    (quote
@@ -282,7 +291,10 @@
  '(org-log-done (quote note))
  '(org-log-into-drawer t)
  '(org-log-repeat (quote note))
- '(org-refile-targets (quote ((nil :maxlevel . 3))))
+ '(org-refile-targets
+   (quote
+    ((nil :maxlevel . 3)
+     (org-agenda-files :maxlevel . 1))))
  '(org-show-siblings (quote ((default . t) (isearch t))))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)
@@ -300,10 +312,10 @@
      ("ERRAND" . 108)
      ("WISDOM" . 100)
      ("ARCHIVE" . 107))))
- '(org-tags-column -95)
+ '(org-tags-column -90)
  '(org-todo-keywords
    (quote
-    ((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
+    ((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
      (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|" "FINISHED(f@)"))))
  '(package-archives
    (quote
