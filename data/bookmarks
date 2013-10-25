@@ -2,7 +2,36 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(#1=(#("org-remember-last-stored" 0 24
+(#1=(#("fun_data_transforms.py" 0 22
+      (bmkp-full-record #1#))
+    (filename . "/usr/www/tagasauris/tagasauris/funfun.py")
+    (buffer-name . "funfun.py")
+    (front-context-string . " len(tasks) == 3")
+    (rear-context-string . "fixture)\n\nassert")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21097 16313 525731 782000))
+    (created . #2#)
+    (position . 455)
+    (end-position . 455))
+#1=(#("Org tables" 0 10
+      (bmkp-full-record #1#))
+    (buffer-name . "*info*")
+    (front-context-string)
+    (rear-context-string . "bc\\vert{}def'.\n\n")
+    (front-context-region-string)
+    (rear-context-region-string)
+    (visits . 0)
+    (time . #2=(21092 608 166669 496000))
+    (created . #2#)
+    (position . 81585)
+    (end-position . 81585)
+    (filename . "/usr/local/info/org")
+    (info-node . #3="Built-in table editor")
+    (handler . Info-bookmark-jump)
+    (defaults "(org) Built-in table editor" "org" #3#))
+#1=(#("org-remember-last-stored" 0 24
       (bmkp-full-record #1#))
     (filename . "~/todo/todo.org")
     (buffer-name . "todo.org")
@@ -351,6 +380,7 @@
     (created 20897 24472 771814 225000)
     (position . 37)
     (end-position . 37))
+<<<<<<< Updated upstream
 #1=(#("org-capture-last-stored" 0 1
       (help-echo #2="File `~/org/notes.org', position 340" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 23
@@ -359,13 +389,21 @@
     (buffer-name . "notes.org")
     (front-context-string . "** TODO wefwef\nf")
     (rear-context-string . "ther-tools.el]]\n")
+=======
+#1=(#("org-capture-last-stored" 0 23
+      (bmkp-full-record #1#))
+    (filename . "~/todo/todo.org")
+    (buffer-name . "todo.org")
+    (front-context-string . "** TODO refiling")
+    (rear-context-string . ": tasks\n  :END:\n")
+>>>>>>> Stashed changes
     (front-context-region-string)
     (rear-context-region-string)
     (visits . 0)
-    (time . #3=(20895 37037 781048 904000))
-    (created . #3#)
-    (position . 340)
-    (end-position . 340))
+    (time . #2=(21091 22638 193044 975000))
+    (created . #2#)
+    (position . 139)
+    (end-position . 139))
 #1=(#("dynamic-scoping.txt" 0 1
       (help-echo #2="File `~/dynamic-scoping.txt', position 1" icicle-mode-line-help #2# face bmkp-local-file-without-region bmkp-full-record #1#)
       1 19

@@ -11,6 +11,7 @@
         forward-sexp
         indent-for-tab-command
         kill-sexp
+        mark-lines-next-line
         mark-word
         org-beginning-of-line
         org-end-of-line
@@ -27,4 +28,5 @@
 (setq mc/cmds-to-run-once
       '(
         elscreen-next
+        smex
         ))

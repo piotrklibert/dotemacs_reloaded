@@ -72,6 +72,10 @@
 (global-set-key (kbd "M-j")            'join-region)
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
 
+;; Use remap because setting a C-a key would potentially conflict with other
+;; enhancements to beginning-of-line (like in Org mode).
+(global-set-key [remap move-beginning-of-line]
+                'back-to-indentation-or-beginning)
 
 
 ;;                        _   _  ___   ___  _  ______
@@ -164,3 +168,16 @@ are not already."
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line))
 
 ;; see also ibuffer-formats for columns config
+(defun back-to-indentation-or-beginning (arg)
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first, with visual-line honored (never used).
+  (when (not (= arg 1))
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
