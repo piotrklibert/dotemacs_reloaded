@@ -157,3 +157,10 @@ are not already."
   (interactive)
   (when (not (s-contains? "unix" (symbol-name buffer-file-coding-system)))
     (set-buffer-file-coding-system 'utf-8-unix)))
+
+(defun my-ibuffer-mode-hook ()
+  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
+  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
+  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line))
+
+;; see also ibuffer-formats for columns config

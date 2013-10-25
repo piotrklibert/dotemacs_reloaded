@@ -237,9 +237,32 @@
  '(flymake-no-changes-timeout 5)
  '(flymake-start-syntax-check-on-newline t)
  '(fuzzy-accept-error-rate 0.2)
+ '(git-commit-mode-hook
+   (quote
+    (turn-on-auto-fill flyspell-mode my-magit-commit-hook)))
+ '(git-commit-summary-max-length 70)
  '(help-at-pt-display-when-idle t nil (help-at-pt))
  '(help-at-pt-timer-delay 3)
+ '(ibuffer-default-sorting-mode (quote major-mode))
+ '(ibuffer-deletion-char 88)
+ '(ibuffer-elide-long-columns t)
  '(ibuffer-expert t)
+ '(ibuffer-formats
+   (quote
+    ((mark modified read-only " "
+           (name 28 28 :left :elide)
+           " "
+           (size 9 -1 :right)
+           " "
+           (mode 16 16 :left :elide)
+           " " filename-and-process)
+     (mark " "
+           (name 16 -1)
+           " " filename))))
+ '(ibuffer-jump-offer-only-visible-buffers t)
+ '(ibuffer-load-hook nil)
+ '(ibuffer-mode-hook (quote (my-ibuffer-mode-hook)))
+ '(ibuffer-view-ibuffer t)
  '(icicle-Completions-max-columns 1)
  '(icicle-Completions-text-scale-decrease 0.0)
  '(icicle-files-ido-like-flag t)
