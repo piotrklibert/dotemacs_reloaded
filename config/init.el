@@ -206,7 +206,7 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/data/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
@@ -327,14 +327,12 @@ Added: %U
      ("WORK" . 119)
      ("HOME" . 104)
      (:endgroup)
-     ("COMPUTER" . 99)
      ("PROJECT" . 112)
-     ("READING" . 114)
      ("WATCHING" . 116)
-     (:newline)
      ("ERRAND" . 108)
      ("WISDOM" . 100)
-     ("ARCHIVE" . 107))))
+     ("ARCHIVE" . 107)
+     ("SUE" . 115))))
  '(org-tags-column -90)
  '(org-todo-keywords
    (quote
