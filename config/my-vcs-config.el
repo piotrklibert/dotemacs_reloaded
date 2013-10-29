@@ -10,7 +10,8 @@
 (defvar my-tagasauris-ticket-name nil)
 
 (defun my-magit-commit-hook ()
-  (when (and (boundp 'my-tagasauris-ticket-name)
-           my-tagasauris-ticket-name)
-    (goto-char (point-min))
-    (insert my-tagasauris-ticket-name " ")))
+  (unless my-tagasauris-ticket-name
+    (setq my-tagasauris-ticket-name
+          (read-string "Ticket name: ")))
+  (goto-char (point-min))
+  (insert my-tagasauris-ticket-name " "))
