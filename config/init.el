@@ -326,6 +326,7 @@ Added: %U
     ((:startgroup)
      ("WORK" . 119)
      ("HOME" . 104)
+     ("LEARNING" . 110)
      (:endgroup)
      ("PROJECT" . 112)
      ("WATCHING" . 116)
