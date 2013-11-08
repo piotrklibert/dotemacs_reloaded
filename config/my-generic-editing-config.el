@@ -178,6 +178,6 @@ are not already."
       (forward-line (1- arg))))
 
   (let ((orig-point (point)))
-    (back-to-indentation)
+    (move-beginning-of-line 1)
     (when (= orig-point (point))
-      (move-beginning-of-line 1))))
+      (back-to-indentation))))
