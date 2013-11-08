@@ -5,6 +5,10 @@
 ;; * one line message only
 ;; * notify about failure too
 
+
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+
 (setq org-directory "~/todo/")
 (setq org-agenda-files (list "~/todo/"))
 (setq org-mobile-directory "~/orgmobile/")
