@@ -278,6 +278,7 @@
 
 ")
  '(ispell-program-name " /usr/local/bin/ispell")
+ '(less-css-indent-level 4)
  '(mumamo-background-colors nil)
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
@@ -289,7 +290,7 @@
       (file+headline "~/todo/todo.org" "TASKS")
       "* TODO %? %^g
 Added: %U
-%i" :prepend t))))
+%i" :prepend t))) t)
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-default-notes-file "~/todo/notes")
