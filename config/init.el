@@ -225,6 +225,7 @@
  '(ecb-use-speedbar-instead-native-tree-buffer nil)
  '(ecb-vc-enable-support t)
  '(ecb-windows-width 0.13)
+ '(ede-project-directories (quote ("/root/.emacs.d/config")))
  '(ediff-keep-variants nil)
  '(ediff-make-buffers-readonly-at-startup nil)
  '(ediff-merge-split-window-function (quote split-window-horizontally))
@@ -309,11 +310,15 @@ Added: %U
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00"))))
+ '(org-habit-show-habits-only-for-today nil)
  '(org-hide-leading-stars t)
  '(org-hierarchical-todo-statistics t)
  '(org-log-done (quote note))
  '(org-log-into-drawer t)
  '(org-log-repeat (quote note))
+ '(org-modules
+   (quote
+    (org-bbdb org-bibtex org-docview org-gnus org-id org-info org-jsinfo org-habit org-inlinetask org-irc org-mew org-mhe org-rmail org-special-blocks org-vm org-wl org-w3m)))
  '(org-refile-targets
    (quote
     ((nil :maxlevel . 3)
@@ -353,6 +358,7 @@ Added: %U
  '(recentf-menu-action (quote find-file))
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(scroll-conservatively 108)
+ '(semanticdb-project-roots (quote ("/usr/www/tagasauris/")))
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
  '(shell-file-name "/usr/local/bin/bash")

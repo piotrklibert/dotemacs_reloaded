@@ -34,10 +34,10 @@
 
 
 (defun magic-dir-p (dir)
-  (member dir (list "." "..")))
+  (member (file-name-nondirectory dir) (list "." "..")))
 
-(defun walk-d ()
-  (let ((z (directory-files  "~/.emacs.d/"))
+(defun walk-d (root)
+  (let ((z (directory-files root))
         (s '())
         (f '()))
     (while (or s z)
@@ -54,6 +54,20 @@
 
 ;; (length (walk-d))
 
+(defun -walk-dirs (root)
+  (loop for filename in (directory-files root t)
+        if (and (file-directory-p filename)
+                (not (magic-dir-p filename)))
+        collect filename))
+
+(defun walk-dirs (root)
+  (let ((res (-walk-dirs root)))
+    (when res
+      (setq res (append res (loop for dir in res
+                                  append (walk-dirs dir)))))
+    res))
+
+;; (walk-dirs "/usr/www/tagasauris/tagasauris/")
 
 (defvar my-config-path "~/.emacs.d/config/")
 
