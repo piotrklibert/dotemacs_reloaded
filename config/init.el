@@ -206,7 +206,7 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
@@ -283,13 +283,6 @@
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("/root/todo/")))
- '(org-capture-templates
-   (quote
-    (("t" "New TODO task" entry
-      (file+headline "~/todo/todo.org" "TASKS")
-      "* TODO %? %^g
-Added: %U
-%i" :prepend t))))
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-default-notes-file "~/todo/notes")
@@ -310,6 +303,7 @@ Added: %U
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00"))))
+ '(org-habit-graph-column 60)
  '(org-habit-show-habits-only-for-today nil)
  '(org-hide-leading-stars t)
  '(org-hierarchical-todo-statistics t)
