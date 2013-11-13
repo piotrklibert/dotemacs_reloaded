@@ -263,6 +263,7 @@
  '(ibuffer-jump-offer-only-visible-buffers t)
  '(ibuffer-load-hook nil)
  '(ibuffer-mode-hook (quote (my-ibuffer-mode-hook)))
+ '(ibuffer-old-time 2)
  '(ibuffer-view-ibuffer t)
  '(icicle-Completions-max-columns 1)
  '(icicle-Completions-text-scale-decrease 0.0)

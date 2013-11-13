@@ -34,11 +34,13 @@
 ;; customized!
 (setq org-capture-templates
       (quote (("t" "todo" entry (file+headline "~/todo/todo.org" "TASKS")
-               "* TODO %?\n\tAdded: %U\nOrigin: %a\n" :clock-in t :clock-resume t)
+               "* TODO %?\n\tAdded: %U\nOrigin: %a\n")
+
+              ("n" "note" entry (file "~/todo/notes.org")
+               "* %? :NOTE:\nAdded: %U\nOrigin: %a\n  %i")
+
               ("r" "respond" entry (file "~/todo/refile.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-              ("n" "note" entry (file "~/todo/notes.org")
-               "* %? :NOTE:\nAdded: %U\nOrigin: %a\n  %i" :clock-in t :clock-resume t)
               ("j" "Journal" entry (file+datetree "~/todo/notes.org")
                "* %?\n%U\n" :clock-in t :clock-resume t)
               ("w" "org-protocol" entry (file "~/todo/refile.org")

@@ -32,7 +32,9 @@
            (my-get-matching-tags tbl prefix))))
 
 (defun my-get-matching-tags (table str)
-  (--filter (string-match str (semantic-tag-name it))
+  (--filter (and (string-match str (semantic-tag-name it))
+                 (member (semantic-tag-class it)
+                         '(type function variable code)))
             (semanticdb-get-tags table)))
 
 (defun my-get-tag-properties (tag fname)

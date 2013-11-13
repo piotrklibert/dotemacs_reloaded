@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        back-to-indentation-or-beginning
         backward-sexp
         beginning-of-buffer
         coffee-dedent-line-backspace
