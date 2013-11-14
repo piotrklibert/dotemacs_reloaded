@@ -179,6 +179,7 @@ completions if a string in minibuffer changed."
 
 (defun ffip--find-process ()
   (--filter (string-match-p "ffip" (process-name it)) (process-list)))
+
 (defun ffip--start-or-restart-process ()
   "Clean all processes that look like they're created by this
 module and then start one again. Usefull for debugging when a
@@ -193,6 +194,12 @@ restarting process to use new code. "
            finally (progn
                      (sit-for 15)
                      (ffip--start-process))))))
+
+(defun fuzzy-find-restart ()
+  "Restart backend process. Should be called after changing root
+dirs list."
+  (interactive)
+  (ffip--start-or-restart-process))
 
 (defun ffip--send-process (str)
   (process-send-string fuzzy-find-process (concat str "\n")))

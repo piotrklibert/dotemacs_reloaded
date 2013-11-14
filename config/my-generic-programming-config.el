@@ -70,10 +70,12 @@
 (show-paren-mode t)
 
 (require 'fuzzy-find-in-project)
-(setq fuzzy-find-project-root '("/usr/www/tagasauris/"
-                                "/root/.emacs.d/config/"
-                                "/root/.emacs.d/plugins2"
-                                "/root/.emacs.d/pkg-langs"))
+(setq fuzzy-find-project-root
+      '("/usr/www/tagasauris/"
+        "/root/.emacs.d/config/"
+        "/root/.emacs.d/plugins2"
+        "/root/.emacs.d/pkg-langs"
+        "/root/todo/"))
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls
