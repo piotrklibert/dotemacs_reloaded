@@ -24,6 +24,20 @@
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
 
 
+(setq ace-jump-mode-submode-list
+      '(ace-jump-word-mode
+        ace-jump-line-mode              ; make C-u C-c spc jump to lines
+        ace-jump-char-mode))
+(require 'ace-jump-mode)                ; quickly jump to char
+;; you can select the key you prefer to
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode)
+;; (eval-after-load "ace-jump-mode"
+;;   '(ace-jump-mode-enable-mark-sync))
+;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
+
+
 ;; It's not used right now because it's muuuch too slow for my Python projects,
 ;; and on the other hand it's unwieldy to reindex tags by hand everytime I
 ;; change something.
