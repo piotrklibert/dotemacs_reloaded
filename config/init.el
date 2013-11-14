@@ -206,7 +206,7 @@
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
- '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
@@ -279,11 +279,13 @@
 
 ")
  '(ispell-program-name " /usr/local/bin/ispell")
+ '(less-css-indent-level 4)
  '(mumamo-background-colors nil)
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("/root/todo/")))
+ '(org-archive-location "todo.archive::datetree/* From %s")
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-default-notes-file "~/todo/notes")
@@ -307,7 +309,7 @@
  '(org-habit-graph-column 60)
  '(org-habit-show-habits-only-for-today nil)
  '(org-hide-leading-stars t)
- '(org-hierarchical-todo-statistics t)
+ '(org-hierarchical-todo-statistics nil)
  '(org-log-done (quote note))
  '(org-log-into-drawer t)
  '(org-log-repeat (quote note))
