@@ -344,9 +344,21 @@ default git diff is sooo weak..."
 ;;|____/ \___/  \_/\_/  |_| \_|_____\___/_/   \_\____/  |_| /_/   \_\____|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(require 'thingatpt)
+
 (defun my-fetch-page (page-url)
   "Fetch a HTTP page and insert it's body at point."
-  (interactive "sURL to fetch: ")
+  (interactive
+   (list
+    (let*
+        ((prompt    "Enter url (default: %s): ")
+         (at-point  (thing-at-point 'url t))
+         (input     (read-string (format prompt (or at-point ""))))
+         (got-input (not (equal input ""))))
+      (if (and (not got-input)
+               (not at-point))
+          (error "No url given")
+        (if got-input input at-point)))))
   (lexical-let ((target (current-buffer)))
     (url-retrieve
      page-url
