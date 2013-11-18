@@ -368,4 +368,8 @@ default git diff is sooo weak..."
            ((body (buffer-substring (point) (point-max))))
          (message "%s" target)
          (with-current-buffer target
+           (if current-prefix-arg
+               (goto-char (point-max))
+             (end-of-line))
+           (newline)
            (insert body)))))))

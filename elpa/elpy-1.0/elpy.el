@@ -526,7 +526,9 @@ screen."
 
 (defun elpy-goto-location (filename offset)
   "Show FILENAME at OFFSET to the user."
-  (let ((buffer (find-file filename)))
+  (let ((buffer (if current-prefix-arg
+                    (find-file-other-window filename)
+                  (find-file filename))))
     (with-current-buffer buffer
       (with-selected-window (get-buffer-window buffer)
         (goto-char (1+ offset))))))
