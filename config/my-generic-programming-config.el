@@ -385,14 +385,28 @@ default git diff is sooo weak..."
 (defvar my-file-buffers nil)
 
 
+(defmacro fb-list-nth (fb-list)
+  "Get a current buffer out of given `file-buffers-list' struct.
+If it's `pos' is somehow out of range, wrap it before returning."
+  (let ((hygienic-pos (gensym))
+        (hygienic-list (gensym)))
+    `(let* ((,hygienic-pos (file-buffers-list-pos ,fb-list))
+            (,hygienic-list (file-buffers-list-list ,fb-list) )
+            (,hygienic-pos (% ,hygienic-pos (length ,hygienic-list)))
+            (,hygienic-pos (if (< ,hygienic-pos 0)
+                               (- (length ,hygienic-list) ,hygienic-pos)
+                             ,hygienic-pos)))
+       (nth ,hygienic-pos ,hygienic-list))))
+
+
 (defun my-traverse-file-buffers-init ()
-  (unless my-file-buffers
-    (let*
-        ((hidden-buf? (lambda (it) (s-contains? "*" it)))
-         (buf-list (-remove hidden-buf? (-map 'buffer-name (buffer-list)))))
-      (setq my-file-buffers
-            (make-file-buffers-list :list buf-list
-                                    :pos 0)))))
+  (message "init called")
+  (let*
+      ((hidden-buf? (lambda (it) (s-contains? "*" it)))
+       (buf-list (-remove hidden-buf? (-map 'buffer-name (buffer-list)))))
+    (setq my-file-buffers
+          (make-file-buffers-list :list buf-list
+                                  :pos 0))))
 
 (defun my-traverse-file-buffers-finish ()
   (setq my-file-buffers nil))
@@ -401,10 +415,21 @@ default git diff is sooo weak..."
   (unless delta            (setq delta 1))
   (unless my-file-buffers  (my-traverse-file-buffers-init))
   (cl-incf (file-buffers-list-pos my-file-buffers) delta)
-  (switch-to-buffer
-   (nth (file-buffers-list-pos my-file-buffers)
-        (file-buffers-list-list my-file-buffers))))
+  (switch-to-buffer (fb-list-nth my-file-buffers)))
 
 (defun my-traverse-file-buffers-up ()
   (interactive)
+  (unless (member last-command '(my-traverse-file-buffers-down
+                                 my-traverse-file-buffers-up))
+    (my-traverse-file-buffers-init))
   (my-traverse-file-buffers-moveto 1))
+
+(defun my-traverse-file-buffers-down ()
+  (interactive)
+  (unless (member last-command '(my-traverse-file-buffers-down
+                                 my-traverse-file-buffers-up))
+    (my-traverse-file-buffers-init))
+  (my-traverse-file-buffers-moveto -1))
+
+(global-set-key (kbd "C-M-<prior>") 'my-traverse-file-buffers-down)
+(global-set-key (kbd "C-M-<next>")  'my-traverse-file-buffers-up)

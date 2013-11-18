@@ -36,7 +36,7 @@
                "* TODO %?\n  Added: %U\n  Origin: %a\n")
 
               ("n" "note" entry (file "~/todo/notes.org")
-               "* %? :NOTE:  Added: %U\n  Origin: %a\n  %i")
+               "* %? :NOTE:\n  Added: %U\n  Origin: %a\n  %i")
 
               ("r" "respond" entry (file "~/todo/refile.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
