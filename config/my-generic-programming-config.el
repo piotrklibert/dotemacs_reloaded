@@ -373,3 +373,38 @@ default git diff is sooo weak..."
              (end-of-line))
            (newline)
            (insert body)))))))
+
+
+(require 's)
+(require 'dash)
+(require 'deferred)
+
+(defstruct file-buffers-list
+  list pos)
+
+(defvar my-file-buffers nil)
+
+
+(defun my-traverse-file-buffers-init ()
+  (unless my-file-buffers
+    (let*
+        ((hidden-buf? (lambda (it) (s-contains? "*" it)))
+         (buf-list (-remove hidden-buf? (-map 'buffer-name (buffer-list)))))
+      (setq my-file-buffers
+            (make-file-buffers-list :list buf-list
+                                    :pos 0)))))
+
+(defun my-traverse-file-buffers-finish ()
+  (setq my-file-buffers nil))
+
+(defun my-traverse-file-buffers-moveto (&optional delta)
+  (unless delta            (setq delta 1))
+  (unless my-file-buffers  (my-traverse-file-buffers-init))
+  (cl-incf (file-buffers-list-pos my-file-buffers) delta)
+  (switch-to-buffer
+   (nth (file-buffers-list-pos my-file-buffers)
+        (file-buffers-list-list my-file-buffers))))
+
+(defun my-traverse-file-buffers-up ()
+  (interactive)
+  (my-traverse-file-buffers-moveto 1))
