@@ -474,4 +474,5 @@ If it's `pos' is somehow out of range, wrap it before returning."
           for fname = (concat (file-name-as-directory r) fname-normalized)
           if (file-exists-p fname)
           do (setq found fname))
-    (or found (call-interactively 'ffap))))
+    (or (and found (find-file found))
+        (call-interactively 'ffap))))
