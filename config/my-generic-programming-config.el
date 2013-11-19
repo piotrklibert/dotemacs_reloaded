@@ -130,7 +130,7 @@
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
 (define-key my-find-keys (kbd "C-a")      'ag)
 (define-key my-find-keys (kbd "C-M-a")    'ack)
-(define-key my-find-keys (kbd "C-p")      'ffap)
+(define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
 (define-key ctl-x-map (kbd "C-M-b") 'bs-show)
@@ -426,10 +426,10 @@ If it's `pos' is somehow out of range, wrap it before returning."
   (unless my-deferred
     (setq my-deferred
           (deferred:$
-            (deferred:wait 3000)
+            (deferred:wait 1000)
             (deferred:nextc it
               (lambda (x)
-                (if (> (- (float-time) my-last-traverse) 3.0)
+                (if (> (- (float-time) my-last-traverse) 2.5)
                     (tfb-finish)
                   (setq my-deferred nil)
                   (my-schedule-cleanup))))))))
@@ -457,3 +457,21 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (global-set-key (kbd "C-M-<prior>") 'tfb-down)
 (global-set-key (kbd "C-M-<next>")  'tfb-up)
+
+
+(defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"
+                        "/usr/www/tagasauris/tagasauris/statics/"
+                        "/usr/www/tagasauris/tagasauris/templates/"))
+
+(defun my-project-ffap ()
+  (interactive)
+  (let* ((fname-at-pt (ffap-string-at-point))
+         (fname-normalized (if (file-name-absolute-p fname-at-pt)
+                               (replace-regexp-in-string "^/" "" fname-at-pt t t)
+                             fname-at-pt))
+         found)
+    (loop for r in my-ffap-roots
+          for fname = (concat (file-name-as-directory r) fname-normalized)
+          if (file-exists-p fname)
+          do (setq found fname))
+    (or found (call-interactively 'ffap))))
