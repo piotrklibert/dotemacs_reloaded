@@ -383,53 +383,77 @@ default git diff is sooo weak..."
   list pos)
 
 (defvar my-file-buffers nil)
+(defvar my-last-traverse nil)
+(defvar my-deferred nil)
 
+(defmacro make-fbl (list pos)
+  `(make-file-buffers-list :list ,list
+                           :pos ,pos))
+(defun fbl-list ()
+  (file-buffers-list-list my-file-buffers))
+(defun fbl-pos ()
+  (file-buffers-list-pos my-file-buffers))
 
 (defmacro fb-list-nth (fb-list)
   "Get a current buffer out of given `file-buffers-list' struct.
 If it's `pos' is somehow out of range, wrap it before returning."
-  (let ((hygienic-pos (gensym))
-        (hygienic-list (gensym)))
-    `(let* ((,hygienic-pos (file-buffers-list-pos ,fb-list))
-            (,hygienic-list (file-buffers-list-list ,fb-list) )
-            (,hygienic-pos (% ,hygienic-pos (length ,hygienic-list)))
-            (,hygienic-pos (if (< ,hygienic-pos 0)
-                               (- (length ,hygienic-list) ,hygienic-pos)
-                             ,hygienic-pos)))
-       (nth ,hygienic-pos ,hygienic-list))))
+  `(let*
+       ((pos   (file-buffers-list-pos ,fb-list))
+        (list  (file-buffers-list-list ,fb-list) )
+        (pos   (% pos (length list)))
+        (pos   (if (< pos 0) (1+ (- (length list) pos)) pos)))
+     (nth pos list)))
 
 
-(defun my-traverse-file-buffers-init ()
-  (message "init called")
-  (let*
-      ((hidden-buf? (lambda (it) (s-contains? "*" it)))
-       (buf-list (-remove hidden-buf? (-map 'buffer-name (buffer-list)))))
-    (setq my-file-buffers
-          (make-file-buffers-list :list buf-list
-                                  :pos 0))))
+(defun tfb-hidden-buf? (it)
+  (s-contains? "*" it))
 
-(defun my-traverse-file-buffers-finish ()
-  (setq my-file-buffers nil))
+(defun tfb-buf-names ()
+  (let ((names (-map 'buffer-name (buffer-list))))
+    (-remove 'tfb-hidden-buf? names)))
 
-(defun my-traverse-file-buffers-moveto (&optional delta)
+(defun tfb-init ()
+  (setq my-file-buffers (make-fbl (tfb-buf-names) 0)))
+
+(defun tfb-finish ()
+  (switch-to-buffer (fb-list-nth my-file-buffers))
+  (setq my-file-buffers  nil
+        my-last-traverse nil
+        my-deferred      nil)
+  (message "finished %s" (tfb-buf-names)))
+
+(defun my-schedule-cleanup ()
+  (unless my-deferred
+    (setq my-deferred
+          (deferred:$
+            (deferred:wait 3000)
+            (deferred:nextc it
+              (lambda (x)
+                (if (> (- (float-time) my-last-traverse) 3.0)
+                    (tfb-finish)
+                  (setq my-deferred nil)
+                  (my-schedule-cleanup))))))))
+
+(defun tfb-moveto (&optional delta)
+  (setq my-last-traverse   (float-time))
   (unless delta            (setq delta 1))
-  (unless my-file-buffers  (my-traverse-file-buffers-init))
-  (cl-incf (file-buffers-list-pos my-file-buffers) delta)
-  (switch-to-buffer (fb-list-nth my-file-buffers)))
+  (unless my-file-buffers  (tfb-init))
+  (let*
+      ((pos (fbl-pos))
+       (len (length (fbl-list)))
+       (dest (+ pos delta))
+       (dest (if (< dest 0) (1- len) dest)))
+    (setf (file-buffers-list-pos my-file-buffers) dest)
+    (switch-to-buffer (fb-list-nth my-file-buffers) t)
+    (my-schedule-cleanup)))
 
-(defun my-traverse-file-buffers-up ()
+(defun tfb-up ()
   (interactive)
-  (unless (member last-command '(my-traverse-file-buffers-down
-                                 my-traverse-file-buffers-up))
-    (my-traverse-file-buffers-init))
-  (my-traverse-file-buffers-moveto 1))
+  (tfb-moveto 1))
 
-(defun my-traverse-file-buffers-down ()
+(defun tfb-down ()
   (interactive)
-  (unless (member last-command '(my-traverse-file-buffers-down
-                                 my-traverse-file-buffers-up))
-    (my-traverse-file-buffers-init))
-  (my-traverse-file-buffers-moveto -1))
+  (tfb-moveto -1))
 
-(global-set-key (kbd "C-M-<prior>") 'my-traverse-file-buffers-down)
-(global-set-key (kbd "C-M-<next>")  'my-traverse-file-buffers-up)
+(global-set-key (kbd "C-M-<prior>") 'tfb-down)
+(global-set-key (kbd "C-M-<next>")  'tfb-up)
