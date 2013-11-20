@@ -228,8 +228,8 @@ e.g. Sunday, September 17, 2000."
 (defun my-org-export ()
   (interactive)
   (deferred:$
-    (deferred:call 'org-mobile-push)
-    (deferred:nextc it (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
+    ;; (deferred:call 'org-mobile-push)
+    (deferred:next (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
     (deferred:nextc it (lambda (p)         (my-bzr-commit-and-push)))
     (deferred:error it (lambda (er)        (message "err: %s" er)))
     (deferred:nextc it (lambda (&rest arg) (message "export finished")))))

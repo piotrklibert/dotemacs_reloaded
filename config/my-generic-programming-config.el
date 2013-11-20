@@ -420,7 +420,7 @@ If it's `pos' is somehow out of range, wrap it before returning."
   (setq my-file-buffers  nil
         my-last-traverse nil
         my-deferred      nil)
-  (message "finished %s" (tfb-buf-names)))
+  (message "Current buffer made first in buffer list."))
 
 (defun my-schedule-cleanup ()
   (unless my-deferred
@@ -464,15 +464,19 @@ If it's `pos' is somehow out of range, wrap it before returning."
                         "/usr/www/tagasauris/tagasauris/templates/"))
 
 (defun my-project-ffap ()
+  "A `ffap' replacement which checks for existence of file at
+point under a few known directories."
   (interactive)
   (let* ((fname-at-pt (ffap-string-at-point))
          (fname-normalized (if (file-name-absolute-p fname-at-pt)
                                (replace-regexp-in-string "^/" "" fname-at-pt t t)
                              fname-at-pt))
          found)
+
     (loop for r in my-ffap-roots
           for fname = (concat (file-name-as-directory r) fname-normalized)
           if (file-exists-p fname)
           do (setq found fname))
+
     (or (and found (find-file found))
         (call-interactively 'ffap))))
