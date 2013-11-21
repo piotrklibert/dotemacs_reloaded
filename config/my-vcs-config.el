@@ -9,6 +9,7 @@
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame-mode)     ; C-c C-M-g
 
 (defvar my-tagasauris-ticket-name nil)
+;; (setq my-tagasauris-ticket-name "HAC-77")
 
 (defun my-magit-commit-hook ()
   (unless my-tagasauris-ticket-name

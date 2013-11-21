@@ -7,6 +7,7 @@
         backward-sexp
         beginning-of-buffer
         coffee-dedent-line-backspace
+        delete-indentation
         elscreen-create
         end-of-buffer
         forward-sexp
