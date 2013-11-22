@@ -4,6 +4,8 @@
 
 (require 'delim-col)
 
+(require 'register-list)                ; M-x register-list
+
 (require 'electric)
 (electric-pair-mode 1)
 

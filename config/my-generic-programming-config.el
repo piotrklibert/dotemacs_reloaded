@@ -429,7 +429,7 @@ If it's `pos' is somehow out of range, wrap it before returning."
             (deferred:wait 1000)
             (deferred:nextc it
               (lambda (x)
-                (if (> (- (float-time) my-last-traverse) 2.5)
+                (if (> (- (float-time) my-last-traverse) 1.2)
                     (tfb-finish)
                   (setq my-deferred nil)
                   (my-schedule-cleanup))))))))
@@ -465,7 +465,8 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (defun my-project-ffap ()
   "A `ffap' replacement which checks for existence of file at
-point under a few known directories."
+point under a few known directories. Calls original if it's more
+complicated than this."
   (interactive)
   (let* ((fname-at-pt (ffap-string-at-point))
          (fname-normalized (if (file-name-absolute-p fname-at-pt)

@@ -36,8 +36,7 @@
 (defvar slurp-mode-map nil "Keymap used while in slurp mode")
 (defconst +slurp-preface+ "Slurped: ")
 
-(if slurp-mode-map
-    ()
+(unless slurp-mode-map
   (setf slurp-mode-map (make-keymap))
   (define-key slurp-mode-map [mouse-1] 'slurp-mode-find-buffer)
   (define-key slurp-mode-map [return] 'slurp-mode-find-buffer-no-event)
