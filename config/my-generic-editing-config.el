@@ -4,6 +4,8 @@
 
 (require 'delim-col)
 
+(require 'electric)
+(electric-pair-mode 1)
 
 ;; TODO: figure out why it was disabled ;)
 ;; Thesaurus support
