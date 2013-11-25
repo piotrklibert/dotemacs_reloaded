@@ -6,9 +6,6 @@
 
 (require 'register-list)                ; M-x register-list
 
-(require 'electric)
-(electric-pair-mode 1)
-
 ;; TODO: figure out why it was disabled ;)
 ;; Thesaurus support
 ;;    (setq synonyms-file        <name & location of mthesaur.txt>)

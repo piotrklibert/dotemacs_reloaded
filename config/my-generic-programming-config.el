@@ -19,6 +19,10 @@
 (require 'jka-compr)                    ; searches tags in gzipped sources too
 (require 'ls-lisp)                      ; elisp ls replacement
 
+(require 'electric)
+
+
+
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
@@ -168,6 +172,7 @@
 
 (defun my-init-prog-mode ()
   ;; modes which should be enabled by default:
+  (electric-pair-mode 1)
   (fic-ext-mode 1)
   (rainbow-delimiters-mode 1)
   (rainbow-mode 1)
@@ -461,7 +466,8 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"
                         "/usr/www/tagasauris/tagasauris/statics/"
-                        "/usr/www/tagasauris/tagasauris/templates/"))
+                        "/usr/www/tagasauris/tagasauris/templates/"
+                        "/usr/www/tagasauris/"))
 
 (defun my-project-ffap ()
   "A `ffap' replacement which checks for existence of file at

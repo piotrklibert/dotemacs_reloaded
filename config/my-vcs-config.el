@@ -9,7 +9,7 @@
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame-mode)     ; C-c C-M-g
 
 (defvar my-tagasauris-ticket-name nil)
-;; (setq my-tagasauris-ticket-name "RPA-5")
+;; (setq my-tagasauris-ticket-name "RPA-6")
 
 (defun my-tagasauris-set-ticket (ticket)
   (interactive "sNew ticket name: ")
