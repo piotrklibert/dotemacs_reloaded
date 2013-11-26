@@ -360,7 +360,7 @@ called `livescript-compiled-buffer-name'."
 (defvar livescript-prototype-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\)::\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
 
 ;; Assignment
-(defvar livescript-assign-regexp "\\(\\(\\w\\|\\.\\|_\\|$\\)+?\s*\\):")
+(defvar livescript-assign-regexp "\\(\\(\\w\\|\\.\\|_\\|$\\|-\\)+?\s*\\):")
 
 ;; Local Assignment
 (defvar livescript-local-assign-regexp "\\(\\(_\\|\\w\\|\\$\\)+\\)\s+=")
