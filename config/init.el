@@ -280,6 +280,7 @@
 ")
  '(ispell-program-name " /usr/local/bin/ispell")
  '(less-css-indent-level 4)
+ '(livescript-tab-width 4)
  '(mumamo-background-colors nil)
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
