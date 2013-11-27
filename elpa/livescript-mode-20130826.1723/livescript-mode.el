@@ -218,6 +218,8 @@ with LiveScript."
   :type 'hook
   :group 'livescript)
 
+(defvar working-on-file nil)
+
 (defvar livescript-mode-map
   (let ((map (make-sparse-keymap)))
     ;; key bindings
@@ -409,6 +411,7 @@ called `livescript-compiled-buffer-name'."
 			      livescript-cs-keywords
 			      iced-livescript-cs-keywords) 'words)))
 
+(defvar livescript-string-interpolation-regexp "#{[^}\n\\\\]*\\(?:\\\\.[^}\n\\\\]*\\)*}")
 
 ;; Create the list for font-lock. Each class of keyword is given a
 ;; particular face.
@@ -426,7 +429,8 @@ called `livescript-compiled-buffer-name'."
     (,livescript-regexp-regexp . font-lock-constant-face)
     (,livescript-boolean-regexp . font-lock-constant-face)
     (,livescript-lambda-regexp . (2 font-lock-function-name-face))
-    (,livescript-keywords-regexp 1 font-lock-keyword-face)))
+    (,livescript-keywords-regexp 1 font-lock-keyword-face)
+    (,livescript-string-interpolation-regexp 0 font-lock-constant-face t)))
 
 ;;
 ;; Helper Functions
@@ -841,7 +845,7 @@ END lie."
                 (livescript-propertize-function (point) end))))))))
 
 ;;;###autoload
-(define-derived-mode livescript-mode fundamental-mode
+(define-derived-mode livescript-mode prog-mode
   "LiveScript"
   "Major mode for editing LiveScript."
 

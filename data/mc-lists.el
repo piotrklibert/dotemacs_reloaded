@@ -13,6 +13,7 @@
         forward-sexp
         indent-for-tab-command
         kill-sexp
+        livescript-dedent-line-backspace
         mark-lines-next-line
         mark-word
         org-beginning-of-line
