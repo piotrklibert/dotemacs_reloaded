@@ -298,3 +298,40 @@ e.g. Sunday, September 17, 2000."
 
 ;; (or (eq (car it) 'org-font-lock-hook)
 ;;                            (eq (car it) 'my-sue-hilighter))
+
+
+(defun org-dblock-write:rangereport (params)
+  "Display day-by-day time reports. Insert comething like this:
+
+#+BEGIN: rangereport :maxlevel 4 :scope tree3 :tstart \"<2013-11-12 wto>\" :tend \"<2013-11-28 czw>\"
+#+END:
+
+and press C-c C-x C-u (org-dblock-update) while on it to generate the report.
+"
+  (let* ((ts (plist-get params :tstart))
+         (te (plist-get params :tend))
+         (start (time-to-seconds
+                 (apply 'encode-time (org-parse-time-string ts))))
+         (end (time-to-seconds
+               (apply 'encode-time (org-parse-time-string te))))
+         day-numbers startendday)
+    (setq params (plist-put params :tstart nil))
+    (setq params (plist-put params :end nil))
+    (while (<= start end)
+      (save-excursion
+        (setq startendday (+ 86400 start))
+        (insert "\n\n"
+                (format-time-string (car org-time-stamp-formats)
+                                    (seconds-to-time start))
+                "----------------\n")
+        (org-dblock-write:clocktable
+         (plist-put
+          (plist-put
+           params
+           :tstart
+           (format-time-string (car org-time-stamp-formats)
+                               (seconds-to-time start)))
+          :tend
+          (format-time-string (car org-time-stamp-formats)
+                              (seconds-to-time startendday))))
+        (setq start (+ 86400 start))))))
