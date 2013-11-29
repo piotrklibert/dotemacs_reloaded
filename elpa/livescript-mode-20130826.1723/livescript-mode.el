@@ -841,7 +841,7 @@ END lie."
               (progn
                 (livescript-block-comment-delimiter match)
                 (goto-char match)
-                (next-line)
+                (forward-line)
                 (livescript-propertize-function (point) end))))))))
 
 ;;;###autoload

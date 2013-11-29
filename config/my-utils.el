@@ -33,10 +33,19 @@
               (line-end-position)))))
 
 
+;;             __        ___    _     _  __     ____ ___ ____
+;;             \ \      / / \  | |   | |/ /    |  _ \_ _|  _ \
+;;              \ \ /\ / / _ \ | |   | ' /     | | | | || |_) |
+;;               \ V  V / ___ \| |___| . \     | |_| | ||  _ <
+;;                \_/\_/_/   \_\_____|_|\_\    |____/___|_| \_\
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (defun magic-dir-p (dir)
   (member (file-name-nondirectory dir) (list "." "..")))
 
 (defun walk-d (root)
+  "Has some problems with itself."
   (let ((z (directory-files root))
         (s '())
         (f '()))
@@ -61,6 +70,7 @@
         collect filename))
 
 (defun walk-dirs (root)
+  "This one should actually work."
   (let ((res (-walk-dirs root)))
     (when res
       (setq res (append res (loop for dir in res
@@ -98,8 +108,37 @@ after point."
 
 ;; find . -not -iname "*.elc" -not -ipath "*.git*" -not -path "*semanticdb*" -type f -exec ls -l \{\} \; | column -t | awk '{print $5}' | sum
 
-(provide 'my-utils)
 
+
+
+(defun get-defuns-from-file ()
+  "Append a list of defuns in the current buffer at the and of it
+or after a special string, which is two semicolons followed by
+space and a ToC string. This string is constructed
+programmatically in case the function is called on the file it is
+defined in."
+  (interactive)
+  (let ((toc-string (concat ";;" " " "ToC"))
+        (forms '())
+        (form '())
+        (funs '()))
+    (save-excursion
+      (goto-char 1)
+      (while (setq form (safe-read-sexp))
+        (setq forms (cons form forms))))
+    (setq funs (--keep (when (eq 'defun (car it))
+                         (cadr it))
+                       (reverse forms)))
+    (save-excursion
+      (goto-char 1)
+      (condition-case nil
+          (search-forward toc-string)
+        (error (goto-char (point-max))
+               (newline)
+               (insert toc-string)))
+      (newline)
+      (delete-region (line-beginning-position) (point-max))
+      (--each funs (insert (format ";; %s\n" it))))))
 
 ;;                           _    _     ___ ____ _____
 ;;                          / \  | |   |_ _/ ___|_   _|
@@ -148,3 +187,6 @@ return a new alist whose car is the new pair and cdr is ALIST."
         (cons (cons key value) alist)
       (setcdr elm value)
       alist)))
+
+
+(provide 'my-utils)
