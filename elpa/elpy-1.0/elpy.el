@@ -168,8 +168,6 @@ more structured list.
     (error "Elpy only works with `python-mode'"))
   (cond
    (elpy-mode
-    (when buffer-file-name
-      (setq ffip-project-root (elpy-project-root)))
     (set (make-local-variable 'eldoc-documentation-function)
          'elpy-eldoc-documentation)
     (add-to-list 'ac-sources 'ac-source-elpy)
@@ -179,7 +177,6 @@ more structured list.
     ;; Enable modes, hence the 1.
     (run-hook-with-args 'elpy-default-minor-modes 1))
    (t
-    (setq ffip-project-root nil)
     (kill-local-variable 'eldoc-documentation-function)
     (setq ac-sources
           (delq 'ac-source-elpy

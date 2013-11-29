@@ -132,6 +132,7 @@
 (require 'comint)
 (require 'easymenu)
 (require 'font-lock)
+(require 'rx)
 
 (eval-when-compile
   (require 'cl))
@@ -356,7 +357,7 @@ called `livescript-compiled-buffer-name'."
 (defvar livescript-string-regexp "\"\\([^\\]\\|\\\\.\\)*?\"\\|'\\([^\\]\\|\\\\.\\)*?'")
 
 ;; Instance variables (implicit this)
-(defvar livescript-this-regexp "@\\(\\w\\|_\\)*\\|this")
+(defvar livescript-this-regexp "@\\(\\w\\|_\\|-\\)*\\|this")
 
 ;; Prototype::access
 (defvar livescript-prototype-regexp "\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\)::\\(\\(\\w\\|\\.\\|_\\| \\|$\\)+?\\):")
@@ -365,7 +366,12 @@ called `livescript-compiled-buffer-name'."
 (defvar livescript-assign-regexp "\\(\\(\\w\\|\\.\\|_\\|$\\|-\\)+?\s*\\):")
 
 ;; Local Assignment
-(defvar livescript-local-assign-regexp "\\(\\(_\\|\\w\\|\\$\\)+\\)\s+=")
+(defvar livescript-local-assign-regexp
+  (rx (and
+       (group symbol-start (1+ (any alnum "-")) symbol-end)
+       (0+ space)
+       "=")))
+;; (defvar livescript-local-assign-regexp "\\(\\(_\\|\\w\\|\\$\\)+\\)\s+=")
 
 ;; Lambda
 (defvar livescript-lambda-regexp "\\((.+)\\)?\\s *\\(->\\|=>\\)")
@@ -374,7 +380,13 @@ called `livescript-compiled-buffer-name'."
 (defvar livescript-namespace-regexp "\\b\\(class\\s +\\(\\S +\\)\\)\\b")
 
 ;; Booleans
-(defvar livescript-boolean-regexp "\\b\\(true\\|false\\|yes\\|no\\|on\\|off\\|null\\|undefined\\|void\\)\\b")
+(defvar livescript-boolean-regexp
+  (rx (and symbol-start
+           (group
+            (or "true" "false" "yes" "no" "on" "off"
+                "null" "undefined" "void"))
+           symbol-end)))
+;; (defvar livescript-boolean-regexp "\\b\\(true\\|false\\|yes\\|no\\|on\\|off\\|null\\|undefined\\|void\\)\\b")
 
 ;; Regular Expressions
 (defvar livescript-regexp-regexp "\\/\\(\\\\.\\|\\[\\(\\\\.\\|.\\)+?\\]\\|[^/
@@ -396,7 +408,7 @@ called `livescript-compiled-buffer-name'."
 ;; LiveScript keywords.
 (defvar livescript-cs-keywords
       '("then" "unless" "and" "or" "is" "own"
-        "isnt" "not" "of" "by" "when"))
+        "isnt" "not" "of" "by" "when" "it" "that"))
 
 ;; Iced LiveScript keywords
 (defvar iced-livescript-cs-keywords
@@ -406,10 +418,11 @@ called `livescript-compiled-buffer-name'."
 (defvar livescript-keywords-regexp
   ;; keywords can be member names.
   (concat "[^.]"
-	  (regexp-opt (append livescript-js-reserved
-			      livescript-js-keywords
-			      livescript-cs-keywords
-			      iced-livescript-cs-keywords) 'words)))
+          (regexp-opt (append
+                       livescript-js-reserved
+                       livescript-js-keywords
+                       livescript-cs-keywords
+                       iced-livescript-cs-keywords) 'words)))
 
 (defvar livescript-string-interpolation-regexp "#{[^}\n\\\\]*\\(?:\\\\.[^}\n\\\\]*\\)*}")
 
