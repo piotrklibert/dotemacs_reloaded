@@ -164,11 +164,11 @@ are not already."
     (set-buffer-file-coding-system 'utf-8-unix)))
 
 (defun my-ibuffer-mode-hook ()
+  ;; see also ibuffer-formats for columns config
   (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
   (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line))
 
-;; see also ibuffer-formats for columns config
 (defun back-to-indentation-or-beginning (arg)
   (interactive "^p")
   (setq arg (or arg 1))
@@ -182,3 +182,14 @@ are not already."
     (move-beginning-of-line 1)
     (when (= orig-point (point))
       (back-to-indentation))))
+
+
+(defun yank-rectangle-as-text ()
+  (interactive)
+  (with-temp-buffer
+    (yank-rectangle)
+    (kill-region (point-min) (point-max)))
+  (yank)
+  (newline))
+
+(global-set-key (kbd "C-x r C-y") 'yank-rectangle-as-text)
