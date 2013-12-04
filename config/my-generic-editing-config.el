@@ -185,6 +185,9 @@ are not already."
 
 
 (defun yank-rectangle-as-text ()
+  "Insert killed rectange as if it was normal text, ie. push
+lines down to make space for it instead of pushing line contents
+to the right."
   (interactive)
   (with-temp-buffer
     (yank-rectangle)
