@@ -18,6 +18,7 @@
         mark-word
         org-beginning-of-line
         org-end-of-line
+        org-self-insert-command
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
@@ -26,6 +27,7 @@
         paredit-wrap-round
         python-indent-dedent-line-backspace
         python-indent-electric-colon
+        suspend-frame
         ))
 
 (setq mc/cmds-to-run-once
