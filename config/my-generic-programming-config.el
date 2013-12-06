@@ -182,10 +182,9 @@
   (delete-selection-mode 1)
   (linum-mode 1)
 
-  ;; TODO: why not in python-mode?
-  (when (not (memq major-mode '(python-mode
-                                sh-mode
-                                web-mode)))
+  ;; in Python it doesn't work well - folds whole classes, no but not methods
+  (when (not (memq major-mode
+                   '(python-mode sh-mode web-mode)))
     (hs-minor-mode)
     (local-set-key (kbd "C-c C-c C-h") 'hs-hide-all)
     (local-set-key (kbd "C-c C-c C-s") 'hs-show-all)

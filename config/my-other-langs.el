@@ -4,12 +4,15 @@
 ;; Alternative (does not work very well):
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(setq-default  web-mode-engine "django")
-(add-hook 'web-mode-hook (lambda ()
-                           (define-key web-mode-map (kbd "C-c C-s") 'web-mode-scan-buffer)
-                           (electric-pair-mode -10)
-                           (hs-minor-mode -1)
-                           (fci-mode -1)))
+(setq-default web-mode-engine "django")
+
+(defun my-web-mode-hook ()
+  (define-key web-mode-map (kbd "C-c C-s") 'web-mode-scan-buffer)
+  (hs-minor-mode -1)
+  (fci-mode -1))
+
+(add-hook 'web-mode-hook 'my-web-mode-hook)
+
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
 ;; (add-to-list 'load-path "path-to/django-mode/")
@@ -79,8 +82,8 @@
 ;;
 ;; Markdown support
 ;;
-(autoload
-  'markdown-mode "markdown-mode" "Major mode for editing Markdown files" t)
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -144,7 +147,7 @@
 ;; (require 'quack)
 
 ;; Geiser config
-(setq geiser-racket-binary          "/usr/local/bin/racket")
+(setq geiser-racket-binary          "/root/portless/racket/racket/bin/racket")
 (setq geiser-active-implementations '(racket))
 
 (setq geiser-mode-company-p t)          ; not sure if it's needed

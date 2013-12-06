@@ -392,8 +392,12 @@
  '(web-mode-comment-style 2)
  '(web-mode-css-indent-offset 4)
  '(web-mode-disable-auto-pairing nil)
+ '(web-mode-disable-css-colorization t)
  '(web-mode-enable-block-faces nil)
+ '(web-mode-enable-current-element-highlight t)
  '(web-mode-markup-indent-offset 4)
+ '(web-mode-script-padding 4)
+ '(web-mode-style-padding 4)
  '(web-mode-tag-auto-close-style 2))
 
 (custom-set-faces
