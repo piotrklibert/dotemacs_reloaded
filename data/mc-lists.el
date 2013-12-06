@@ -34,5 +34,6 @@
 (setq mc/cmds-to-run-once
       '(
         elscreen-next
+        iedit-mode
         smex
         ))
