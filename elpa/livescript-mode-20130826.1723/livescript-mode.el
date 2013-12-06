@@ -168,7 +168,7 @@
   :type 'string
   :group 'livescript)
 
-(defcustom livescript-args-repl '("-i")
+(defcustom livescript-args-repl '("-d")
   "The arguments to pass to `livescript-command' to start a REPL."
   :type 'list
   :group 'livescript)
@@ -249,7 +249,10 @@ with LiveScript."
     (set-buffer
      (apply 'make-comint "LiveScriptREPL"
             "env"
-            nil (append (list "NODE_NO_READLINE=1" livescript-command) livescript-args-repl))))
+            nil (append (list "NODE_NO_READLINE=1" livescript-command) livescript-args-repl)))
+    (set (make-local-variable 'comint-preoutput-filter-functions)
+         (cons (lambda (string)
+                 (replace-regexp-in-string "\x1b\\[.[GJK]" "" string)) nil)))
 
   (pop-to-buffer "*LiveScriptREPL*"))
 
@@ -470,8 +473,9 @@ For details, see `comment-dwim'."
   "Run `livescript-command' with the given arguments, and display the
 output in a compilation buffer."
   (interactive "sArguments: ")
-  (let ((compilation-buffer-name-function (lambda (this-mode)
-                                            (generate-new-buffer-name livescript-compiled-buffer-name))))
+  (let ((compilation-buffer-name-function
+         (lambda (this-mode)
+           (generate-new-buffer-name livescript-compiled-buffer-name))))
     (compile (concat livescript-command " " args))))
 
 ;;
