@@ -18,6 +18,7 @@
         mark-lines-next-line
         mark-word
         org-beginning-of-line
+        org-cycle
         org-end-of-line
         org-self-insert-command
         paredit-forward-delete

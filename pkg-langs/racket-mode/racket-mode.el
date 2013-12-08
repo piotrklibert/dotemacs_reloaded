@@ -165,6 +165,7 @@ To run <file>'s `test` submodule."
   (mapc (lambda (x)
           (put (car x) 'scheme-indent-function (cdr x)))
         '((begin0 . 1)
+          (if . 3)
           (c-declare . 0)
           (c-lambda . 2)
           (case-lambda . 0)

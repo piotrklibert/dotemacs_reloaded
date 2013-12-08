@@ -16,11 +16,14 @@
 (require 'yasnippet)
 
 
-
 ;; Keys bound here:
+(when (boundp 'ac-completing-map)
+  (define-key ac-completing-map (kbd "<insert>") 'ac-expand))
 (global-set-key (kbd "C-c .") 'hippie-expand)
 (global-set-key (kbd "C-c /") 'yas-expand)
-;; and auto-complete binds to <tab>
+;; by default:
+;; (global-set-key (kbd "M-/") 'dabbrev-expand)
+;; also auto-complete binds to <tab>
 
 
 (ac-config-default)
