@@ -38,7 +38,9 @@
 (define-key my-wnd-keys (kbd "M-<left>" )           'buf-move-left)
 
 (define-key my-wnd-keys (kbd "C-s")                 'split-window-below)
+(define-key my-wnd-keys (kbd "\"")                  'split-window-below)
 (define-key my-wnd-keys (kbd "C-v")                 'split-window-right)
+(define-key my-wnd-keys (kbd "%")                   'split-window-right)
 
 (define-key my-wnd-keys (kbd "C-z")                 'delete-window)
 (define-key my-wnd-keys (kbd "C-k")                 'kill-buffer-and-window)
