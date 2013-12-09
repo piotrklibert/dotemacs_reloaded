@@ -3,7 +3,9 @@ from whoosh.index import open_dir
 from whoosh.query import Regex
 
 index = open_dir("./idx")
+from time import time
 
+t = time()
 with index.searcher() as s:
     results = s.search(Regex("content", "^class$"), limit=None)
     for result in results:
@@ -12,3 +14,5 @@ with index.searcher() as s:
         p = P(result["path"])
         # print "/".join(p.splitall()[-3:]),
         # print result["line"], result["content"][:-2]
+
+print time() - t
