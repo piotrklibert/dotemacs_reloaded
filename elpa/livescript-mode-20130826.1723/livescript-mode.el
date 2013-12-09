@@ -400,7 +400,7 @@ called `livescript-compiled-buffer-name'."
       '("if" "else" "new" "return" "try" "catch"
         "finally" "throw" "break" "continue" "for" "in" "while"
         "delete" "instanceof" "typeof" "switch" "super" "extends"
-        "class" "until" "loop"))
+        "class" "until" "loop" "otherwise"))
 
 ;; Reserved keywords either by JS or CS.
 (defvar livescript-js-reserved
@@ -435,16 +435,16 @@ called `livescript-compiled-buffer-name'."
   ;; *Note*: order below matters. `livescript-keywords-regexp' goes last
   ;; because otherwise the keyword "state" in the function
   ;; "state_entry" would be highlighted.
-  `((,livescript-word-regexp . font-lock-string-face)
+  `((,livescript-word-regexp      . font-lock-string-face)
     (,livescript-word-list-regexp . font-lock-string-face)
-    (,livescript-string-regexp . font-lock-string-face)
-    (,livescript-this-regexp . font-lock-variable-name-face)
+    (,livescript-string-regexp    . font-lock-string-face)
+    (,livescript-this-regexp      . font-lock-variable-name-face)
     (,livescript-prototype-regexp . font-lock-variable-name-face)
-    (,livescript-assign-regexp . font-lock-type-face)
+    (,livescript-assign-regexp    . font-lock-type-face)
     (,livescript-local-assign-regexp 1 font-lock-variable-name-face)
-    (,livescript-regexp-regexp . font-lock-constant-face)
-    (,livescript-boolean-regexp . font-lock-constant-face)
-    (,livescript-lambda-regexp . (2 font-lock-function-name-face))
+    (,livescript-regexp-regexp    . font-lock-constant-face)
+    (,livescript-boolean-regexp   . font-lock-constant-face)
+    (,livescript-lambda-regexp    . (2 font-lock-function-name-face))
     (,livescript-keywords-regexp 1 font-lock-keyword-face)
     (,livescript-string-interpolation-regexp 0 font-lock-constant-face t)))
 

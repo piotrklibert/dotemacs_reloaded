@@ -207,7 +207,7 @@
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
  '(auto-revert-interval 2)
- '(bmkp-last-as-first-bookmark-file "/root/.emacs.d/bookmarks")
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
  '(completion-ignored-extensions
