@@ -1,16 +1,9 @@
-(require 's)
 (require 'recentf)
 (recentf-mode 1)
 
-(require 'delim-col)
+(require 'delim-col)                    ; formats columnar text, needs config
 
 (require 'register-list)                ; M-x register-list
-
-;; TODO: figure out why it was disabled ;)
-;; Thesaurus support
-;;    (setq synonyms-file        <name & location of mthesaur.txt>)
-;;    (setq synonyms-cache-file  <name & location of your cache file>)
-;;    (require 'synonyms)
 
 (require 'auto-mark)
 (global-auto-mark-mode 1)
@@ -25,7 +18,7 @@
 (require 'fill-column-indicator)        ; vertical line on the 'fill' col
 (require 'undo-tree)                    ; visualisation of undo/redo
 
-(require 'browse-kill-ring)             ; visualisation of kill-ring
+(require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
 (browse-kill-ring-default-keybindings)
 
 (require 'iedit)                        ; edit many ocurrences of string at once
@@ -36,6 +29,12 @@
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
+
+
+(require 'iy-go-to-char)
+(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
+;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
 
 
@@ -63,6 +62,8 @@
 (global-set-key (kbd "C-M-<SPC>")  'just-one-space)
 (global-set-key (kbd "C-{")        'backward-paragraph)
 (global-set-key (kbd "C-}")        'forward-paragraph)
+(global-set-key (kbd "C-c f")      'iy-go-to-char)
+(global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
 
 
 ;; My little ponies (I mean defuns):
@@ -71,6 +72,8 @@
 (global-set-key (kbd "M-S-<up>")       'move-text-up)
 (global-set-key (kbd "C-v")            'kill-whole-line)
 (global-set-key (kbd "M-j")            'join-region)
+(global-set-key (kbd "C-x r C-y")      'yank-rectangle-as-text)
+
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
 
 ;; Use remap because setting a C-a key would potentially conflict with other
@@ -99,8 +102,7 @@
 
   ;; This fucks up empty lines display in text modes, so
   ;; it's disabled
-  (fci-mode -1)
- )
+  (fci-mode -1))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -112,13 +114,10 @@
 ;;   |_|  |_| |_|        |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'my-indent-config)
 (require 'my-move-lines)
-
-;; iedit has something for editing rectangles visually: C-<return>
-;; NOTE: this is becoming less and less important as I learn rectangle functions
-;; of Emacs.
+(require 'my-indent-config)
 (require 'my-rectangular-editing)
+
 
 (defun renumber (&optional num)
   "Renumber the list items in the current paragraph,starting at point."
@@ -153,7 +152,7 @@ end of the second line."
   (let
       ((beg (region-beginning)))
     (goto-char (region-end))
-    (while (>  (line-beginning-position) beg)
+    (while (> (line-beginning-position) beg)
       (delete-indentation))))
 
 (defun unix-line-endings ()
@@ -164,12 +163,16 @@ are not already."
     (set-buffer-file-coding-system 'utf-8-unix)))
 
 (defun my-ibuffer-mode-hook ()
+  "Customized in ibuffer-mode-hook custom option."
   ;; see also ibuffer-formats for columns config
   (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
   (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line))
 
 (defun back-to-indentation-or-beginning (arg)
+  "Move point to beginning of line, unless it's already there, in
+which case move it to the first non-whitespace char in line.
+Handles prefix arg like `move-beginning-of-line' does."
   (interactive "^p")
   (setq arg (or arg 1))
 
@@ -182,17 +185,3 @@ are not already."
     (move-beginning-of-line 1)
     (when (= orig-point (point))
       (back-to-indentation))))
-
-
-(defun yank-rectangle-as-text ()
-  "Insert killed rectange as if it was normal text, ie. push
-lines down to make space for it instead of pushing line contents
-to the right."
-  (interactive)
-  (with-temp-buffer
-    (yank-rectangle)
-    (kill-region (point-min) (point-max)))
-  (yank)
-  (newline))
-
-(global-set-key (kbd "C-x r C-y") 'yank-rectangle-as-text)

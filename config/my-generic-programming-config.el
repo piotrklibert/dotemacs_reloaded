@@ -125,7 +125,6 @@
 ;;
 (define-key my-find-keys (kbd "C-o")      'occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
-;; (global-set-key (kbd "C-M-y")             'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
@@ -137,8 +136,6 @@
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
-(define-key ctl-x-map (kbd "C-M-b") 'bs-show)
-;; (define-key ctl-x-map (kbd "C-M-b") 'electric-buffer-listw)
 
 (defun my-imenu-show-popup ()
   (interactive)
@@ -156,17 +153,6 @@
 ;;                              PROG-MODE HOOKS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; these should be autloaded:
-;; (require 'fic-ext-mode)
-;; (require 'rainbow-mode)
-;; (add-hook 'prog-mode-hook   'fic-ext-mode)
-;; (add-hook 'prog-mode-hook   'rainbow-delimiters-mode)
-;; (add-hook 'prog-mode-hook   'rainbow-mode)
-;; (add-hook 'prog-mode-hook   'hl-line-mode)
-;; (add-hook 'prog-mode-hook   'fci-mode)
-;; (add-hook 'prog-mode-hook   'undo-tree-mode)
-;; (add-hook 'prog-mode-hook   'delete-selection-mode)
-
 
 (add-hook 'prog-mode-hook 'my-init-prog-mode)
 
@@ -182,7 +168,7 @@
   (delete-selection-mode 1)
   (linum-mode 1)
 
-  ;; in Python it doesn't work well - folds whole classes, no but not methods
+  ;; in Python it doesn't work well - folds whole classes, but not methods
   (when (not (memq major-mode
                    '(python-mode sh-mode web-mode)))
     (hs-minor-mode)
@@ -281,22 +267,6 @@
 ;;
 ;;
 
-(if nil
-    (if-bsd
-     ;; Load CEDET library - used by ECB. Needs to be loaded before
-     ;; anything else.
-     (load-file "~/.emacs.d/plugins/cedet/common/cedet.el")
-     ;; Enable the Project management system
-     (global-ede-mode 1)
-
-     ;; Enable prototype help and smart completion
-     (semantic-load-enable-code-helpers)
-
-     ;; Enable template insertion menu
-     (global-srecode-minor-mode 1)
-
-     ;; Enable ECB extension
-     (require 'ecb)))
 
 (defun mapcar-head (fn-head fn-rest list)
   "Like MAPCAR, but applies a different function to the first element."
@@ -322,19 +292,20 @@
 
 
 (defun ediff-with-revision (rev)
-  "Compare a file with itself, but from a specific revision. Uses ediff, because
-default git diff is sooo weak..."
+  "Compare a file with itself, but from a specific revision. Uses
+ediff. I wrote this before I knew magit."
   (interactive "s")
   (let
       ((fname (file-name-nondirectory (buffer-file-name)))
        (buf (get-buffer-create (format "*Git revision %s*" rev))))
     (shell-command (format "git show %s:./%s" rev fname) buf)
     (let ((ediff-split-window-function 'split-window-horizontally))
-      (ediff-buffers buf (current-buffer)))
-    ))
+      (ediff-buffers buf (current-buffer)))))
 
 
 (defun safe-read-sexp (&optional buf)
+  "Like normal read, but return `nil' instead of raising an error
+if sexp is malformed."
   (setq buf (or buf (current-buffer)))
   (condition-case ex
      (let ((r (read buf))) (if (listp r) r (list r)))
@@ -378,89 +349,6 @@ default git diff is sooo weak..."
            (newline)
            (insert body)))))))
 
-
-(require 's)
-(require 'dash)
-(require 'deferred)
-
-(defstruct file-buffers-list
-  list pos)
-
-(defvar my-file-buffers nil)
-(defvar my-last-traverse nil)
-(defvar my-deferred nil)
-
-(defmacro make-fbl (list pos)
-  `(make-file-buffers-list :list ,list
-                           :pos ,pos))
-(defun fbl-list ()
-  (file-buffers-list-list my-file-buffers))
-(defun fbl-pos ()
-  (file-buffers-list-pos my-file-buffers))
-
-(defmacro fb-list-nth (fb-list)
-  "Get a current buffer out of given `file-buffers-list' struct.
-If it's `pos' is somehow out of range, wrap it before returning."
-  `(let*
-       ((pos   (file-buffers-list-pos ,fb-list))
-        (list  (file-buffers-list-list ,fb-list) )
-        (pos   (% pos (length list)))
-        (pos   (if (< pos 0) (1+ (- (length list) pos)) pos)))
-     (nth pos list)))
-
-
-(defun tfb-hidden-buf? (it)
-  (s-contains? "*" it))
-
-(defun tfb-buf-names ()
-  (let ((names (-map 'buffer-name (buffer-list))))
-    (-remove 'tfb-hidden-buf? names)))
-
-(defun tfb-init ()
-  (setq my-file-buffers (make-fbl (tfb-buf-names) 0)))
-
-(defun tfb-finish ()
-  (switch-to-buffer (fb-list-nth my-file-buffers))
-  (setq my-file-buffers  nil
-        my-last-traverse nil
-        my-deferred      nil)
-  (message "Current buffer made first in buffer list."))
-
-(defun my-schedule-cleanup ()
-  (unless my-deferred
-    (setq my-deferred
-          (deferred:$
-            (deferred:wait 1000)
-            (deferred:nextc it
-              (lambda (x)
-                (if (> (- (float-time) my-last-traverse) 1.2)
-                    (tfb-finish)
-                  (setq my-deferred nil)
-                  (my-schedule-cleanup))))))))
-
-(defun tfb-moveto (&optional delta)
-  (setq my-last-traverse   (float-time))
-  (unless delta            (setq delta 1))
-  (unless my-file-buffers  (tfb-init))
-  (let*
-      ((pos (fbl-pos))
-       (len (length (fbl-list)))
-       (dest (+ pos delta))
-       (dest (if (< dest 0) (1- len) dest)))
-    (setf (file-buffers-list-pos my-file-buffers) dest)
-    (switch-to-buffer (fb-list-nth my-file-buffers) t)
-    (my-schedule-cleanup)))
-
-(defun tfb-up ()
-  (interactive)
-  (tfb-moveto 1))
-
-(defun tfb-down ()
-  (interactive)
-  (tfb-moveto -1))
-
-(global-set-key (kbd "C-M-<prior>") 'tfb-down)
-(global-set-key (kbd "C-M-<next>")  'tfb-up)
 
 
 (defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"

@@ -1,8 +1,7 @@
 (require 'cl)
-(require 's)
-(require 'dash)
 
 (defvar my-debug-flag t)
+
 (defun my-log (&rest things)
   (when my-debug-flag
     (with-current-buffer (get-buffer "*Messages*")
@@ -21,7 +20,6 @@
     (goto-line lineno))
   (buffer-substring-no-properties (line-beginning-position)
                                   (line-end-position)))
-
 
 
 (defun my-get-region-or-line-bounds ()

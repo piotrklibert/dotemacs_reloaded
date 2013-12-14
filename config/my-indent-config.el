@@ -1,4 +1,6 @@
-(require 'dash)
+;; Make indent operations leave region active when done. It's a pain to press
+;; C-x C-x after indenting a block just to be able indent it a bit more.
+
 (require 'my-utils)
 
 (defvar my-auto-mark-excludes '((indent-region-or-line               . ignore)
@@ -47,10 +49,6 @@
   (when (and arg (listp arg))
     (setq arg (car arg)))
   (my-indent-rigidly '- arg))
-
-
-
-
 
 
 (provide 'my-indent-config)

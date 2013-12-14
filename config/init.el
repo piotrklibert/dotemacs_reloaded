@@ -90,11 +90,13 @@
 
 
 ;; import modules which majority of scripts use or don't fit anywhere
-(require 'cl)
-(require 'nxml-mode)
-(require 's-autoloads)
+(require 's)
+(require 'dash)
+(require 'cl)                           ; no idea why would this be bad...
 (require 'dired+)
 
+
+;; schedule imports to be done after some module is imported
 (eval-after-load "info"
   '(require 'info+))
 

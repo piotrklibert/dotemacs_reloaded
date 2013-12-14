@@ -42,10 +42,6 @@
                  yas-snippet-dirs))
 
 (yas-global-mode 1)
-;; (add-to-list 'ac-sources 'ac-source-semantic)
-
-;; for future auto-complete source using yasnippet
-(defun list-yas-templates () (let ((m (if (eq major-mode 'lisp-interaction-mode) 'emacs-lisp-mode major-mode)) (h yas--tables)) (yas--table-all-keys (gethash m h))))
 
 
 ;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____

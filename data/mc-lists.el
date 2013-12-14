@@ -12,6 +12,7 @@
         end-of-buffer
         forward-sexp
         indent-for-tab-command
+        iy-go-to-char--command
         kill-region
         kill-sexp
         livescript-dedent-line-backspace

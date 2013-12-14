@@ -1,13 +1,29 @@
-(require 'rect-mark)
+;; BTW: iedit has something for editing rectangles visually: C-<return>
+;; (iedit-rectangle-mode)
 
-;; Make BACKSPACE and DEL work on regions and rect regions too.
-;; iedit-rectangle-mode
+;; TODO: Make DEL work on regions too.
 ;; Also check to-read.txt
+
+(defun yank-rectangle-as-text ()
+  "Insert killed rectange as if it was normal text, ie. push
+lines down to make space for it instead of pushing line contents
+to the right."
+  (interactive)
+  (with-temp-buffer
+    (yank-rectangle)
+    (kill-region (point-min) (point-max)))
+  (yank)
+  (newline))
+
+
 
 ;; TODO: make next-line also append spaces at the end of line if needed
 
 (define-minor-mode free-rectangle-mode
-  "Makes `right-char' append spaces at the eol."
+  "Makes `right-char' append spaces at the eol. It's usefull for
+marking rectangles which last/first line is shorter than other
+lines. I'm not worried about leaving excess whitespace, because
+they will be removed on save anyway."
   nil "Fr" nil
   (if free-rectangle-mode
       (fr-mode-on)
@@ -29,7 +45,6 @@
     (setq free-rect-auto nil)
     (auto-mark-mode 1)))
 
-
 (defun right-and-mark-active ()
   (let ((transient-mark-mode nil))
     (insert " ")
@@ -42,13 +57,10 @@
       (right-and-mark-active)
     ad-do-it))
 
-;; (add-to-list 'auto-mark-command-class-alist '(ignore . right-char))
-
-;; (global-set-key (kbd "C-x r C-SPC") 'rm-set-mark)
-;; (define-key my-wnd-keys (kbd "C-w"))
-;; (lambda(b e) (interactive "r") (if rm-mark-active (rm-kill-region b e) (kill-region b e)))
-;; (global-set-key (kbd "M-w"))
-;; (lambda(b e) (interactive "r") (if rm-mark-active (rm-kill-ring-save b e) (kill-ring-save b e)))
-;; (global-set-key (kbd "C-x C-x"))
-;; (lambda(&optional p) (interactive "p") (if rm-mark-active (rm-exchange-point-and-mark p) (exchange-point-and-mark p)))
 (provide 'my-rectangular-editing)
+
+
+;; RECT-MARK
+;; (require 'rect-mark)
+;; I don't use this anymore, the only thing it provides is visual feedback for
+;; the rectangle, but does this at the expense of yet another set of keys.

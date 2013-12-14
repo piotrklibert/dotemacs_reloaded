@@ -127,9 +127,3 @@ yank-rectangle                C-x r y
 ;; (add-hook 'prog-mode-hook 'esk-local-comment-auto-fill)
 ;; (add-hook 'prog-mode-hook 'esk-turn-on-save-place-mode)
 ;; (add-hook 'prog-mode-hook 'esk-turn-on-idle-highlight-mode)
-
-;; (require 'hackernews)
-;; (require 'worklog)
-
-;; (setq org-default-notes-file (concat org-directory "/notes.org"))
-;; (define-key global-map (kbd "C-c c") 'org-capture)

@@ -17,8 +17,6 @@
 
 
 (defun upcase-word-or-region ()
-  ;; TODO: make a macro for writing commands in the form of
-  ;; something-or-region
   (interactive)
   (if (use-region-p)
       (upcase-region (region-beginning) (region-end))
