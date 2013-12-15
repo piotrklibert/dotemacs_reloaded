@@ -10,12 +10,14 @@
 
 
 (defun buffer-line (&optional lineno)
+  "Get a line in which point is as a string."
   (when lineno
     (goto-line lineno))
   (buffer-substring (line-beginning-position)
                     (line-end-position)))
 
 (defun buffer-line-np (&optional lineno)
+  "Get a line in which point is as a string. Strip text properties."
   (when lineno
     (goto-line lineno))
   (buffer-substring-no-properties (line-beginning-position)

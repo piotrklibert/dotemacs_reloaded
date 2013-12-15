@@ -257,22 +257,26 @@ with LiveScript."
   (pop-to-buffer "*LiveScriptREPL*"))
 
 (defun livescript-compiled-file-name (&optional filename)
-  (setq working-on-file (expand-file-name (or filename (buffer-file-name))))
-  (unless (string= livescript-js-directory "")
-      (setq working-on-file (expand-file-name (concat (file-name-directory working-on-file) livescript-js-directory (file-name-nondirectory working-on-file)))))
   "Returns the name of the JavaScript file compiled from a LiveScript file.
 If FILENAME is omitted, the current buffer's file name is used."
+  (setq working-on-file (expand-file-name (or filename (buffer-file-name))))
+  (unless (string= livescript-js-directory "")
+    (setq working-on-file
+          (expand-file-name (concat (file-name-directory working-on-file)
+                                    livescript-js-directory
+                                    (file-name-nondirectory working-on-file)))))
   (concat (file-name-sans-extension working-on-file) ".js"))
 
 (defun livescript-compile-file ()
-  "Compiles and saves the current file to disk in a file of the same
-base name, with extension `.js'.  Subsequent runs will overwrite the
-file.
+  "Compiles and saves the current file to disk in a file of the
+same base name, with extension `.js'. Subsequent runs will
+overwrite the file.
 
 If there are compilation errors, point is moved to the first
-(see `livescript-compile-jump-to-error')."
+\(see `livescript-compile-jump-to-error')."
   (interactive)
-  (let ((compiler-output (shell-command-to-string (livescript-command-compile (buffer-file-name)))))
+  (let
+      ((compiler-output (shell-command-to-string (livescript-command-compile (buffer-file-name)))))
     (if (string= compiler-output "")
         (message "Compiled and saved %s" (livescript-compiled-file-name))
       (let* ((msg (car (split-string compiler-output "[\n\r]+")))
@@ -284,27 +288,24 @@ If there are compilation errors, point is moved to the first
           (forward-line (1- line)))))))
 
 (defun livescript-compile-buffer ()
-  "Compiles the current buffer and displays the JavaScript in a buffer
-called `livescript-compiled-buffer-name'."
+  "Compiles the current buffer and displays the JavaScript in a
+buffer called `livescript-compiled-buffer-name'."
   (interactive)
   (save-excursion
     (livescript-compile-region (point-min) (point-max))))
 
 (defun livescript-compile-region (start end)
-  "Compiles a region and displays the JavaScript in a buffer called
-`livescript-compiled-buffer-name'."
+  "Compiles a region and displays the JavaScript in a buffer
+called `livescript-compiled-buffer-name'."
   (interactive "r")
-
   (let ((buffer (get-buffer livescript-compiled-buffer-name)))
     (when buffer
       (with-current-buffer buffer
         (erase-buffer))))
-
   (apply (apply-partially 'call-process-region start end livescript-command nil
                           (get-buffer-create livescript-compiled-buffer-name)
                           nil)
          (append livescript-args-compile (list "-s" "-p")))
-
   (let ((buffer (get-buffer livescript-compiled-buffer-name)))
     (display-buffer buffer)
     (with-current-buffer buffer
@@ -518,67 +519,7 @@ output in a compilation buffer."
 ;;   button:  -> 'OK'
 ;; }
 
-(defun livescript-imenu-create-index ()
-  "Create an imenu index of all methods in the buffer."
-  (interactive)
-
-  ;; This function is called within a `save-excursion' so we're safe.
-  (goto-char (point-min))
-
-  (let ((index-alist '()) assign pos indent ns-name ns-indent)
-    ;; Go through every assignment that includes -> or => on the same
-    ;; line or starts with `class'.
-    (while (re-search-forward
-            (concat "^\\(\\s *\\)"
-                    "\\("
-                      livescript-assign-regexp
-                      ".+?"
-                      livescript-lambda-regexp
-                    "\\|"
-                      livescript-namespace-regexp
-                    "\\)")
-            (point-max)
-            t)
-
-      ;; If this is the start of a new namespace, save the namespace's
-      ;; indentation level and name.
-      (when (match-string 8)
-        ;; Set the name.
-        (setq ns-name (match-string 8))
-
-        ;; If this is a class declaration, add :: to the namespace.
-        (setq ns-name (concat ns-name "::"))
-
-        ;; Save the indentation level.
-        (setq ns-indent (length (match-string 1))))
-
-      ;; If this is an assignment, save the token being
-      ;; assigned. `Please.print:` will be `Please.print`, `block:`
-      ;; will be `block`, etc.
-      (when (setq assign (match-string 3))
-          ;; The position of the match in the buffer.
-          (setq pos (match-beginning 3))
-
-          ;; The indent level of this match
-          (setq indent (length (match-string 1)))
-
-          ;; If we're within the context of a namespace, add that to the
-          ;; front of the assign, e.g.
-          ;; constructor: => Policeman::constructor
-          (when (and ns-name (> indent ns-indent))
-            (setq assign (concat ns-name assign)))
-
-          ;; Clear the namespace if we're no longer indented deeper
-          ;; than it.
-          (when (and ns-name (<= indent ns-indent))
-            (setq ns-name nil)
-            (setq ns-indent nil))
-
-          ;; Add this to the alist. Done.
-          (push (cons assign pos) index-alist)))
-
-    ;; Return the alist.
-    index-alist))
+(require 'livescript-mode/imenu)
 
 ;;
 ;; Indentation
