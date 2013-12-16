@@ -341,7 +341,7 @@
  '(org-tags-column -90)
  '(org-todo-keywords
    (quote
-    ((sequence "TODO(t!)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
+    ((sequence "TODO(t!)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
      (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|" "FINISHED(f@)"))))
  '(package-archives
    (quote
