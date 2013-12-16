@@ -24,7 +24,8 @@
     (let ((depth-count 0)
           (case-fold-search nil))
       (while (>= depth-count 0)
-        (when (= (point) limit) (return-from fn nil))
+        (when (= (point) limit)
+          (return-from fn nil))
         (funcall motion-fn)
         (cond
          ((char-equal (char-after) related) (incf depth-count))
@@ -87,13 +88,13 @@
            (cond
 ;;             ((char-equal kind ?W)
 ;;              (get-regex-delimited-region "\s" 2))
-            
+
 ;;             ((and (char-equal kind ?w) (looking-at "[[:alnum:]_]"))
 ;;              (get-regex-delimited-region "[^[:alnum:]_]" 2))
-            
+
 ;;             ((char-equal kind ?w)
 ;;              (get-regex-delimited-region "\s" 2))
-            
+
             ((consp paren-info)
              (get-paren-delimited-region (car paren-info) (cdr paren-info)))
 
@@ -138,22 +139,21 @@
       (lambda ()
         (interactive)
         (pseudo-motion-interactive-base-in 'copy-region-as-kill ch)))
-    
+
     (define-key global-map
       (concat "\C-xWa" (string ch))
       (lambda ()
         (interactive)
         (pseudo-motion-interactive-base-an 'copy-region-as-kill ch)))
-    
+
     (define-key global-map
       (concat "\C-xwi" (string ch))
       (lambda ()
         (interactive)
         (pseudo-motion-interactive-base-in 'kill-region ch)))
-    
+
     (define-key global-map
       (concat "\C-xwa" (string ch))
       (lambda ()
         (interactive)
         (pseudo-motion-interactive-base-an 'kill-region ch)))))
-
