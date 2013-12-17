@@ -18,6 +18,7 @@
 ;;; Contributors
 ;;
 ;; - Alessandro Arzilli (alessandro.arzilli @ gmail com)
+;; - Piotr Klibert
 
 (defun pseudo-motion-paren-ex (searched related motion-fn limit)
   (block fn
@@ -82,26 +83,20 @@
         (char-equal kind ?\`))))
 
 (defun get-pseudo-motion-region (kind)
+  ;; TODO: merge this two lets into let*
   (let ((case-fold-search nil)
         (paren-info (pseudo-motion-get-paren-info kind)))
-    (let ((region
-           (cond
-;;             ((char-equal kind ?W)
-;;              (get-regex-delimited-region "\s" 2))
+    (let
+        ((region
+          (cond
+           ((consp paren-info)
+            (get-paren-delimited-region (car paren-info)
+                                        (cdr paren-info)))
 
-;;             ((and (char-equal kind ?w) (looking-at "[[:alnum:]_]"))
-;;              (get-regex-delimited-region "[^[:alnum:]_]" 2))
+           ((pseudo-motion-is-quoted-string-p kind)
+            (get-regex-delimited-region (string kind) t))
 
-;;             ((char-equal kind ?w)
-;;              (get-regex-delimited-region "\s" 2))
-
-            ((consp paren-info)
-             (get-paren-delimited-region (car paren-info) (cdr paren-info)))
-
-            ((pseudo-motion-is-quoted-string-p kind)
-             (get-regex-delimited-region (string kind) t))
-
-            (t (error "unknown pseudo motion")))))
+           (t (error "unknown pseudo motion")))))
       region)))
 
 (defun pseudo-motion-an-extenders (kind)
@@ -132,28 +127,24 @@
 (defun pseudo-motion-interactive-base-an (com kind)
   (pseudo-motion-execute-command-on-region com (pseudo-motion-extend-region-an kind (get-pseudo-motion-region kind))))
 
-(dolist (ch '(?\( ?\[ ?\{ ?\( ?\" ?\' ?\`))
-  (lexical-let ((ch ch))
-    (define-key global-map
-      (concat "\C-xWi" (string ch))
-      (lambda ()
-        (interactive)
-        (pseudo-motion-interactive-base-in 'copy-region-as-kill ch)))
+(defun mark-pseudo-motion (char kind)
+  (let
+      ((reg (get-pseudo-motion-region char)))
+    (when kind
+      (setq reg (pseudo-motion-extend-region-an char reg)))
+    (push-mark (car reg) t t)
+    (goto-char (cdr reg))
+    (setq deactivate-mark nil)
+    (setq mark-active t)))
 
-    (define-key global-map
-      (concat "\C-xWa" (string ch))
-      (lambda ()
-        (interactive)
-        (pseudo-motion-interactive-base-an 'copy-region-as-kill ch)))
+;; TODO: make it disable itself when asked
+(defun global-textobject-mark-mode (&optional arg)
+  (dolist (ch '(?\( ?\[ ?\{ ?\( ?\" ?\' ?\`))
+    (lexical-let ((ch ch))
+      (define-key global-map
+        (concat "\C-xw" (string ch))
+        (lambda (&optional arg)
+          (interactive "P")
+          (mark-pseudo-motion ch arg))))))
 
-    (define-key global-map
-      (concat "\C-xwi" (string ch))
-      (lambda ()
-        (interactive)
-        (pseudo-motion-interactive-base-in 'kill-region ch)))
-
-    (define-key global-map
-      (concat "\C-xwa" (string ch))
-      (lambda ()
-        (interactive)
-        (pseudo-motion-interactive-base-an 'kill-region ch)))))
+(provide 'textobjects)

@@ -24,8 +24,6 @@
 
 
 
-(require 'expand-region)
-(define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
 
 
 (setq ace-jump-mode-submode-list
@@ -350,17 +348,25 @@ if sexp is malformed."
            (insert body)))))))
 
 
+;;
+;;   _____ _____ _    ____   __        ______      _    ____  ____  _____ ____
+;;  |  ___|  ___/ \  |  _ \  \ \      / /  _ \    / \  |  _ \|  _ \| ____|  _ \
+;;  | |_  | |_ / _ \ | |_) |  \ \ /\ / /| |_) |  / _ \ | |_) | |_) |  _| | |_) |
+;;  |  _| |  _/ ___ \|  __/    \ V  V / |  _ <  / ___ \|  __/|  __/| |___|  _ <
+;;  |_|   |_|/_/   \_\_|        \_/\_/  |_| \_\/_/   \_\_|   |_|   |_____|_| \_\
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"
                         "/usr/www/tagasauris/tagasauris/statics/"
                         "/usr/www/tagasauris/tagasauris/templates/"
                         "/usr/www/tagasauris/"))
 
-(defun my-project-ffap ()
+(defun my-project-ffap (&optional new-win)
   "A `ffap' replacement which checks for existence of file at
 point under a few known directories. Calls original if it's more
 complicated than this."
-  (interactive)
+  (interactive "P")
   (let* ((fname-at-pt (ffap-string-at-point))
          (fname-normalized (if (file-name-absolute-p fname-at-pt)
                                (replace-regexp-in-string "^/" "" fname-at-pt t t)
@@ -372,5 +378,6 @@ complicated than this."
           if (file-exists-p fname)
           do (setq found fname))
 
-    (or (and found (find-file found))
+    (or (and found (funcall (if new-win 'find-file-other-window 'find-file)
+                            found))
         (call-interactively 'ffap))))

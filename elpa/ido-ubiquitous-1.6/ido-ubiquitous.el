@@ -1,4 +1,3 @@
-
 ;;; ido-ubiquitous.el --- Use ido (nearly) everywhere.
 
 ;; Author: Ryan C. Thompson

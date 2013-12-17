@@ -53,29 +53,23 @@
 (when window-system
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)
-  (set-mouse-color "sky blue")) ; list-colors-display - buffer with all colors
+  (set-mouse-color "sky blue"))
 
 
 
 ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
 (defun my-set-default-font()
   (interactive)
-  (if-hostname klibertp.10clouds.com
-   (set-face-attribute 'default nil :font "Bitstream Vera Sans Mono-12"))
-  (if-hostname urkaja2
-   (set-face-attribute 'default nil :font "Bitstream Vera Sans Mono-13")))
+  (when window-system
+    (if-hostname klibertp.10clouds.com  ; at work
+      (set-face-attribute 'default nil
+                          :font "Bitstream Vera Sans Mono-12"))
+    (if-hostname urkaja2                ; at home
+      (set-face-attribute 'default nil
+                          :font "Bitstream Vera Sans Mono-13"))))
 
-(if-bsd
- ;; Set a font to something I can see, unless we're in the terminal window
- ;; (happens when Emacs is started as a daemon). In that case bind a key that
- ;; sets the font; it can be used later (when emacsclient is started).
- (if window-system
-     (my-set-default-font))
- (add-hook 'after-make-frame-functions
-              (lambda (f)
-                (if window-system
-                    (my-set-default-font))))
- (global-set-key (kbd "C-<f10>") 'my-set-default-font))
+(add-hook 'after-make-frame-functions 'my-set-default-font)
+(global-set-key (kbd "C-<f10>") 'my-set-default-font)
 
 
 
@@ -91,12 +85,12 @@
 
 ;; import modules which majority of scripts use or don't fit anywhere
 (require 's)
-(require 'dash)
 (require 'cl)                           ; no idea why would this be bad...
+(require 'dash)
 (require 'dired+)
 
 
-;; schedule imports to be done after some module is imported
+;; schedule imports to be done after some modules are imported
 (eval-after-load "info"
   '(require 'info+))
 
@@ -110,6 +104,9 @@
 (eval-after-load "thingatpt"
   '(require 'thingatpt+))
 
+;; schedule starting of Emacs server after everything else is loaded (5 min
+;; *should* be anough for startup :))
+(run-at-time "5 min" nil 'server-start)
 
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts
 (load "my-keymaps-config")
@@ -121,11 +118,11 @@
 (load "my-auto-completion")
 
 ;; Additional interfaces and functionalities (through plugins) activation and
-;; config
+;; config - mainly ido-mode
 (load "my-menus-config")
 
 ;; Keybinding and function that deal with windows and buffers, mostly bound to
-;; C-w C-... Elscreen lives here, too.
+;; C-w C-... Elscreen lives here, too (under C-M-z ...).
 (load "my-windows-config")
 
 ;; Main configuration for Python
@@ -209,6 +206,7 @@
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
  '(auto-revert-interval 2)
+ '(auto-revert-mode-text " AR")
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
@@ -378,7 +376,9 @@
  '(speedbar-show-unknown-files t)
  '(speedbar-tag-regroup-maximum-length 4)
  '(speedbar-verbosity-level 1)
+ '(sr-confirm-kill-viewer nil)
  '(sr-speedbar-right-side nil)
+ '(sr-use-commander-keys t)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
  '(tab-stop-list
    (quote

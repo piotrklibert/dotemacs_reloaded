@@ -30,6 +30,11 @@
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
 
+(require 'expand-region)
+(define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
+
+(require 'textobjects)
+(global-textobject-mark-mode 1)
 
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
