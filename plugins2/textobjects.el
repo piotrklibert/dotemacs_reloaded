@@ -18,7 +18,7 @@
 ;;; Contributors
 ;;
 ;; - Alessandro Arzilli (alessandro.arzilli @ gmail com)
-;; - Piotr Klibert
+;; - Piotr Klibert (klibertp in the gmail.com domain)
 
 (defun pseudo-motion-paren-ex (searched related motion-fn limit)
   (block fn
