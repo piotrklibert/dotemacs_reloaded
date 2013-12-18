@@ -20,6 +20,7 @@
 (require 'my-utils)
 
 
+(defvar abc-skip-chars " \t\n")
 (defun abc-skip-regexp ()
   "Stop-chars for determining symbol boundaries."
   (rx (any " \t\n")))
