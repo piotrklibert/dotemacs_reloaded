@@ -32,6 +32,7 @@
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
+(define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
 
 (require 'textobjects)
 (global-textobject-mark-mode 1)
@@ -41,7 +42,9 @@
 ;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
 ;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
-
+;; make artist-mode leave mouse pointer shape alone (it changes it otherwise)
+(eval-after-load "artist"
+  (setq artist-pointer-shape x-pointer-left-ptr))
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|

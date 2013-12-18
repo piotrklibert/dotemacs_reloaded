@@ -48,15 +48,15 @@
     (goto-char current-point)
     (cons start-point end-point)))
 
-(defun get-regex-delimited-region (regex noerror)
-  (let ((current-point (point)) (start-point 0) (end-point 0))
-    (when (re-search-backward regex (line-beginning-position) noerror)
-      (forward-char))
-    (setq start-point (point))
-    (when (re-search-forward regex (line-end-position) noerror)
-      (backward-char))
-    (setq end-point (point))
-    (goto-char current-point)
+(defun get-regex-delimited-region (regex noerror &optional in)
+  (let ((start-point 0)
+        (end-point 0))
+    (save-excursion
+      (re-search-backward regex (line-beginning-position) noerror)
+      (setq start-point (point)))
+    (save-excursion
+      (re-search-forward regex (line-end-position) noerror)
+      (setq end-point (point)))
     (cons start-point end-point)))
 
 (defun pseudo-motion-get-paren-info (char)
@@ -73,37 +73,40 @@
                             (?> . (?< . ?>))
                             ))
         (case-fold-search nil))
-    (assoc-default char paren-info-assoc 'char-equal)))
+    (and (characterp char)
+         (assoc-default char paren-info-assoc 'char-equal))))
 
 
 (defun pseudo-motion-is-quoted-string-p (kind)
   (let ((case-fold-search nil))
-    (or (char-equal kind ?\")
-        (char-equal kind ?\')
-        (char-equal kind ?\`))))
+    (and (characterp kind) (or (char-equal kind ?\")
+                               (char-equal kind ?\')
+                               (char-equal kind ?\`)))))
 
 (defun get-pseudo-motion-region (kind)
-  ;; TODO: merge this two lets into let*
-  (let ((case-fold-search nil)
-        (paren-info (pseudo-motion-get-paren-info kind)))
-    (let
-        ((region
-          (cond
-           ((consp paren-info)
-            (get-paren-delimited-region (car paren-info)
-                                        (cdr paren-info)))
+  (let
+      ((case-fold-search nil)
+       (paren-info (pseudo-motion-get-paren-info kind)))
+    (cond
+     ((consp paren-info)
+      (get-paren-delimited-region (car paren-info)
+                                  (cdr paren-info)))
 
-           ((pseudo-motion-is-quoted-string-p kind)
-            (get-regex-delimited-region (string kind) t))
+     ((pseudo-motion-is-quoted-string-p kind)
+      (get-regex-delimited-region (string kind) t))
 
-           (t (error "unknown pseudo motion")))))
-      region)))
+     ((stringp kind)                    ; let's assume it's a regex already
+      (get-regex-delimited-region kind nil nil))
+
+     (t (error "unknown pseudo motion")))))
 
 (defun pseudo-motion-an-extenders (kind)
   (let ((case-fold-search nil)
         (paren-info (pseudo-motion-get-paren-info kind)))
     (cond
-     ((or (char-equal kind ?W) (char-equal kind ?w)) '(?\s . ?\s))
+     ((or (char-equal kind ?W)
+          (char-equal kind ?w))
+      '(?\s . ?\s))
      ((consp paren-info) paren-info)
      ((pseudo-motion-is-quoted-string-p kind) (cons kind kind))
      (t (error "unknown pseudo motion")))))
@@ -145,6 +148,14 @@
         (concat "\C-xw" (string ch))
         (lambda (&optional arg)
           (interactive "P")
-          (mark-pseudo-motion ch arg))))))
+          (mark-pseudo-motion ch arg)))))
+
+  ;; "a word" pseudo motion
+  (define-key global-map
+    "\C-xww"
+    (lambda (&optional arg)
+      (interactive "P")
+      (mark-pseudo-motion "\\b" nil)))
+  )
 
 (provide 'textobjects)
