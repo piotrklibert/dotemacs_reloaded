@@ -1,4 +1,4 @@
-;; eclim.el --- an interface to the Eclipse IDE.
+;;; eclim.el --- an interface to the Eclipse IDE.
 ;;
 ;; Copyright (C) 2009  Tassilo Horn <tassilo@member.fsf.org>
 ;;

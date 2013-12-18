@@ -70,7 +70,7 @@
 
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (global-set-key (kbd "C-<f10>") 'my-set-default-font)
-
+(my-set-default-font)
 
 
 ;;                 ____   ____ ____  ___ ____ _____ ____
