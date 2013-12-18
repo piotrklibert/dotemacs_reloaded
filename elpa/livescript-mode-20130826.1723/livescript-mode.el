@@ -519,7 +519,7 @@ output in a compilation buffer."
 ;;   button:  -> 'OK'
 ;; }
 
-(require 'livescript-mode/imenu)
+(require 'livescript-mode-imenu)
 
 ;;
 ;; Indentation

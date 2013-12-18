@@ -1,4 +1,4 @@
-"/root/.emacs.d/elpa/livescript-mode-20130826.1723/tagging.ls"
+;; "/root/.emacs.d/elpa/livescript-mode-20130826.1723/tagging.ls"
 
 (defun livescript-imenu-create-index ()
   "Create an imenu index of all methods in the buffer."
@@ -62,4 +62,4 @@
     ;; Return the alist.
     index-alist))
 
-(provide 'livescript-mode/imenu)
+(provide 'livescript-mode-imenu)
