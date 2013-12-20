@@ -18,8 +18,8 @@
 ;;        powerline tries to output something unexpected, it won't
 ;;        just fail and flail-barf.  (JonathanArkell)
 ;; v1.2 - Fixed the Guard Clause to not just sit there and message like mad
-;;        When a list is encountered, it is interpreted as a mode line. Fixes 
-;;        problems with shell mode and nXhtml mode. 
+;;        When a list is encountered, it is interpreted as a mode line. Fixes
+;;        problems with shell mode and nXhtml mode.
 
 ;;; Code:
 
@@ -388,7 +388,7 @@ install the memoized function over the original function."
      (powerline-make side
                      (let ((result ,string))
 					   (cond ((listp result)
-							  (format-mode-line result)) 
+							  (format-mode-line result))
 							 ((not (or (stringp result)
 									   (null result)))
 							  (progn
@@ -491,10 +491,13 @@ install the memoized function over the original function."
                                           (setq pmin (point-min)))
                                         (percent-xpm pmax pmin we ws 15 color1 color2))))
 
+(defpowerline elscreen-num (format "El:%s" (elscreen-get-current-screen)))
+
 (setq-default mode-line-format
               (list "%e"
                     '(:eval (concat
                              (powerline-rmw            'left   nil  )
+                             (powerline-elscreen-num   'left   nil)
                              (powerline-buffer-size    'left   nil  )
                              (powerline-buffer-id      'left   nil  powerline-color1  )
                              (powerline-major-mode     'left        powerline-color1  )

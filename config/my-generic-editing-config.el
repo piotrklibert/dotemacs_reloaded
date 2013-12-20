@@ -24,8 +24,12 @@
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
 
-(require 'all)                          ; edit all occurances of a regexp in a
-(require 'all-ext)                      ; separate buffer
+
+;; edit all occurances of a regexp in a separate buffer (disabled because I
+;; learned that occur-mode has this feature already - under 'e')
+;; (require 'all)
+;; (require 'all-ext)
+
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)

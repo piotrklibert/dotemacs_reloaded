@@ -1235,7 +1235,7 @@ these values uses the default, ie. $HOME."
       (unless (eq my-frame (window-frame (selected-window)))
         (select-frame my-frame)
         (sunrise left-directory right-directory filename)))))
- 
+
 ;;;###autoload
 (defun sr-dired (&optional target switches)
   "Visit the given target (file or directory) in `sr-mode'."
@@ -1247,7 +1247,7 @@ these values uses the default, ie. $HOME."
          (directory (if file (file-name-directory target) target))
          (dired-omit-mode (if sr-show-hidden-files -1 1))
          (sr-listing-switches (or switches sr-listing-switches)))
-    (unless (file-readable-p directory) 
+    (unless (file-readable-p directory)
       (error "%s is not readable!" (sr-directory-name-proper directory)))
     (unless (and sr-running (eq (selected-frame) sr-current-frame)) (sunrise))
     (sr-select-window sr-selected-window)
@@ -1332,7 +1332,8 @@ buffer or window."
   (if (and (<= sr-panes-height (* 2 window-min-height))
            (eq sr-window-split-style 'vertical))
       (setq sr-panes-height (* 2 window-min-height)))
-  (split-window (selected-window) sr-panes-height)
+
+  ;; (split-window (selected-window) sr-panes-height)
 
   (case sr-window-split-style
     (horizontal (split-window-horizontally))
@@ -2216,13 +2217,13 @@ Selective hiding of specific attributes can be controlled by customizing the
                   ((null display-function-or-flag) '(invisible t))
                   (t nil))))
       (if sr-attributes-display-mask
-          (block block 
+          (block block
             (mapc (lambda (do-display)
                     (search-forward-regexp "\\w")
                     (search-forward-regexp "\\s-")
                     (forward-char -1)
                     (setq props (sr-make-display-props do-display))
-                    (when props 
+                    (when props
                       (add-text-properties cursor (point) props))
                     (setq cursor (point))
                     (if (>= (point) end) (return-from block)))
