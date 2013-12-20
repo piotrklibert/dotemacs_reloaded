@@ -60,3 +60,17 @@
 (setq smex-save-file (concat user-emacs-directory "data/smex-items")
       smex-history-length 100)
 (smex-initialize)
+
+
+(defun my-dired-back-to-top ()
+  (interactive)
+  (beginning-of-buffer)
+  (dired-next-line 4))
+
+(defun my-dired-jump-to-bottom ()
+  (interactive)
+  (end-of-buffer)
+  (dired-next-line -1))
+
+(define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
+(define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)

@@ -42,17 +42,25 @@
 (require 'paredit-autoloads)
 
 (global-set-key (kbd "C-c C-f")        'find-function)
+
+
+(defun my-interactive-byte-compile ()
+  (interactive)
+  (byte-compile-file (buffer-file-name)))
+
+
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
-  (local-set-key (kbd "C-M-d") 'duplicate-line)
-  (local-set-key (kbd "C-c C-b") (lambda ()
-                                   (interactive)
-                                   (byte-compile-file (buffer-file-name))))
+  (local-set-key (kbd "C-M-d")   'duplicate-line)
+  (local-set-key (kbd "C-c C-b") 'my-interactive-byte-compile)
   (local-set-key (kbd "C-c C-j") 'eval-print-last-sexp)
+
   (define-key paredit-mode-map (kbd "M-S-<left>")  'backward-word)
+  (define-key paredit-mode-map (kbd "M-?")         'paredit-convolute-sexp)
   (define-key paredit-mode-map (kbd "M-S-<right>") 'forward-word)
   (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
   (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line))
+
 
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
 
