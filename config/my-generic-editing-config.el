@@ -24,6 +24,9 @@
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
 
+(require 'saveplace)                    ; Save point position between sessions
+(setq-default save-place t)
+(setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 ;; edit all occurances of a regexp in a separate buffer (disabled because I
 ;; learned that occur-mode has this feature already - under 'e')
@@ -173,13 +176,6 @@ are not already."
   (interactive)
   (when (not (s-contains? "unix" (symbol-name buffer-file-coding-system)))
     (set-buffer-file-coding-system 'utf-8-unix)))
-
-(defun my-ibuffer-mode-hook ()
-  "Customized in ibuffer-mode-hook custom option."
-  ;; see also ibuffer-formats for columns config
-  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
-  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
-  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line))
 
 (defun back-to-indentation-or-beginning (arg)
   "Move point to beginning of line, unless it's already there, in

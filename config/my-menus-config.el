@@ -13,6 +13,10 @@
 
 (require 'autorevert)
 (global-auto-revert-mode 1)
+(setq auto-revert-verbose nil
+      global-auto-revert-non-file-buffers t) ; revert Dired buffers too
+
+
 
 (eval-after-load "bookmark"
   '(require 'bookmark+))
@@ -74,3 +78,25 @@
 
 (define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
 (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
+
+
+(defun my-ibuffer-mode-hook ()
+  "Customized in ibuffer-mode-hook custom option."
+  ;; see also ibuffer-formats for columns config
+  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
+  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
+  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
+  (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
+  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
+  )
+
+(defun ibuffer-end ()
+  (interactive)
+  (goto-char (point-max))
+  (forward-line -1)
+  (ibuffer-skip-properties '(ibuffer-summary ibuffer-filter-group-name) -1))
+
+(defun ibuffer-beginning ()
+  (interactive)
+  (goto-char (point-min))
+  (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
