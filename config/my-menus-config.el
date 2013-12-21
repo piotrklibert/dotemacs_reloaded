@@ -66,6 +66,14 @@
 (smex-initialize)
 
 
+;;                            ____  _              _
+;;                           |  _ \(_)_ __ ___  __| |
+;;                           | | | | | '__/ _ \/ _` |
+;;                           | |_| | | | |  __/ (_| |
+;;                           |____/|_|_|  \___|\__,_|
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
 (defun my-dired-back-to-top ()
   (interactive)
   (beginning-of-buffer)
@@ -80,15 +88,13 @@
 (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
 
 
-(defun my-ibuffer-mode-hook ()
-  "Customized in ibuffer-mode-hook custom option."
-  ;; see also ibuffer-formats for columns config
-  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
-  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
-  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
-  (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
-  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
-  )
+;;                       ___ _            __  __
+;;                      |_ _| |__  _   _ / _|/ _| ___ _ __
+;;                       | || '_ \| | | | |_| |_ / _ \ '__|
+;;                       | || |_) | |_| |  _|  _|  __/ |
+;;                      |___|_.__/ \__,_|_| |_|  \___|_|
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ibuffer-end ()
   (interactive)
@@ -100,3 +106,13 @@
   (interactive)
   (goto-char (point-min))
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
+
+(defun my-ibuffer-mode-hook ()
+  "Customized/added in ibuffer-mode-hook custom option."
+  ;; see also ibuffer-formats for columns config
+  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
+  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
+  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
+
+  (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
+  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end))
