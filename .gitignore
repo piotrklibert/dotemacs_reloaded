@@ -76,3 +76,5 @@ places
 /elpa/j-mode-readme.txt
 /bookmarks
 /textdb/index.db
+/abbrev_defs
+/.places
