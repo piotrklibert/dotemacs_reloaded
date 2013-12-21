@@ -1,3 +1,6 @@
+(require 'elixir-mode)
+(require 'nimrod-mode)
+
 ;;
 ;; HTML & Django templates mode
 ;;
