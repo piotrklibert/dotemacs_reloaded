@@ -11,7 +11,8 @@
     (my-indent                           . ignore)
     (my-dedent                           . ignore)
     (open-rectangle                      . ignore)
-    (comment-or-uncomment-region-or-line . ignore)))
+    (comment-or-uncomment-region-or-line . ignore)
+    (duplicate-line-or-region            . ignore)))
 
 (setq auto-mark-command-class-alist (-union auto-mark-command-class-alist
                                             my-auto-mark-excludes))

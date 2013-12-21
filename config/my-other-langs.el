@@ -51,7 +51,7 @@
 
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
-  (local-set-key (kbd "C-M-d")   'duplicate-line)
+  (local-set-key (kbd "C-M-d")   'duplicate-line-or-region)
   (local-set-key (kbd "C-c C-b") 'my-interactive-byte-compile)
   (local-set-key (kbd "C-c C-j") 'eval-print-last-sexp)
 
@@ -59,7 +59,7 @@
   (define-key paredit-mode-map (kbd "M-?")         'paredit-convolute-sexp)
   (define-key paredit-mode-map (kbd "M-S-<right>") 'forward-word)
   (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
-  (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line))
+  (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region))
 
 
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)

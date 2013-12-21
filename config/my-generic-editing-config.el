@@ -80,9 +80,12 @@
 (global-set-key (kbd "C-c f")      'iy-go-to-char)
 (global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
 
+(global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
+(global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
+
 
 ;; My little ponies (I mean defuns):
-(global-set-key (kbd "C-M-d")          'duplicate-line)
+(global-set-key (kbd "C-M-d")          'duplicate-line-or-region)
 (global-set-key (kbd "M-S-<down>")     'move-text-down)
 (global-set-key (kbd "M-S-<up>")       'move-text-up)
 (global-set-key (kbd "C-v")            'kill-whole-line)
@@ -134,6 +137,21 @@
 (require 'my-rectangular-editing)
 
 
+(defun forward-quarter-page (&optional arg)
+  "Move point forward by 1/4 of a window height"
+  (interactive "p")
+  (let
+      ((jump-len (/ (window-body-height) 4)))
+    (forward-line (* jump-len arg))))
+
+(defun backward-quarter-page (&optional arg)
+  "Move point backward by 1/4 of a window height"
+  (interactive "p")
+  (let
+      ((jump-len (/ (window-body-height) 4)))
+    (forward-line (- (* jump-len arg)))))
+
+
 (defun renumber (&optional num)
   "Renumber the list items in the current paragraph,starting at point."
   (interactive)
@@ -149,17 +167,31 @@
     (setq deactivate-mark nil)))
 
 
-(defun duplicate-line()
-  "Insert a copy of current line below it. Leaves point at the
-end of the second line."
+(defun duplicate-line-or-region ()
+  "Duplicate current line. If there is a region active, duplicate
+all lines of the region. To duplicate the region itself just use
+M-w C-y ;-)"
   (interactive)
-  (copy-region-as-kill (line-end-position 0)
-                       (line-end-position 1))
-  (move-end-of-line 1)
-  ;; handle special case of bob
-  (when (equal (line-end-position 0) (point-min))
-    (newline))
-  (yank))
+  (destructuring-bind
+      (region-active beg end) (my-get-region-or-line-bounds)
+
+    (goto-char beg)
+    (move-end-of-line 0)                ; to the end of previous line, to have \n
+    (push-mark)
+    (goto-char end)
+    (move-end-of-line 1)                ; to the end of current line, no \n
+    (copy-region-as-kill (region-beginning)
+                         (region-end))
+    (yank)
+    ;; it conflicts with auto-mark-mode which is irritating
+    ;; (when region-active
+    ;;   (restore-region beg end))
+    ))
+
+(defun restore-region (beg end)
+  (ensure-mark-active)
+  (set-mark beg)
+  (goto-char end))
 
 (defun join-region()
   "Remove indentation and newline characters between point and mark."
