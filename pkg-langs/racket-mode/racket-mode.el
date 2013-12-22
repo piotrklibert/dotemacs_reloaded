@@ -1751,7 +1751,10 @@ All commands in `lisp-mode-shared-map' are inherited by this map.")
   "Major mode for editing Racket.
 \\{racket-mode-map}"
   (racket-mode-variables t)
+  (my-init-prog-mode)
   ;; ?? Run scheme-mode-hook so that things like Geiser minor mode work ??
+  ;; Definitely run at least *some* hook so that it's possible to enable other
+  ;; minor modes.
   )
 
 (provide 'racket-mode)

@@ -22,35 +22,34 @@
 (require 'electric)
 
 
-
-
-
-
+;; Needs to be configured before require because. Just because.
 (setq ace-jump-mode-submode-list
       '(ace-jump-word-mode
         ace-jump-line-mode              ; make C-u C-c spc jump to lines
         ace-jump-char-mode))
 (require 'ace-jump-mode)                ; quickly jump to char
-;; you can select the key you prefer to
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode)
+
+(require 'fuzzy-find-in-project)
+
+(require 'my-highlight-word)            ; somewhat like * in Vim
+(require 'my-ffap-wrapper)
+
+;; that's silly, but it's my first "serious" Elisp, so I keep it around :)
+(require 'my-toggle-true-false)
+
 ;; (eval-after-load "ace-jump-mode"
 ;;   '(ace-jump-mode-enable-mark-sync))
 ;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
 
-
+;; (require 'etags-update)
 ;; It's not used right now because it's muuuch too slow for my Python projects,
 ;; and on the other hand it's unwieldy to reindex tags by hand everytime I
 ;; change something.
-;; TODO: etags-update
-;; look into it once more before discarding
-;; (require 'etags-update)
+;; TODO: etags-update - look into it once more before discarding
 ;; (etags-update-mode 1)
 ;; default tag table file
 ;; (visit-tags-table "~/.emacs.d/TAGS")
-
-
 
 
 ;;              ____  _____ _____ _____ ___ _   _  ____ ____
@@ -65,8 +64,6 @@
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)                     ; Maintain tag database.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
-;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode)            ; Show completions when idle.
-;; (add-to-list 'semantic-default-submodes 'global-semantic-decoration-mode)                  ; Additional tag decorations.
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
 (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
@@ -76,16 +73,15 @@
 
 
 (turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch
-(global-auto-mark-mode 1)
-(wrap-region-global-mode t)
+(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
+(wrap-region-global-mode t)             ; select region and press ( to wrap it
 (electric-pair-mode 1)
-;; this makes pdf viewing unusable, and offers no way of excluding some modes,
-;; so I will enable it for programming modes only
-;; (global-linum-mode 1)                   ; Show line numbers on buffers
-(column-number-mode t)
-(show-paren-mode t)
 
-(require 'fuzzy-find-in-project)
+(column-number-mode t)                  ; show col num on modeline
+(show-paren-mode t)                     ; highlight matching parens
+
+
+;; set root dirs for FFIP (should make this customizable)
 (setq fuzzy-find-project-root
       '("/usr/www/tagasauris/"
         "/root/.emacs.d/config/"
@@ -117,10 +113,12 @@
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
 
-
 ;;
 ;; Utilities for navigating around the codebase: searching, greping, jumping...
 ;;
+(define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
+(define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
+
 (define-key my-find-keys (kbd "C-o")      'occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
@@ -135,10 +133,7 @@
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
 
-(defun my-imenu-show-popup ()
-  (interactive)
-  (let ((imenu-use-popup-menu t))
-    (imenu (imenu-choose-buffer-index))))
+
 
 
 ;; XXX: This proved to be slower and to have much worse interface than fuzzy-find.
@@ -147,8 +142,13 @@
 ;; XXX: (require 'find-file-in-project-autoloads)
 ;; (define-key my-find-keys (kbd "C-M-f") 'find-file-in-project)
 
+
 ;;
-;;                              PROG-MODE HOOKS
+;;              ____  ____   ___   ____   _   _  ___   ___  _  __
+;;             |  _ \|  _ \ / _ \ / ___| | | | |/ _ \ / _ \| |/ /
+;;             | |_) | |_) | | | | |  _  | |_| | | | | | | | ' /
+;;             |  __/|  _ <| |_| | |_| | |  _  | |_| | |_| | . \
+;;             |_|   |_| \_\\___/ \____| |_| |_|\___/ \___/|_|\_\
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -164,6 +164,9 @@
   (fci-mode 1)
   (undo-tree-mode 1)
   (delete-selection-mode 1)
+  ;; (global-linum-mode 1) made pdf viewing (Doc Mode) unusable, and it offered
+  ;; no way of excluding just some modes, so I had to enable it locally for
+  ;; prog-mode buffers only
   (linum-mode 1)
 
   ;; in Python it doesn't work well - folds whole classes, but not methods
@@ -185,14 +188,20 @@
 ;; | |\/| |\ V /       | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
 ;; | |  | | | |        |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
 ;; |_|  |_| |_|        |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
-;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'my-highlight-word)
 
-(require 'my-toggle-true-false)
 
+(defun my-imenu-show-popup ()
+  "Somehow I didn't find any setting for making this the
+default."
+  (interactive)
+  (let ((imenu-use-popup-menu t))
+    (imenu (imenu-choose-buffer-index))))
 
 (defun my-toggle-quotes ()
+  "If point is inside quoted string, replace single quates with
+double quotes and vice-versa."
   (interactive)
   (save-excursion
     (let*
@@ -212,7 +221,6 @@
       (insert replace))))
 
 
-
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the region or the current line if
 there's no active region."
@@ -227,7 +235,7 @@ there's no active region."
 
 
 (defun global-occur (arg)
-  "Find occurances of arg in all but temporary opened buffers."
+  "Find occurences of arg in all but temporary opened buffers."
   (interactive "sSearch string: ")
   (let*
       ((search-buffer-p (lambda (buf)
@@ -266,6 +274,9 @@ there's no active region."
 ;;
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                               Camelize name
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun mapcar-head (fn-head fn-rest list)
   "Like MAPCAR, but applies a different function to the first element."
@@ -289,6 +300,7 @@ there's no active region."
                           'capitalize-downcased
                           (split-string s "_")) ""))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ediff-with-revision (rev)
   "Compare a file with itself, but from a specific revision. Uses
@@ -309,76 +321,3 @@ if sexp is malformed."
   (condition-case ex
      (let ((r (read buf))) (if (listp r) r (list r)))
    ('end-of-file nil)))
-
-
-;; ____   _____        ___   _ _     ___    _    ____    ____   _    ____ _____
-;;|  _ \ / _ \ \      / / \ | | |   / _ \  / \  |  _ \  |  _ \ / \  / ___| ____|
-;;| | | | | | \ \ /\ / /|  \| | |  | | | |/ _ \ | | | | | |_) / _ \| |  _|  _|
-;;| |_| | |_| |\ V  V / | |\  | |__| |_| / ___ \| |_| | |  __/ ___ \ |_| | |___
-;;|____/ \___/  \_/\_/  |_| \_|_____\___/_/   \_\____/  |_| /_/   \_\____|_____|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'thingatpt)
-
-(defun my-fetch-page (page-url)
-  "Fetch a HTTP page and insert it's body at point."
-  (interactive
-   (list
-    (let*
-        ((prompt    "Enter url (default: %s): ")
-         (at-point  (thing-at-point 'url t))
-         (input     (read-string (format prompt (or at-point ""))))
-         (got-input (not (equal input ""))))
-      (if (and (not got-input)
-               (not at-point))
-          (error "No url given")
-        (if got-input input at-point)))))
-  (lexical-let ((target (current-buffer)))
-    (url-retrieve
-     page-url
-     (lambda (status)
-       (search-forward "\n\n")
-       (let
-           ((body (buffer-substring (point) (point-max))))
-         (message "%s" target)
-         (with-current-buffer target
-           (if current-prefix-arg
-               (goto-char (point-max))
-             (end-of-line))
-           (newline)
-           (insert body)))))))
-
-
-;;
-;;   _____ _____ _    ____   __        ______      _    ____  ____  _____ ____
-;;  |  ___|  ___/ \  |  _ \  \ \      / /  _ \    / \  |  _ \|  _ \| ____|  _ \
-;;  | |_  | |_ / _ \ | |_) |  \ \ /\ / /| |_) |  / _ \ | |_) | |_) |  _| | |_) |
-;;  |  _| |  _/ ___ \|  __/    \ V  V / |  _ <  / ___ \|  __/|  __/| |___|  _ <
-;;  |_|   |_|/_/   \_\_|        \_/\_/  |_| \_\/_/   \_\_|   |_|   |_____|_| \_\
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"
-                        "/usr/www/tagasauris/tagasauris/statics/"
-                        "/usr/www/tagasauris/tagasauris/templates/"
-                        "/usr/www/tagasauris/"))
-
-(defun my-project-ffap (&optional new-win)
-  "A `ffap' replacement which checks for existence of file at
-point under a few known directories. Calls original if it's more
-complicated than this."
-  (interactive "P")
-  (let* ((fname-at-pt (ffap-string-at-point))
-         (fname-normalized (if (file-name-absolute-p fname-at-pt)
-                               (replace-regexp-in-string "^/" "" fname-at-pt t t)
-                             fname-at-pt))
-         found)
-
-    (loop for r in my-ffap-roots
-          for fname = (concat (file-name-as-directory r) fname-normalized)
-          if (file-exists-p fname)
-          do (setq found fname))
-
-    (or (and found (funcall (if new-win 'find-file-other-window 'find-file)
-                            found))
-        (call-interactively 'ffap))))

@@ -14,8 +14,12 @@
     (comment-or-uncomment-region-or-line . ignore)
     (duplicate-line-or-region            . ignore)))
 
+;; auto-mark sets the mark *AFTER* the command was executed (on
+;; post-command-hook) which makes it impossible to maintain selection. We need
+;; to exclude our functions from auto-mark so that it stops interfering.
 (setq auto-mark-command-class-alist (-union auto-mark-command-class-alist
                                             my-auto-mark-excludes))
+
 
 (global-set-key (kbd "C-M->") 'my-indent)
 (global-set-key (kbd "C-M-<") 'my-dedent)
