@@ -26,6 +26,7 @@
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
         paredit-meta-doublequote
+        paredit-newline
         paredit-open-round
         paredit-wrap-round
         python-indent-dedent-line-backspace

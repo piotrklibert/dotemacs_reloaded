@@ -11,7 +11,8 @@
   (load "~/cedet/cedet-devel-load.el")
   (load "~/cedet/contrib/cedet-contrib-load.el"))
 
-;; TODO: this is generally what package-initialize does.
+;; TODO: this is generally what package-initialize does... But not all the
+;; plugins are packaged.
 (defmacro add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
   `(dolist (dir (list ,@dirs))
@@ -58,7 +59,7 @@
 
 
 ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
-(defun my-set-default-font()
+(defun my-set-default-font (&optional frame)
   (interactive)
   (when window-system
     (if-hostname klibertp.10clouds.com  ; at work
@@ -73,24 +74,26 @@
 (my-set-default-font)
 
 
-;;                 ____   ____ ____  ___ ____ _____ ____
-;;                / ___| / ___|  _ \|_ _|  _ \_   _/ ___|
-;;                \___ \| |   | |_) || || |_) || | \___ \
-;;                 ___) | |___|  _ < | ||  __/ | |  ___) |
-;;                |____/ \____|_| \_\___|_|    |_| |____/
+
+;;                            ____ ___  ____  _____
+;;                           / ___/ _ \|  _ \| ____|
+;;                          | |  | | | | | | |  _|
+;;                          | |__| |_| | |_| | |___
+;;                           \____\___/|____/|_____|
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
-;; import modules which majority of scripts use or don't fit anywhere
+;; import modules which majority of scripts use or which don't fit anywhere
 (require 's)
 (require 'cl)                           ; no idea why would this be bad...
 (require 'dash)
-(require 'dired+)
 
 
 ;; schedule imports to be done after some modules are imported
+(eval-after-load "dired"
+  '(require 'dired+))
+
 (eval-after-load "info"
   '(require 'info+))
 
@@ -418,7 +421,8 @@
  '(visible-mark-face ((t (:background "gray26")))))
 
 (toggle-diredp-find-file-reuse-dir 1)
+
 (put 'narrow-to-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
-(put 'set-goal-column 'disabled nil)
-(put 'erase-buffer 'disabled nil)
+(put 'upcase-region    'disabled nil)
+(put 'set-goal-column  'disabled nil)
+(put 'erase-buffer     'disabled nil)
