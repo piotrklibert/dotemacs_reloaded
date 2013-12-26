@@ -638,7 +638,8 @@ You can not use it in source definition like (prefix . `NAME')."
         do
         (setq source (ac-source-entity source))
         ;; TODO: use cl-flet/cl-labels here
-        (flet ((add-attribute (name value &optional append) (add-to-list 'source (cons name value) append)))
+        (cl-flet ((add-attribute (name value &optional append)
+                   (add-to-list 'source (cons name value) append)))
           ;; prefix
           (let* ((prefix (assoc 'prefix source))
                  (real (assoc-default (cdr prefix) ac-prefix-definitions)))
@@ -653,6 +654,7 @@ You can not use it in source definition like (prefix . `NAME')."
              ((eq (cdr match) 'substring)
               (setcdr match 'ac-match-substring)))))
         and collect source))
+
 
 (defun ac-compiled-sources ()
   (or ac-compiled-sources

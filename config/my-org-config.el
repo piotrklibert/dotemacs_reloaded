@@ -6,6 +6,15 @@
 ;; * notify about failure too
 
 
+(require 'gnus)
+(setq gnus-select-method
+      '(nnimap "gmail"                  ; actually - emailhosting.com
+               (nnimap-address "imap.mailanyone.net")
+               (nnimap-server-port 993)
+               (nnimap-stream ssl)))
+
+
+
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
 
