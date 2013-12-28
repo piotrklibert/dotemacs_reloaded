@@ -4,19 +4,7 @@
 ;; * parse rsync output
 ;; * one line message only
 ;; * notify about failure too
-
-
-(require 'gnus)
-(setq gnus-select-method
-      '(nnimap "gmail"                  ; actually - emailhosting.com
-               (nnimap-address "imap.mailanyone.net")
-               (nnimap-server-port 993)
-               (nnimap-stream ssl)))
-
-
-
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
-
 
 (setq org-directory "~/todo/")
 (setq org-agenda-files (list "~/todo/"))
@@ -27,7 +15,7 @@
 
 
 (require 'org)
-(org-remember-insinuate)
+;; (org-remember-insinuate)
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)

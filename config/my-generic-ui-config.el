@@ -13,9 +13,19 @@
 
 (require 'autorevert)
 (global-auto-revert-mode 1)
-(setq auto-revert-verbose nil
-      global-auto-revert-non-file-buffers t) ; revert Dired buffers too
 
+;; set via customize:
+;; (setq auto-revert-verbose nil)
+;; (setq global-auto-revert-non-file-buffers t) ; revert Dired buffers too
+
+(global-auto-composition-mode -1)       ; for entering strange chars, not needed
+(mouse-avoidance-mode 'banish)          ; should move mouse away from point
+(auto-compression-mode 1)               ; transparent editing of compressed files
+(file-name-shadow-mode 1)               ; no idea :)
+(savehist-mode 1)                       ; save the minibuffer history on exit
+
+;; (require 'subword) ; for dealing with camel-cased text
+;; (icomplete-mode -1) ; ale moze ido lepsze?
 
 
 (eval-after-load "bookmark"

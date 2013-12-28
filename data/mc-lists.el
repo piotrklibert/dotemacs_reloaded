@@ -10,6 +10,7 @@
         delete-indentation
         elscreen-create
         end-of-buffer
+        eval-last-sexp
         forward-sexp
         indent-for-tab-command
         iy-go-to-char--command

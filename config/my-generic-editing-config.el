@@ -9,7 +9,7 @@
 (global-auto-mark-mode 1)
 
 (require 'mark-lines)                   ; mark whole line no matter where pt is
-(require 'visible-mark)
+(require 'visible-mark)                 ; recompile after Emacs update!
 (global-visible-mark-mode 1)
 
 (require 'wrap-region)                  ; select region and press " to wrap it
