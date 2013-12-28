@@ -42,10 +42,17 @@
 ;;
 ;; Emacs Lisp mode tweaks
 ;;
+
+(put 'font-lock-add-keywords 'lisp-indent-function 1)
+(font-lock-add-keywords 'emacs-lisp-mode
+  '(("eval-after-load" . font-lock-keyword-face)))
+
 (require 'paredit-autoloads)
 
 (global-set-key (kbd "C-c C-f")        'find-function)
 
+;; no idea where or why I overriden default <return> function in isearch...
+(define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
 
 (defun my-interactive-byte-compile ()
   (interactive)

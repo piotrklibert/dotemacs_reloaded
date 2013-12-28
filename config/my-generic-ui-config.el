@@ -4,6 +4,7 @@
 ;; TODO: maybe enable this
 ;; (require 'ido-ubiquitous-mode)
 
+(require 'generic-x)
 (require 'smex)
 (require 'sr-speedbar)
 (require 'edmacro)
@@ -25,8 +26,29 @@
 (savehist-mode 1)                       ; save the minibuffer history on exit
 
 ;; (require 'subword) ; for dealing with camel-cased text
-;; (icomplete-mode -1) ; ale moze ido lepsze?
 
+(icomplete-mode 1)
+(define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
+(define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions)
+
+;; schedule imports to be done after some modules are imported
+(eval-after-load "dired"
+  '(progn
+     (require 'dired-x)
+     (require 'dired+)))
+
+(eval-after-load "info"
+  '(require 'info+))
+
+(eval-after-load "help"
+  '(progn
+     (require 'help-macro+)
+     (require 'help-fns+)
+     (require 'help+)
+     (require 'help-mode+)))
+
+(eval-after-load "thingatpt"
+  '(require 'thingatpt+))
 
 (eval-after-load "bookmark"
   '(require 'bookmark+))

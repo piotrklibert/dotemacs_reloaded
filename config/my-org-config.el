@@ -164,14 +164,23 @@
   (org-match-sparse-tree nil (concat "CUSTOM_ID=\"" heading "\"")))
 
 
+(defun swap-cells ()
+  (interactive)
+  (org-table-previous-field)
+  (let
+      ((val (org-table-get-field nil "")))
+    (org-table-next-field)
+    (insert val)
+    (org-table-recalculate)))
+
+
 (defun my-org-hook ()
+  (define-key org-mode-map (kbd "<f4>")         'swap-cells)  ; orgtbl mode
   (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
   (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
   (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
   (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading))
-
-
 
 
 (add-hook 'org-mode-hook 'my-org-hook)
@@ -182,6 +191,7 @@
 
 
 ;; Stolen from: http://www.emacswiki.org/cgi-bin/wiki/Journal
+;; because on my FreeBSD Org crashed with C-c C-s...
 
 (defun my-now (&optional arg)
   "Insert string for the current time formatted like '2:34 PM'."

@@ -21,9 +21,14 @@
 
 (require 'electric)
 
-(require 'occur-x)
-(add-hook 'occur-mode-hook 'turn-on-occur-x-mode)
-(require 'occur-default-current-word)
+(eval-after-load "replace"
+  '(progn
+     (require 'occur-x)
+     (require 'occur-default-current-word)
+     (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)
+     (message "occur-x activated")))
+
+
 
 ;; Needs to be configured before require because. Just because.
 (setq ace-jump-mode-submode-list
