@@ -21,6 +21,9 @@
 
 (require 'electric)
 
+(require 'occur-x)
+(add-hook 'occur-mode-hook 'turn-on-occur-x-mode)
+(require 'occur-default-current-word)
 
 ;; Needs to be configured before require because. Just because.
 (setq ace-jump-mode-submode-list
@@ -82,12 +85,13 @@
 
 
 ;; set root dirs for FFIP (should make this customizable)
-(setq fuzzy-find-project-root
-      '("/usr/www/tagasauris/"
-        "/root/.emacs.d/config/"
-        "/root/.emacs.d/plugins2"
-        "/root/.emacs.d/pkg-langs"
-        "/root/todo/"))
+(setq fuzzy-find-project-root '("/home/cji/.emacs.d/"))
+;; (setq fuzzy-find-project-root
+;;       '("/usr/www/tagasauris/"
+;;         "/root/.emacs.d/config/"
+;;         "/root/.emacs.d/plugins2"
+;;         "/root/.emacs.d/pkg-langs"
+;;         "/root/todo/"))
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls
@@ -232,6 +236,7 @@ there's no active region."
       (setq beg (line-beginning-position)
             end (line-end-position)))
     (comment-or-uncomment-region beg end)))
+
 
 
 (defun global-occur (arg)
