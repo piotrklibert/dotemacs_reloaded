@@ -79,3 +79,4 @@ places
 /abbrev_defs
 /.places
 /elpa/elixir-mode-readme.txt
+disabled/*
