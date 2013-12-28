@@ -4,7 +4,7 @@
 (global-set-key (kbd "C-t") 'my-toggle-keys)
 
 
-;; Functions related to serching paths, files and everything else.
+;; Functions related to searching paths, files and everything else.
 (define-prefix-command 'my-find-keys)
 (global-set-key (kbd "C-f") 'my-find-keys)
 

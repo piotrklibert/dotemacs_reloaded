@@ -1,26 +1,26 @@
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(fringe-mode     '(4 . 8))
+;; disable early so they don't appear during startup
+(menu-bar-mode   -1)
+(tool-bar-mode   -1)
 (scroll-bar-mode -1)
-(fringe-mode '(4 . 8))
 
+;; this doesn't want to be set anywhere else...
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
 
 (unless (featurep 'cedet-devel-load)
   ;; do not load cedet if it's loaded already - happens when using dumped
   ;; emacs with normal init file
-  (load "~/cedet/cedet-devel-load.el")
-  (load "~/cedet/contrib/cedet-contrib-load.el"))
+  (condition-case nil
+      (progn
+        (load "~/cedet/cedet-devel-load.el")
+        (load "~/cedet/contrib/cedet-contrib-load.el"))
+    (error (message (concat "Fetch the latest CEDET package and place it "
+                            "inside `~/cedet/'. Remember to `make' it.")))))
 
-;; TODO: this is generally what package-initialize does... But not all the
-;; plugins are packaged.
-(defmacro add-subdirs-to-path (&rest dirs)
-  "Add given directory and all it's (immediate) subdirectories to load-path."
-  `(dolist (dir (list ,@dirs))
-     (add-to-list 'load-path dir)
-     (let
-       ((default-directory dir))
-     (normal-top-level-add-subdirs-to-load-path))))
+
+;; import macros for initializing packages and checking hostname
+(load "my-system-config")
 
 
 ;; we don't want to add direct children of Emacs home directory to path,
@@ -28,15 +28,10 @@
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
 
-
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
   "~/.emacs.d/pkg-langs"
   "~/.emacs.d/plugins2")
-
-
-;; import IF-WINDOWS and IF-BSD macros - very important!
-(load "my-system-detection")
 
 
 
@@ -58,9 +53,9 @@
   (set-mouse-color "sky blue"))
 
 
-;; another possible font:
-;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
 (defun my-set-default-font (&optional frame)
+  ;; another possible font:
+  ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
   (interactive)
   (when window-system
     (if-hostname klibertp.10clouds.com  ; at work
@@ -89,10 +84,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; import modules which majority of scripts use or which don't fit anywhere
-(require 's)
-(require 'cl)                           ; no idea why would this be bad...
-(require 'dash)
 
 ;; schedule starting of Emacs server after everything else is loaded (5 min
 ;; *should* be anough for startup :))
