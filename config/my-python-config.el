@@ -54,13 +54,7 @@
 (require 'flymake)
 (add-hook 'prog-mode-hook 'flymake-mode)
 
-(require 'flymake-checkers)
-
 (defun start-checkers()
-  (when flymake-is-running
-    (flymake-mode -1))
-  (require 'flymake-checkers)
-  (flycheck-mode -1)
   (flymake-mode 1))
 (add-hook 'elpy-mode-hook 'start-checkers)
 

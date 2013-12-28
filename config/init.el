@@ -19,9 +19,13 @@
                             "inside `~/cedet/'. Remember to `make' it.")))))
 
 
-;; import macros for initializing packages and checking hostname
-(load "my-system-config")
-
+(defmacro add-subdirs-to-path (&rest dirs)
+  "Add given directory and all it's (immediate) subdirectories to load-path."
+  `(dolist (dir (list ,@dirs))
+     (add-to-list 'load-path dir)
+     (let
+       ((default-directory dir))
+       (normal-top-level-add-subdirs-to-load-path))))
 
 ;; we don't want to add direct children of Emacs home directory to path,
 ;; because there are many non-lisp dirs in there
@@ -33,6 +37,9 @@
   "~/.emacs.d/pkg-langs"
   "~/.emacs.d/plugins2")
 
+
+;; import macros for checking hostname
+(load "my-system-config")
 
 
 ;;     _     ___   ___  _  __                  _   _____ _____ _____ _
