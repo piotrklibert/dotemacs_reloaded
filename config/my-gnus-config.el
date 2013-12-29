@@ -1,5 +1,6 @@
 (require 'gnus)
 
+;; Not really sure if it's needed?
 (setq user-mail-address "piotrklibert@emailhosting.com"
       user-full-name "Piotr Klibert")
 
@@ -16,6 +17,8 @@
                       (nnimap-server-port 993)
                       (nnimap-stream ssl)))
 
+;; Gmail's default groups match Gnus default ignored groups. This pattern does
+;; not and so Gmail groups are visible.
 (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
 (setq send-mail-function 'smtpmail-send-it)
