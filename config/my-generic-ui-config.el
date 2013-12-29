@@ -1,3 +1,8 @@
+(defun make-local-hook (&rest things)
+  "Something somewhere calls this obsolete function; I couldn't
+  find it by grepping the sources so I decided to mock it to get
+  rid of annoying warnings.")
+
 (require 'ido)
 (require 'idomenu)
 (require 'ido-vertical-mode)

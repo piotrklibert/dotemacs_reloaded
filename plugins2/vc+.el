@@ -750,7 +750,6 @@ You can type `vl', `v=' etc. to invoke `vc-print-log', `vc-diff', and
 the like on the file named on the current Dired buffer line.  `vv'
 invokes `vc-next-action' on this file, or on all files currently
 marked.  The special command, `*l' marks all files currently locked."
-  ;; (make-local-hook 'dired-after-readin-hook)
   (add-hook 'dired-after-readin-hook 'vc-dired-hook nil t)
   ;; The following is slightly modified from `dired.el',
   ;; because file lines look a bit different in `vc-dired-mode'.

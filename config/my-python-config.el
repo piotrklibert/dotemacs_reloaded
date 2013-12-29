@@ -1,8 +1,6 @@
-(require 'flymake-checkers)
-
 (require 'ein)
 (setq ein:use-auto-complete t)
-
+;; TODO: make some keybinding
 
 (require 'elpy)
 (require 'django-mode)
@@ -10,12 +8,6 @@
 
 (elpy-enable)                       ; adds (elpy-mode) as a hook for python-mode
 (elpy-use-ipython)
-
-
-
-(defun start-checkers()
-  (flymake-mode 1))
-(add-hook 'elpy-mode-hook 'start-checkers)
 
 
 ;;

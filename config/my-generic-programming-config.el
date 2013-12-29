@@ -4,7 +4,10 @@
 (require 'thingatpt)
 (require 'powerline)
 (require 'rainbow-delimiters)
+
 (require 'flymake)
+(require 'flymake-checkers)
+
 
 (require 'columnize)
 

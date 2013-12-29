@@ -4884,7 +4884,6 @@ These are all of the current Info Mode bindings:
           mode-name   "Info"
           tab-width   8)
     (use-local-map Info-mode-map)
-    (make-local-hook 'activate-menubar-hook)
     (add-hook 'activate-menubar-hook 'Info-menu-update nil t)
     (set-syntax-table Info-mode-syntax-table)
     (setq local-abbrev-table  text-mode-abbrev-table
