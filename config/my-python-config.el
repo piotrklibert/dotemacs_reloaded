@@ -3,11 +3,12 @@
 ;; TODO: make some keybinding
 
 (require 'elpy)
-(require 'django-mode)
+;; (require 'django-mode)  ; conflicts with elpy
 (require 'python-django)
 
 (elpy-enable)                       ; adds (elpy-mode) as a hook for python-mode
 (elpy-use-ipython)
+(setq elpy-rpc--timeout 5)              ; new versions is a bit slower than it was
 
 
 ;;

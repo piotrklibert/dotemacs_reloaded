@@ -1,4 +1,5 @@
 (require 's)
+(require 'f)
 (require 'cl)                           ; no idea why would this be bad...
 (require 'dash)
 
@@ -17,4 +18,3 @@
 
 ;; TODO: this is generally what package-initialize does... But not all the
 ;; plugins are packaged.
-

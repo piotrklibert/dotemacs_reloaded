@@ -93,14 +93,14 @@
 (show-paren-mode t)                     ; highlight matching parens
 
 
-;; set root dirs for FFIP (should make this customizable)
-(setq fuzzy-find-project-root '("/home/cji/.emacs.d/"))
-;; (setq fuzzy-find-project-root
-;;       '("/usr/www/tagasauris/"
-;;         "/root/.emacs.d/config/"
-;;         "/root/.emacs.d/plugins2"
-;;         "/root/.emacs.d/pkg-langs"
-;;         "/root/todo/"))
+;; set root dirs for FFIP
+(let ((paths (list "/usr/www/tagasauris/" "/usr/www/tagasauris/solr/"
+                   "/usr/www/tagasauris/src/tenclouds/tenclouds/"
+                   "/usr/www/tagasauris/control/" "/usr/www/tagasauris/config/"
+                   "/usr/www/tagasauris/doc/" "~/.emacs.d/config/"
+                   "~/.emacs.d/plugins2/" "~/.emacs.d/pkg-langs/" "~/todo/")))
+  (setq fuzzy-find-project-root (--map (f-expand it) paths)))
+
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls

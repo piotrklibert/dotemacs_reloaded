@@ -202,12 +202,16 @@ M-w C-y ;-)"
     (while (> (line-beginning-position) beg)
       (delete-indentation))))
 
-(defun unix-line-endings ()
+(defun unix-line-endings (&optional save)
   "Make current file's newlines converted to unix format if they
 are not already."
-  (interactive)
-  (when (not (s-contains? "unix" (symbol-name buffer-file-coding-system)))
-    (set-buffer-file-coding-system 'utf-8-unix)))
+  (interactive "P")
+  (let ((coding (symbol-name buffer-file-coding-system)))
+    (if (not (s-contains? "unix" coding))
+        (progn
+          (set-buffer-file-coding-system 'utf-8-unix)
+          (when save (save-buffer)))
+      (message "File already has UNIX style line endings."))))
 
 (defun back-to-indentation-or-beginning (arg)
   "Move point to beginning of line, unless it's already there, in
