@@ -83,3 +83,4 @@ disabled/*
 /history
 /pkg-langs/web-mode/demo.html
 /request/curl-cookie-jar
+/pkg-langs/elpy/snippets
