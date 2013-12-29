@@ -80,3 +80,6 @@ places
 /.places
 /elpa/elixir-mode-readme.txt
 disabled/*
+/history
+/pkg-langs/web-mode/demo.html
+/request/curl-cookie-jar

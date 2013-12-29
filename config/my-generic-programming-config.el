@@ -4,6 +4,7 @@
 (require 'thingatpt)
 (require 'powerline)
 (require 'rainbow-delimiters)
+(require 'flymake)
 
 (require 'columnize)
 
@@ -173,6 +174,7 @@
   (fci-mode 1)
   (undo-tree-mode 1)
   (delete-selection-mode 1)
+  (flymake-mode 1)
   ;; (global-linum-mode 1) made pdf viewing (Doc Mode) unusable, and it offered
   ;; no way of excluding just some modes, so I had to enable it locally for
   ;; prog-mode buffers only

@@ -227,6 +227,10 @@
  '(ediff-merge-split-window-function (quote split-window-horizontally))
  '(ediff-no-emacs-help-in-control-buffer t)
  '(ediff-split-window-function (quote split-window-horizontally))
+ '(elpy-default-minor-modes
+   (quote
+    (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+ '(elpy-rpc-backend "jedi")
  '(enable-recursive-minibuffers t)
  '(eval-expression-print-length nil)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
