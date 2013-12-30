@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ac-auto-show-menu 0.3)
- '(ac-comphist-file "/root/.emacs.d/data/ac-comphist.dat")
+ '(ac-comphist-file "~/.emacs.d/data/ac-comphist.dat")
  '(ac-disable-faces nil)
  '(ac-modes
    (quote
@@ -35,7 +35,7 @@
  '(ecb-use-speedbar-instead-native-tree-buffer nil)
  '(ecb-vc-enable-support t)
  '(ecb-windows-width 0.13)
- '(ede-project-directories (quote ("/root/.emacs.d/config")))
+ '(ede-project-directories (quote ("~/.emacs.d/config")))
  '(ediff-keep-variants nil)
  '(ediff-make-buffers-readonly-at-startup nil)
  '(ediff-merge-split-window-function (quote split-window-horizontally))
@@ -58,6 +58,7 @@
  '(git-commit-summary-max-length 70)
  '(global-auto-revert-non-file-buffers t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
+ '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
  '(gnus-summary-same-subject "(same)")
  '(gnus-thread-sort-functions (quote (gnus-thread-sort-by-most-recent-date)))
@@ -105,7 +106,7 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
- '(org-agenda-files (quote ("/root/todo/")))
+ '(org-agenda-files (quote ("~/todo/")))
  '(org-archive-location "todo.archive::datetree/* From %s")
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")

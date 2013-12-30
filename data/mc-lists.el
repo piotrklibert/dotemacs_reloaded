@@ -8,6 +8,7 @@
         beginning-of-buffer
         coffee-dedent-line-backspace
         delete-indentation
+        electric-pair-backward-delete-char
         elscreen-create
         end-of-buffer
         eval-last-sexp
