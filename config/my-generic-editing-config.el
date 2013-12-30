@@ -213,6 +213,23 @@ are not already."
           (when save (save-buffer)))
       (message "File already has UNIX style line endings."))))
 
+(defun filter-existing ()
+  "Each line of a buffer is a path, like in .gitignore. Remove
+the lines which files do not exist. Does not handle wildcards.
+Does not recurse. Only works in the simplest case."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (not (= (point) (point-max)))
+      (let ((line (buffer-line-np)))
+        (when (not (s-contains? "*" line))
+          (when (s-starts-with? "/" line) ; magit seems to insert this
+            (setq line (s-chop-prefix "/" line)))
+          (when (not (f-exists? line))
+            (kill-whole-line)
+            (forward-line -1))))
+      (forward-line))))
+
 (defun back-to-indentation-or-beginning (arg)
   "Move point to beginning of line, unless it's already there, in
 which case move it to the first non-whitespace char in line.
