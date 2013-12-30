@@ -51,6 +51,9 @@
        "%1{%B%}"
        "%s\n"))
 
+(setq gnus-group-line-format "%M%L%p%P%10R/%4T/%5y:     %B%(%g%)
+")
+
 (setq gnus-summary-display-arrow t)
 
 (global-set-key (kbd "<f12>") 'gnus)

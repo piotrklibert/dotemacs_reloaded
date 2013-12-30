@@ -147,7 +147,7 @@
 (require 'racket-mode)
 
 ;; Geiser config
-(setq geiser-racket-binary          "/root/portless/racket/racket/bin/racket")
+(setq geiser-racket-binary           (f-expand "~/portless/racket/racket/bin/racket"))
 (setq geiser-active-implementations '(racket))
 
 (setq geiser-mode-company-p t)          ; not sure if it's needed
