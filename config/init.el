@@ -143,7 +143,27 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; TODO: more robust backup config:
 (setq backup-directory-alist `(("." . "~/.saves")))
+;; (defvar user-temporary-file-directory
+;;   (concat "/tmp/" user-login-name "/emacs_backup/"))
+;; (make-directory user-temporary-file-directory t)
+;; (setq make-backup-files t)
+;; (setq backup-by-copying t)
+;; (setq version-control t)
+;; (setq delete-old-versions t)
+;; (setq kept-new-versions 10)
+;; (setq backup-directory-alist `(("." . ,user-temporary-file-directory)))
+;; (setq tramp-backup-directory-alist backup-directory-alist)
+;; (setq tramp-auto-save-directory user-temporary-file-directory)
+;; (setq auto-save-list-file-prefix
+;;       (concat user-temporary-file-directory ".auto-saves-"))
+;; (setq auto-save-file-name-transforms
+;;       `((".*" ,user-temporary-file-directory t)))
+
+
+
 ;; DON'T use tabs for indenting, use spaces only
 (setq-default indent-tabs-mode nil)
 ;; Length of tab is 4 SPC

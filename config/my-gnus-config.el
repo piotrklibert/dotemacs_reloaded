@@ -52,3 +52,5 @@
        "%s\n"))
 
 (setq gnus-summary-display-arrow t)
+
+(global-set-key (kbd "<f12>") 'gnus)

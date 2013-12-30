@@ -190,6 +190,7 @@
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
  '(shell-file-name "/bin/bash")
+ '(shell-prompt-pattern "# ")
  '(speedbar-default-position (quote left))
  '(speedbar-hide-button-brackets-flag t)
  '(speedbar-show-unknown-files t)
@@ -203,6 +204,8 @@
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(tags-revert-without-query t)
+ '(tramp-backup-directory-alist (quote (("." . "~/.saves"))))
+ '(tramp-default-host "localhost")
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
  '(uniquify-buffer-name-style (quote post-forward) nil (uniquify))
