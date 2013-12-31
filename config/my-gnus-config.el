@@ -56,4 +56,18 @@
 
 (setq gnus-summary-display-arrow t)
 
-(global-set-key (kbd "<f12>") 'gnus)
+
+
+(global-set-key (kbd "<f12>") 'my-toggle-gnus)
+
+(defun my-toggle-gnus ()
+  "Check if Gnus is running, start it if not, exit if it is."
+  (interactive)
+  (if (eq major-mode 'gnus-group-mode)
+      (gnus-group-exit-noninteractive)
+    (gnus)))
+
+(defun gnus-group-exit-noninteractive ()
+  (interactive)
+  (let ((gnus-interactive-exit nil))
+    (gnus-group-exit)))
