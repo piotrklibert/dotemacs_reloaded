@@ -26,9 +26,9 @@
 
 (require 'saveplace)                    ; Save point position between sessions
 (setq-default save-place t)
-(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+(setq save-place-file (expand-file-name "h.places" user-emacs-directory))
 
-;; edit all occurances of a regexp in a separate buffer (disabled because I
+;; edit all occurances of a regexp in a separate buffer (disabled becaus I
 ;; learned that occur-mode has this feature already - under 'e')
 ;; (require 'all)
 ;; (require 'all-ext)
@@ -73,12 +73,12 @@
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)
 
-(global-set-key (kbd "M-V")        'mark-lines-next-line)
-(global-set-key (kbd "C-M-<SPC>")  'just-one-space)
-(global-set-key (kbd "C-{")        'backward-paragraph)
-(global-set-key (kbd "C-}")        'forward-paragraph)
-(global-set-key (kbd "C-c f")      'iy-go-to-char)
-(global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
+(global-set-key (kbd "M-V")       'mark-lines-next-line)
+(global-set-key (kbd "C-M-<SPC>") 'just-one-space)
+(global-set-key (kbd "C-{")       'backward-paragraph)
+(global-set-key (kbd "C-}")       'forward-paragraph)
+(global-set-key (kbd "C-c f")     'iy-go-to-char)
+(global-set-key (kbd "C-c F")     'iy-go-to-char-backward)
 
 (global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
 (global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
