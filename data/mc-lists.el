@@ -23,7 +23,10 @@
         org-beginning-of-line
         org-cycle
         org-end-of-line
+        org-force-self-insert
         org-self-insert-command
+        orgtbl-hijacker-command-3
+        orgtbl-self-insert-command
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
