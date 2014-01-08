@@ -134,6 +134,8 @@
 ;; gnus configuration
 (load "my-gnus-config")
 
+(require 'my-download-page)
+
 ;;
 ;;                      ____ _   _ ____ _____ ___  __  __
 ;;                     / ___| | | / ___|_   _/ _ \|  \/  |

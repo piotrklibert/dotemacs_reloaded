@@ -177,3 +177,7 @@
 (add-hook 'geiser-repl-mode-hook 'my-geiser-repl-hook)
 (defun my-geiser-repl-hook ()
   (auto-complete-mode 1))
+
+;; Smalltalk: ale slaby. Trzeba zobaczyc Shampoo.
+(require 'smalltalk-mode)
+(push '("\\.st\\'" . smalltalk-mode)  auto-mode-alist)
