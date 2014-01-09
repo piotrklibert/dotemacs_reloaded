@@ -74,7 +74,9 @@
 
 (global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
 (global-set-key (kbd "C-<f2>")   'recentf-open-files)
+
 (global-set-key (kbd "C-<f3>")   'sunrise)
+(global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
 
 ;; IDo - Interactively Do Things.

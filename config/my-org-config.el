@@ -64,7 +64,7 @@
 
 (setq org-agenda-custom-commands
       '(("m" "Notes"
-         ((tags "/!NEXT"
+         ((tags "/!NEXT|ACTIVE"
                 ((org-agenda-overriding-header "Next tasks")))
           (tags "/SUSPENDED"
                 ((org-agenda-overriding-header "Suspended tasks")))
