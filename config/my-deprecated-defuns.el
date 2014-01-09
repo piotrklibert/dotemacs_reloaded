@@ -40,3 +40,34 @@
     (when region-was-active
       (setq deactivate-mark nil)
       (setq mark-active t))))
+
+;; (defvar hilite-call nil)
+;; (defvar hilite-data nil)
+;; (setq hilite-call 10)
+;; (setq hilite-data nil)
+;; (reverse hilite-data)
+;; (defun my-sue-hilighter (limit)
+;;   ;; (set-text-properties
+;;   ;;  2349 2362 '(font-lock-face error))
+;;   (if (> (setq hilite-call (1- hilite-call)) 0)
+;;       (progn
+;;         (push (list (point) (point-max) limit) hilite-data)
+;;         (goto-char (+ (point) (1- limit)) )
+;;         t)
+;;     nil))
+
+;; (with-current-buffer (get-buffer "org-keys.org")
+;;   ;; (font-lock-add-keywords nil '((my-sue-hilighter . font-lock-keyword-face)))
+
+;;   )
+
+;; (with-current-buffer (get-buffer "org-keys.org")
+;;   ;; setq font-lock-keywords
+;;   (font-lock-remove-keywords nil '(( org-font-lock-hook) my-sue-hilighter))
+
+;;   (cdr font-lock-keywords)
+;;   ;; (-flatten (cdr font-lock-keywords))
+;;   )
+
+;; (or (eq (car it) 'org-font-lock-hook)
+;;                            (eq (car it) 'my-sue-hilighter))
