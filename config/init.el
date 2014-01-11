@@ -68,11 +68,15 @@
     (if-hostname klibertp.10clouds.com  ; at work
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-12"))
+    (if-hostname fedorcia2
+      (set-face-attribute 'default nil
+                          :font "Bitstream Vera Sans Mono-10"))
     (if-hostname urkaja2                ; at home
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))
     (if-hostname fedora.vbox.com
-      (set-face-attribute 'default nil :font "Bitstream Vera Sans Mono-13"))))
+      (set-face-attribute 'default nil
+                          :font "Bitstream Vera Sans Mono-13"))))
 
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)
