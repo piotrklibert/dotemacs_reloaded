@@ -33,8 +33,9 @@
 ;; (require 'subword) ; for dealing with camel-cased text
 
 (icomplete-mode 1)
-(define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
-(define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions)
+(when (boundp 'icomplete-minibuffer-map)
+  (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
+  (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions))
 
 ;; schedule imports to be done after some modules are imported
 (eval-after-load "dired"
