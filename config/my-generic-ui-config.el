@@ -25,7 +25,7 @@
 ;; (setq global-auto-revert-non-file-buffers t) ; revert Dired buffers too
 
 (global-auto-composition-mode -1)       ; for entering strange chars, not needed
-(mouse-avoidance-mode 'banish)          ; should move mouse away from point
+(mouse-avoidance-mode 'exile)           ; should move mouse away from point
 (auto-compression-mode 1)               ; transparent editing of compressed files
 (file-name-shadow-mode 1)               ; no idea :)
 (savehist-mode 1)                       ; save the minibuffer history on exit

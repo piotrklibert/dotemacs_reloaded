@@ -98,7 +98,8 @@
                    "/usr/www/tagasauris/src/tenclouds/tenclouds/"
                    "/usr/www/tagasauris/control/" "/usr/www/tagasauris/config/"
                    "/usr/www/tagasauris/doc/" "~/.emacs.d/config/"
-                   "~/.emacs.d/plugins2/" "~/.emacs.d/pkg-langs/" "~/todo/")))
+                   "~/.emacs.d/plugins2/" "~/.emacs.d/pkg-langs/" "~/todo/"
+                   "~/mgmnt/")))
   (setq fuzzy-find-project-root (--map (f-expand it) paths)))
 
 

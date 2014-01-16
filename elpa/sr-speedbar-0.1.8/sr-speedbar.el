@@ -304,7 +304,7 @@ Default is nil."
   :type 'boolean
   :set (lambda (symbol value)
          (set symbol value)
-         (when (ad-advised-definition-p 'other-window)
+         (when (and nil (ad-advised-definition-p 'other-window))
            (sr-speedbar-handle-other-window-advice value)))
   :group 'sr-speedbar)
 

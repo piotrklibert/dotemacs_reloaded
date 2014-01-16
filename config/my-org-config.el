@@ -66,12 +66,11 @@
       '(("m" "Notes"
          ((tags "/!NEXT|ACTIVE"
                 ((org-agenda-overriding-header "Next tasks")))
-          (tags "/SUSPENDED"
+          (tags "/SUSPENDED|WAITING"
                 ((org-agenda-overriding-header "Suspended tasks")))
           (tags "NOTE"
                 ((org-agenda-overriding-header "Notes")
                  (org-tags-match-list-sublevels nil)))))))
-
 
 ;; '((" " "Agenda"
 ;;    ((agenda "" nil)
