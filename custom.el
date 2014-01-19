@@ -107,6 +107,7 @@
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("~/todo/")))
  '(org-archive-location "todo.archive::datetree/* From %s")
+ '(org-clock-persist (quote clock))
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-default-notes-file "~/todo/notes")

@@ -12,7 +12,7 @@
 (setq org-mobile-inbox-for-pull "~/todo/mobile-pull.org")
 
 (setq org-default-notes-file "~/todo/notes")
-
+(org-clock-persistence-insinuate)
 
 (require 'org)
 ;; (org-remember-insinuate)
