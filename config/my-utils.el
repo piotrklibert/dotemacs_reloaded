@@ -1,4 +1,17 @@
 (require 'cl)
+(require 's)
+(require 'f)
+
+(setq example-path  "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:\
+/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:\
+./:/root/node_modules/.bin:/usr/local/kde4/bin:/root/portless/racket/racket/bin/")
+
+(cl-defun only-existing-paths (&optional path)
+  (s-join
+   ":"
+   (--filter (f-exists? (f-expand it))
+                        (s-split ":" (or path example-path)))))
+
 
 (defvar my-debug-flag t)
 

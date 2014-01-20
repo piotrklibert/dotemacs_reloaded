@@ -71,3 +71,4 @@ srecode-map.el
 tramp
 url/cookies
 /h.places
+/org-clock-save.el
