@@ -11,7 +11,7 @@ require 'rubygems'
 require 'fuzzy_file_finder'
 
 BUF_SIZE = 50000
-IGNORES = ["*.pyc", "#*#", "*.elc", "*#"]
+IGNORES = ["*.pyc", "#*#", "*.elc", "*#", "*.git*", "*.bzr*"]
 
 def make_finder(paths)
   FuzzyFileFinder.new(paths, BUF_SIZE, IGNORES)

@@ -53,6 +53,9 @@
 (eval-after-load "artist"
   (setq artist-pointer-shape x-pointer-left-ptr))
 
+;; make sure we're using english dictionary even if the locale says otherwise
+(ispell-change-dictionary "english")
+
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
 ;;                          | ' /|  _|  \ V /\___ \

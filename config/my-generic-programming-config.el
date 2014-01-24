@@ -94,12 +94,17 @@
 
 
 ;; set root dirs for FFIP
-(let ((paths (list "/usr/www/tagasauris/" "/usr/www/tagasauris/solr/"
-                   "/usr/www/tagasauris/src/tenclouds/tenclouds/"
-                   "/usr/www/tagasauris/control/" "/usr/www/tagasauris/config/"
-                   "/usr/www/tagasauris/doc/" "~/.emacs.d/config/"
-                   "~/.emacs.d/plugins2/" "~/.emacs.d/pkg-langs/" "~/todo/"
-                   "~/mgmnt/")))
+(let ((paths '("/usr/www/tagasauris/"
+               "/usr/www/tagasauris/solr/"
+               "/usr/www/tagasauris/src/tenclouds/tenclouds/"
+               "/usr/www/tagasauris/control/"
+               "/usr/www/tagasauris/config/"
+               "/usr/www/tagasauris/doc/"
+               "~/.emacs.d/config/"
+               "~/.emacs.d/plugins2/"
+               "~/.emacs.d/pkg-langs/"
+               "~/todo/"
+               "~/mgmnt/")))
   (setq fuzzy-find-project-root (--map (f-expand it) paths)))
 
 
