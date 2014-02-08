@@ -63,8 +63,6 @@
 (define-key my-bookmarks-keys (kbd "C-l") 'list-bookmarks)
 (define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
 
-(iswitchb-mode 1)
-
 ;;
 ;; Replace normal Emacs interfaces with enchanced versions
 ;;
