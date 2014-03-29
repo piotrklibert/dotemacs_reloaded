@@ -103,8 +103,7 @@
                "~/.emacs.d/config/"
                "~/.emacs.d/plugins2/"
                "~/.emacs.d/pkg-langs/"
-               "~/todo/"
-               "~/mgmnt/")))
+               "~/todo/" "~/mgmnt/" "~/poligon/")))
   (setq fuzzy-find-project-root (--map (f-expand it) paths)))
 
 

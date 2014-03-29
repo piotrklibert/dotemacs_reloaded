@@ -181,3 +181,8 @@
 ;; Smalltalk: ale slaby. Trzeba zobaczyc Shampoo.
 (require 'smalltalk-mode)
 (push '("\\.st\\'" . smalltalk-mode)  auto-mode-alist)
+
+
+(require 'io-mode)
+
+(require 'forth-mode)

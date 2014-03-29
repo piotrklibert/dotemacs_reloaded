@@ -16,6 +16,7 @@
  '(auto-revert-interval 2)
  '(auto-revert-mode-text " AR")
  '(auto-revert-verbose nil)
+ '(auto-save-visited-file-name nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)

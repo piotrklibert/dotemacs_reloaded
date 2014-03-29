@@ -401,7 +401,7 @@ called `livescript-compiled-buffer-name'."
       '("if" "else" "new" "return" "try" "catch"
         "finally" "throw" "break" "continue" "for" "in" "while"
         "delete" "instanceof" "typeof" "switch" "super" "extends"
-        "class" "until" "loop" "otherwise"))
+        "class" "until" "loop" "otherwise" "require" "require!"))
 
 ;; Reserved keywords either by JS or CS.
 (defvar livescript-js-reserved

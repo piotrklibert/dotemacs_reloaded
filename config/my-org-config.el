@@ -160,7 +160,7 @@
 
 
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "runchrome.sh")
+      browse-url-generic-program "google-chrome")
 
 
 (global-set-key (kbd "C-c a") 'org-agenda)

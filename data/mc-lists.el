@@ -7,6 +7,7 @@
         backward-sexp
         beginning-of-buffer
         coffee-dedent-line-backspace
+        comment-or-uncomment-region-or-line
         delete-indentation
         electric-pair-backward-delete-char
         elscreen-create
@@ -27,6 +28,7 @@
         org-self-insert-command
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
+        overwrite-mode
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
@@ -37,6 +39,11 @@
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         suspend-frame
+        transpose-sexps
+        wdired-capitalize-word
+        wdired-next-line
+        wdired-previous-line
+        wdired-upcase-word
         ))
 
 (setq mc/cmds-to-run-once
