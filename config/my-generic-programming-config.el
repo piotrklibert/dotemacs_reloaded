@@ -93,25 +93,30 @@
 (show-paren-mode t)                     ; highlight matching parens
 
 
+;; "/usr/www/tagasauris/"
+;; "/usr/www/tagasauris/solr/"
+;; "/usr/www/tagasauris/src/tenclouds/tenclouds/"
+;; "/usr/www/tagasauris/control/"
+;; "/usr/www/tagasauris/config/"
+;; "/usr/www/tagasauris/doc/"
+
 ;; set root dirs for FFIP
-(let ((paths '("/usr/www/tagasauris/"
-               "/usr/www/tagasauris/solr/"
-               "/usr/www/tagasauris/src/tenclouds/tenclouds/"
-               "/usr/www/tagasauris/control/"
-               "/usr/www/tagasauris/config/"
-               "/usr/www/tagasauris/doc/"
+(let ((paths '("~/ion/code/"
                "~/.emacs.d/config/"
                "~/.emacs.d/plugins2/"
-               "~/.emacs.d/pkg-langs/"
-               "~/todo/" "~/mgmnt/" "~/poligon/")))
+               ;; "~/.emacs.d/pkg-langs/"
+               "~/todo/"
+               "~/mgmnt/"
+               ;; "~/poligon/"
+               )))
   (setq fuzzy-find-project-root (--map (f-expand it) paths)))
 
 
 
-;; make Dired use gnu ls (from coreutils) instead of BSD ls
-(when (file-exists-p "/usr/local/bin/gls")
-  (setq ls-lisp-use-insert-directory-program t)
-  (setq insert-directory-program "/usr/local/bin/gls"))
+;; make Dired use gnu ls (from coreutils) instead of BSD ls if it's available
+;; (when (file-exists-p "/usr/local/bin/dired-ls.sh")
+;;   (setq ls-lisp-use-insert-directory-program t)
+;;   (setq insert-directory-program "/usr/local/bin/dired-ls.sh"))
 
 
 ;;                           _  _________   ______

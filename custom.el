@@ -26,6 +26,7 @@
  '(css-indent-offset 4)
  '(debug-on-quit nil)
  '(delete-selection-mode nil)
+ '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
  '(dired-use-ls-dired (quote unspecified))
  '(ecb-auto-activate t)
  '(ecb-layout-name "left3")

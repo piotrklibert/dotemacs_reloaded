@@ -3,6 +3,8 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        ace-jump-done
+        ace-jump-mode
         back-to-indentation-or-beginning
         backward-sexp
         beginning-of-buffer

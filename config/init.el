@@ -71,7 +71,7 @@
                           :font "Bitstream Vera Sans Mono-12"))
     (if-hostname fedorcia2
       (set-face-attribute 'default nil
-                          :font "Bitstream Vera Sans Mono-10"))
+                          :font "Bitstream Vera Sans Mono-9"))
     (if-hostname urkaja2                ; at home
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))
