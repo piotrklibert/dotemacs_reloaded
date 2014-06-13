@@ -92,28 +92,23 @@
 (column-number-mode t)                  ; show col num on modeline
 (show-paren-mode t)                     ; highlight matching parens
 
-
-;; "/usr/www/tagasauris/"
-;; "/usr/www/tagasauris/solr/"
-;; "/usr/www/tagasauris/src/tenclouds/tenclouds/"
-;; "/usr/www/tagasauris/control/"
-;; "/usr/www/tagasauris/config/"
-;; "/usr/www/tagasauris/doc/"
-
-;; set root dirs for FFIP
-(let ((paths '("~/ion/code/"
-               "~/.emacs.d/config/"
-               "~/.emacs.d/plugins2/"
-               ;; "~/.emacs.d/pkg-langs/"
-               "~/todo/"
-               "~/mgmnt/"
-               ;; "~/poligon/"
-               )))
-  (setq fuzzy-find-project-root (--map (f-expand it) paths)))
-
+;; fuzzy-find configuration, defines named directory groups for easy changing
+;; between them and current/default group for use before the root is changed
+;; explicitly
+(ffip-defroots 'ion ("~/todo/")
+  (tag . ("/usr/www/tagasauris/tagasauris/"
+          "/usr/www/tagasauris/src/tenclouds/tenclouds/"
+          "/usr/www/tagasauris/control/"
+          "/usr/www/tagasauris/config/"
+          "/usr/www/tagasauris/doc/"))
+  (ion . ("~/ion/code/"))
+  (prv . ("~/mgmnt/"
+          "~/.emacs.d/config/"
+          "~/.emacs.d/plugins2/")))
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls if it's available
+;; (disabled, because I migrated to Linux, where gnu ls is the default)
 ;; (when (file-exists-p "/usr/local/bin/dired-ls.sh")
 ;;   (setq ls-lisp-use-insert-directory-program t)
 ;;   (setq insert-directory-program "/usr/local/bin/dired-ls.sh"))
@@ -146,6 +141,7 @@
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
+(define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
 (define-key my-find-keys (kbd "C-i")      'idomenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)

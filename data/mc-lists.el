@@ -28,6 +28,7 @@
         org-end-of-line
         org-force-self-insert
         org-self-insert-command
+        org-shiftcontrolleft
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode

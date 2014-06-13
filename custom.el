@@ -202,6 +202,7 @@
  '(speedbar-tag-regroup-maximum-length 4)
  '(speedbar-verbosity-level 1)
  '(sr-confirm-kill-viewer nil)
+ '(sr-speedbar-auto-refresh nil)
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")

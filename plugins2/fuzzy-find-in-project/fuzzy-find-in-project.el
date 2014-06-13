@@ -3,7 +3,27 @@
 (require 'dash)
 (require 'thingatpt)
 
-(defvar fuzzy-find-project-root              "."          "The root director(y|ies) in which to recursively look for files")
+
+(defmacro ffip-defroots (current commons &rest alist)
+  (declare (indent defun))
+  (let (roots names)
+    (dolist (r alist)
+      (let*
+          ((paths (append (cdr r) commons))
+           (expanded (-map 'f-expand  paths)))
+        (push `(,(car r)  ,@expanded) roots)
+        (push (symbol-name (car r)) names)))
+    `(progn
+       (setq fuzzy-find-roots (quote ,roots))
+       (setq fuzzy-find-root-names (quote ,names))
+       (setq fuzzy-find-project-root (cdr (assoc ,current ',roots))))))
+
+
+(defvar fuzzy-find-roots nil "")
+(defvar fuzzy-find-root-names nil "")
+
+(defvar fuzzy-find-project-root nil "")
+
 
 (defvar fuzzy-find-mode-active               nil          "Tells the minibuffer when to use the fuzzy finder")
 (defvar fuzzy-find-selection-moved           nil          "True if the previous command moved the selection on the completions list")
@@ -68,13 +88,29 @@ Configurable exclusion patterns comming up next!
     (find-file fuzzy-find-selected-file)))
 
 (defun fuzzy-find-change-root (roots)
-  "Set a new value for `fuzzy-find-project-root' and restart the
+  "Edit and set a new value for `fuzzy-find-project-root' and restart the
 backend process."
   (interactive
    (list (edit-and-eval-command "Change ffip root dirs: "
                                 `(list ,@fuzzy-find-project-root))))
   (setq fuzzy-find-project-root roots)
   (ffip--start-or-restart-process))
+
+(defun fuzzy-find-choose-root-set (root-set-name)
+  "TODO: I'm your docstring, pls write me!"
+  (interactive
+   ;; t for REQUIRE-MATCH means that we will get fully expanded/completed name
+   ;; even if user hits return without completing the name (ie. pr<return>
+   ;; instead of pr<tab><enter>)
+   (list (completing-read "Choose the set of root dirs: "
+                          fuzzy-find-root-names nil t "" 'fuzzy-find-root-names)))
+  (let*
+      ((root-set-symbol (intern root-set-name))
+       (dirs (cdr (assoc root-set-symbol fuzzy-find-roots))))
+    (setq fuzzy-find-project-root dirs)
+    (ffip--start-or-restart-process)))
+
+
 
 (defun fuzzy-find-query-backend (query)
   "Send a query to the backend and block until either a response arrives or
