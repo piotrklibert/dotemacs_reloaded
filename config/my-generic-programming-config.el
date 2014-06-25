@@ -103,7 +103,7 @@
           "/usr/www/tagasauris/doc/"))
   (ion . ("~/ion/code/"))
   (prv . ("~/mgmnt/"
-          "~/poligon/auto/"
+          "~/poligon/web_app_template/"
           ;; "~/poligon/" -- toooo many files...
           "~/.emacs.d/config/"
           "~/.emacs.d/plugins2/")))

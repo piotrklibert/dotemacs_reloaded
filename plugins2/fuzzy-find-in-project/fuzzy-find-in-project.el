@@ -49,6 +49,12 @@
 
 (defalias 'buf-substr-np 'buffer-substring-no-properties)
 
+
+(defface ffip-selected-face
+  '((t :foreground "orange" :box "red" :height 110))
+  "Font face used for highlighting current selection in files list.")
+
+
 ;;
 ;;                              PUBLIC INTERFACE
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -274,7 +280,7 @@ beginning of line."
     (insert "> ")
     (add-text-properties (line-beginning-position)
                          (line-end-position)
-                         '(face highlight))))
+                         '(face ffip-selected-face))))
 
 
 
