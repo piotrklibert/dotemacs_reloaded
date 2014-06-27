@@ -8,9 +8,10 @@
 ;; TODO: hippie, company
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 4* carefully check where which completion is active (config of auto-complete)
-;;
-(require 'auto-complete)
-(require 'auto-complete-config)
+
+;; (require 'auto-complete)
+;; (require 'auto-complete-config)
+
 (require 'readline-complete)
 (require 'hippie-exp)
 (require 'yasnippet)

@@ -95,7 +95,7 @@
 ;; fuzzy-find configuration, defines named directory groups for easy changing
 ;; between them and current/default group for use before the root is changed
 ;; explicitly
-(ffip-defroots 'ion ("~/todo/")
+(ffip-defroots 'prv ("~/todo/")
   (tag . ("/usr/www/tagasauris/tagasauris/"
           "/usr/www/tagasauris/src/tenclouds/tenclouds/"
           "/usr/www/tagasauris/control/"
@@ -103,10 +103,12 @@
           "/usr/www/tagasauris/doc/"))
   (ion . ("~/ion/code/"))
   (prv . ("~/mgmnt/"
-          "~/poligon/web_app_template/"
           ;; "~/poligon/" -- toooo many files...
+          "~/poligon/web_app_template/"
+          "~/poligon/vue-test/"
           "~/.emacs.d/config/"
-          "~/.emacs.d/plugins2/")))
+          "~/.emacs.d/plugins2/"
+          "~/.emacs.d/pkg-langs/")))
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls if it's available

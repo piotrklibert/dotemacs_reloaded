@@ -11,6 +11,8 @@
 ;;
 ;; This could use some love, but it works for me well enough for now.
 
+(require 's)
+(require 'dash)
 (require 'deferred)
 
 (defstruct file-buffers-list
@@ -88,6 +90,38 @@ If it's `pos' is somehow out of range, wrap it before returning."
 (defun tfb-down ()
   (interactive)
   (tfb-moveto -1))
+
+(defvar tfb-mouse-up-flag nil)
+(defun tfb-mouse-up ()
+  (interactive)
+  (unless tfb-mouse-up-flag
+    (deferred:$
+      (deferred:next
+        (lambda ()
+          (tfb-up)
+          (setq tfb-mouse-up-flag t)))
+      (deferred:wait 350)
+      (deferred:nextc it
+        (lambda (time)
+          (setq tfb-mouse-up-flag nil))))))
+
+(defvar tfb-mouse-down-flag nil)
+(defun tfb-mouse-down ()
+  (interactive)
+  (unless tfb-mouse-down-flag
+    (deferred:$
+      (deferred:next
+        (lambda ()
+          (tfb-down)
+          (setq tfb-mouse-down-flag t)))
+      (deferred:wait 350)
+      (deferred:nextc it
+        (lambda (time)
+          (setq tfb-mouse-down-flag nil))))))
+
+
+(global-set-key (kbd "<mouse-6>") 'tfb-mouse-down)
+(global-set-key (kbd "<mouse-7>") 'tfb-mouse-up)
 
 (global-set-key (kbd "C-M-<prior>") 'tfb-down)
 (global-set-key (kbd "C-M-<next>")  'tfb-up)

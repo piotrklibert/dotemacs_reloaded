@@ -1,10 +1,11 @@
+;; basic look&feel settings, set early so that they are in effect during loading
 (fringe-mode     '(4 . 8))
-;; disable early so they don't appear during startup
 (menu-bar-mode   -1)
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 
-;; this doesn't want to be set anywhere else...
+
+;; this refuses to be set in any other place...
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
 
@@ -19,18 +20,12 @@
                             "inside `~/cedet/'. Remember to `make' it.")))))
 
 
-(defmacro add-subdirs-to-path (&rest dirs)
-  "Add given directory and all it's (immediate) subdirectories to load-path."
-  ;; TODO: rewrite this as a proper macro (could be a function as it is now)
-  `(dolist (dir (list ,@dirs))
-     (add-to-list 'load-path dir)
-     (let
-       ((default-directory dir))
-       (normal-top-level-add-subdirs-to-load-path))))
+;; import macros for checking hostname, path-management, etc.
+(load "my-system-config")
+
 
 ;; we don't want to add direct children of Emacs home directory to path,
 ;; because there are many non-lisp dirs in there
-;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
 
 (add-subdirs-to-path
@@ -39,8 +34,6 @@
   "~/.emacs.d/plugins2")
 
 
-;; import macros for checking hostname
-(load "my-system-config")
 
 
 ;;     _     ___   ___  _  __                  _   _____ _____ _____ _
@@ -71,7 +64,7 @@
                           :font "Bitstream Vera Sans Mono-12"))
     (if-hostname fedorcia2
       (set-face-attribute 'default nil
-                          :font "Bitstream Vera Sans Mono-9"))
+                          :font "Bitstream Vera Sans Mono-10"))
     (if-hostname urkaja2                ; at home
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))
@@ -79,12 +72,19 @@
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))))
 
-(add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)
 
-;; make setting default font available from keyboard if it somehow didn't run
+;; sometimes the frame may not be ready at this point, so try to run it later
+(add-hook 'after-make-frame-functions 'my-set-default-font)
+
+;; make setting default font available from keyboard if it *STILL* didn't run
 (global-set-key (kbd "C-<f10>") 'my-set-default-font)
 
+
+
+;; schedule starting of Emacs server after everything else is loaded (5 min
+;; *should* be anough for startup :))
+(run-at-time "5 min" nil 'server-start)
 
 
 ;;                            ____ ___  ____  _____
@@ -95,11 +95,6 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-;; schedule starting of Emacs server after everything else is loaded (5 min
-;; *should* be anough for startup :))
-(run-at-time "5 min" nil 'server-start)
 
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts
 (load "my-keymaps-config")

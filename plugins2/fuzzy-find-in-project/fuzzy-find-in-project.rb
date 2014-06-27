@@ -14,7 +14,7 @@ BUF_SIZE = 50000
 IGNORES = [
   "*.pyc", "#*#", "*.elc", "*#",
   "*.git*", "*.bzr*", "*node_modules*",
-  "*migrations*", "bower_components", "books*"
+  "*migrations*", "*bower_components*", "books*"
 ]
 
 def make_finder(paths)

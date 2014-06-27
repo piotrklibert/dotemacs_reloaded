@@ -169,7 +169,8 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/"))))
+     ("marmalade" . "http://marmalade-repo.org/packages/")
+     ("elpy" . "http://jorgenschaefer.github.io/packages/"))))
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
  '(quack-programs

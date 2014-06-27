@@ -8,7 +8,7 @@
 
 (elpy-enable)                       ; adds (elpy-mode) as a hook for python-mode
 (elpy-use-ipython)
-(setq elpy-rpc--timeout 5)              ; new versions is a bit slower than it was
+(setq elpy-rpc--timeout 5)            ; new versions is a bit slower than it was
 
 
 ;;

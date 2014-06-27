@@ -16,5 +16,12 @@
       `(progn ,@body)
     '(list 1)))
 
-;; TODO: this is generally what package-initialize does... But not all the
-;; plugins are packaged.
+
+(defmacro add-subdirs-to-path (&rest dirs)
+  "Add given directory and all it's (immediate) subdirectories to load-path."
+  ;; TODO: rewrite this as a proper macro (could be a function as it is now)
+  `(dolist (dir (list ,@dirs))
+     (add-to-list 'load-path dir)
+     (let
+       ((default-directory dir))
+       (normal-top-level-add-subdirs-to-load-path))))

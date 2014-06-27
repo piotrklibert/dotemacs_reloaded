@@ -73,7 +73,11 @@
 
 
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
-
+(font-lock-add-keywords 'emacs-lisp-mode
+  '(
+    ("defstruct" . font-lock-keyword-face)
+    ("\bit\b" . font-lock-builtin-face)
+    ))
 
 ;;
 ;; SQL interactions mode
