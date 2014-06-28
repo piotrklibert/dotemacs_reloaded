@@ -12,10 +12,14 @@
 ;; (require 'auto-complete)
 ;; (require 'auto-complete-config)
 
-(require 'readline-complete)
-(require 'hippie-exp)
 (require 'yasnippet)
+(require 'hippie-exp)
+(require 'company)
+(require 'readline-complete)
 
+(global-company-mode 1)
+
+;; (push 'company-readline company-backends)
 
 ;; Keys bound here:
 (global-set-key (kbd "C-c .") 'hippie-expand)
@@ -35,9 +39,9 @@
 ;; also auto-complete binds to <tab>
 
 
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(add-to-list 'ac-sources 'ac-source-semantic)
+;; (ac-config-default)
+;; (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;; (add-to-list 'ac-sources 'ac-source-semantic)
 
 ;;
 ;; YASnippet completions config

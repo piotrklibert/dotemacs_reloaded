@@ -188,5 +188,3 @@
 
 
 (require 'io-mode)
-
-(require 'forth-mode)
