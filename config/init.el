@@ -33,6 +33,7 @@
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
 
+
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
   "~/.emacs.d/pkg-langs"

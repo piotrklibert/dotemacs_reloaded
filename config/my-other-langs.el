@@ -76,6 +76,7 @@
 (font-lock-add-keywords 'emacs-lisp-mode
   '(
     ("defstruct" . font-lock-keyword-face)
+    ("\bfunctionp?" . font-lock-keyword-face)
     ("\bit\b" . font-lock-builtin-face)
     ))
 

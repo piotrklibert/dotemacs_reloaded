@@ -106,6 +106,7 @@
           ;; "~/poligon/" -- toooo many files...
           "~/poligon/web_app_template/"
           "~/poligon/vue-test/"
+          "~/.emacs.d/pkg-langs/elpy/"
           "~/.emacs.d/config/"
           "~/.emacs.d/plugins2/"
           "~/.emacs.d/pkg-langs/")))

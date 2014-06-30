@@ -310,10 +310,10 @@ A setting of nil means to block indefinitely."
     (define-key map (kbd "<C-left>") 'elpy-nav-backward-iblock)
     (define-key map (kbd "<C-right>") 'elpy-nav-forward-iblock)
 
-    (define-key map (kbd "<M-down>") 'elpy-nav-move-iblock-down)
-    (define-key map (kbd "<M-up>") 'elpy-nav-move-iblock-up)
-    (define-key map (kbd "<M-left>") 'elpy-nav-move-iblock-left)
-    (define-key map (kbd "<M-right>") 'elpy-nav-move-iblock-right)
+    ;; (define-key map (kbd "<M-down>") 'elpy-nav-move-iblock-down)
+    ;; (define-key map (kbd "<M-up>") 'elpy-nav-move-iblock-up)
+    ;; (define-key map (kbd "<M-left>") 'elpy-nav-move-iblock-left)
+    ;; (define-key map (kbd "<M-right>") 'elpy-nav-move-iblock-right)
 
     (define-key map (kbd "M-.")     'elpy-goto-definition)
     (define-key map (kbd "M-TAB")   'elpy-company-backend)
@@ -2663,28 +2663,35 @@ time. Honestly."
   (pcase command
     (`global-init
      (require 'company)
-     (elpy-modules-remove-modeline-lighter 'company-mode)
+     ;; (elpy-modules-remove-modeline-lighter 'company-mode)
      (define-key company-active-map (kbd "C-d")
        'company-show-doc-buffer))
+
     (`buffer-init
      ;; We want immediate completions from company.
-     (set (make-local-variable 'company-idle-delay)
-          t)
+     (set (make-local-variable 'company-idle-delay) t)
      ;; And annotations should be right-aligned.
-     (set (make-local-variable 'company-tooltip-align-annotations)
-          t)
+     (set (make-local-variable 'company-tooltip-align-annotations) t)
      ;; Also, dabbrev in comments and strings is nice.
-     (set (make-local-variable 'company-dabbrev-code-everywhere)
-          t)
+     (set (make-local-variable 'company-dabbrev-code-everywhere) t)
+
      ;; Add our own backend and remove a bunch of backends that
      ;; interfere in Python mode.
+     ;; (set (make-local-variable 'company-backends)
+     ;;      (cons 'elpy-company-backend
+     ;;            (delq 'company-semantic
+     ;;                  (delq 'company-ropemacs
+     ;;                        (delq 'company-capf
+     ;;                              (mapcar #'identity company-backends))))))
+
      (set (make-local-variable 'company-backends)
-          (cons 'elpy-company-backend
-                (delq 'company-semantic
-                      (delq 'company-ropemacs
-                            (delq 'company-capf
-                                  (mapcar #'identity company-backends))))))
+          (list (list 'company-files
+                      'elpy-company-backend
+                      'company-yasnippet
+                      :with 'company-dabbrev)))
+
      (company-mode 1))
+
     (`buffer-stop
      (company-mode -1)
      (kill-local-variable 'company-idle-delay)

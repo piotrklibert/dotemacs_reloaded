@@ -20,7 +20,22 @@
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
- '(company-idle-delay 0.2)
+ '(company-backends
+   (quote
+    (company-files
+     (company-capf
+      :with
+      company-dabbrev
+      company-dabbrev-code
+      company-keywords
+      company-yasnippet)
+     )))
+ '(company-dabbrev-code-everywhere t)
+ '(company-dabbrev-downcase nil)
+ '(company-dabbrev-ignore-case nil)
+ '(company-idle-delay t)
+ '(company-minimum-prefix-length 2)
+ '(company-transformers (quote (company-sort-by-backend-importance)))
  '(completion-ignored-extensions
    (quote
     (".o" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo")))
@@ -47,6 +62,9 @@
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
  '(enable-recursive-minibuffers t)
  '(eval-expression-print-length nil)
@@ -60,6 +78,7 @@
     (turn-on-auto-fill flyspell-mode my-magit-commit-hook)))
  '(git-commit-summary-max-length 70)
  '(global-auto-revert-non-file-buffers t)
+ '(global-company-mode t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))

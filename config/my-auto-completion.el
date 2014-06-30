@@ -5,35 +5,36 @@
 ;;  \____\___/|_|  |_|_|   |_____|_____| |_| |_____|_| \_\____/
 ;;
 ;;
-;; TODO: hippie, company
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 4* carefully check where which completion is active (config of auto-complete)
+;; make TAB work sensibly (write down the ideas on how it should work)
 
 ;; (require 'auto-complete)
 ;; (require 'auto-complete-config)
 
+
+(require 'company)
+
+
 (require 'yasnippet)
 (require 'hippie-exp)
-(require 'company)
 (require 'readline-complete)
+(require ' )
+(add-hook 'company-completion-started-hook
+          (function (lambda (&optional arg)
+                      (fci-mode -1))))
 
-(global-company-mode 1)
 
-;; (push 'company-readline company-backends)
+(add-hook 'company-completion-finished-hook
+          (function (lambda (&optional arg)
+                      (fci-mode 1))))
+;; ~/.emacs.d/custom.el
+
+
 
 ;; Keys bound here:
 (global-set-key (kbd "C-c .") 'hippie-expand)
 (global-set-key (kbd "C-c /") 'yas-expand)
-
-
-(when (boundp 'ac-completing-map)
-  ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
-  ;; but this makes ac-complete unavailable, so here it is remapped
-  (define-key ac-completing-map (kbd "C-<return>") 'ac-complete)
-
-  ;; no idea why I did this...
-  (define-key ac-completing-map (kbd "<insert>") 'ac-expand))
-
 ;; by default:
 ;; (global-set-key (kbd "M-/") 'dabbrev-expand)
 ;; also auto-complete binds to <tab>
@@ -118,30 +119,9 @@
 
 
 
-;;       ______   _______ _   _  ___  _   _   __  __  ___  ____  _____
-;;      |  _ \ \ / /_   _| | | |/ _ \| \ | | |  \/  |/ _ \|  _ \| ____|
-;;      | |_) \ V /  | | | |_| | | | |  \| | | |\/| | | | | | | |  _|
-;;      |  __/ | |   | | |  _  | |_| | |\  | | |  | | |_| | |_| | |___
-;;      |_|    |_|   |_| |_| |_|\___/|_| \_| |_|  |_|\___/|____/|_____|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (defun check-py-shell-completion ()
-;;   (let* ((pos (copy-marker (point)))
-;;          (beg (save-excursion (skip-chars-backward "a-zA-Z0-9_.('") (point)))
-;;          (end (point))
-;;          (word (buffer-substring-no-properties beg end))
-;;          (shell (py-choose-shell))
-;;          my-completions)
-;;     (flet ((py-shell-complete-finally () (setq my-completions completions)))
-;;       (py-shell-complete-intern word beg end shell '()  (or (get-process shell)
-;;                                                         (get-buffer-process (py-shell nil nil shell nil t))))
-;;       my-completions)))
-
-;; (ac-define-source "py-shell"
-;;   '((candidates . check-py-shell-completion)))
-
-;; (defun my-setup-py-shell ()
-;;   (add-to-list 'ac-sources ac-source-py-shell)
-;;   (auto-complete-mode 1))
-
-;; (add-hook 'py-shell-hook 'my-setup-py-shell)
+;; (company-yasnippet company-readline company-bbdb company-nxml company-css
+;;                    company-eclim company-semantic company-clang company-xcode
+;;                    company-ropemacs company-cmake company-capf
+;;                    (company-dabbrev-code company-gtags company-etags company-keywords)
+;;                    company-oddmuse company-files company-dabbrev)
