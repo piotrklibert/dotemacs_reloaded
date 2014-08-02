@@ -32,12 +32,15 @@
 ;; because there are many non-lisp dirs in there
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/portless/org-mode/lisp/")
+(add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
 
 
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
   "~/.emacs.d/pkg-langs"
-  "~/.emacs.d/plugins2")
+  "~/.emacs.d/plugins2"
+  "~/.emacs.d/forked-plugins/")
 
 
 ;; import macros for checking hostname
@@ -109,7 +112,7 @@
 (load "my-minibuf-prompt")
 
 ;; Settings and additional functionality for auto-completion and snippets
-(load "my-auto-completion")
+(load "my-old-auto-complete")
 
 ;; Additional interfaces and functionalities (through plugins) activation and
 ;; config - mainly ido-mode
@@ -139,6 +142,7 @@
 
 ;; gnus configuration
 (load "my-gnus-config")
+
 
 (require 'my-download-page)
 

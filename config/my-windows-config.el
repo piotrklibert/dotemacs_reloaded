@@ -7,7 +7,7 @@
 (elscreen-start)
 
 
-(global-set-key (kbd "C-<tab>")           'elscreen-next)
+;; (global-set-key (kbd "C-<tab>")           'elscreen-next)
 (global-set-key (kbd "C-<next>")          'elscreen-next)
 
 (global-set-key (kbd "C-S-<tab>")         'elscreen-previous)

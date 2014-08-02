@@ -9,7 +9,8 @@
  '(ac-modes
    (quote
     (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 scala-mode)))
- '(ac-quick-help-prefer-x t)
+ '(ac-quick-help-delay 0.4)
+ '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
  '(auto-mark-ignore-move-on-sameline nil)
@@ -23,13 +24,7 @@
  '(company-backends
    (quote
     (company-files
-     (company-capf
-      :with
-      company-dabbrev
-      company-dabbrev-code
-      company-keywords
-      company-yasnippet)
-     )))
+     (company-capf :with company-dabbrev company-dabbrev-code company-keywords company-yasnippet))))
  '(company-dabbrev-code-everywhere t)
  '(company-dabbrev-downcase nil)
  '(company-dabbrev-ignore-case nil)
@@ -44,6 +39,9 @@
  '(delete-selection-mode nil)
  '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
  '(dired-use-ls-dired (quote unspecified))
+ '(direx:closed-icon "▶ ")
+ '(direx:leaf-icon "- ")
+ '(direx:open-icon "▼ ")
  '(ecb-auto-activate t)
  '(ecb-layout-name "left3")
  '(ecb-maximize-ecb-window-after-selection nil)
@@ -59,15 +57,17 @@
  '(ediff-merge-split-window-function (quote split-window-horizontally))
  '(ediff-no-emacs-help-in-control-buffer t)
  '(ediff-split-window-function (quote split-window-horizontally))
+ '(eldoc-idle-delay 0.2)
  '(elpy-default-minor-modes
    (quote
     (eldoc-mode flymake-mode yas-minor-mode auto-complete-mode)))
  '(elpy-modules
    (quote
-    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
+    (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
  '(enable-recursive-minibuffers t)
  '(eval-expression-print-length nil)
+ '(expand-region-guess-python-mode t)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
  '(fill-column 80)
  '(flymake-no-changes-timeout 5)
@@ -78,13 +78,12 @@
     (turn-on-auto-fill flyspell-mode my-magit-commit-hook)))
  '(git-commit-summary-max-length 70)
  '(global-auto-revert-non-file-buffers t)
- '(global-company-mode t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
  '(gnus-summary-same-subject "(same)")
  '(gnus-thread-sort-functions (quote (gnus-thread-sort-by-most-recent-date)))
- '(help-at-pt-display-when-idle t nil (help-at-pt))
+ '(help-at-pt-display-when-idle (quote never) nil (help-at-pt))
  '(help-at-pt-timer-delay 3)
  '(ibuffer-default-sorting-mode (quote major-mode))
  '(ibuffer-deletion-char 88)
@@ -120,6 +119,8 @@
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
+ '(jedi:complete-on-dot t)
+ '(js-indent-level 2)
  '(less-css-indent-level 4)
  '(livescript-tab-width 4)
  '(mouse-avoidance-threshold 10)
@@ -191,6 +192,7 @@
      ("melpa" . "http://melpa.milkbox.net/packages/")
      ("marmalade" . "http://marmalade-repo.org/packages/")
      ("elpy" . "http://jorgenschaefer.github.io/packages/"))))
+ '(package-enable-at-startup nil)
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
  '(quack-programs

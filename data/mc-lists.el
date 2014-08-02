@@ -10,6 +10,7 @@
         beginning-of-buffer
         coffee-dedent-line-backspace
         comment-or-uncomment-region-or-line
+        company-abort
         delete-indentation
         electric-pair-backward-delete-char
         elscreen-create

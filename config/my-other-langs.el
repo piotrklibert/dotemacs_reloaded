@@ -23,6 +23,12 @@
 ;; somehow flymake doesn't want to work for me
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
+
+(require 'lua-mode)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+
 ;; (add-to-list 'load-path "path-to/django-mode/")
 ;; (require 'django-html-mode)
 ;; ;; (yas/load-directory "path-to/django-mode/snippets")
@@ -136,6 +142,15 @@
 ;; JavaScript mode
 ;;
 (require 'js2-mode)
+(require 'json-mode)
+
+;; CoffeeScript
+(require 'coffee-mode)
+
+;;
+;; LiveScript - requiring is enough. no need to add-to-list
+;;
+(require 'livescript-mode)
 
 
 ;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
@@ -189,3 +204,14 @@
 
 
 (require 'io-mode)
+
+
+(defun save-nginx-conf-hook ()
+  (when (s-contains? "nginx" (buffer-file-name))
+    (deferred:$
+      (deferred:process-shell "sudo" "nginx -s reload")
+      (deferred:nextc it
+        (lambda ()
+          (message "Restarted nginx"))))))
+
+(add-hook 'after-save-hook 'save-nginx-conf-hook)

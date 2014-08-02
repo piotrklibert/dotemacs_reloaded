@@ -21,8 +21,12 @@
 (require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
 (browse-kill-ring-default-keybindings)
 
+
+(require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
+(require 'iedit-rect)                   ; C-<return>
+
 
 (require 'saveplace)                    ; Save point position between sessions
 (setq-default save-place t)
@@ -95,7 +99,9 @@
 (global-set-key (kbd "M-j")            'join-region)
 (global-set-key (kbd "C-x r C-y")      'yank-rectangle-as-text)
 
+
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
+
 
 ;; Use remap because setting a C-a key would potentially conflict with other
 ;; enhancements to beginning-of-line (like in Org mode).
@@ -137,7 +143,6 @@
 
 (require 'my-move-lines)
 (require 'my-indent-config)
-(require 'my-rectangular-editing)
 
 
 (defun forward-quarter-page (&optional arg)
@@ -196,7 +201,7 @@ M-w C-y ;-)"
   (set-mark beg)
   (goto-char end))
 
-(defun join-region()
+(defun my-join-region ()
   "Remove indentation and newline characters between point and mark."
   (interactive)
   (let
@@ -204,6 +209,23 @@ M-w C-y ;-)"
     (goto-char (region-end))
     (while (> (line-beginning-position) beg)
       (delete-indentation))))
+
+;; backwards compat
+(defalias 'join-region 'my-join-region)
+
+
+;; TODO: make it work with rect.el too, maybe?
+(defun yank-rectangle-as-text ()
+  "Insert killed rectange as if it was normal text, ie. push
+lines down to make space for it instead of pushing line contents
+to the right."
+  (interactive)
+  (with-temp-buffer
+    (yank-rectangle)
+    (kill-region (point-min) (point-max)))
+  (yank)
+  (newline))
+
 
 (defun unix-line-endings (&optional save)
   "Make current file's newlines converted to unix format if they
@@ -216,7 +238,11 @@ are not already."
           (when save (save-buffer)))
       (message "File already has UNIX style line endings."))))
 
-(defun filter-existing ()
+;; backwards compat
+(defalias 'unix-line-endings 'my-unix-line-endings)
+
+
+(defun my-filter-existing-paths ()
   "Each line of a buffer is a path, like in .gitignore. Remove
 the lines which files do not exist. Does not handle wildcards.
 Does not recurse. Only works in the simplest case."
@@ -232,6 +258,8 @@ Does not recurse. Only works in the simplest case."
             (kill-whole-line)
             (forward-line -1))))
       (forward-line))))
+(defalias 'filer-existing 'my-filer-existing-paths)
+
 
 (defun back-to-indentation-or-beginning (arg)
   "Move point to beginning of line, unless it's already there, in

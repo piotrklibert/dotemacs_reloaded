@@ -9,6 +9,7 @@
 ;; TODO: maybe enable this
 ;; (require 'ido-ubiquitous-mode)
 
+(require 'direx)
 (require 'generic-x)
 (require 'smex)
 (require 'sr-speedbar)
@@ -77,6 +78,8 @@
 (global-set-key (kbd "C-<f3>")   'sunrise)
 (global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
+
+(global-set-key (kbd "C-<f4>")   'delete-frame)
 
 ;; IDo - Interactively Do Things.
 ;; Has autocompletions in minibufer and jumping to things, and more.

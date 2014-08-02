@@ -71,3 +71,65 @@
 
 ;; (or (eq (car it) 'org-font-lock-hook)
 ;;                            (eq (car it) 'my-sue-hilighter))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rectangle editing -- turns out it's built in with the rect.el module...
+;;
+;;
+;; BTW: iedit has something for editing rectangles visually: C-<return>
+;; (iedit-rectangle-mode)
+;;
+;; Turns out there's a mode for than in Emacs already. It lives in "rect.el",
+;; as a `rectangle-mark-mode'. This is nuts - it either was added recently, or
+;; most people on the web are idiots for not knowing about it.
+;;
+
+;; TODO: make next-line also append spaces at the end of line if needed
+
+(define-minor-mode free-rectangle-mode
+  "Makes `right-char' append spaces at the eol. It's usefull for
+marking rectangles which last/first line is shorter than other
+lines. I'm not worried about leaving excess whitespace, because
+they will be removed on save anyway."
+  nil "Fr" nil
+  (if free-rectangle-mode
+      (fr-mode-on)
+    (fr-mode-off)))
+
+(defun fr-mode-on ()
+  (ad-deactivate 'right-char)
+  (ad-enable-advice 'right-char 'around 'append-spaces-at-eol)
+  (ad-activate 'right-char)
+  (set (make-local-variable 'free-rect-auto) auto-mark-mode)
+  (when free-rect-auto
+    (auto-mark-mode -1)))
+
+(defun fr-mode-off ()
+  (ad-deactivate 'right-char)
+  (ad-disable-advice 'right-char 'around 'append-spaces-at-eol)
+  (ad-activate 'right-char)
+  (when free-rect-auto
+    (setq free-rect-auto nil)
+    (auto-mark-mode 1)))
+
+(defun right-and-mark-active ()
+  (let ((transient-mark-mode nil))
+    (insert " ")
+    (setq deactivate-mark nil)))
+
+(defadvice right-char
+  (around append-spaces-at-eol first disable)
+  (if (equal (point)
+             (line-end-position))
+      (right-and-mark-active)
+    ad-do-it))
+
+(provide 'my-rectangular-editing)
+
+
+;; RECT-MARK
+;; (require 'rect-mark)
+;; I don't use this anymore, the only thing it provides is visual feedback for
+;; the rectangle, but does this at the expense of yet another set of keys.

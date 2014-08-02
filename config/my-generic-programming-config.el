@@ -3,6 +3,8 @@
 (require 'electric)
 (require 'thingatpt)
 (require 'powerline)
+(require 'rainbow-mode)
+(require 'fic-ext-mode)
 (require 'rainbow-delimiters)
 
 (require 'flymake)
@@ -45,6 +47,8 @@
 
 (require 'my-highlight-word)            ; somewhat like * in Vim
 (require 'my-ffap-wrapper)
+
+(require 'my-pygmentize)
 
 ;; that's silly, but it's my first "serious" Elisp, so I keep it around :)
 (require 'my-toggle-true-false)
@@ -95,21 +99,43 @@
 ;; fuzzy-find configuration, defines named directory groups for easy changing
 ;; between them and current/default group for use before the root is changed
 ;; explicitly
+
+
 (ffip-defroots 'prv ("~/todo/")
   (tag . ("/usr/www/tagasauris/tagasauris/"
           "/usr/www/tagasauris/src/tenclouds/tenclouds/"
           "/usr/www/tagasauris/control/"
           "/usr/www/tagasauris/config/"
           "/usr/www/tagasauris/doc/"))
-  (ion . ("~/ion/code/"))
-  (prv . ("~/mgmnt/"
-          ;; "~/poligon/" -- toooo many files...
-          "~/poligon/web_app_template/"
-          "~/poligon/vue-test/"
+  (ion . ("~/projects/ion/"))
+  (sp  . ("~/projects/smartpatient/smartpatient-web/smartpatient/"))
+  (prv . ("~/mgmnt/" "~/priv/"
           "~/.emacs.d/pkg-langs/elpy/"
           "~/.emacs.d/config/"
           "~/.emacs.d/plugins2/"
           "~/.emacs.d/pkg-langs/")))
+
+;; There's a bit of a mess in my "misc projects" folder, and some of its
+;; directories have much too many files in them, so I need to prune them before
+;; adding them to `fuzzy-find-roots'.
+(require 'f)
+(lexical-let*
+    ((ignored (--map (f-expand (f-join "~/poligon/" it))
+                     '("books-dedup" "django-debug-toolbar"
+                       "django-rest-framework" "haxe"
+                       "old_web_app_template" "poligon")))
+     (subdirs (f-directories (f-expand "~/poligon/")
+                             (lambda (path)
+                               (not (-contains? ignored path)))))
+     (new-ffip-dirs (append (util-get-alist 'prv fuzzy-find-roots)
+                            subdirs)))
+  (util-put-alist 'prv new-ffip-dirs fuzzy-find-roots)
+  ;; make FFIP notice the change in in dirs
+  (fuzzy-find-choose-root-set "prv"))
+
+
+
+
 
 
 ;; make Dired use gnu ls (from coreutils) instead of BSD ls if it's available
@@ -208,6 +234,16 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
+(defun my-kill-scratch-buffer-hook ()
+  (when (string= (buffer-name) "*scratch*")
+    (goto-char (point-min))
+    (insert "================================================================================\n")
+    (insert (format-time-string "%A, %B %e, %Y %D -- %-I:%M %p\n"))
+    (insert "================================================================================\n\n")
+    (append-to-file (point-min) (point-max) "~/scratch")))
+
+(add-hook 'kill-buffer-hook 'my-kill-scratch-buffer-hook)
+
 ;;  __  ____   __       _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
 ;; |  \/  \ \ / /      |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
 ;; | |\/| |\ V /       | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
@@ -269,16 +305,6 @@ there's no active region."
        (buffers (remove-if-not search-buffer-p (buffer-list))))
     (multi-occur buffers arg)))
 
-
-(defun pygmentize (lang)
-  "Produces highlighted HTML representation of a selected source code region."
-  (interactive "sLang? ")
-  (let
-      ((command (concat "pygmentize -l " lang " -f html")))
-    (if (use-region-p)
-        (shell-command-on-region (region-beginning) (region-end)
-                                 command nil t)
-      (message "I'm only working with regions"))))
 
 
 ;; I-search like in VIM * and # - actually it's easy. C-w pastes

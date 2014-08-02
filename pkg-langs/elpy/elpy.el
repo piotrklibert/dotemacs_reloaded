@@ -2854,11 +2854,11 @@ here, and return the \"name\" as used by the backend."
      (require 'flymake)
      (elpy-modules-remove-modeline-lighter 'flymake-mode)
      ;; Flymake support using flake8, including warning faces.
-     (when (and (executable-find "flake8")
-                (equal python-check-command
-                       (elpy-flymake--standard-value 'python-check-command)))
-       (setq python-check-command "flake8"))
-
+     ;; (when (and (executable-find "flake8")
+     ;;            (equal python-check-command
+     ;;                   (elpy-flymake--standard-value 'python-check-command)))
+     ;;   )
+     (setq python-check-command "pyflakes")
      ;; Add our initializer function
      (add-to-list 'flymake-allowed-file-name-masks
                   '("\\.py\\'" elpy-flymake-python-init)))

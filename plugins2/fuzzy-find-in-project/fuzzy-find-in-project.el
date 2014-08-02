@@ -51,7 +51,7 @@
 
 
 (defface ffip-selected-face
-  '((t :foreground "orange" :box "red" :height 110))
+  '((t :foreground "orange" :box "red"))
   "Font face used for highlighting current selection in files list.")
 
 
@@ -127,6 +127,12 @@ timeout is exceeded."
     (error "Time out while waiting for completions."))
   (setq fuzzy-find-completions (s-chop-suffix "\nEND\n" fuzzy-find-completions))
   (ffip--log "completions:" (s-chop-suffix fuzzy-find-completions "\nEND\n"))
+
+  (message "%s"
+           (loop for completion in (s-split "\n" fuzzy-find-completions)
+                 collect (progn
+                           (s-split "/" completion))))
+
   fuzzy-find-completions)
 
 

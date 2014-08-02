@@ -19,7 +19,7 @@
 (require 'yasnippet)
 (require 'hippie-exp)
 (require 'readline-complete)
-(require ' )
+
 (add-hook 'company-completion-started-hook
           (function (lambda (&optional arg)
                       (fci-mode -1))))
@@ -28,6 +28,15 @@
 (add-hook 'company-completion-finished-hook
           (function (lambda (&optional arg)
                       (fci-mode 1))))
+
+
+(let ((backends '(company-files (company-capf :with company-dabbrev-code company-keywords company-yasnippet))))
+ (make-variable-buffer-local 'company-backends)
+ (setq-default company-backends backends)
+ (setq company-backends backends))
+
+
+
 ;; ~/.emacs.d/custom.el
 
 
@@ -56,7 +65,6 @@
                  yas-snippet-dirs))
 
 (yas-global-mode 1)
-
 
 ;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
 ;;      |  _ \    / \  / ___| |/ / ____|_   _| |  \/  |/ _ \|  _ \| ____|
