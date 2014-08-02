@@ -1,0 +1,21 @@
+[submodule "forked-plugins/elpy"]
+	path = forked-plugins/elpy
+	url = ssh://vps/home/cji/emacs/elpy
+[submodule "forked-plugins/auto-complete"]
+	path = forked-plugins/auto-complete
+	url = ssh://vps/home/cji/emacs/auto-complete
+[submodule "forked-plugins/popup-el"]
+	path = forked-plugins/popup-el
+	url = ssh://vps/home/cji/emacs/popup-el
+[submodule "forked-plugins/expand-region.el"]
+	path = forked-plugins/expand-region.el
+	url = ssh://vps/home/cji/emacs/expand-region.el.git
+[submodule "forked-plugins/lua-mode"]
+	path = forked-plugins/lua-mode
+	url = ssh://vps/home/cji/emacs/lua-mode.git
+[submodule "forked-plugins/direx-el"]
+	path = forked-plugins/direx-el
+	url = https://github.com/m2ym/direx-el.git
+[submodule "forked-plugins/emacs-jedi-direx"]
+	path = forked-plugins/emacs-jedi-direx
+	url = https://github.com/tkf/emacs-jedi-direx.git
