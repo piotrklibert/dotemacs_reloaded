@@ -108,7 +108,8 @@
           "/usr/www/tagasauris/config/"
           "/usr/www/tagasauris/doc/"))
   (ion . ("~/projects/ion/"))
-  (sp  . ("~/projects/smartpatient/smartpatient-web/smartpatient/"))
+  (sp  . ("~/projects/smartpatient/smartpatient-web/smartpatient/"
+          "~/projects/smartpatient/smartpatient-web/deployment/"))
   (prv . ("~/mgmnt/" "~/priv/"
           "~/.emacs.d/pkg-langs/elpy/"
           "~/.emacs.d/config/"
@@ -235,7 +236,20 @@
 
 
 (defun my-kill-scratch-buffer-hook ()
-  (when (string= (buffer-name) "*scratch*")
+  "I frequently scribble things in the *scratch* buffer and then
+leave them there 'for later'. Unfortunately, it happens a lot
+that I forget to save them when exiting or restarting Emacs. It
+even happened to me that I killed the scratch buffer by accident,
+without saving it first.
+
+This hook appends current contents of the scratch buffer to a
+file if it was modified. It also adds a timestamp. This way I
+don't need to worry about saving scratch buffer contents anymore
+- they will be saved for me everytime."
+  (when (and (string= (buffer-name) "*scratch*")
+             (not (string= initial-scratch-message (buffer-substring-no-properties
+                                                    (point-min)
+                                                    (point-max)))))
     (goto-char (point-min))
     (insert "================================================================================\n")
     (insert (format-time-string "%A, %B %e, %Y %D -- %-I:%M %p\n"))
@@ -243,6 +257,9 @@
     (append-to-file (point-min) (point-max) "~/scratch")))
 
 (add-hook 'kill-buffer-hook 'my-kill-scratch-buffer-hook)
+(add-hook 'kill-emacs-hook (lambda ()
+                             (with-current-buffer "*scratch*"
+                               (my-kill-scratch-buffer-hook))))
 
 ;;  __  ____   __       _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
 ;; |  \/  \ \ / /      |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|

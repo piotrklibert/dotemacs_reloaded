@@ -17,8 +17,10 @@
         end-of-buffer
         eval-last-sexp
         forward-sexp
+        fuzzy-find-choose-root-set
         indent-for-tab-command
         iy-go-to-char--command
+        join-region
         kill-region
         kill-sexp
         livescript-dedent-line-backspace

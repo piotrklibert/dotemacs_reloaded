@@ -77,6 +77,16 @@
   (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
   (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region))
 
+(defun my-eval-last-sexp (arg)
+  (interactive "P")
+  (cond
+   ((not arg)
+    (call-interactively 'eval-last-sexp))
+   ;; TODO: add ability for inserting result without pp via C-u C-u
+   (t
+    (call-interactively 'pp-eval-last-sexp))))
+
+(global-set-key [remap eval-last-sexp] 'my-eval-last-sexp)
 
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
 (font-lock-add-keywords 'emacs-lisp-mode
