@@ -20,6 +20,8 @@
 (add-hook 'web-mode-hook 'my-web-mode-hook)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
 
+(add-to-list 'auto-mode-alist '("Dockerfile\\'" . conf-mode))
+
 ;; somehow flymake doesn't want to work for me
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 

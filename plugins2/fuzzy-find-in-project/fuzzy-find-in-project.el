@@ -50,6 +50,10 @@
 (defalias 'buf-substr-np 'buffer-substring-no-properties)
 
 
+(defface ffip-common-face
+  '((t :foreground "green"))
+  "Font face used for highlighting current selection in files list.")
+
 (defface ffip-selected-face
   '((t :foreground "orange" :box "red"))
   "Font face used for highlighting current selection in files list.")
@@ -128,10 +132,10 @@ timeout is exceeded."
   (setq fuzzy-find-completions (s-chop-suffix "\nEND\n" fuzzy-find-completions))
   (ffip--log "completions:" (s-chop-suffix fuzzy-find-completions "\nEND\n"))
 
-  (message "%s"
-           (loop for completion in (s-split "\n" fuzzy-find-completions)
-                 collect (progn
-                           (s-split "/" completion))))
+  ;; (message "%s"
+  ;;          (loop for completion in (s-split "\n" fuzzy-find-completions)
+  ;;                collect (progn
+  ;;                          (s-split "/" completion))))
 
   fuzzy-find-completions)
 
@@ -263,6 +267,42 @@ dirs list."
 ;;
 ;;                       COMPLETIONS DISPLAY FUNCTIONS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(when nil
+  (setq dane '(("home" "cji" "projects" "ion" "code" "frontend" "Gruntfile.js")
+               ("home" "cji" "projects" "ion" "code" "frontend" "app" "main" "scripts" "controllers" "pending-requests-sidebar.js")
+               ("home" "cji" "projects" "ion" "code" "frontend" "docs" "src" "main" "scripts" "controllers" "pending-requests-sidebar.js")
+               ("home" "cji" "projects" "ion" "code" "frontend" "test" "spec" "main" "controllers" "pending-requests-sidebar.js")
+               ("home" "cji" "projects" "ion" "code" "frontend" "app" "main" "views" "pending_requests_sidebar.html")))
+
+
+  (defun find-common-prefix (str1 str2)
+    (let ((str1 (copy-seq str1))
+          (str2 (copy-seq str2))
+          prev orig)
+      (setq orig str1)
+      (while (string= (car str1) (car str2))
+        (setq prev str1)
+        (setq str1 (cdr-safe str1))
+        (setq str2 (cdr-safe str2)))
+      (setcdr prev nil)
+      orig))
+
+
+  (find-common-prefix (nth 1 dane)
+                      (nth 2 dane))
+
+  (let* ((common (-reduce 'find-common-prefix dane))
+         (last (car (reverse common)))
+         (common-str (s-join "/" (reverse (cdr (reverse common)))))
+         (strs (--map (s-join "/" it) dane)))
+    (list common-str
+          (--map (concat "../" last (s-replace common-str "" it)) strs)))
+
+
+  (current-time-string))
 
 
 (defun fuzzy-find-display-completions (query)

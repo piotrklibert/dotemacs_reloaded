@@ -19,3 +19,6 @@
 [submodule "forked-plugins/emacs-jedi-direx"]
 	path = forked-plugins/emacs-jedi-direx
 	url = https://github.com/tkf/emacs-jedi-direx.git
+[submodule "forked-plugins/dylan-mode"]
+	path = forked-plugins/dylan-mode
+	url = https://github.com/dylan-lang/dylan-mode.git

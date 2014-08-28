@@ -108,8 +108,7 @@
           "/usr/www/tagasauris/config/"
           "/usr/www/tagasauris/doc/"))
   (ion . ("~/projects/ion/"))
-  (sp  . ("~/projects/smartpatient/smartpatient-web/smartpatient/"
-          "~/projects/smartpatient/smartpatient-web/deployment/"))
+  (sp  . ("~/projects/images/sp/"))
   (prv . ("~/mgmnt/" "~/priv/"
           "~/.emacs.d/pkg-langs/elpy/"
           "~/.emacs.d/config/"

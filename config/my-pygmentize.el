@@ -6,7 +6,7 @@
   ;; TODO: make it into `(list (ido-completing-read ...))' with supported-langs
   (interactive "sLang? ")
   (let
-      ((command (concat "pygmentize -l " lexer " -f html")))
+      ((command (concat "pygmentize -l " lexer " -f html -P encoding=utf8" )))
     (if (use-region-p)
         (shell-command-on-region (region-beginning)
                                  (region-end)
@@ -117,6 +117,7 @@
 (setq pygmentize-cmd (concat "pygmentize"
                              " -l %s"
                              " -f html"
+                             " -P encoding=utf8"
                              " -O linenos=table"
                              " -O lineanchors=lineno"
                              " -O linespans=line"

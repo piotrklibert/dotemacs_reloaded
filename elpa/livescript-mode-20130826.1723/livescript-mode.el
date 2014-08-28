@@ -854,17 +854,18 @@ END lie."
 ;;   #### foobar
 (defun livescript-propertize-function (start end)
   ;; return if we don't have anything to parse
-  (unless (>= start end)
-    (save-excursion
-      (progn
-        (goto-char start)
-        (let ((match (re-search-forward "^[[:space:]]*###\\([[:space:]]+.*\\)?$" end t)))
-          (if match
-              (progn
-                (livescript-block-comment-delimiter match)
-                (goto-char match)
-                (forward-line)
-                (livescript-propertize-function (point) end))))))))
+  (when nil
+    (unless (>= start end)
+      (save-excursion
+        (progn
+          (goto-char start)
+          (let ((match (re-search-forward "^[[:space:]]*###\\([[:space:]]+.*\\)?$" end t)))
+            (if match
+                (progn
+                  (livescript-block-comment-delimiter match)
+                  (goto-char match)
+                  (forward-line)
+                  (livescript-propertize-function (point) end)))))))))
 
 ;;;###autoload
 (define-derived-mode livescript-mode prog-mode
