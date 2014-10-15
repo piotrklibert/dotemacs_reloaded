@@ -102,18 +102,22 @@
 
 
 (ffip-defroots 'prv ("~/todo/")
-  (tag . ("/usr/www/tagasauris/tagasauris/"
-          "/usr/www/tagasauris/src/tenclouds/tenclouds/"
-          "/usr/www/tagasauris/control/"
-          "/usr/www/tagasauris/config/"
-          "/usr/www/tagasauris/doc/"))
-  (ion . ("~/projects/ion/"))
-  (sp  . ("~/projects/images/sp/"))
-  (prv . ("~/mgmnt/" "~/priv/"
-          "~/.emacs.d/pkg-langs/elpy/"
-          "~/.emacs.d/config/"
-          "~/.emacs.d/plugins2/"
-          "~/.emacs.d/pkg-langs/")))
+  (prv         . ("~/mgmnt/" "~/priv/"))
+  (my-projects . ("~/projects/open-resty/" "~/projects/images/my-base/"))
+  (emacs       . ("~/.emacs.d/pkg-langs/elpy/" "~/.emacs.d/config/"
+                  "~/.emacs.d/plugins2/" "~/.emacs.d/pkg-langs/"))
+
+  ;; WORK RELATED
+  (ion         . ("~/projects/ion/"))
+  (sp          . ("~/projects/images/sp/"))
+  (tag         . ("/usr/www/tagasauris/tagasauris/"
+                  "/usr/www/tagasauris/src/tenclouds/tenclouds/"
+                  "/usr/www/tagasauris/control/"
+                  "/usr/www/tagasauris/config/"
+                  "/usr/www/tagasauris/doc/"))
+
+
+  )
 
 ;; There's a bit of a mess in my "misc projects" folder, and some of its
 ;; directories have much too many files in them, so I need to prune them before
@@ -127,22 +131,15 @@
      (subdirs (f-directories (f-expand "~/poligon/")
                              (lambda (path)
                                (not (-contains? ignored path)))))
-     (new-ffip-dirs (append (util-get-alist 'prv fuzzy-find-roots)
+     (new-ffip-dirs (append (util-get-alist 'my-projects fuzzy-find-roots)
                             subdirs)))
-  (util-put-alist 'prv new-ffip-dirs fuzzy-find-roots)
+  (util-put-alist 'my-projects new-ffip-dirs fuzzy-find-roots)
   ;; make FFIP notice the change in in dirs
   (fuzzy-find-choose-root-set "prv"))
 
 
-
-
-
-
-;; make Dired use gnu ls (from coreutils) instead of BSD ls if it's available
-;; (disabled, because I migrated to Linux, where gnu ls is the default)
-;; (when (file-exists-p "/usr/local/bin/dired-ls.sh")
-;;   (setq ls-lisp-use-insert-directory-program t)
-;;   (setq insert-directory-program "/usr/local/bin/dired-ls.sh"))
+(setq ls-lisp-use-insert-directory-program t)
+(setq insert-directory-program "~/.emacs.d/ls.sh")
 
 
 ;;                           _  _________   ______
@@ -256,9 +253,13 @@ don't need to worry about saving scratch buffer contents anymore
     (append-to-file (point-min) (point-max) "~/scratch")))
 
 (add-hook 'kill-buffer-hook 'my-kill-scratch-buffer-hook)
-(add-hook 'kill-emacs-hook (lambda ()
-                             (with-current-buffer "*scratch*"
-                               (my-kill-scratch-buffer-hook))))
+
+(defun my-kill-emacs-scratch-hook ()
+  (let ((scratch (get-buffer "*scratch*")))
+    (when scratch
+      (with-current-buffer scratch
+        (my-kill-scratch-buffer-hook)))))
+(add-hook 'kill-emacs-hook 'my-kill-emacs-scratch-hook)
 
 ;;  __  ____   __       _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
 ;; |  \/  \ \ / /      |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
