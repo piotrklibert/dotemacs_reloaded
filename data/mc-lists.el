@@ -12,6 +12,7 @@
         comment-or-uncomment-region-or-line
         company-abort
         delete-indentation
+        duplicate-line-or-region
         electric-pair-backward-delete-char
         elscreen-create
         end-of-buffer
@@ -20,7 +21,9 @@
         fuzzy-find-choose-root-set
         indent-for-tab-command
         iy-go-to-char--command
+        jedi:dot-complete
         join-region
+        keyboard-escape-quit
         kill-region
         kill-sexp
         livescript-dedent-line-backspace
@@ -35,12 +38,16 @@
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
+        paredit-backward-slurp-sexp
+        paredit-doublequote
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        paredit-kill
         paredit-meta-doublequote
         paredit-newline
         paredit-open-round
+        paredit-split-sexp
         paredit-wrap-round
         python-indent-dedent-line-backspace
         python-indent-electric-colon
@@ -50,11 +57,13 @@
         wdired-next-line
         wdired-previous-line
         wdired-upcase-word
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
         elscreen-next
         iedit-mode
+        mouse-yank-primary
         smex
         ))

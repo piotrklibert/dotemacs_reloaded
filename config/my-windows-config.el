@@ -17,7 +17,8 @@
 
 ;; my-wnd-keys - C-w prefix
 
-;; was overwritten
+;; C-w is taken by cut by default, and life without it would be less than
+;; comfortable, so we place it under C-w C-w
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
 
 (define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)
@@ -55,6 +56,9 @@
 (define-key my-wnd-keys (kbd "C-c")                 'copy-to-register)
 
 (define-key my-wnd-keys (kbd "C-t")                 'tiling-cycle)
+
+(global-set-key (kbd "C-<f4>")                      'delete-frame)
+(define-key my-wnd-keys (kbd "C-f")                 'delete-frame)
 
 ;; that's another buffer switcher, like ibuffer
 (define-key ctl-x-map (kbd "C-M-b") 'bs-show)

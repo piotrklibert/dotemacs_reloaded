@@ -64,6 +64,7 @@
   (blink-cursor-mode -1)
   (set-mouse-color "sky blue"))
 
+;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
 
 (defun my-set-default-font (&optional frame)
   ;; another possible font:
@@ -85,6 +86,15 @@
 
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)
+
+
+;; Make each new frame maximized by default
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (set-frame-parameter frame 'fullscreen 'maximized)))
+
+
+
 
 ;; make setting default font available from keyboard if it somehow didn't run
 (global-set-key (kbd "C-<f10>") 'my-set-default-font)
@@ -133,6 +143,9 @@
 
 ;; everything that's useful for programming and not language specific
 (load "my-generic-programming-config")
+
+;; project definitions for fuzzy find and others
+(load "my-projects")
 
 ;; git configuration, not much there
 (load "my-vcs-config")

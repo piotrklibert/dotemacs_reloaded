@@ -331,7 +331,7 @@ For detail, see `comment-dwim'."
 ;;; TODO: unindent after else:
 
 
-(defconst nimrod-indent-offset 2 "Number of spaces per level of indentation.")
+(defconst nimrod-indent-offset 4 "Number of spaces per level of indentation.")
 
 (defun nimrod-skip-blank-lines ()
   (progn

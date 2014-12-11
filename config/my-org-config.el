@@ -29,7 +29,10 @@
 
 
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file+headline "~/todo/todo.org" "TASKS")
+      (quote (("t" "todo" entry (file+headline "~/todo/work.org" "TASKS")
+               "* TODO %?\n  Added: %U\n  Origin: %a\n")
+
+              ("T" "todo" entry (file+headline "~/todo/todo.org" "TASKS")
                "* TODO %?\n  Added: %U\n  Origin: %a\n")
 
               ("n" "note" entry (file "~/todo/notes.org")
@@ -209,17 +212,24 @@
   (interactive "p")
   (format-time-string "%H:%M"))
 
-(defun my-insert-today ()
+(defun my-insert-now ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
-  (interactive)                 ; permit invocation in minibuffer
-  (insert (concat "<"
-                  (format-time-string "%Y-%m-%d %a")
-                  " "
-                  (my-now)
-                  ">")))
+  (interactive)                         ; permit invocation in minibuffer
+  (let
+      ((date (format-time-string "%Y-%m-%d %a"))
+       (time (my-now)))
+    (insert (concat "<" date " " time ">"))))
 
-(define-key my-toggle-keys (kbd "t") 'my-insert-today)
+
+
+(defun my-insert-today ()
+  (interactive)
+  (let ((date (format-time-string "%Y-%m-%d") ))
+    (insert (concat "[" date "]"))))
+
+
+(define-key my-toggle-keys (kbd "t") 'my-insert-now)
 (define-key my-toggle-keys (kbd "C-t") 'my-insert-today)
 
 

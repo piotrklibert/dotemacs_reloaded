@@ -40,6 +40,7 @@
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=

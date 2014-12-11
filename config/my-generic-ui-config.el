@@ -79,7 +79,6 @@
 (global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
 
-(global-set-key (kbd "C-<f4>")   'delete-frame)
 
 ;; IDo - Interactively Do Things.
 ;; Has autocompletions in minibufer and jumping to things, and more.

@@ -23,7 +23,7 @@
 
 ;; Keys bound here:
 (global-set-key (kbd "C-c .") 'hippie-expand)
-(global-set-key (kbd "C-c /") 'yas-expand)
+;; (global-set-key (kbd "C-c /") 'yas-expand)
 (global-set-key (kbd "C-<tab>") 'ac-start)
 
 
@@ -57,11 +57,11 @@
 ;;
 
 ;; NOTE: my version of yasnippet (from git) had to be gutted of TAB bindings
-(yas-load-directory "~/.emacs.d/plugins2/yasnippet/snippets")
-(setq yas-snippet-dirs
-      (remove-if (lambda (x)
-                   (string= x "~/.emacs.d/snippets"))
-                 yas-snippet-dirs))
+;; (yas-load-directory "~/.emacs.d/forked-plugins/yasnippet/snippets")
+;; (setq yas-snippet-dirs
+;;       (remove-if (lambda (x)
+;;                    (string= x "~/.emacs.d/snippets"))
+;;                  yas-snippet-dirs))
 
 (yas-global-mode 1)
 

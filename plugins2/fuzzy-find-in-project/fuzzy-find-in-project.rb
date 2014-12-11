@@ -13,8 +13,9 @@ require 'fuzzy_file_finder'
 BUF_SIZE = 50000
 IGNORES = [
   "*.pyc", "#*#", "*.elc", "*#",
-  "*.git*", "*.bzr*", "*node_modules*",
-  "*migrations*", "*bower_components*", "books*"
+  "*.git*", "*.bzr*", "*node_modules*", "*.vim*",
+  "*migrations*", "*bower_components*", "books*",
+  "*ebin*", "*deps*", "*rel*"
 ]
 
 def make_finder(paths)

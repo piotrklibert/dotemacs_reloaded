@@ -22,3 +22,9 @@
 [submodule "forked-plugins/dylan-mode"]
 	path = forked-plugins/dylan-mode
 	url = https://github.com/dylan-lang/dylan-mode.git
+[submodule "forked-plugins/yasnippet"]
+	path = forked-plugins/yasnippet
+	url = https://github.com/capitaomorte/yasnippet.git
+[submodule "forked-plugins/hy-mode"]
+	path = forked-plugins/hy-mode
+	url = git://github.com/hylang/hy-mode

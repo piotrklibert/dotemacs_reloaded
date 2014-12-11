@@ -139,6 +139,7 @@
 (add-hook 'erlang-mode-hook
           (lambda ()
             (require 'distel)
+            (linum-mode t)
             (distel-setup)))
 
 
@@ -210,7 +211,7 @@
 (defun my-geiser-repl-hook ()
   (auto-complete-mode 1))
 
-;; Smalltalk: ale slaby. Trzeba zobaczyc Shampoo.
+;; Smalltalk: but it's rather poor; need to see Shampoo
 (require 'smalltalk-mode)
 (push '("\\.st\\'" . smalltalk-mode)  auto-mode-alist)
 
@@ -219,11 +220,23 @@
 
 
 (defun save-nginx-conf-hook ()
-  (when (s-contains? "nginx" (buffer-file-name))
+  (when (and nil (s-contains? "nginx" (buffer-file-name)))
     (deferred:$
       (deferred:process-shell "sudo" "nginx -s reload")
       (deferred:nextc it
         (lambda ()
           (message "Restarted nginx"))))))
 
-(add-hook 'after-save-hook 'save-nginx-conf-hook)
+;; (add-hook 'after-save-hook 'save-nginx-conf-hook)
+
+(require 'dime)
+(dime-setup '(dime-dylan dime-repl dime-compiler-notes-tree))
+(setq dime-dylan-implementations
+      '((opendylan ("/usr/local/bin/dswank")
+                   :env ("OPEN_DYLAN_USER_REGISTRIES=/home/cji/portless/dylan/sources/registry/:/home/cji/poligon/hello-dylan/registry"))))
+
+;; Clojure & ClojureScript
+(require 'cider)
+(require 'clojure-mode)
+(add-hook 'clojure-mode-hook 'paredit-mode)
+(put-clojure-indent 'om-transact 1)
