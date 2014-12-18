@@ -13,6 +13,7 @@
         company-abort
         delete-indentation
         duplicate-line-or-region
+        electric-newline-and-maybe-indent
         electric-pair-backward-delete-char
         elscreen-create
         end-of-buffer
@@ -51,6 +52,7 @@
         paredit-wrap-round
         python-indent-dedent-line-backspace
         python-indent-electric-colon
+        python-indent-shift-left
         suspend-frame
         transpose-sexps
         wdired-capitalize-word
@@ -63,6 +65,7 @@
 (setq mc/cmds-to-run-once
       '(
         elscreen-next
+        elscreen-previous
         iedit-mode
         mouse-yank-primary
         smex

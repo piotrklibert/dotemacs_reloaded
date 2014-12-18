@@ -122,7 +122,7 @@
 (load "my-minibuf-prompt")
 
 ;; Settings and additional functionality for auto-completion and snippets
-(load "my-old-auto-complete")
+(load "my-auto-completion")
 
 ;; Additional interfaces and functionalities (through plugins) activation and
 ;; config - mainly ido-mode
