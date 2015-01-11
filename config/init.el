@@ -57,8 +57,20 @@
 ;; Beware: Help At Pt group!
 
 
+
+(defface org-block-begin-line
+  '((t (:height 0.85 :foreground "black" :background "DarkSlateGray4")))
+  "Face used for the line delimiting the begin of source blocks.")
+
+(defface org-block-end-line
+  '((t (:height 0.85 :foreground "black" :background "DarkSlateGray4" )))
+  "Face used for the line delimiting the end of source blocks.")
+
+
 (load-theme          'wombat)
 (set-cursor-color    "white")
+
+
 (when window-system
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)

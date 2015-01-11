@@ -15,7 +15,7 @@ IGNORES = [
   "*.pyc", "#*#", "*.elc", "*#",
   "*.git*", "*.bzr*", "*node_modules*", "*.vim*",
   "*migrations*", "*bower_components*", "books*",
-  "*ebin*", "*deps*", "*rel*"
+  "*ebin*", "*deps*", "*rel*", "*build*"
 ]
 
 def make_finder(paths)
