@@ -59,11 +59,11 @@
 
 
 (defface org-block-begin-line
-  '((t (:height 0.85 :foreground "black" :background "DarkSlateGray4")))
+  '((t (:height 0.85 :foreground "#9ED5D5" :background "#968E8E")))
   "Face used for the line delimiting the begin of source blocks.")
 
 (defface org-block-end-line
-  '((t (:height 0.85 :foreground "black" :background "DarkSlateGray4" )))
+  '((t (:height 0.85 :foreground "#9ED5D5"  :background "#968E8E")))
   "Face used for the line delimiting the end of source blocks.")
 
 

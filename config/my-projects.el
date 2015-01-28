@@ -5,8 +5,7 @@
 ;; explicitly
 
 
-(ffip-defroots 'prv ("~/todo/" "~/priv/" "~/.emacs.d/config/")
-  ;; (prv         . ( ))
+(ffip-defroots 'prv ("~/todo/" "~/secure/" "~/.emacs.d/config/")
   (my-projects . ("~/mgmnt/"
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"

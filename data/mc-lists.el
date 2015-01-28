@@ -22,6 +22,7 @@
         fuzzy-find-choose-root-set
         indent-for-tab-command
         iy-go-to-char--command
+        iy-go-to-char-quit
         jedi:dot-complete
         join-region
         keyboard-escape-quit
@@ -68,5 +69,6 @@
         elscreen-previous
         iedit-mode
         mouse-yank-primary
+        org-delete-char
         smex
         ))

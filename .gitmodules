@@ -28,3 +28,9 @@
 [submodule "forked-plugins/hy-mode"]
 	path = forked-plugins/hy-mode
 	url = git://github.com/hylang/hy-mode
+[submodule "forked-plugins/emacs-jedi"]
+	path = forked-plugins/emacs-jedi
+	url = ssh://vps/home/cji/emacs/emacs-jedi
+[submodule "forked-plugins/emacs-python-environment"]
+	path = forked-plugins/emacs-python-environment
+	url = https://github.com/tkf/emacs-python-environment.git

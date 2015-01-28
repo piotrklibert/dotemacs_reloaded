@@ -115,6 +115,14 @@
 (global-set-key (kbd "C-M-\"")  'my-toggle-quotes)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "<f9>")    'my-make)
+
+(defun my-make ()
+  (interactive)
+  (let
+      ;; TODO: make this search for Makefile in directories above current file
+      ((default-directory "/home/cji/projects/klibert_pl/"))
+    (compile "make")))
 
 ;;
 ;; Utilities for navigating around the codebase: searching, greping, jumping...

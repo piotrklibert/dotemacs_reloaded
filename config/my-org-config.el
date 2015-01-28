@@ -14,12 +14,29 @@
 (setq org-default-notes-file "~/todo/notes")
 (org-clock-persistence-insinuate)
 
+
+
+(require 'ob-ls)
+
+(add-to-list 'org-src-lang-modes '("ls" . livescript))
+
+(setq org-babel-load-languages '((emacs-lisp . t)
+                                 (python . t)
+                                 (scheme . t)
+                                 (js . t)
+                                 (ls . t)
+                                 (livescript . t)
+                                 (io . t)))
+
+
+
+
 (require 'org)
-;; (org-remember-insinuate)
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
+(setq org-src-fontify-natively t)
 
 ;; (setq org-remember-templates
 ;;      '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i" "~/todo/todo.org" "TASKS")
