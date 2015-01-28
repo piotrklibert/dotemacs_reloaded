@@ -34,3 +34,6 @@
 [submodule "forked-plugins/emacs-python-environment"]
 	path = forked-plugins/emacs-python-environment
 	url = https://github.com/tkf/emacs-python-environment.git
+[submodule "forked-plugins/pyvenv"]
+	path = forked-plugins/pyvenv
+	url = https://github.com/jorgenschaefer/pyvenv.git
