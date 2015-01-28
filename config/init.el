@@ -8,6 +8,8 @@
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
 
+;; Two GIANT packages: CEDET and Org-Mode
+
 (unless (featurep 'cedet-devel-load)
   ;; do not load cedet if it's loaded already - happens when using dumped
   ;; emacs with normal init file
@@ -17,6 +19,10 @@
         (load "~/cedet/contrib/cedet-contrib-load.el"))
     (error (message (concat "Fetch the latest CEDET package and place it "
                             "inside `~/cedet/'. Remember to `make' it.")))))
+
+(add-to-list 'load-path "~/portless/org-mode/lisp/")
+(add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
+
 
 
 (defmacro add-subdirs-to-path (&rest dirs)
@@ -32,9 +38,6 @@
 ;; because there are many non-lisp dirs in there
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
-(add-to-list 'load-path "~/portless/org-mode/lisp/")
-(add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
-
 
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
@@ -57,16 +60,6 @@
 ;; Beware: Help At Pt group!
 
 
-
-(defface org-block-begin-line
-  '((t (:height 0.85 :foreground "#9ED5D5" :background "#968E8E")))
-  "Face used for the line delimiting the begin of source blocks.")
-
-(defface org-block-end-line
-  '((t (:height 0.85 :foreground "#9ED5D5"  :background "#968E8E")))
-  "Face used for the line delimiting the end of source blocks.")
-
-
 (load-theme          'wombat)
 (set-cursor-color    "white")
 
@@ -76,7 +69,7 @@
   (blink-cursor-mode -1)
   (set-mouse-color "sky blue"))
 
-;; (add-to-list 'default-frame-alist '(fullscreen . fullboth))
+
 
 (defun my-set-default-font (&optional frame)
   ;; another possible font:
@@ -99,17 +92,16 @@
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)
 
+;; make setting default font available from keyboard if it somehow didn't run
+(global-set-key (kbd "C-<f10>") 'my-set-default-font)
+
 
 ;; Make each new frame maximized by default
+;; TODO: maximize only first frame, this interferes with ediff
 (add-hook 'after-make-frame-functions
           (lambda (frame)
             (set-frame-parameter frame 'fullscreen 'maximized)))
 
-
-
-
-;; make setting default font available from keyboard if it somehow didn't run
-(global-set-key (kbd "C-<f10>") 'my-set-default-font)
 
 
 
@@ -124,13 +116,14 @@
 
 
 ;; schedule starting of Emacs server after everything else is loaded (5 min
-;; *should* be anough for startup :))
+;; *should* be enough for startup :))
 (run-at-time "5 min" nil 'server-start)
 
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts
 (load "my-keymaps-config")
 
 ;; Make pressing <return> mean "yes" in minibufer
+;; TODO: teach Sunrise Commander the same trick
 (load "my-minibuf-prompt")
 
 ;; Settings and additional functionality for auto-completion and snippets
@@ -164,9 +157,6 @@
 
 ;; org-mode customizations
 (load "my-org-config")
-
-;; gnus configuration
-(load "my-gnus-config")
 
 
 (require 'my-download-page)
@@ -230,7 +220,6 @@
               color-theme-is-global t
               sentence-end-double-space nil
               mouse-yank-at-point t
-              ;; whitespace-style '(face trailing lines-tail tabs)
               whitespace-line-column 80
               diff-switches "-u")
 

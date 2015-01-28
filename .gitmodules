@@ -7,9 +7,6 @@
 [submodule "forked-plugins/popup-el"]
 	path = forked-plugins/popup-el
 	url = ssh://vps/home/cji/emacs/popup-el
-[submodule "forked-plugins/expand-region.el"]
-	path = forked-plugins/expand-region.el
-	url = ssh://vps/home/cji/emacs/expand-region.el.git
 [submodule "forked-plugins/lua-mode"]
 	path = forked-plugins/lua-mode
 	url = ssh://vps/home/cji/emacs/lua-mode.git

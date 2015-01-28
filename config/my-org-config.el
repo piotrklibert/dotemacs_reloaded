@@ -4,6 +4,18 @@
 ;; * parse rsync output
 ;; * one line message only
 ;; * notify about failure too
+
+
+(defface org-block-begin-line
+  '((t (:height 0.85 :foreground "#9ED5D5" :background "#968E8E")))
+  "Face used for the line delimiting the begin of source blocks.")
+
+(defface org-block-end-line
+  '((t (:height 0.85 :foreground "#9ED5D5"  :background "#968E8E")))
+  "Face used for the line delimiting the end of source blocks.")
+
+
+
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
 (setq org-directory "~/todo/")
