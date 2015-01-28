@@ -34,3 +34,6 @@
 [submodule "forked-plugins/pyvenv"]
 	path = forked-plugins/pyvenv
 	url = https://github.com/jorgenschaefer/pyvenv.git
+[submodule "forked-plugins/expand-region-el"]
+	path = forked-plugins/expand-region-el
+	url = git@github.com:magnars/expand-region.el.git
