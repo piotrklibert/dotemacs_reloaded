@@ -37,3 +37,9 @@
 [submodule "forked-plugins/expand-region-el"]
 	path = forked-plugins/expand-region-el
 	url = git@github.com:magnars/expand-region.el.git
+[submodule "forked-plugins/emacs-async"]
+	path = forked-plugins/emacs-async
+	url = git@github.com:jwiegley/emacs-async.git
+[submodule "forked-plugins/helm"]
+	path = forked-plugins/helm
+	url = git@github.com:emacs-helm/helm.git

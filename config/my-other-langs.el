@@ -129,18 +129,26 @@
 ;; Erlang and Distel (Erlang shell integration) config
 ;;
 ;; (require 'erlang-start)
-(require 'erlang-autoloads)
+(require 'erlang)
+(require 'distel)
 
 (add-to-list 'auto-mode-alist '("\\.erl\\'" . erlang-mode))
 (add-to-list 'auto-mode-alist '("\\.hrl\\'" . erlang-mode))
 
 (add-to-list 'ac-modes 'erlang-mode)
 
-(add-hook 'erlang-mode-hook
-          (lambda ()
-            (require 'distel)
-            (linum-mode t)
-            (distel-setup)))
+(defun my-erlang-newline ()
+  (interactive)
+  (erlang-electric-newline)
+  (erlang-indent-line))
+
+(define-key erlang-mode-map (kbd "") 'my-erlang-newline)
+
+(defun my-erlang-mode-hook ()
+  (linum-mode t)
+  (distel-setup))
+
+(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
 
 
 ;;

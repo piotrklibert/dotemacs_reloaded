@@ -119,7 +119,7 @@
 ;; *should* be enough for startup :))
 (run-at-time "5 min" nil 'server-start)
 
-;; import custom keymaps declarations, used by DEFINE-KEY in scripts
+;; import custom keymaps declarations, used by DEFINE-KEY in scripts.
 (load "my-keymaps-config")
 
 ;; Make pressing <return> mean "yes" in minibufer

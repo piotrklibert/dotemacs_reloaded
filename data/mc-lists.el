@@ -37,6 +37,7 @@
         org-force-self-insert
         org-self-insert-command
         org-shiftcontrolleft
+        org-yank
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
@@ -65,6 +66,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        artist-down-mouse-1
         elscreen-next
         elscreen-previous
         iedit-mode

@@ -104,12 +104,14 @@
          (magit-blame-file-on (current-buffer))
          (set-buffer-modified-p nil)
          (setq buffer-read-only t)
+         (auto-complete-mode -1)
          (fci-mode -1))
         (t
          (magit-blame-file-off (current-buffer))
          (set-buffer-modified-p nil)
          (setq buffer-read-only magit-blame-buffer-read-only)
-         (fci-mode 1))))
+         (auto-complete-mode t)
+         (fci-mode t))))
 
 (defun magit-blame-file-off (buffer)
   (save-excursion
