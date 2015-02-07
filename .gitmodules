@@ -43,3 +43,9 @@
 [submodule "forked-plugins/helm"]
 	path = forked-plugins/helm
 	url = git@github.com:emacs-helm/helm.git
+[submodule "forked-plugins/web-mode"]
+	path = forked-plugins/web-mode
+	url = git@github.com:fxbois/web-mode.git
+[submodule "forked-plugins/nim-mode"]
+	path = forked-plugins/nim-mode
+	url = git@github.com:reactormonk/nim-mode.git
