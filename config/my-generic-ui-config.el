@@ -6,8 +6,9 @@
 (require 'ido)
 (require 'idomenu)
 (require 'ido-vertical-mode)
-;; TODO: maybe enable this
-;; (require 'ido-ubiquitous-mode)
+
+(require 'helm)
+(require 'helm-config)
 
 (require 'direx)
 (require 'generic-x)
@@ -18,25 +19,16 @@
 
 (require 'sunrise-commander)
 
-(require 'autorevert)
+(require 'autorevert)                   ; customize-group available
+
+
 (global-auto-revert-mode 1)
-
-;; set via customize:
-;; (setq auto-revert-verbose nil)
-;; (setq global-auto-revert-non-file-buffers t) ; revert Dired buffers too
-
 (global-auto-composition-mode -1)       ; for entering strange chars, not needed
 (mouse-avoidance-mode 'exile)           ; should move mouse away from point
 (auto-compression-mode 1)               ; transparent editing of compressed files
 (file-name-shadow-mode 1)               ; no idea :)
 (savehist-mode 1)                       ; save the minibuffer history on exit
 
-;; (require 'subword) ; for dealing with camel-cased text
-
-(icomplete-mode 1)
-(when (boundp 'icomplete-minibuffer-map)
-  (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
-  (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions))
 
 ;; schedule imports to be done after some modules are imported
 (eval-after-load "dired"
@@ -60,29 +52,21 @@
 (eval-after-load "bookmark"
   '(require 'bookmark+))
 
-(define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
-(define-key my-bookmarks-keys (kbd "C-l") 'list-bookmarks)
-(define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
-
-;;
-;; Replace normal Emacs interfaces with enchanced versions
-;;
-(global-set-key (kbd "C-x C-b")  'ibuffer)
-
-(global-set-key (kbd "M-X")      'smex-major-mode-commands)
-(global-set-key (kbd "M-x")      'smex)
-
-(global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
-(global-set-key (kbd "C-<f2>")   'recentf-open-files)
-
-(global-set-key (kbd "C-<f3>")   'sunrise)
-(global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;              _ ____                           __ _
+;;             (_)  _ \  ___     ___ ___  _ __  / _(_) __ _
+;;             | | | | |/ _ \   / __/ _ \| '_ \| |_| |/ _` |
+;;             | | |_| | (_) | | (_| (_) | | | |  _| | (_| |
+;;             |_|____/ \___/   \___\___/|_| |_|_| |_|\__, |
+;;                                                    |___/
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; IDo - Interactively Do Things.
 ;; Has autocompletions in minibufer and jumping to things, and more.
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
+
 (ido-mode 1)
 (ido-everywhere 1)
 (ido-vertical-mode 1)
@@ -98,10 +82,10 @@
  ido-auto-merge-work-directories-length  nil
  ido-vertical-define-keys                'C-n-C-p-up-down-left-right)
 
-;; but remember that files which are already open are placed last on a list in
-;; IDo C-x C-f - I didn't find any way of overriding this behaviour
-(setq ido-file-extensions-order '(".org" ".py" ".el" ".coffee"
-                                  ".ls" ".less" ".txt"))
+;; Make *.py files be sorted before *.pyc and *.ls files before *.js and so on.
+;; (but already open files are always placed at the end of file list anyway)
+(setq ido-file-extensions-order
+      '(".org" ".py" ".el" ".coffee" ".ls" ".less" ".txt"))
 
 
 ;; Smex - built on top of IDo M-x replacement.
@@ -111,13 +95,14 @@
 (smex-initialize)
 
 
-;;                            ____  _              _
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                            ____  _ _
 ;;                           |  _ \(_)_ __ ___  __| |
 ;;                           | | | | | '__/ _ \/ _` |
 ;;                           | |_| | | | |  __/ (_| |
 ;;                           |____/|_|_|  \___|\__,_|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defun my-dired-back-to-top ()
   (interactive)
@@ -133,6 +118,8 @@
 (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                       ___ _            __  __
 ;;                      |_ _| |__  _   _ / _|/ _| ___ _ __
 ;;                       | || '_ \| | | | |_| |_ / _ \ '__|
@@ -161,3 +148,40 @@
 
   (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
   (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;               ____ ___ _   _ ____ ___ _   _  ____ ____                      ;
+;;              | __ )_ _| \ | |  _ \_ _| \ | |/ ___/ ___|                     ;
+;;              |  _ \| ||  \| | | | | ||  \| | |  _\___ \                     ;
+;;              | |_) | || |\  | |_| | || |\  | |_| |___) |                    ;
+;;              |____/___|_| \_|____/___|_| \_|\____|____/                     ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
+(define-key my-bookmarks-keys (kbd "C-l") 'list-bookmarks)
+(define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
+
+;; Use iDo for fast buffer switching
+(define-key ctl-x-map (kbd "b")     'ido-switch-buffer)
+(define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
+
+;; Use ibuffer rather than whatever Emacs uses by default...
+(define-key ctl-x-map (kbd "C-b")   'ibuffer)
+
+;; There are some alternatives to ibuffer, I'm currently testing helm
+;; (define-key ctl-x-map (kbd "C-M-b") 'bs-show)
+;; (define-key ctl-x-map (kbd "C-M-b") 'electric-buffer-listw)
+(define-key ctl-x-map (kbd "C-M-b") 'helm-buffers-list)
+
+(global-set-key (kbd "M-X")      'smex-major-mode-commands)
+(global-set-key (kbd "M-x")      'smex)
+(global-set-key (kbd "s-x")      'helm-M-x)
+
+(global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
+(global-set-key (kbd "C-<f2>")   'recentf-open-files)
+
+(global-set-key (kbd "C-<f3>")   'sunrise)
+(global-set-key (kbd "M-<f3>")   'sunrise-cd)

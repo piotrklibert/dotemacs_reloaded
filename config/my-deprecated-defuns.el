@@ -81,12 +81,14 @@
 ;; BTW: iedit has something for editing rectangles visually: C-<return>
 ;; (iedit-rectangle-mode)
 ;;
-;; Turns out there's a mode for than in Emacs already. It lives in "rect.el",
+;; Turns out there's a mode for that in Emacs already. It lives in "rect.el",
 ;; as a `rectangle-mark-mode'. This is nuts - it either was added recently, or
-;; most people on the web are idiots for not knowing about it.
+;; most people on the web, me included, are idiots for not knowing about it.
 ;;
+;; NOTE: C-<space> C-x <space> enables YET ANOTHER rectangle mode, this time
+;; with visual feedback and working past the end of lines. And it's built in,
+;; too.
 
-;; TODO: make next-line also append spaces at the end of line if needed
 
 (define-minor-mode free-rectangle-mode
   "Makes `right-char' append spaces at the eol. It's usefull for
@@ -133,3 +135,17 @@ they will be removed on save anyway."
 ;; (require 'rect-mark)
 ;; I don't use this anymore, the only thing it provides is visual feedback for
 ;; the rectangle, but does this at the expense of yet another set of keys.
+
+
+
+;; For dealing with camel-cased text, not very useful.
+;; (require 'subword)
+
+
+;; A built-in alternative for iDo (which is built-in too...), not needed with
+;; iDo enabled.
+;;
+;; (icomplete-mode 1)
+;; (when (boundp 'icomplete-minibuffer-map)
+;;   (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
+;;   (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions))

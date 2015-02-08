@@ -1,5 +1,5 @@
 (require 'elixir-mode)
-(require 'nimrod-mode)
+(require 'nim-mode)
 (require 'nginx-mode)
 ;;
 ;; HTML & Django templates mode

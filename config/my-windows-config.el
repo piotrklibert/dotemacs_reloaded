@@ -60,9 +60,6 @@
 (global-set-key (kbd "C-<f4>")                      'delete-frame)
 (define-key my-wnd-keys (kbd "C-f")                 'delete-frame)
 
-;; that's another buffer switcher, like ibuffer
-(define-key ctl-x-map (kbd "C-M-b") 'bs-show)
-;; (define-key ctl-x-map (kbd "C-M-b") 'electric-buffer-listw)
 
 
 ;;

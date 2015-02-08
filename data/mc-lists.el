@@ -50,6 +50,7 @@
         paredit-meta-doublequote
         paredit-newline
         paredit-open-round
+        paredit-semicolon
         paredit-split-sexp
         paredit-wrap-round
         python-indent-dedent-line-backspace
