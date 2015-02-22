@@ -5,13 +5,13 @@
 ;; explicitly
 
 
-(ffip-defroots 'my-project ("~/todo/" "~/secure/" "~/.emacs.d/config/")
+(ffip-defroots 'my-projects ("~/todo/" "~/secure/" "~/.emacs.d/config/")
   (my-projects . ("~/mgmnt/"
                   "~/projects/klibert_pl/"
+                  "~/poligon/prolog/"
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
-                  ;; "~/poligon/plnizator/"
                   ;; "~/poligon/luzem/"
                   ;; "~/poligon/lscript/"
                   ))
@@ -19,12 +19,13 @@
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"))
 
+  (rq          . ("~/projects/reqviewer/"
+                  "~/projects/reqplayer/"))
+
   ;; WORK RELATED
   (ion         . ("~/projects/ion/"))
 
-  (sp          . ("~/projects/images/sp/"
-                  "~/projects/reqviewer/"
-                  "~/projects/reqplayer/"))
+  (sp          . ("~/projects/sp/"))
 
   (tag         . ("/usr/www/tagasauris/tagasauris/"
                   "/usr/www/tagasauris/src/tenclouds/tenclouds/"

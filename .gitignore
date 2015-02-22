@@ -73,3 +73,5 @@ url/cookies
 /h.places
 /org-clock-save.el
 .python-environments
+elpa
+pkg-langs

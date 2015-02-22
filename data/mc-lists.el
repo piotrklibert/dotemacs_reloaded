@@ -53,6 +53,7 @@
         paredit-semicolon
         paredit-split-sexp
         paredit-wrap-round
+        prolog-electric-dot
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         python-indent-shift-left
@@ -68,10 +69,17 @@
 (setq mc/cmds-to-run-once
       '(
         artist-down-mouse-1
+        artist-down-mouse-3
+        dired-next-line
+        dired-previous-line
         elscreen-next
         elscreen-previous
         iedit-mode
+        mouse-drag-vertical-line
+        mouse-select-window
+        mouse-set-region
         mouse-yank-primary
         org-delete-char
+        picture-self-insert
         smex
         ))

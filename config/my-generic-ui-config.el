@@ -19,6 +19,27 @@
 
 (require 'sunrise-commander)
 
+(defun sr-y-n-or-a-p (prompt)
+    "Ask the user with PROMPT for an answer y/n/a ('a' stands for 'always').
+Returns t if the answer is y/Y, nil if the answer is n/N or the
+symbol `ALWAYS' if the answer is a/A."
+    (setq prompt (concat prompt "([y]es/<return>, [n]o or [a]lways)"))
+    (let ((resp -1))
+      (while (not (memq resp '(?y ?Y ?n ?N ?a ?A 10 return)))
+        (setq resp (read-event prompt))
+        (setq prompt "Please answer [y]es/<return>, [n]o or [a]lways "))
+      (if (and (numberp resp) (>= resp 97))
+          (setq resp (- resp 32)))
+      (case resp
+        (?Y t)
+        (10 t)
+        ('return t)
+        (?A 'ALWAYS)
+        (t nil))))
+
+(define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
+
+
 (require 'autorevert)                   ; customize-group available
 
 

@@ -6,6 +6,23 @@
 ;; * notify about failure too
 
 
+(setq org-structure-template-alist
+ '(("s" "#+NAME:\n#+BEGIN_SRC ?\n\n#+END_SRC")
+   ("e" "#+BEGIN_EXAMPLE\n?\n#+END_EXAMPLE")
+   ("q" "#+BEGIN_QUOTE\n?\n#+END_QUOTE")
+   ("v" "#+BEGIN_VERSE\n?\n#+END_VERSE")
+   ("V" "#+BEGIN_VERBATIM\n?\n#+END_VERBATIM")
+   ("c" "#+BEGIN_CENTER\n?\n#+END_CENTER")
+   ("l" "#+BEGIN_LaTeX\n?\n#+END_LaTeX")
+   ("L" "#+LaTeX: ")
+   ("h" "#+BEGIN_HTML\n?\n#+END_HTML")
+   ("H" "#+HTML: ")
+   ("a" "#+BEGIN_ASCII\n?\n#+END_ASCII")
+   ("A" "#+ASCII: ")
+   ("i" "#+INDEX: ?")
+   ("I" "#+INCLUDE: %file ?")))
+
+
 (defface org-block-begin-line
   '((t (:height 0.85 :foreground "#9ED5D5" :background "#968E8E")))
   "Face used for the line delimiting the begin of source blocks.")

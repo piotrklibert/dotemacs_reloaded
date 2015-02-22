@@ -138,7 +138,14 @@
      (python . t)
      (scheme . t)
      (js . t)
-     (io . t))))
+     (io . t)
+     (shell . t)
+     (ditaa . t))))
+ '(org-babel-noweb-wrap-end "=-")
+ '(org-babel-noweb-wrap-start "<-")
+ '(org-babel-shell-names
+   (quote
+    ("sh" "bash" "csh" "ash" "dash" "ksh" "mksh" "posh" "zsh")))
  '(org-clock-into-drawer t)
  '(org-clock-persist (quote clock))
  '(org-columns-default-format
@@ -205,6 +212,9 @@
  '(package-enable-at-startup nil)
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
+ '(prolog-electric-colon-flag t)
+ '(prolog-electric-dot-flag t)
+ '(prolog-indent-width 4)
  '(quack-programs
    (quote
     ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))

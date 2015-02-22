@@ -1,4 +1,5 @@
 (require 'cl)
+(require 'pp)
 (require 'eassist)
 (require 'electric)
 (require 'thingatpt)
@@ -184,7 +185,7 @@
 
   ;; in Python it doesn't work well - folds whole classes, but not methods
   (when (not (memq major-mode
-                   '(python-mode sh-mode web-mode)))
+                   '(python-mode sh-mode web-mode sql-mode)))
     (hs-minor-mode)
     (local-set-key (kbd "C-c C-c C-h") 'hs-hide-all)
     (local-set-key (kbd "C-c C-c C-s") 'hs-show-all)
