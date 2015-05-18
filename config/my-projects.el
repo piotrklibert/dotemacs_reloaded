@@ -5,16 +5,22 @@
 ;; explicitly
 
 
-(ffip-defroots 'my-projects ("~/todo/" "~/secure/" "~/.emacs.d/config/")
+(ffip-defroots 'my-projects ("~/todo/"
+                             "~/secure/"
+                             "~/.emacs.d/config/")
+
   (my-projects . ("~/mgmnt/"
                   "~/projects/klibert_pl/"
                   "~/poligon/prolog/"
+                  "/home/cji/poligon/car-sales-app/"
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
                   ;; "~/poligon/luzem/"
                   ;; "~/poligon/lscript/"
                   ))
+  (klibertpl   . ("/home/cji/projects/klibert_pl/"))
+
   (emacs       . ("~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"))
@@ -26,12 +32,6 @@
   (ion         . ("~/projects/ion/"))
 
   (sp          . ("~/projects/sp/"))
-
-  (tag         . ("/usr/www/tagasauris/tagasauris/"
-                  "/usr/www/tagasauris/src/tenclouds/tenclouds/"
-                  "/usr/www/tagasauris/control/"
-                  "/usr/www/tagasauris/config/"
-                  "/usr/www/tagasauris/doc/"))
 
   (10c         . ("~/projects/images/repo/")))
 

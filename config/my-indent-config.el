@@ -62,4 +62,11 @@ it before."
   (my-indent-rigidly '- arg))
 
 
+(defun align-line-cont-chars (col)
+  (interactive "n")
+  (save-excursion
+    (goto-char (1- (line-end-position)))
+    (insert-char ?\   (- col (length (buffer-line))))))
+
+
 (provide 'my-indent-config)

@@ -15,8 +15,10 @@
         duplicate-line-or-region
         electric-newline-and-maybe-indent
         electric-pair-backward-delete-char
+        electric-pair-delete-pair
         elscreen-create
         end-of-buffer
+        erlang-electric-comma
         eval-last-sexp
         forward-sexp
         fuzzy-find-choose-root-set
@@ -31,6 +33,9 @@
         livescript-dedent-line-backspace
         mark-lines-next-line
         mark-word
+        my-dedent
+        my-toggle-quotes
+        nim-indent-electric-colon
         org-beginning-of-line
         org-cycle
         org-end-of-line
@@ -51,12 +56,15 @@
         paredit-newline
         paredit-open-round
         paredit-semicolon
+        paredit-splice-sexp
         paredit-split-sexp
         paredit-wrap-round
         prolog-electric-dot
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         python-indent-shift-left
+        python-indent-shift-right
+        sgml-slash
         suspend-frame
         transpose-sexps
         wdired-capitalize-word
@@ -74,6 +82,7 @@
         dired-previous-line
         elscreen-next
         elscreen-previous
+        ibuffer
         iedit-mode
         mouse-drag-vertical-line
         mouse-select-window

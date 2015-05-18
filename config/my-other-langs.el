@@ -17,8 +17,18 @@
   (hs-minor-mode -1)
   (fci-mode -1))
 
-(add-hook 'web-mode-hook 'my-web-mode-hook)
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+
+(defun my-sgml-mode-hook ()
+  (hs-minor-mode -1)
+  (fci-mode -1)
+  (auto-complete-mode t)
+  (linum-mode 1)
+  
+  )
+
+
+(add-hook 'sgml-mode-hook 'my-sgml-mode-hook)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . sgml-mode))
 
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . conf-mode))
 
@@ -215,6 +225,10 @@
 ;; so we set it right now too.
 (my-sanitize-auto-modes-racket)
 
+(defun my-racket-hook ()
+  (paredit-mode))
+
+(add-hook 'racket-mode-hook 'my-racket-hook)
 (add-hook 'geiser-repl-mode-hook 'my-geiser-repl-hook)
 (defun my-geiser-repl-hook ()
   (auto-complete-mode 1))
@@ -274,3 +288,17 @@
 
 (push '("\\.pl\\'" . prolog-mode)  auto-mode-alist)
 (add-hook 'prolog-mode-hook 'my-prolog-hook)
+
+
+(defun my-eshell-hook ()
+  (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)
+  (define-key eshell-mode-map (kbd "<up>") 'previous-line)
+  (define-key eshell-mode-map (kbd "<down>") 'next-line)
+  )
+(add-hook 'eshell-mode-hook 'my-eshell-hook)
+
+
+
+(require 'tuareg) ;; OCaml
+
+(require 'haxe-mode)

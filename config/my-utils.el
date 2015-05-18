@@ -204,4 +204,12 @@ return a new alist whose car is the new pair and cdr is ALIST."
       alist)))
 
 
+(defun my-remove-files (target-dir files)
+  (let ((current-dir default-directory))
+    (cd target-dir)
+    (dolist (file files) (delete-file file))
+    (cd current-dir)))
+
+
+
 (provide 'my-utils)

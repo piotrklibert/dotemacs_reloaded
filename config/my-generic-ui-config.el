@@ -18,6 +18,8 @@
 (require 'unbound)
 
 (require 'sunrise-commander)
+(require 'sunrise-x-tree)
+(require 'sunrise-x-modeline)
 
 (defun sr-y-n-or-a-p (prompt)
     "Ask the user with PROMPT for an answer y/n/a ('a' stands for 'always').

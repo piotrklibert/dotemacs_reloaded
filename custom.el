@@ -68,6 +68,9 @@
     (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
  '(enable-recursive-minibuffers t)
+ '(eshell-cannot-leave-input-list
+   (quote
+    (beginning-of-line-text beginning-of-line move-to-column move-to-left-margin move-to-tab-stop forward-char backward-char delete-char delete-backward-char backward-delete-char backward-delete-char-untabify kill-paragraph backward-kill-paragraph kill-sentence backward-kill-sentence kill-sexp backward-kill-sexp kill-word backward-kill-word kill-region forward-list backward-list forward-page backward-page forward-point forward-paragraph backward-paragraph backward-prefix-chars forward-sentence backward-sentence forward-sexp backward-sexp forward-to-indentation backward-to-indentation backward-up-list forward-word backward-word next-line forward-visible-line forward-comment forward-thing)))
  '(eval-expression-print-length nil)
  '(expand-region-guess-python-mode t)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
@@ -141,7 +144,7 @@
      (io . t)
      (shell . t)
      (ditaa . t))))
- '(org-babel-noweb-wrap-end "=-")
+ '(org-babel-noweb-wrap-end "->")
  '(org-babel-noweb-wrap-start "<-")
  '(org-babel-shell-names
    (quote
@@ -166,6 +169,7 @@
       (:strike-through t)
       "<del>" "</del>"))))
  '(org-enforce-todo-dependencies t)
+ '(org-export-creator-string "")
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00"))))
@@ -285,7 +289,7 @@
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
- '(hl-line ((t (:background "gray10"))))
+ '(hl-line ((t (:background "gray18"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))) t)
  '(visible-mark-face ((t (:background "gray26")))))

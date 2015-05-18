@@ -216,6 +216,7 @@ M-w C-y ;-)"
 
 
 ;; TODO: make it work with rect.el too, maybe?
+(defalias 'paste-rectangle-as-text 'yank-rectangle-as-text)
 (defun yank-rectangle-as-text ()
   "Insert killed rectange as if it was normal text, ie. push
 lines down to make space for it instead of pushing line contents
@@ -226,6 +227,7 @@ to the right."
     (kill-region (point-min) (point-max)))
   (yank)
   (newline))
+
 
 
 (defun unix-line-endings (&optional save)
@@ -278,3 +280,27 @@ Handles prefix arg like `move-beginning-of-line' does."
     (move-beginning-of-line 1)
     (when (= orig-point (point))
       (back-to-indentation))))
+
+
+
+(defmacro like-this-maker (name dir)
+  (let
+      ((wname (gensym))
+       (defun-name (intern (concat (symbol-name name) "-like-this")))
+       (search-name (intern (concat "search-" (symbol-name dir) "-regexp"))))
+
+    `(defun ,defun-name ()
+       (interactive)
+       (let
+           ((,wname (thing-at-point 'word t)))
+         (when ,wname
+           (,search-name (concat "\\b" ,wname "\\b")))
+         (if (eq dir 'backward)
+	     t
+	   (backward-char (length ,wname))) ))))
+
+(like-this-maker next forward)
+(like-this-maker prev backward)
+
+(global-set-key (kbd "C-s-<up>") 'prev-like-this)
+(global-set-key (kbd "C-s-<down>") 'next-like-this)

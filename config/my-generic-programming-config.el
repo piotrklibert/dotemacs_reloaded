@@ -8,6 +8,8 @@
 (require 'fic-ext-mode)
 (require 'rainbow-delimiters)
 
+(require 'ggtags)
+
 (require 'flymake)
 (require 'flymake-checkers)
 

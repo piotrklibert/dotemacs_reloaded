@@ -1,6 +1,7 @@
-(require 'ein)
-(setq ein:use-auto-complete t)
-;; TODO: make some keybinding
+;; Emacs IPython Notebook
+;; (require 'ein)
+;; (setq ein:use-auto-complete t)
+
 
 (require 'elpy)
 
@@ -14,7 +15,7 @@
 
 (elpy-enable)                       ; adds (elpy-mode) as a hook for python-mode
 (elpy-use-ipython)
-(setq elpy-rpc--timeout 5)            ; new versions is a bit slower than it was
+(setq elpy-rpc--timeout 5)            ; new version is a bit slower than it was
 
 ;; ELPY - ElDoc config
 
