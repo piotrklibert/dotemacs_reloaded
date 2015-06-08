@@ -5,6 +5,12 @@
 ;; * one line message only
 ;; * notify about failure too
 
+;; (setq org-html-htmlize-output-type 'inline-css) ;; default
+(setq org-html-htmlize-output-type 'inline-css)
+;; (setq org-html-htmlize-font-prefix "") ;; default
+;; (setq org-html-htmlize-font-prefix "org-")
+(setq org-html-htmlize-font-prefix "")
+
 
 (setq org-structure-template-alist
  '(("s" "#+NAME:\n#+BEGIN_SRC ?\n\n#+END_SRC")

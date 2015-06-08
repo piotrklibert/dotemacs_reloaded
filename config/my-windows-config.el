@@ -1,10 +1,12 @@
 (require 'tiling)
+(require 'golden-ratio)
 (require 'elscreen)
 (require 'uniquify)
 (require 'buffer-move)
 (require 'my-reorder-buffer-list)
 
 (elscreen-start)
+;; (golden-ratio-mode t)
 
 
 ;; (global-set-key (kbd "C-<tab>")           'elscreen-next)
@@ -84,15 +86,3 @@ remapped or something)."
   (when arg
     (save-buffer))
   (kill-buffer))
-
-(defun my-enlarge-window-horizontally (&optional delta)
-  (interactive "P")
-  (when (not delta)
-    (setq delta 4))
-  (enlarge-window-horizontally (if (listp delta) (car delta) delta)))
-
-(defun my-shrink-window-horizontally (&optional delta)
-  (interactive "P")
-  (when (not delta)
-    (setq delta 4))
-  (shrink-window-horizontally (if (listp delta) (car delta) delta)))

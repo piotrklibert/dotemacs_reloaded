@@ -1,5 +1,5 @@
-(require 'elixir-mode)
 (require 'nim-mode)
+(require 'elixir-mode)
 (require 'nginx-mode)
 ;;
 ;; HTML & Django templates mode
@@ -22,9 +22,7 @@
   (hs-minor-mode -1)
   (fci-mode -1)
   (auto-complete-mode t)
-  (linum-mode 1)
-  
-  )
+  (linum-mode 1))
 
 
 (add-hook 'sgml-mode-hook 'my-sgml-mode-hook)
@@ -60,14 +58,16 @@
 ;;
 ;; Emacs Lisp mode tweaks
 ;;
-
-(put 'font-lock-add-keywords 'lisp-indent-function 1)
-(font-lock-add-keywords 'emacs-lisp-mode
-  '(("eval-after-load" . font-lock-keyword-face)))
-
 (require 'paredit-autoloads)
 
-(global-set-key (kbd "C-c C-f")        'find-function)
+(put 'font-lock-add-keywords 'lisp-indent-function 1)
+
+(font-lock-add-keywords 'emacs-lisp-mode
+  '(("eval-after-load" . font-lock-keyword-face)
+    ("defstruct"       . font-lock-keyword-face)
+    ("\bfunctionp?"    . font-lock-keyword-face)
+    ("\bit\b"          . font-lock-builtin-face)))
+
 
 ;; no idea where or why I overriden default <return> function in isearch...
 (define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
@@ -76,37 +76,35 @@
   (interactive)
   (byte-compile-file (buffer-file-name)))
 
+(defun my-eval-last-sexp (arg)
+  (interactive "P")
+  (cond
+   ((not arg) (call-interactively 'eval-last-sexp))
+   ;; TODO: add ability for inserting result without pp via C-u C-u
+   (t (call-interactively 'pp-eval-last-sexp))))
+
 
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
-  (local-set-key (kbd "C-M-d")   'duplicate-line-or-region)
-  (local-set-key (kbd "C-c C-b") 'my-interactive-byte-compile)
-  (local-set-key (kbd "C-c C-j") 'eval-print-last-sexp)
+  (local-set-key (kbd "C-M-d") 'duplicate-line-or-region)
+
+  (define-key mode-specific-map (kbd "C-b") 'my-interactive-byte-compile)
+  (define-key mode-specific-map (kbd "C-j") 'eval-print-last-sexp)
+  (define-key mode-specific-map (kbd "C-f") 'find-function)
 
   (define-key paredit-mode-map (kbd "M-S-<left>")  'backward-word)
   (define-key paredit-mode-map (kbd "M-?")         'paredit-convolute-sexp)
   (define-key paredit-mode-map (kbd "M-S-<right>") 'forward-word)
   (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
-  (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region))
+  (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region)
 
-(defun my-eval-last-sexp (arg)
-  (interactive "P")
-  (cond
-   ((not arg)
-    (call-interactively 'eval-last-sexp))
-   ;; TODO: add ability for inserting result without pp via C-u C-u
-   (t
-    (call-interactively 'pp-eval-last-sexp))))
+  (global-set-key [remap eval-last-sexp] 'my-eval-last-sexp)
 
-(global-set-key [remap eval-last-sexp] 'my-eval-last-sexp)
+  )
+
 
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
-(font-lock-add-keywords 'emacs-lisp-mode
-  '(
-    ("defstruct" . font-lock-keyword-face)
-    ("\bfunctionp?" . font-lock-keyword-face)
-    ("\bit\b" . font-lock-builtin-face)
-    ))
+
 
 ;;
 ;; SQL interactions mode
@@ -233,6 +231,7 @@
 (defun my-geiser-repl-hook ()
   (auto-complete-mode 1))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smalltalk: but it's rather poor; need to see Shampoo
 (require 'smalltalk-mode)
 (push '("\\.st\\'" . smalltalk-mode)  auto-mode-alist)
@@ -294,6 +293,7 @@
   (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)
   (define-key eshell-mode-map (kbd "<up>") 'previous-line)
   (define-key eshell-mode-map (kbd "<down>") 'next-line)
+  (define-key eshell-mode-map [remap kill-whole-line] 'eshell-kill-input)
   )
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 

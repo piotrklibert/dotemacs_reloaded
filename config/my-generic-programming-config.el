@@ -358,3 +358,20 @@ if sexp is malformed."
   (condition-case ex
      (let ((r (read buf))) (if (listp r) r (list r)))
    ('end-of-file nil)))
+
+
+(defun my-tangle-and-run ()
+  (interactive)
+  (load-theme 'whiteboard)
+  (org-html-export-to-html)
+  (org-babel-tangle)
+  (load-theme 'wombat)
+  (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null"))
+
+(global-set-key (kbd "s-c") 'my-tangle-and-run)
+
+(global-set-key (kbd "<kp-up>") 'org-previous-visible-heading)
+(global-set-key (kbd "<kp-down>") 'org-next-visible-heading)
+
+(global-set-key (kbd "C-<kp-up>") 'org-previous-block)
+(global-set-key (kbd "C-<kp-down>") 'org-next-block)

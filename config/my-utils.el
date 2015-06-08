@@ -54,29 +54,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun magic-dir-p (dir)
-  (member (file-name-nondirectory dir) (list "." "..")))
+(defun magic-dir-p (dir) (member (file-name-nondirectory dir) (list "." "..")))
 
-(defun walk-d (root)
-  "Has some problems with itself."
-  (let ((z (directory-files root))
-        (s '())
-        (f '()))
-    (while (or s z)
-      (while (magic-dir-p (car z)) (pop z))
-      (when (not z)
-        (setq z (pop s)))
-      (push (car z) f)
-      (if (not (file-directory-p (car z)))
-          (pop z)
-        (when (cdr z)
-          (push (cdr z) s))
-        (setq z (directory-files (car z)))))
-    f))
-
-;; (length (walk-d))
-
-(defun -walk-dirs (root)
+(defun directory-subdirs (root)
   (loop for filename in (directory-files root t)
         if (and (file-directory-p filename)
                 (not (magic-dir-p filename)))
@@ -84,11 +64,11 @@
 
 (defun walk-dirs (root)
   "This one should actually work."
-  (let ((res (-walk-dirs root)))
-    (when res
-      (setq res (append res (loop for dir in res
-                                  append (walk-dirs dir)))))
-    res))
+  (let*
+      ((kids (directory-subdirs root))
+       (descendants (loop for dir in kids
+                          append (walk-dirs dir) ))) ; recurse!
+    (append kids descendants)))
 
 ;; (walk-dirs "/usr/www/tagasauris/tagasauris/")
 
@@ -155,6 +135,21 @@ defined in."
 
 
 
+(defun my-timer (msg &optional label)
+  (lexical-let
+      ((msg msg)
+       (label label))
+    (lambda ()
+      (interactive "P")
+      (x-popup-dialog (get-window-with-predicate
+                       (lambda (x) t))
+                      (list msg
+                            (cons (or label "ok!") t))) )))
+
+
+
+
+
 ;;                           _    _     ___ ____ _____
 ;;                          / \  | |   |_ _/ ___|_   _|
 ;;                         / _ \ | |    | |\___ \ | |
@@ -209,6 +204,7 @@ return a new alist whose car is the new pair and cdr is ALIST."
     (cd target-dir)
     (dolist (file files) (delete-file file))
     (cd current-dir)))
+
 
 
 

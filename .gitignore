@@ -75,3 +75,5 @@ url/cookies
 .python-environments
 elpa
 pkg-langs
+/image-dired/.image-dired_db
+/image-dired

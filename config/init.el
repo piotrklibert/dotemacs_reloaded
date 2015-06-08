@@ -38,6 +38,7 @@
 ;; because there are many non-lisp dirs in there
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/.emacs.d/forked-plugins/lua-mode")
 
 (add-subdirs-to-path
   "~/.emacs.d/elpa"

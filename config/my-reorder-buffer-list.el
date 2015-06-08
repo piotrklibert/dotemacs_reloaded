@@ -22,13 +22,10 @@
 (defvar my-last-traverse nil)
 (defvar my-deferred nil)
 
-(defmacro make-fbl (list pos)
-  `(make-file-buffers-list :list ,list
-                           :pos ,pos))
-(defun fbl-list ()
-  (file-buffers-list-list my-file-buffers))
-(defun fbl-pos ()
-  (file-buffers-list-pos my-file-buffers))
+;; Shortened accessors
+(defmacro make-fbl (list pos) `(make-file-buffers-list :list ,list :pos ,pos))
+(defun fbl-list () (file-buffers-list-list my-file-buffers))
+(defun fbl-pos () (file-buffers-list-pos my-file-buffers))
 
 (defmacro fb-list-nth (fb-list)
   "Get a current buffer out of given `file-buffers-list' struct.
@@ -60,15 +57,17 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (defun my-schedule-cleanup ()
   (unless my-deferred
-    (setq my-deferred
-          (deferred:$
-            (deferred:wait 1000)
-            (deferred:nextc it
-              (lambda (x)
-                (if (> (- (float-time) my-last-traverse) 1.2)
-                    (tfb-finish)
-                  (setq my-deferred nil)
-                  (my-schedule-cleanup))))))))
+    (setq
+     my-deferred
+     (deferred:$
+       (deferred:wait 1000)
+
+       (deferred:nextc it
+         (lambda (x)
+           (if (> (- (float-time)) my-last-traverse 1.2)
+               (tfb-finish)
+             (setq my-deferred nil)
+             (my-schedule-cleanup))))))))
 
 (defun tfb-moveto (&optional delta)
   (setq my-last-traverse   (float-time))
@@ -120,8 +119,8 @@ If it's `pos' is somehow out of range, wrap it before returning."
           (setq tfb-mouse-down-flag nil))))))
 
 
-(global-set-key (kbd "<mouse-6>") 'tfb-mouse-down)
-(global-set-key (kbd "<mouse-7>") 'tfb-mouse-up)
+;; (global-set-key (kbd "<mouse-6>") nil)
+;; (global-set-key (kbd "<mouse-7>") nil)
 
 (global-set-key (kbd "C-M-<prior>") 'tfb-down)
 (global-set-key (kbd "C-M-<next>")  'tfb-up)

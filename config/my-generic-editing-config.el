@@ -80,7 +80,7 @@
 (global-set-key (kbd "C-c C-k")    'kill-region)
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)
-
+(global-set-key (kbd "<insert>")   'read-only-mode)
 (global-set-key (kbd "M-V")       'mark-lines-next-line)
 (global-set-key (kbd "C-M-<SPC>") 'just-one-space)
 (global-set-key (kbd "C-{")       'backward-paragraph)
@@ -304,3 +304,7 @@ Handles prefix arg like `move-beginning-of-line' does."
 
 (global-set-key (kbd "C-s-<up>") 'prev-like-this)
 (global-set-key (kbd "C-s-<down>") 'next-like-this)
+
+
+(require 'minimap)
+(global-set-key (kbd "M-<f2>") 'minimap-mode)

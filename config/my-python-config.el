@@ -30,6 +30,11 @@
   (setq ac-sources (-distinct (append '(ac-source-filename
                                         ac-source-jedi-direct)
                                       ac-sources)))
+  (define-key elpy-mode-map (kbd "<M-right>") nil)
+  (define-key elpy-mode-map (kbd "<M-left>") nil)
+  (define-key elpy-mode-map (kbd "<M-up>") nil)
+  (define-key elpy-mode-map (kbd "<M-down>") nil)
+
   ;; (setq ac-sources (cons 'ac-source-yasnippet ac-sources))
   (local-set-key (kbd "C-M->") 'python-indent-shift-right)
   (local-set-key (kbd "C-M-<") 'python-indent-shift-left)

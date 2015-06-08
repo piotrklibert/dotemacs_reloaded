@@ -75,6 +75,9 @@
  '(expand-region-guess-python-mode t)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
  '(fill-column 80)
+ '(flymake-checkers-checkers
+   (quote
+    (flymake-checkers-coffee flymake-checkers-emacs-lisp flymake-checkers-php flymake-checkers-python-flake8 flymake-checkers-python-pyflakes flymake-checkers-ruby flymake-checkers-php flymake-checkers-sh flymake-checkers-sh-bash flymake-checkers-sh-zsh flymake-checkers-tex)))
  '(flymake-no-changes-timeout 5)
  '(flymake-start-syntax-check-on-newline t)
  '(fuzzy-accept-error-rate 0.2)
@@ -128,6 +131,13 @@
  '(js-indent-level 2)
  '(less-css-indent-level 4)
  '(livescript-tab-width 4)
+ '(minimap-always-recenter t)
+ '(minimap-hide-fringes t)
+ '(minimap-highlight-line nil)
+ '(minimap-major-modes (quote (prog-mode org-mode)))
+ '(minimap-mode t)
+ '(minimap-recreate-window nil)
+ '(minimap-update-delay 0.3)
  '(mouse-avoidance-threshold 10)
  '(mumamo-background-colors nil)
  '(nxhtml-menu-mode t)
@@ -219,9 +229,11 @@
  '(prolog-electric-colon-flag t)
  '(prolog-electric-dot-flag t)
  '(prolog-indent-width 4)
+ '(python-check-command "pyflakes")
  '(quack-programs
    (quote
     ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+ '(racket-use-company-mode nil)
  '(recentf-auto-cleanup (quote never))
  '(recentf-max-menu-items 100)
  '(recentf-max-saved-items 100)
@@ -229,7 +241,8 @@
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
+    ((eval setq org-html-postamble nil)
+     (python-shell-completion-string-code . "';'.join(get_ipython().Completer.all_completions('''%s'''))
 ")
      (python-shell-completion-module-string-code . "';'.join(module_completion('''%s'''))
 ")
@@ -291,6 +304,7 @@
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
  '(hl-line ((t (:background "gray18"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
+ '(minimap-active-region-background ((t (:background "gray24"))))
  '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))) t)
  '(visible-mark-face ((t (:background "gray26")))))
 

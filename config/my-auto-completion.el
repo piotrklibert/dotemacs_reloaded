@@ -16,16 +16,22 @@
 ;(require 'readline-complete)
 (require 'hippie-exp)
 (require 'yasnippet)
-
 (require 'jedi)
 
+;; most snippets for YAS are here:
+;; "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets"
+(yas-global-mode 1)
 
+
+;; FCI-mode is problematic and makes ac popups become tangled sometimes, so
+;; it's safer to turn it off while completion is taking place
+(defadvice ac-menu-create (before ac-menu-create-adv activate) (fci-mode -1))
+(defadvice ac-menu-delete (after ac-menu-delete-adv activate) (fci-mode 1))
 
 ;; Keys bound here:
-(global-set-key (kbd "C-c .") 'hippie-expand)
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
+(global-set-key (kbd "C-c .") 'hippie-expand)
 (global-set-key (kbd "C-<tab>") 'ac-start)
-
 
 
 (when (boundp 'ac-completing-map)
@@ -49,7 +55,7 @@
      (default-sources (-distinct (append start-sources
                                          ac-sources
                                          last-sources))))
-  (setq-default ac-sources default-sources))
+  (setq-default ac-sources default-sources ))
 
 
 ;;
@@ -63,7 +69,7 @@
 ;;                    (string= x "~/.emacs.d/snippets"))
 ;;                  yas-snippet-dirs))
 
-(yas-global-mode 1)
+
 
 
 ;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____

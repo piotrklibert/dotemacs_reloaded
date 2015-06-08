@@ -41,7 +41,9 @@ symbol `ALWAYS' if the answer is a/A."
 
 (define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
 
-
+;; Whenever a file that Emacs is editing has been changed by another
+;; program the user normally has to execute the command `revert-buffer'
+;; to load the new content of the file into Emacs.
 (require 'autorevert)                   ; customize-group available
 
 
@@ -86,8 +88,8 @@ symbol `ALWAYS' if the answer is a/A."
 ;;                                                    |___/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; IDo - Interactively Do Things.
-;; Has autocompletions in minibufer and jumping to things, and more.
+;; IDo - Interactively Do Things. Has autocompletions in minibufer. Very, very
+;; nice, particularly as a replacement to normal read
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
 
 (ido-mode 1)
@@ -117,6 +119,7 @@ symbol `ALWAYS' if the answer is a/A."
       smex-history-length 100)
 (smex-initialize)
 
+(setq helm-M-x-fuzzy-match t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -208,3 +211,14 @@ symbol `ALWAYS' if the answer is a/A."
 
 (global-set-key (kbd "C-<f3>")   'sunrise)
 (global-set-key (kbd "M-<f3>")   'sunrise-cd)
+
+
+(defun my-eshell-other-window (args)
+  (interactive "P")
+  (split-window-right)
+  (windmove-right)
+  (eshell))
+
+
+(define-key mode-specific-map  (kbd "C-e") 'eshell)
+(define-key mode-specific-map  (kbd "M-e") 'my-eshell-other-window)
