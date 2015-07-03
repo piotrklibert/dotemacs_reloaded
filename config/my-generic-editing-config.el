@@ -59,7 +59,7 @@
   (setq artist-pointer-shape x-pointer-left-ptr))
 
 ;; make sure we're using english dictionary even if the locale says otherwise
-(ispell-change-dictionary "english")
+;; (ispell-change-dictionary "english")
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -75,18 +75,18 @@
 
 (global-set-key (kbd "C-x C-d")    'ido-dired)
 
-(global-set-key (kbd "C-<f2>")     'recentf-open-files)
 (global-set-key (kbd "C-x C-k")    'kill-region)
+(global-set-key (kbd "C-x b")      'helm-buffers-list)
 (global-set-key (kbd "C-c C-k")    'kill-region)
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)
 (global-set-key (kbd "<insert>")   'read-only-mode)
-(global-set-key (kbd "M-V")       'mark-lines-next-line)
-(global-set-key (kbd "C-M-<SPC>") 'just-one-space)
-(global-set-key (kbd "C-{")       'backward-paragraph)
-(global-set-key (kbd "C-}")       'forward-paragraph)
-(global-set-key (kbd "C-c f")     'iy-go-to-char)
-(global-set-key (kbd "C-c F")     'iy-go-to-char-backward)
+(global-set-key (kbd "M-V")        'mark-lines-next-line)
+(global-set-key (kbd "C-M-<SPC>")  'just-one-space)
+(global-set-key (kbd "C-{")        'backward-paragraph)
+(global-set-key (kbd "C-}")        'forward-paragraph)
+(global-set-key (kbd "C-c f")      'iy-go-to-char)
+(global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
 
 (global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
 (global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
@@ -230,7 +230,7 @@ to the right."
 
 
 
-(defun unix-line-endings (&optional save)
+(defun my-unix-line-endings (&optional save)
   "Make current file's newlines converted to unix format if they
 are not already."
   (interactive "P")
@@ -304,7 +304,3 @@ Handles prefix arg like `move-beginning-of-line' does."
 
 (global-set-key (kbd "C-s-<up>") 'prev-like-this)
 (global-set-key (kbd "C-s-<down>") 'next-like-this)
-
-
-(require 'minimap)
-(global-set-key (kbd "M-<f2>") 'minimap-mode)

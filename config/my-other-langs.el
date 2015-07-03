@@ -1,12 +1,14 @@
 (require 'nim-mode)
 (require 'elixir-mode)
 (require 'nginx-mode)
+(require 'tuareg) ;; OCaml
+(require 'haxe-mode)
+(require 'nxml-mode)
+(require 'web-mode)
+
 ;;
 ;; HTML & Django templates mode
 ;;
-(require 'nxml-mode)
-
-(require 'web-mode)
 (setq-default web-mode-engine "django")
 
 ;; The only problem with web-mode is that it stops highlighting the buffer after
@@ -34,9 +36,14 @@
 (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks)
 
 
+
+
+
 (require 'lua-mode)
 (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 (add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
+
 
 
 ;; (add-to-list 'load-path "path-to/django-mode/")
@@ -103,17 +110,22 @@
   )
 
 
+(require 'subr-x)
+(defalias '-> 'thread-first)
+(defalias '->> 'thread-last)
+
+
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
 
 
 ;;
 ;; SQL interactions mode
 ;;
-(require 'sql-completion)
-(setq sql-interactive-mode-hook
-      (lambda ()
-        (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
-        (sql-mysql-completion-init)))
+;; (require 'sql-completion)
+;; (setq sql-interactive-mode-hook
+;;       (lambda ()
+;;         (define-key sql-interactive-mode-map "\t" 'comint-dynamic-complete)
+;;         (sql-mysql-completion-init)))
 
 
 ;;
@@ -131,7 +143,6 @@
 ;; (require 'julia-mode)
 
 (require 'rust-mode-autoloads)
-
 
 ;;
 ;; Erlang and Distel (Erlang shell integration) config
@@ -182,25 +193,38 @@
 (require 'livescript-mode)
 
 
-;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
-;;      |  _ \    / \  / ___| |/ / ____|_   _| |  \/  |/ _ \|  _ \| ____|
-;;      | |_) |  / _ \| |   | ' /|  _|   | |   | |\/| | | | | | | |  _|
-;;      |  _ <  / ___ \ |___| . \| |___  | |   | |  | | |_| | |_| | |___
-;;      |_| \_\/_/   \_\____|_|\_\_____| |_|   |_|  |_|\___/|____/|_____|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Scheme and Racket
 ;;
-;; BTW:
+;; BTW, in Racket mode:
 ;; insert lambda char: C-M-y or C-c C-\
 ;; start geiser:       C-c C-z or C-c C-a
 ;;
+
+
+(require 'scheme)
+
+(put 'prog1 'scheme-indent-function 0)
+(font-lock-add-keywords 'scheme-mode
+  '(("prog1" . font-lock-keyword-face)))
+
+(defun my-scheme-hook ()
+  (paredit-mode)
+  (rainbow-mode 1)
+  (undo-tree-mode)
+  (hs-minor-mode)
+  )
+(add-hook 'scheme-mode-hook 'my-scheme-hook)
+
 (require 'racket-mode)
 
 ;; Geiser config
-(setq geiser-racket-binary           (f-expand "~/portless/racket/racket/bin/racket"))
-(setq geiser-active-implementations '(racket))
-
-(setq geiser-mode-company-p t)          ; not sure if it's needed
-(setq geiser-repl-company-p t)          ; not sure if it's needed
+;; (require 'geiser)
+;; (setq geiser-active-implementations '(racket))
+;; (setq geiser-racket-binary           (f-expand "~/portless/racket/racket/bin/racket"))
+;; (setq geiser-mode-company-p t)          ; not sure if it's needed
+;; (setq geiser-repl-company-p t)          ; not sure if it's needed
+;; (add-hook 'geiser-repl-mode-hook 'my-geiser-repl-hook)
+;; (defun my-geiser-repl-hook () (auto-complete-mode 1))
 
 
 (defvar racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
@@ -211,25 +235,22 @@
   ;; add racket-mode to auto-mode-alist
   (loop for ext in racket-file-exts
         do (push `(,ext . racket-mode) auto-mode-alist)))
+(my-sanitize-auto-modes-racket)
 
 ;; (assoc "\\.rkt\\'" auto-mode-alist)
 
 ;; geiser uses autoloads and sets auto-mode-alist then, so we need to change it
 ;; back when it happens
-(eval-after-load "geiser-autoloads" '(my-sanitize-auto-modes-racket))
-(eval-after-load "geiser"           '(my-sanitize-auto-modes-racket))
+;; (eval-after-load "geiser-autoloads" '(my-sanitize-auto-modes-racket))
+;; (eval-after-load "geiser"           '(my-sanitize-auto-modes-racket))
 
 ;; But even if Geiser never loads we still want racket-mode in auto-mode-alist,
 ;; so we set it right now too.
-(my-sanitize-auto-modes-racket)
 
 (defun my-racket-hook ()
   (paredit-mode))
 
 (add-hook 'racket-mode-hook 'my-racket-hook)
-(add-hook 'geiser-repl-mode-hook 'my-geiser-repl-hook)
-(defun my-geiser-repl-hook ()
-  (auto-complete-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Smalltalk: but it's rather poor; need to see Shampoo
@@ -250,17 +271,17 @@
 
 ;; (add-hook 'after-save-hook 'save-nginx-conf-hook)
 
-(require 'dime)
-(dime-setup '(dime-dylan dime-repl dime-compiler-notes-tree))
-(setq dime-dylan-implementations
-      '((opendylan ("/usr/local/bin/dswank")
-                   :env ("OPEN_DYLAN_USER_REGISTRIES=/home/cji/portless/dylan/sources/registry/:/home/cji/poligon/hello-dylan/registry"))))
+;; (require 'dime)
+;; (dime-setup '(dime-dylan dime-repl dime-compiler-notes-tree))
+;; (setq dime-dylan-implementations
+;;       '((opendylan ("/usr/local/bin/dswank")
+;;                    :env ("OPEN_DYLAN_USER_REGISTRIES=/home/cji/portless/dylan/sources/registry/:/home/cji/poligon/hello-dylan/registry"))))
 
 ;; Clojure & ClojureScript
-(require 'cider)
-(require 'clojure-mode)
-(add-hook 'clojure-mode-hook 'paredit-mode)
-(put-clojure-indent 'om-transact 1)
+;; (require 'cider-autoloads)
+;; (require 'clojure-mode-autoloads)
+;; (add-hook 'clojure-mode-hook 'paredit-mode)
+;; (put-clojure-indent 'om-transact 1)
 
 
 
@@ -297,8 +318,9 @@
   )
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
-
-
-(require 'tuareg) ;; OCaml
-
-(require 'haxe-mode)
+;;
+;;  COMMON LISP
+;;
+(setq inferior-lisp-program "/home/cji/ccl/lx86cl64")
+(setq slime-contribs '(slime-fancy))
+(require 'slime-autoloads)

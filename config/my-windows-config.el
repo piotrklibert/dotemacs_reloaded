@@ -6,9 +6,12 @@
 (require 'my-reorder-buffer-list)
 
 (elscreen-start)
+
+;; (global-set-key (kbd "M-<f2>") 'minimap-mode)
 ;; (golden-ratio-mode t)
 
 
+;; (require 'minimap)
 ;; (global-set-key (kbd "C-<tab>")           'elscreen-next)
 (global-set-key (kbd "C-<next>")          'elscreen-next)
 
@@ -52,7 +55,9 @@
 
 ;; ie. C-x C-M-f
 (define-key ctl-x-map (kbd "C-M-f")                 'find-file-other-window)
+
 (define-key my-wnd-keys (kbd "C-o")                 'delete-other-windows)
+(define-key my-wnd-keys (kbd "M-o")                 'golden-ratio)
 (define-key my-wnd-keys (kbd "C-M-o")               'kill-other-window-and-buffer)
 
 (define-key my-wnd-keys (kbd "C-c")                 'copy-to-register)

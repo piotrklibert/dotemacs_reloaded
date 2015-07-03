@@ -73,6 +73,7 @@
     (beginning-of-line-text beginning-of-line move-to-column move-to-left-margin move-to-tab-stop forward-char backward-char delete-char delete-backward-char backward-delete-char backward-delete-char-untabify kill-paragraph backward-kill-paragraph kill-sentence backward-kill-sentence kill-sexp backward-kill-sexp kill-word backward-kill-word kill-region forward-list backward-list forward-page backward-page forward-point forward-paragraph backward-paragraph backward-prefix-chars forward-sentence backward-sentence forward-sexp backward-sexp forward-to-indentation backward-to-indentation backward-up-list forward-word backward-word next-line forward-visible-line forward-comment forward-thing)))
  '(eval-expression-print-length nil)
  '(expand-region-guess-python-mode t)
+ '(fast-but-imprecise-scrolling t)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
  '(fill-column 80)
  '(flymake-checkers-checkers
@@ -81,16 +82,26 @@
  '(flymake-no-changes-timeout 5)
  '(flymake-start-syntax-check-on-newline t)
  '(fuzzy-accept-error-rate 0.2)
+ '(geiser-mode-auto-p nil)
  '(git-commit-mode-hook
    (quote
-    (turn-on-auto-fill flyspell-mode my-magit-commit-hook)))
- '(git-commit-summary-max-length 70)
+    (turn-on-auto-fill flyspell-mode my-magit-commit-hook)) t)
+ '(git-commit-summary-max-length 76)
  '(global-auto-revert-non-file-buffers t)
+ '(global-git-commit-mode t)
+ '(global-linum-mode t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
  '(gnus-summary-same-subject "(same)")
  '(gnus-thread-sort-functions (quote (gnus-thread-sort-by-most-recent-date)))
+ '(golden-ratio-exclude-buffer-names (quote (" *MINIMAP*")))
+ '(golden-ratio-mode nil)
+ '(helm-M-x-always-save-history t)
+ '(helm-adaptive-mode t nil (helm-adaptive))
+ '(helm-bookmark-show-location t)
+ '(helm-buffer-skip-remote-checking t)
+ '(helm-imenu-fuzzy-match t)
  '(help-at-pt-display-when-idle (quote never) nil (help-at-pt))
  '(help-at-pt-timer-delay 3)
  '(ibuffer-default-sorting-mode (quote major-mode))
@@ -124,12 +135,14 @@
  '(ido-save-directory-list-file "~/.emacs.d/data/ido.last")
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
+ '(inferior-lisp-program "/home/cji/ccl/lx86cl64" t)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
  '(jedi:complete-on-dot t)
  '(js-indent-level 2)
  '(less-css-indent-level 4)
+ '(linum-delay t)
  '(livescript-tab-width 4)
  '(minimap-always-recenter t)
  '(minimap-hide-fringes t)
@@ -221,9 +234,12 @@
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
      ("melpa" . "http://melpa.milkbox.net/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")
-     ("elpy" . "http://jorgenschaefer.github.io/packages/"))))
+     ("marmalade" . "https://marmalade-repo.org/packages/")
+     ("elpy" . "https://jorgenschaefer.github.io/packages/"))))
  '(package-enable-at-startup nil)
+ '(package-selected-packages
+   (quote
+    (zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
  '(prolog-electric-colon-flag t)
@@ -232,7 +248,7 @@
  '(python-check-command "pyflakes")
  '(quack-programs
    (quote
-    ("mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+    ("csi -:c" "mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
  '(racket-use-company-mode nil)
  '(recentf-auto-cleanup (quote never))
  '(recentf-max-menu-items 100)
@@ -250,6 +266,7 @@
      (python-shell-interpreter-args . "/usr/www/tagasauris/tagasauris/manage.py shell")
      (python-shell-interpreter . "python")
      (whitespace-line-column . 80))))
+ '(scheme-program-name "csi -:c")
  '(scroll-conservatively 108)
  '(semanticdb-project-roots (quote ("/usr/www/tagasauris/")))
  '(set-mark-command-repeat-pop t)

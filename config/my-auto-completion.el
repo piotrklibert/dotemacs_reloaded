@@ -78,10 +78,10 @@
 ;;      |  _ <  / ___ \ |___| . \| |___  | |   | |  | | |_| | |_| | |___
 ;;      |_| \_\/_/   \_\____|_|\_\_____| |_|   |_|  |_|\___/|____/|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ac-geiser)
-(add-hook 'geiser-mode-hook 'ac-geiser-setup)
-(add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
-(add-to-list 'ac-modes 'geiser-repl-mode)
+;; (require 'ac-geiser)
+;; (add-hook 'geiser-mode-hook 'ac-geiser-setup)
+;; (add-hook 'geiser-repl-mode-hook 'ac-geiser-setup)
+;; (add-to-list 'ac-modes 'geiser-repl-mode)
 
 
 

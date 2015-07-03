@@ -187,7 +187,7 @@ symbol `ALWAYS' if the answer is a/A."
 
 
 (define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
-(define-key my-bookmarks-keys (kbd "C-l") 'list-bookmarks)
+(define-key my-bookmarks-keys (kbd "C-l") 'helm-bookmarks)
 (define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
 
 ;; Use iDo for fast buffer switching
@@ -207,7 +207,7 @@ symbol `ALWAYS' if the answer is a/A."
 (global-set-key (kbd "s-x")      'helm-M-x)
 
 (global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
-(global-set-key (kbd "C-<f2>")   'recentf-open-files)
+(global-set-key (kbd "C-<f2>")   'helm-recentf)
 
 (global-set-key (kbd "C-<f3>")   'sunrise)
 (global-set-key (kbd "M-<f3>")   'sunrise-cd)
@@ -220,5 +220,56 @@ symbol `ALWAYS' if the answer is a/A."
   (eshell))
 
 
+
 (define-key mode-specific-map  (kbd "C-e") 'eshell)
 (define-key mode-specific-map  (kbd "M-e") 'my-eshell-other-window)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; quickly opening buffers of some kind (for scribbling) with key binds
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar my-openers (list))
+
+(defmacro make-buffer-opener (name key ext path)
+  (let*
+      ((name (symbol-name name))
+       (defun-name (intern (concat "my-new-" name "-buffer")))
+       (mode-name (intern (concat name "-mode"))))
+    `(progn
+       (defun ,defun-name (&optional arg)
+         (interactive "P")
+         (let
+             ((switcher (if (not arg) 'switch-to-buffer-other-window)))
+           (funcall switcher ,(concat name "1" ext))
+           (,mode-name)
+           (cd ,path)))
+       (define-key my-new-buffer-map ,key ',defun-name)
+       (push '(,name .  ,defun-name) my-openers)
+       nil)))
+
+(defvar my-new-buffer-map (make-sparse-keymap))
+(global-set-key (kbd "C-n") my-new-buffer-map)
+
+;;                   type            key       file ext     default path
+(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/todo/")
+(make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
+(make-buffer-opener python       (kbd "C-p")    ".py"      "~/poligon/python/")
+(make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/")
+(make-buffer-opener artist       (kbd "C-a")    ".art.txt" "~/poligon/")
+(make-buffer-opener livescript   (kbd "C-j")    ".ls"      "~/poligon/lscript/")
+
+
+(setq my-new-buffer-helm-source
+      `((name . "Byffer types")
+        (candidates . ,my-openers)
+        (action . (lambda (candidate) (funcall candidate)))))
+
+(defun my-new-buffer-helm ()
+  (interactive)
+  (helm :sources '(my-new-buffer-helm-source)))
+
+(global-set-key (kbd "M-n") 'my-new-buffer-helm)

@@ -1,6 +1,5 @@
 (require 'cl)
 (require 'pp)
-(require 'eassist)
 (require 'electric)
 (require 'thingatpt)
 (require 'powerline)
@@ -11,7 +10,8 @@
 (require 'ggtags)
 
 (require 'flymake)
-(require 'flymake-checkers)
+;; (require 'eassist)
+;; (require 'flymake-checkers)
 
 
 (require 'columnize)
@@ -242,8 +242,7 @@ don't need to worry about saving scratch buffer contents anymore
   "Somehow I didn't find any setting for making this the
 default."
   (interactive)
-  (let ((imenu-use-popup-menu t))
-    (imenu (imenu-choose-buffer-index))))
+  (helm-imenu))
 
 (defun my-toggle-quotes ()
   "If point is inside quoted string, replace single quates with
@@ -289,6 +288,10 @@ there's no active region."
                           (not (string-match "*" (buffer-name buf)))))
        (buffers (remove-if-not search-buffer-p (buffer-list))))
     (multi-occur buffers arg)))
+
+(defun global-occur-choices ()
+  (interactive)
+  (global-occur "pdb"))
 
 
 

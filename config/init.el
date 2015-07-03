@@ -21,8 +21,13 @@
                             "inside `~/cedet/'. Remember to `make' it.")))))
 
 (add-to-list 'load-path "~/portless/org-mode/lisp/")
-(add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
+(add-to-list 'load-path "/home/cji/.emacs.d/forked-plugins/magit/lisp")
 
+(add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
+(defun -is-nil (what)
+  (if what
+      nil
+    t))
 
 
 (defmacro add-subdirs-to-path (&rest dirs)
@@ -244,3 +249,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'dired-find-alternate-file 'disabled nil)

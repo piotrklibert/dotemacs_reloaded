@@ -46,6 +46,7 @@
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
+        paredit-backward-kill-word
         paredit-backward-slurp-sexp
         paredit-doublequote
         paredit-forward-delete
