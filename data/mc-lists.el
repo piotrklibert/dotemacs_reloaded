@@ -34,6 +34,7 @@
         mark-lines-next-line
         mark-word
         my-dedent
+        my-eval-last-sexp
         my-toggle-quotes
         nim-indent-electric-colon
         org-beginning-of-line
@@ -66,6 +67,7 @@
         python-indent-shift-left
         python-indent-shift-right
         sgml-slash
+        slime-autodoc-space
         suspend-frame
         transpose-sexps
         wdired-capitalize-word

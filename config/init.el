@@ -1,6 +1,6 @@
 (fringe-mode     '(4 . 8))
 ;; disable early so they don't appear during startup
-(menu-bar-mode   -1)
+(menu-bar-mode    1)
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 
@@ -20,20 +20,14 @@
     (error (message (concat "Fetch the latest CEDET package and place it "
                             "inside `~/cedet/'. Remember to `make' it.")))))
 
+
 (add-to-list 'load-path "~/portless/org-mode/lisp/")
-(add-to-list 'load-path "/home/cji/.emacs.d/forked-plugins/magit/lisp")
-
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
-(defun -is-nil (what)
-  (if what
-      nil
-    t))
 
 
-(defmacro add-subdirs-to-path (&rest dirs)
+(defun add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
-  ;; TODO: rewrite this as a proper macro (could be a function as it is now)
-  `(dolist (dir (list ,@dirs))
+  (dolist (dir dirs)
      (add-to-list 'load-path dir)
      (let
        ((default-directory dir))
@@ -43,7 +37,10 @@
 ;; because there are many non-lisp dirs in there
 ;; (add-to-list 'load-path "~/.emacs.d/")
 (add-to-list 'load-path "~/.emacs.d/config")
-(add-to-list 'load-path "~/.emacs.d/forked-plugins/lua-mode")
+;; (add-to-list 'load-path "~/.emacs.d/forked-plugins/lua-mode")
+;; (add-to-list 'load-path "/home/cji/.emacs.d/forked-plugins/magit/lisp")
+
+(put 'add-subdirs-to-path 'lisp-indent-function 0)
 
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
@@ -125,47 +122,51 @@
 ;; *should* be enough for startup :))
 (run-at-time "5 min" nil 'server-start)
 
+(defmacro load-indexed (arg)
+  (list 'load arg))
+
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts.
-(load "my-keymaps-config")
+(load-indexed "my-keymaps-config")
 
 ;; Make pressing <return> mean "yes" in minibufer
 ;; TODO: teach Sunrise Commander the same trick
-(load "my-minibuf-prompt")
+(load-indexed "my-minibuf-prompt")
 
 ;; Settings and additional functionality for auto-completion and snippets
-(load "my-auto-completion")
+(load-indexed "my-auto-completion")
 
 ;; Additional interfaces and functionalities (through plugins) activation and
 ;; config - mainly ido-mode
-(load "my-generic-ui-config")
+(load-indexed "my-generic-ui-config")
 
 ;; Keybinding and function that deal with windows and buffers, mostly bound to
 ;; C-w C-... Elscreen lives here, too (under C-M-z ...).
-(load "my-windows-config")
+(load-indexed "my-windows-config")
 
 ;; Main configuration for Python
-(load "my-python-config")
+(load-indexed "my-python-config")
 
 ;; JavaScript, YAML, Rust, Racket and so on - configuration
-(load "my-other-langs")
+(load-indexed "langs/base.el")
 
 ;; Everything that is useful for normal editing or not programming specific
-(load "my-generic-editing-config")
+(load-indexed "my-generic-editing-config")
 
 ;; everything that's useful for programming and not language specific
-(load "my-generic-programming-config")
+(load-indexed "my-generic-programming-config")
 
 ;; project definitions for fuzzy find and others
-(load "my-projects")
+(load-indexed "my-projects")
 
 ;; git configuration, not much there
-(load "my-vcs-config")
+(load-indexed "my-vcs-config")
 
 ;; org-mode customizations
-(load "my-org-config")
+(load-indexed "my-org-config")
 
 
 (require 'my-download-page)
+
 
 ;;
 ;;                      ____ _   _ ____ _____ ___  __  __

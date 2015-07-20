@@ -1,3 +1,6 @@
+
+
+
 (require 'fuzzy-find-in-project)
 
 ;; fuzzy-find configuration, defines named directory groups for easy changing
@@ -5,25 +8,22 @@
 ;; explicitly
 
 
-(ffip-defroots 'my-projects ("~/todo/"
-                             "~/secure/"
+(ffip-defroots 'my-projects ("~/secure/" "~/todo/"
                              "~/.emacs.d/config/")
-
   (my-projects . ("~/mgmnt/"
+                  "~/poligon/lanchat/"
                   "~/projects/klibert_pl/"
-                  "~/poligon/prolog/"
-                  "/home/cji/poligon/car-sales-app/"
+                  "~/.emacs.d/pkg-langs/elpy/"
+                  "~/.emacs.d/plugins2/"
+                  "~/.emacs.d/pkg-langs/"
+                  ;; "~/poligon/prolog/"
+                  ;; "/home/cji/poligon/car-sales-app/"
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
                   ;; "~/poligon/luzem/"
                   ;; "~/poligon/lscript/"
                   ))
-  (klibertpl   . ("/home/cji/projects/klibert_pl/"))
-
-  (emacs       . ("~/.emacs.d/pkg-langs/elpy/"
-                  "~/.emacs.d/plugins2/"
-                  "~/.emacs.d/pkg-langs/"))
 
   (rq          . ("~/projects/reqviewer/"
                   "~/projects/reqplayer/"))

@@ -22,8 +22,21 @@
 
 ;; my-wnd-keys - C-w prefix
 
-;; C-w is taken by cut by default, and life without it would be less than
-;; comfortable, so we place it under C-w C-w
+
+(defun my-enlarge-window-horizontally ()
+  (interactive)
+  (enlarge-window-horizontally 10))
+
+(defun my-shrink-window-horizontally ()
+  (interactive)
+  (shrink-window-horizontally 10))
+
+
+
+  ;; C-w is taken by cut by default, and life without it would be less than
+  ;; comfortable, so we place it under C-w C-w
+
+
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
 
 (define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)

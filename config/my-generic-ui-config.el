@@ -264,7 +264,7 @@ symbol `ALWAYS' if the answer is a/A."
 
 
 (setq my-new-buffer-helm-source
-      `((name . "Byffer types")
+      `((name . "Buffer types")
         (candidates . ,my-openers)
         (action . (lambda (candidate) (funcall candidate)))))
 

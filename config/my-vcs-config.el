@@ -20,5 +20,13 @@
     (setq my-tagasauris-ticket-name
           (read-string "Ticket name: ")))
   (goto-char (point-min))
-  (unless (= 0 (length my-tagasauris-ticket-name)) ; don't insert a space is not needed
+  (unless (= 0 (length my-tagasauris-ticket-name)) ; don't insert a space if not needed
     (insert my-tagasauris-ticket-name " ")))
+
+(defun my-magit-blame-hook ()
+  (if magit-blame-mode
+      (fci-mode -1)
+    (fci-mode 1)))
+
+
+(add-hook 'magit-blame-mode-hook 'my-magit-blame-hook)
