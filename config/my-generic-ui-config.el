@@ -200,11 +200,10 @@ symbol `ALWAYS' if the answer is a/A."
 ;; There are some alternatives to ibuffer, I'm currently testing helm
 ;; (define-key ctl-x-map (kbd "C-M-b") 'bs-show)
 ;; (define-key ctl-x-map (kbd "C-M-b") 'electric-buffer-listw)
-(define-key ctl-x-map (kbd "C-M-b") 'helm-buffers-list)
 
 (global-set-key (kbd "M-X")      'smex-major-mode-commands)
-(global-set-key (kbd "M-x")      'smex)
-(global-set-key (kbd "s-x")      'helm-M-x)
+(global-set-key (kbd "M-x")      'helm-M-x)
+(global-set-key (kbd "s-x")      'smex)
 
 (global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
 (global-set-key (kbd "C-<f2>")   'helm-recentf)
