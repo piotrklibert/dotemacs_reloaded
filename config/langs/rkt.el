@@ -18,15 +18,20 @@
 (indent/tag-for-modes
     '(scheme-indent-function racket-indent-function)
   '((serve/servlet . 1)
+    (send-resp! . 1)
     (~> . 1)
     (call-with-semaphore . 1)
     (response/full . 3)
     (with-semaphore . 1)))
 
 
-(loop for mode in '(scheme-mode racket-mode)
+(loop for mode in '(scheme-mode racket-mode lisp-mode)
       do (font-lock-add-keywords mode
-           '(("prog1" . font-lock-keyword-face)
+           '(
+             ("prog1" . font-lock-keyword-face)
+             ("send-resp!" . font-lock-keyword-face)
+             ("send/suspend" . font-lock-builtin-face)
+             ("defcommand" . font-lock-keyword-face)
              )))
 
 (defun my-scheme-hook ()

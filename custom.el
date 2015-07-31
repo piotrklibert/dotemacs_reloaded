@@ -241,7 +241,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
+    (w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
  '(prolog-electric-colon-flag t)
@@ -328,7 +328,7 @@
  '(hl-line ((t (:background "gray18"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
- '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))) t)
+ '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))))
  '(visible-mark-face ((t (:background "gray26")))))
 
 (toggle-diredp-find-file-reuse-dir 1)

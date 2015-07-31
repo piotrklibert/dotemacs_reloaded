@@ -10,8 +10,8 @@
 
 (ffip-defroots 'my-projects ("~/secure/" "~/todo/"
                              "~/.emacs.d/config/")
+  (lanchat .  ("~/poligon/lanchat/"))
   (my-projects . ("~/mgmnt/"
-                  "~/poligon/lanchat/"
                   "~/projects/klibert_pl/"
                   "~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"

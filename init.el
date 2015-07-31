@@ -1,3 +1,5 @@
+;; (package-initialize)
+
 (fringe-mode     '(4 . 8))
 ;; disable early so they don't appear during startup
 (menu-bar-mode    1)

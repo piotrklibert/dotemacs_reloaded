@@ -1,5 +1,7 @@
-(require 'nim-mode)
+(require 'alchemist)
 (require 'elixir-mode)
+
+(require 'nim-mode)
 (require 'nginx-mode)
 (require 'tuareg) ;; OCaml
 (require 'haxe-mode)
