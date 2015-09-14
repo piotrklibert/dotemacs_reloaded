@@ -77,3 +77,4 @@ elpa
 pkg-langs
 /image-dired/.image-dired_db
 /image-dired
+/helm-adaptive-history
