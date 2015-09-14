@@ -49,3 +49,36 @@
 [submodule "forked-plugins/nim-mode"]
 	path = forked-plugins/nim-mode
 	url = git@github.com:reactormonk/nim-mode.git
+[submodule "forked-plugins/ac-slime"]
+	path = forked-plugins/ac-slime
+	url = git@github.com:purcell/ac-slime.git
+[submodule "forked-plugins/dash"]
+	path = forked-plugins/dash
+	url = git@github.com:magnars/dash.el.git
+[submodule "forked-plugins/emacs-elixir"]
+	path = forked-plugins/emacs-elixir
+	url = https://github.com/elixir-lang/emacs-elixir.git
+[submodule "forked-plugins/emacs-helm-ag"]
+	path = forked-plugins/emacs-helm-ag
+	url = https://github.com/syohex/emacs-helm-ag.git
+[submodule "forked-plugins/magit"]
+	path = forked-plugins/magit
+	url = git@github.com:magit/magit.git
+[submodule "forked-plugins/multiple-cursors"]
+	path = forked-plugins/multiple-cursors
+	url = git@github.com:magnars/multiple-cursors.el.git
+[submodule "forked-plugins/org-html-themes"]
+	path = forked-plugins/org-html-themes
+	url = git@github.com:fniessen/org-html-themes.git
+[submodule "forked-plugins/slime"]
+	path = forked-plugins/slime
+	url = git@github.com:slime/slime.git
+[submodule "forked-plugins/virtualenvwrapper"]
+	path = forked-plugins/virtualenvwrapper
+	url = https://github.com/porterjamesj/virtualenvwrapper.el.git
+[submodule "forked-plugins/wrap-region"]
+	path = forked-plugins/wrap-region
+	url = https://github.com/rejeep/wrap-region.el.git
+[submodule "forked-plugins/alchemist-mode"]
+	path = forked-plugins/alchemist-mode
+	url = https://github.com/tonini/alchemist.el.git
