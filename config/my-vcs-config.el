@@ -23,6 +23,7 @@
   (unless (= 0 (length my-tagasauris-ticket-name)) ; don't insert a space if not needed
     (insert my-tagasauris-ticket-name " ")
     (save-excursion
+      (newline)
       (newline))))
 
 (defun my-magit-blame-hook ()
