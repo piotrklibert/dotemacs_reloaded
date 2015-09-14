@@ -16,7 +16,7 @@ IGNORES = [
   "*.git*", "*.bzr*", "*node_modules*", "*.vim*",
   "*migrations*", "*bower_components*", "books*",
   "*ebin*",
-  # "*deps*",
+  "*deps*",
   "*rel*", "*build", "*.venv*"
 ]
 

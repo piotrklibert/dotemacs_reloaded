@@ -21,7 +21,9 @@
           (read-string "Ticket name: ")))
   (goto-char (point-min))
   (unless (= 0 (length my-tagasauris-ticket-name)) ; don't insert a space if not needed
-    (insert my-tagasauris-ticket-name " ")))
+    (insert my-tagasauris-ticket-name " ")
+    (save-excursion
+      (newline))))
 
 (defun my-magit-blame-hook ()
   (if magit-blame-mode
