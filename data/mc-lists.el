@@ -8,6 +8,8 @@
         back-to-indentation-or-beginning
         backward-sexp
         beginning-of-buffer
+        c-electric-colon
+        c-electric-delete-forward
         coffee-dedent-line-backspace
         comment-or-uncomment-region-or-line
         company-abort
@@ -86,6 +88,7 @@
         elscreen-next
         elscreen-previous
         ibuffer
+        ido-find-file
         iedit-mode
         mouse-drag-vertical-line
         mouse-select-window

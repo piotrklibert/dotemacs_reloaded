@@ -39,13 +39,18 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 
 (defun tfb-hidden-buf? (it)
-  (s-contains? "*" it))
+
+  (and (s-contains? "*" it)
+       (not (s-contains? "REPL" it)))
+
+  )
 
 (defun tfb-buf-names ()
   (let ((names (-map 'buffer-name (buffer-list))))
     (-remove 'tfb-hidden-buf? names)))
 
 (defun tfb-init ()
+  (interactive)
   (setq my-file-buffers (make-fbl (tfb-buf-names) 0)))
 
 (defun tfb-finish ()
@@ -57,14 +62,13 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (defun my-schedule-cleanup ()
   (unless my-deferred
-    (setq
-     my-deferred
+    (setq my-deferred
      (deferred:$
        (deferred:wait 1000)
 
        (deferred:nextc it
          (lambda (x)
-           (if (> (- (float-time)) my-last-traverse 1.2)
+           (if (> (- (float-time) my-last-traverse) 1.2)
                (tfb-finish)
              (setq my-deferred nil)
              (my-schedule-cleanup))))))))

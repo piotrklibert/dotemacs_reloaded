@@ -8,7 +8,7 @@
  '(ac-disable-faces nil)
  '(ac-modes
    (quote
-    (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 scala-mode)))
+    (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 lisp-mode slime-repl-mode scala-mode)))
  '(ac-quick-help-delay 0.4)
  '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
@@ -18,9 +18,11 @@
  '(auto-revert-mode-text " AR")
  '(auto-revert-verbose nil)
  '(auto-save-visited-file-name nil)
+ '(blink-cursor-mode nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(coffee-tab-width 4)
+ '(column-number-mode t)
  '(company-backends
    (quote
     (company-files
@@ -35,6 +37,7 @@
    (quote
     (".o" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo")))
  '(css-indent-offset 4)
+ '(debug-on-error nil)
  '(debug-on-quit nil)
  '(delete-selection-mode nil)
  '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
@@ -89,7 +92,7 @@
  '(git-commit-summary-max-length 76)
  '(global-auto-revert-non-file-buffers t)
  '(global-git-commit-mode t)
- '(global-linum-mode t)
+ '(global-linum-mode nil)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
@@ -101,6 +104,7 @@
  '(helm-adaptive-mode t nil (helm-adaptive))
  '(helm-bookmark-show-location t)
  '(helm-buffer-skip-remote-checking t)
+ '(helm-findutils-search-full-path t)
  '(helm-imenu-fuzzy-match t)
  '(help-at-pt-display-when-idle (quote never) nil (help-at-pt))
  '(help-at-pt-timer-delay 3)
@@ -133,6 +137,10 @@
  '(ido-create-new-buffer (quote always))
  '(ido-enable-flex-matching t)
  '(ido-save-directory-list-file "~/.emacs.d/data/ido.last")
+ '(image-dired-external-viewer "/usr/bin/pinta")
+ '(image-dired-thumb-height 250)
+ '(image-dired-thumb-size 250)
+ '(image-dired-thumb-width 250)
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
  '(inferior-lisp-program "/home/cji/ccl/lx86cl64" t)
@@ -146,6 +154,7 @@
  '(livescript-tab-width 4)
  '(lua-indent-level 4)
  '(lua-indent-string-contents t)
+ '(magit-push-always-verify nil)
  '(minimap-always-recenter t)
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
@@ -259,7 +268,9 @@
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((Lowercase . YES)
+    ((Lowercase . Yes)
+     (Syntax . Common-lisp)
+     (Lowercase . YES)
      (Base . 10)
      (Syntax . COMMON-LISP)
      (Package . XLIB)
@@ -279,6 +290,7 @@
  '(sgml-basic-offset 4)
  '(shell-file-name "/bin/bash")
  '(shell-prompt-pattern "# ")
+ '(show-paren-mode t)
  '(speedbar-default-position (quote left))
  '(speedbar-hide-button-brackets-flag t)
  '(speedbar-show-unknown-files t)
@@ -293,6 +305,7 @@
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(tags-revert-without-query t)
+ '(tool-bar-mode nil)
  '(tramp-backup-directory-alist (quote (("." . "~/.saves"))))
  '(tramp-default-host "localhost")
  '(truncate-lines t)

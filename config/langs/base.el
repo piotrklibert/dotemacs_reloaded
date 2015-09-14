@@ -1,15 +1,25 @@
-(require 'alchemist)
 (require 'elixir-mode)
+(require 'alchemist)                    ; Elixir REPL
 
 (require 'nim-mode)
 (require 'nginx-mode)
-(require 'tuareg) ;; OCaml
+(require 'tuareg)                       ; OCaml mode and REPL
 (require 'haxe-mode)
+
 (require 'nxml-mode)
 (require 'web-mode)
 
 
-(load (f-expand "~/.emacs.d/config/langs/rkt.el") )
+(defun load/expand (fname)
+  (load (f-expand fname)))
+
+(defun load-many (&rest file-list)
+  (dolist (file file-list)
+    (load/expand file)))
+
+(load-many  "~/.emacs.d/config/langs/el.el"
+            "~/.emacs.d/config/langs/rkt.el"
+            "~/.emacs.d/config/langs/cl.el")
 
 ;;
 ;; HTML & Django templates mode
@@ -66,63 +76,6 @@
 ;;       (append '(("\\.html?$" . django-html-mumamo-mode)) auto-mode-alist))
 ;; (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
 
-
-;;
-;; Emacs Lisp mode tweaks
-;;
-(require 'paredit-autoloads)
-
-(put 'font-lock-add-keywords 'lisp-indent-function 1)
-(put 'indent/tag-for-modes 'lisp-indent-function 1)
-
-(font-lock-add-keywords 'emacs-lisp-mode
-  '(("eval-after-load" . font-lock-keyword-face)
-    ("defstruct"       . font-lock-keyword-face)
-    ("\bfunctionp?"    . font-lock-keyword-face)
-    ("\bit\b"          . font-lock-builtin-face)))
-
-
-;; no idea where or why I overriden default <return> function in isearch...
-(define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
-
-(defun my-interactive-byte-compile ()
-  (interactive)
-  (byte-compile-file (buffer-file-name)))
-
-(defun my-eval-last-sexp (arg)
-  (interactive "P")
-  (cond
-   ((not arg) (call-interactively 'eval-last-sexp))
-   ;; TODO: add ability for inserting result without pp via C-u C-u
-   (t (call-interactively 'pp-eval-last-sexp))))
-
-
-(defun my-elisp-mode-setup ()
-  (paredit-mode 1)
-  (local-set-key (kbd "C-M-d") 'duplicate-line-or-region)
-
-  (define-key mode-specific-map (kbd "C-b") 'my-interactive-byte-compile)
-  (define-key mode-specific-map (kbd "C-j") 'eval-print-last-sexp)
-  (define-key mode-specific-map (kbd "C-f") 'find-function)
-
-  (define-key
-    paredit-mode-map (kbd "M-S-<left>")  'backward-word)
-  (define-key paredit-mode-map (kbd "M-?")         'paredit-convolute-sexp)
-  (define-key paredit-mode-map (kbd "M-S-<right>") 'forward-word)
-  (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
-  (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region)
-
-  (global-set-key [remap eval-last-sexp] 'my-eval-last-sexp)
-
-  )
-
-
-(require 'subr-x)
-(defalias '-> 'thread-first)
-(defalias '->> 'thread-last)
-
-
-(add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
 
 
 ;;
@@ -257,25 +210,3 @@
 
 (push '("\\.pl\\'" . prolog-mode)  auto-mode-alist)
 (add-hook 'prolog-mode-hook 'my-prolog-hook)
-
-
-(defun my-eshell-hook ()
-  (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)
-  (define-key eshell-mode-map (kbd "<up>") 'previous-line)
-  (define-key eshell-mode-map (kbd "<down>") 'next-line)
-  (define-key eshell-mode-map [remap kill-whole-line] 'eshell-kill-input)
-  )
-(add-hook 'eshell-mode-hook 'my-eshell-hook)
-
-;;
-;;  COMMON LISP
-;;
-(setq inferior-lisp-program "/home/cji/ccl/lx86cl64")
-(setq slime-contribs '(slime-fancy))
-(require 'slime-autoloads)
-
-(defun my-lisp-hook ()
-  (interactive)
-  (paredit-mode 1))
-
-(add-hook 'lisp-mode-hook 'my-lisp-hook)

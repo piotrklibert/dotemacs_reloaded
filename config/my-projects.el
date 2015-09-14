@@ -1,6 +1,3 @@
-
-
-
 (require 'fuzzy-find-in-project)
 
 ;; fuzzy-find configuration, defines named directory groups for easy changing
@@ -9,13 +6,16 @@
 
 
 (ffip-defroots 'my-projects ("~/secure/" "~/todo/"
+                             "~/.stumpwm.d/"
                              "~/.emacs.d/config/")
-  (lanchat .  ("~/poligon/lanchat/"))
+  (lanchat     . ("~/poligon/lanchat/"))
+  (klibertpl   . ("~/projects/klibert_pl/"))
+
   (my-projects . ("~/mgmnt/"
-                  "~/projects/klibert_pl/"
                   "~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"
+
                   ;; "~/poligon/prolog/"
                   ;; "/home/cji/poligon/car-sales-app/"
                   ;; "~/projects/open-resty/"
@@ -32,6 +32,9 @@
   (ion         . ("~/projects/ion/"))
 
   (sp          . ("~/projects/sp/"))
+  (eb          . ("~/projects/ebundler/code/"))
+  (dn          . ("~/projects/donorship/backend/"
+                  "~/projects/donorship/frontend/"))
 
   (10c         . ("~/projects/images/repo/")))
 

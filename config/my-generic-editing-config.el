@@ -304,3 +304,16 @@ Handles prefix arg like `move-beginning-of-line' does."
 
 (global-set-key (kbd "C-s-<up>") 'prev-like-this)
 (global-set-key (kbd "C-s-<down>") 'next-like-this)
+
+
+(defun align-comment-end ()
+  (interactive)
+  (let* ((target 60)
+        (line (buffer-line))
+        (line-length (length line)))
+    (unless (> line-length target)
+      (save-excursion
+        (search-forward "*")
+        (backward-char)
+        (insert (apply 'concat (loop for _ to (- target line-length)
+                                     collect  " ")))))))

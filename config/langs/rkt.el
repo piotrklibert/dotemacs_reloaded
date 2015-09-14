@@ -38,8 +38,7 @@
   (paredit-mode)
   (rainbow-mode 1)
   (undo-tree-mode)
-  (hs-minor-mode)
-  )
+  (hs-minor-mode))
 
 (add-hook 'scheme-mode-hook 'my-scheme-hook)
 
@@ -86,4 +85,5 @@
 (add-hook 'racket-mode-hook 'my-racket-hook)
 (add-hook 'racket-repl-mode-hook 'my-racket-repl-hook)
 
-(eval-after-load "paredit" '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square))
+(eval-after-load "paredit"
+  '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square))
