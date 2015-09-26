@@ -19,7 +19,9 @@
 
 (load-many  "~/.emacs.d/config/langs/el.el"
             "~/.emacs.d/config/langs/rkt.el"
-            "~/.emacs.d/config/langs/cl.el")
+            "~/.emacs.d/config/langs/cl.el"
+            ;; "~/.emacs.d/config/langs/j-lang.el"
+            )
 
 ;;
 ;; HTML & Django templates mode

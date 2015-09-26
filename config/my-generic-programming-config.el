@@ -84,7 +84,7 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
 (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
+;;(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
 (semantic-mode 1)
 
@@ -133,7 +133,26 @@
 (define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
 (define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
 
-(define-key my-find-keys (kbd "C-o")      'occur)
+(require 'swiper)
+(setf ivy-format-function 'my-ivy-format)
+
+(defun my-ivy-format (cands)
+  "Transform CANDS into a string for minibuffer."
+  (if (bound-and-true-p truncate-lines)
+      (mapconcat (lambda (x) (concat "                    " x) )
+                 cands "\n")
+    (let ((ww (- (window-width)
+                 (if (and (boundp 'fringe-mode) (eq fringe-mode 0)) 1 0))))
+      (mapconcat
+       (lambda (s)
+         (if (> (length s) ww)
+             (concat (substring s 0 (- ww 3)) "...")
+           s))
+       cands "\n"))))
+
+
+(define-key my-find-keys (kbd "o")      'helm-occur)
+(define-key my-find-keys (kbd "C-o")      'swiper)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)

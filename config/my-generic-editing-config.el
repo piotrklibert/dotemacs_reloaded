@@ -37,6 +37,30 @@
 ;; (require 'all)
 ;; (require 'all-ext)
 
+(require 'helm)
+(defun helm-backspace ()
+  "Forward to `backward-delete-char'.
+On error (read-only), quit without selecting."
+  (interactive)
+  (condition-case nil
+      (backward-delete-char 1)
+    (error
+     (helm-keyboard-quit))))
+
+(define-key helm-map (kbd "DEL") 'helm-backspace)
+
+
+(defun backward-word-upcase ()
+  (unless (looking-back "\\b")
+    (backward-word)))
+
+(defadvice upcase-word (before upcase-word-advice activate)
+  (backward-word-upcase))
+(defadvice downcase-word (before downcase-word-advice activate)
+  (backward-word-upcase))
+(defadvice capitalize-word (before capitalize-word-advice activate)
+  (backward-word-upcase))
+
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
