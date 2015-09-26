@@ -82,3 +82,12 @@
 [submodule "forked-plugins/alchemist-mode"]
 	path = forked-plugins/alchemist-mode
 	url = https://github.com/tonini/alchemist.el.git
+[submodule "forked-plugins/mediawiki"]
+	path = forked-plugins/mediawiki
+	url = https://github.com/hexmode/mediawiki-el.git
+[submodule "forked-plugins/swiper"]
+	path = forked-plugins/swiper
+	url = https://github.com/abo-abo/swiper.git
+[submodule "forked-plugins/j-mode"]
+	path = forked-plugins/j-mode
+	url = https://github.com/zellio/j-mode.git
