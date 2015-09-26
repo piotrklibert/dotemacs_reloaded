@@ -81,7 +81,6 @@
 (define-key my-wnd-keys (kbd "C-f")                 'delete-frame)
 
 
-
 ;;
 ;; Custom functions
 ;;

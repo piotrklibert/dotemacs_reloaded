@@ -25,3 +25,14 @@
      (let
        ((default-directory dir))
        (normal-top-level-add-subdirs-to-load-path))))
+
+(require 'edit-server)
+(edit-server-start t)
+
+(defun my-edit-server-hook ()
+  (elscreen-toggle-display-tab)
+  ;; (markdown-mode)
+  )
+
+(add-hook 'edit-server-edit-mode-hook 'delete-other-windows)
+(add-hook 'edit-server-edit-mode-hook 'my-edit-server-hook)
