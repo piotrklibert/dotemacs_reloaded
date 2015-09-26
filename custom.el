@@ -147,6 +147,9 @@
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
+ '(ivy-display-style (quote fancy))
+ '(ivy-height 10)
+ '(ivy-wrap t)
  '(jedi:complete-on-dot t)
  '(js-indent-level 2)
  '(less-css-indent-level 4)
@@ -300,7 +303,7 @@
  '(sr-speedbar-auto-refresh nil)
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
- '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
+ '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el" t)
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
@@ -341,6 +344,10 @@
  '(hl-line ((t (:background "gray18"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
+ '(swiper-line-face ((t (:inherit highlight :background "black"))))
+ '(swiper-match-face-1 ((t (:inherit isearch-lazy-highlight-face :background "black"))))
+ '(swiper-match-face-2 ((t (:inherit isearch :background "black"))))
+ '(swiper-match-face-3 ((t (:inherit match :background "black"))))
  '(table-cell ((t (:background "gray20" :foreground "gray90" :inverse-video nil))))
  '(visible-mark-face ((t (:background "gray26")))))
 
