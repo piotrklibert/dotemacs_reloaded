@@ -342,6 +342,7 @@
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
  '(hl-line ((t (:background "gray18"))))
+ '(j-verb-face ((t (:foreground "dark cyan"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
  '(swiper-line-face ((t (:inherit highlight :background "black"))))
