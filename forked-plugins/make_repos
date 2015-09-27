@@ -1,0 +1,44 @@
+#! /usr/bin/env zsh
+
+DIRS=(
+    ./nim-mode
+./pyvenv
+./popup-el
+./swiper
+./helm
+./virtualenvwrapper
+./j-mode
+./wrap-region
+./slime
+./emacs-jedi-direx
+./emacs-helm-ag
+./emacs-jedi
+./yasnippet
+./direx-el
+./elpy
+./mediawiki
+./auto-complete
+./hy-mode
+./emacs-async
+./org-html-themes
+./expand-region-el
+./lua-mode
+./magit
+./dash
+./ac-slime
+./dylan-mode
+./web-mode
+./emacs-elixir
+./alchemist-mode
+./emacs-python-environment
+./multiple-cursors
+)
+
+for d in $DIRS; do
+    cd $d; echo $d;
+    # REPO=`git remote -v | awk '/origin/{print $2}' | tail -1`
+    # ssh vps "cd git/forks/; git clone --bare $REPO $d"
+    # git remote add vps vps:git/forks/$d;
+    git pull vps master; git push vps
+    cd ..
+done
