@@ -1,93 +1,78 @@
-[submodule "forked-plugins/elpy"]
-	path = forked-plugins/elpy
-	url = ssh://vps/home/cji/emacs/elpy
-[submodule "forked-plugins/auto-complete"]
-	path = forked-plugins/auto-complete
-	url = ssh://vps/home/cji/emacs/auto-complete
-[submodule "forked-plugins/popup-el"]
-	path = forked-plugins/popup-el
-	url = ssh://vps/home/cji/emacs/popup-el
 [submodule "forked-plugins/lua-mode"]
 	path = forked-plugins/lua-mode
-	url = ssh://vps/home/cji/emacs/lua-mode.git
+	url = vps:git/forks/./lua-mode
 [submodule "forked-plugins/direx-el"]
 	path = forked-plugins/direx-el
-	url = https://github.com/m2ym/direx-el.git
+	url = vps:git/forks/./direx-el
 [submodule "forked-plugins/emacs-jedi-direx"]
 	path = forked-plugins/emacs-jedi-direx
-	url = https://github.com/tkf/emacs-jedi-direx.git
+	url = vps:git/forks/./emacs-jedi-direx
 [submodule "forked-plugins/dylan-mode"]
 	path = forked-plugins/dylan-mode
-	url = https://github.com/dylan-lang/dylan-mode.git
+	url = vps:git/forks/./dylan-mode
 [submodule "forked-plugins/yasnippet"]
 	path = forked-plugins/yasnippet
-	url = https://github.com/capitaomorte/yasnippet.git
-[submodule "forked-plugins/hy-mode"]
-	path = forked-plugins/hy-mode
-	url = git://github.com/hylang/hy-mode
-[submodule "forked-plugins/emacs-jedi"]
-	path = forked-plugins/emacs-jedi
-	url = ssh://vps/home/cji/emacs/emacs-jedi
+	url = vps:git/forks/./yasnippet
 [submodule "forked-plugins/emacs-python-environment"]
 	path = forked-plugins/emacs-python-environment
-	url = https://github.com/tkf/emacs-python-environment.git
+	url = vps:git/forks/./emacs-python-environment
 [submodule "forked-plugins/pyvenv"]
 	path = forked-plugins/pyvenv
-	url = https://github.com/jorgenschaefer/pyvenv.git
+	url = vps:git/forks/./pyvenv
 [submodule "forked-plugins/expand-region-el"]
 	path = forked-plugins/expand-region-el
-	url = git@github.com:magnars/expand-region.el.git
+	url = vps:git/forks/./expand-region-el
 [submodule "forked-plugins/emacs-async"]
 	path = forked-plugins/emacs-async
-	url = git@github.com:jwiegley/emacs-async.git
+	url = vps:git/forks/./emacs-async
 [submodule "forked-plugins/helm"]
 	path = forked-plugins/helm
-	url = git@github.com:emacs-helm/helm.git
+	url = vps:git/forks/./helm
 [submodule "forked-plugins/web-mode"]
 	path = forked-plugins/web-mode
-	url = git@github.com:fxbois/web-mode.git
+	url = vps:git/forks/./web-mode
 [submodule "forked-plugins/nim-mode"]
 	path = forked-plugins/nim-mode
-	url = git@github.com:reactormonk/nim-mode.git
+	url = vps:git/forks/./nim-mode
 [submodule "forked-plugins/ac-slime"]
 	path = forked-plugins/ac-slime
-	url = git@github.com:purcell/ac-slime.git
+	url = vps:git/forks/./ac-slime
 [submodule "forked-plugins/dash"]
 	path = forked-plugins/dash
-	url = git@github.com:magnars/dash.el.git
+	url = vps:git/forks/./dash
 [submodule "forked-plugins/emacs-elixir"]
 	path = forked-plugins/emacs-elixir
-	url = https://github.com/elixir-lang/emacs-elixir.git
+	url = vps:git/forks/./emacs-elixir
 [submodule "forked-plugins/emacs-helm-ag"]
 	path = forked-plugins/emacs-helm-ag
-	url = https://github.com/syohex/emacs-helm-ag.git
+	url = vps:git/forks/./emacs-helm-ag
 [submodule "forked-plugins/magit"]
 	path = forked-plugins/magit
-	url = git@github.com:magit/magit.git
+	url = vps:git/forks/./magit
 [submodule "forked-plugins/multiple-cursors"]
 	path = forked-plugins/multiple-cursors
-	url = git@github.com:magnars/multiple-cursors.el.git
+	url = vps:git/forks/./multiple-cursors
 [submodule "forked-plugins/org-html-themes"]
 	path = forked-plugins/org-html-themes
-	url = git@github.com:fniessen/org-html-themes.git
+	url = vps:git/forks/./org-html-themes
 [submodule "forked-plugins/slime"]
 	path = forked-plugins/slime
-	url = git@github.com:slime/slime.git
+	url = vps:git/forks/./slime
 [submodule "forked-plugins/virtualenvwrapper"]
 	path = forked-plugins/virtualenvwrapper
-	url = https://github.com/porterjamesj/virtualenvwrapper.el.git
+	url = vps:git/forks/./virtualenvwrapper
 [submodule "forked-plugins/wrap-region"]
 	path = forked-plugins/wrap-region
-	url = https://github.com/rejeep/wrap-region.el.git
+	url = vps:git/forks/./wrap-region
 [submodule "forked-plugins/alchemist-mode"]
 	path = forked-plugins/alchemist-mode
-	url = https://github.com/tonini/alchemist.el.git
+	url = vps:git/forks/./alchemist-mode
 [submodule "forked-plugins/mediawiki"]
 	path = forked-plugins/mediawiki
-	url = https://github.com/hexmode/mediawiki-el.git
+	url = vps:git/forks/./mediawiki
 [submodule "forked-plugins/swiper"]
 	path = forked-plugins/swiper
-	url = https://github.com/abo-abo/swiper.git
+	url = vps:git/forks/./swiper
 [submodule "forked-plugins/j-mode"]
 	path = forked-plugins/j-mode
-	url = https://github.com/zellio/j-mode.git
+	url = vps:git/forks/./j-mode
