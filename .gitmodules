@@ -76,3 +76,18 @@
 [submodule "forked-plugins/j-mode"]
 	path = forked-plugins/j-mode
 	url = vps:git/forks/./j-mode
+[submodule "forked-plugins/auto-complete"]
+	path = forked-plugins/auto-complete
+	url = vps:git/forks/auto-complete
+[submodule "forked-plugins/elpy"]
+	path = forked-plugins/elpy
+	url = vps:git/forks/elpy
+[submodule "forked-plugins/emacs-jedi"]
+	path = forked-plugins/emacs-jedi
+	url = vps:git/forks/emacs-jedi
+[submodule "forked-plugins/hy-mode"]
+	path = forked-plugins/hy-mode
+	url = vps:git/forks/hy-mode
+[submodule "forked-plugins/popup-el"]
+	path = forked-plugins/popup-el
+	url = vps:git/forks/popup-el
