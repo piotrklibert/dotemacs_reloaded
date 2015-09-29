@@ -169,6 +169,29 @@ On error (read-only), quit without selecting."
 (require 'my-move-lines)
 (require 'my-indent-config)
 
+(defun yank-quote ()
+  (with-current-buffer (find-file-noselect "~/quotes.txt")
+    (goto-char (point-max))
+    (insert "\n\n")
+    (yank)
+    (insert "\n\n")
+    (save-buffer)))
+
+(defun add-to-quotes ()
+  (interactive)
+  (if (region-active-p)
+      (let*
+          ((beg (region-beginning))
+           (end (region-end)))
+        (kill-ring-save beg end)
+        (yank-quote))
+    (kill-ring-save (line-beginning-position)
+                    (line-end-position))
+    (yank-quote)))
+
+(define-key mode-specific-map (kbd "q") 'add-to-quotes)
+(define-key mode-specific-map (kbd "C-q") 'add-to-quotes)
+
 
 (defun forward-quarter-page (&optional arg)
   "Move point forward by 1/4 of a window height"
