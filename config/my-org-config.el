@@ -241,7 +241,7 @@
 
 
 (defun my-org-hook ()
-  (define-key org-mode-map (kbd "<f4>")         'swap-cells)  ; orgtbl mode
+  ;; (define-key org-mode-map (kbd "<f4>")         'swap-cells)  ; orgtbl mode
   (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
   (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
