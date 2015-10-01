@@ -91,3 +91,6 @@
 [submodule "forked-plugins/popup-el"]
 	path = forked-plugins/popup-el
 	url = vps:git/forks/popup-el
+[submodule "forked-plugins/emacs-neotree"]
+	path = forked-plugins/emacs-neotree
+	url = vps:git/forks/emacs-neotree/

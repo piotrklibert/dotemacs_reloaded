@@ -205,7 +205,7 @@ symbol `ALWAYS' if the answer is a/A."
 (global-set-key (kbd "M-x")      'helm-M-x)
 (global-set-key (kbd "s-x")      'smex)
 
-(global-set-key (kbd "C-<f1>")   'sr-speedbar-toggle)
+(global-set-key (kbd "C-<f1>")   'neotree-toggle)
 (global-set-key (kbd "C-<f2>")   'helm-recentf)
 
 (global-set-key (kbd "C-<f3>")   'sunrise)
