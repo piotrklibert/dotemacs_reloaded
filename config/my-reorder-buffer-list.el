@@ -41,7 +41,8 @@ If it's `pos' is somehow out of range, wrap it before returning."
 (defun tfb-hidden-buf? (it)
 
   (and (s-contains? "*" it)
-       (not (s-contains? "REPL" it)))
+       (not (s-contains? "REPL" it))
+       (not (s-contains? "scratch" it)))
 
   )
 
