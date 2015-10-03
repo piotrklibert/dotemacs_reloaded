@@ -108,7 +108,6 @@ On error (read-only), quit without selecting."
 (global-set-key (kbd "M-<left>")   'backward-sexp)
 (global-set-key (kbd "<insert>")   'read-only-mode)
 (global-set-key (kbd "M-V")        'mark-lines-next-line)
-(global-set-key (kbd "C-M-<SPC>")  'just-one-space)
 (global-set-key (kbd "C-{")        'backward-paragraph)
 (global-set-key (kbd "C-}")        'forward-paragraph)
 (global-set-key (kbd "C-c f")      'iy-go-to-char)
@@ -264,8 +263,9 @@ M-w C-y ;-)"
 (defalias 'join-region 'my-join-region)
 
 
-;; TODO: make it work with rect.el too, maybe?
-(defalias 'paste-rectangle-as-text 'yank-rectangle-as-text)
+(defalias 'paste-rectangle-as-text      ; PASTE-... is the correct name!
+  'yank-rectangle-as-text)
+
 (defun yank-rectangle-as-text ()
   "Insert killed rectange as if it was normal text, ie. push
 lines down to make space for it instead of pushing line contents
@@ -356,6 +356,7 @@ Handles prefix arg like `move-beginning-of-line' does."
 
 
 (defun align-comment-end ()
+  "FIXME: docs"
   (interactive)
   (let* ((target 60)
         (line (buffer-line))

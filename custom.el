@@ -274,7 +274,8 @@
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((Lowercase . Yes)
+    ((mangle-whitespace . t)
+     (Lowercase . Yes)
      (Syntax . Common-lisp)
      (Lowercase . YES)
      (Base . 10)

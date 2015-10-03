@@ -51,22 +51,13 @@
 
 (require 'my-pygmentize)
 
-;; that's silly, but it's my first "serious" Elisp, so I keep it around :)
+;; that's silly, but it's my first "real" Elisp, so I keep it around :)
 (require 'my-toggle-true-false)
 
 ;; (eval-after-load "ace-jump-mode"
 ;;   '(ace-jump-mode-enable-mark-sync))
 ;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
-
-;; (require 'etags-update)
-;; It's not used right now because it's muuuch too slow for my Python projects,
-;; and on the other hand it's unwieldy to reindex tags by hand everytime I
-;; change something.
-;; TODO: etags-update - look into it once more before discarding
-;; (etags-update-mode 1)
-;; default tag table file
-;; (visit-tags-table "~/.emacs.d/TAGS")
 
 
 ;;              ____  _____ _____ _____ ___ _   _  ____ ____
@@ -110,12 +101,11 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-key my-toggle-keys (kbd "C-t") 'my-toggle-true-false-none)
+(define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
 
 (global-set-key (kbd "C-c C-l") 'pygmentize)
 (global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
-(global-set-key (kbd "C-M-\"")  'my-toggle-quotes)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<f9>")    'my-make)
@@ -133,6 +123,7 @@
 (define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
 (define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
 
+(require 'helm-ag)
 (require 'swiper)
 (setf ivy-format-function 'my-ivy-format)
 
