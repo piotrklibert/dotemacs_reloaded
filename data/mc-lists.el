@@ -39,6 +39,7 @@
         my-eval-last-sexp
         my-toggle-quotes
         nim-indent-electric-colon
+        nxml-electric-slash
         org-beginning-of-line
         org-cycle
         org-end-of-line

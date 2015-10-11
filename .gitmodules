@@ -94,3 +94,6 @@
 [submodule "forked-plugins/emacs-neotree"]
 	path = forked-plugins/emacs-neotree
 	url = vps:git/forks/emacs-neotree/
+[submodule "forked-plugins/pony-mode"]
+	path = forked-plugins/pony-mode
+	url = vps:git/forks/pony-mode

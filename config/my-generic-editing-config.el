@@ -99,7 +99,7 @@ On error (read-only), quit without selecting."
 (global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
-(global-set-key (kbd "C-x C-d")    'ido-dired)
+(global-set-key (kbd "C-x C-d")    'sr-dired)
 
 (global-set-key (kbd "C-x C-k")    'kill-region)
 (global-set-key (kbd "C-x b")      'helm-buffers-list)

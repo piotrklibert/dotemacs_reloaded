@@ -152,8 +152,10 @@
 (define-key my-find-keys (kbd "C-i")      'idomenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
+
+(autoload 'helm-do-ag-project-root "helm-ag" "" t)
 (define-key my-find-keys (kbd "C-a")      'helm-do-ag-project-root)
-(define-key my-find-keys (kbd "C-M-a")    'ack)
+(define-key my-find-keys (kbd "a")        'ag)
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 

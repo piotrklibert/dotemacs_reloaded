@@ -262,7 +262,7 @@
  '(prolog-electric-colon-flag t)
  '(prolog-electric-dot-flag t)
  '(prolog-indent-width 4)
- '(python-check-command "pyflakes")
+ '(python-check-command "flake8")
  '(quack-programs
    (quote
     ("csi -:c" "mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
@@ -307,7 +307,7 @@
  '(sr-speedbar-auto-refresh nil)
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
- '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el" t)
+ '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))

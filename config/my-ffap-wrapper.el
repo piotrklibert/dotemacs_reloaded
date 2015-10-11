@@ -7,13 +7,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar my-ffap-roots '("/usr/www/tagasauris/tagasauris/"
-                        "/usr/www/tagasauris/tagasauris/statics/"
-                        "/usr/www/tagasauris/tagasauris/templates/"
-                        "/usr/www/tagasauris/"))
+(defvar my-ffap-roots '("/home/cji/projects/donorship/backend/"
+                        "/home/cji/projects/ebundler/code/backend/"))
 
 (defun my-project-ffap (&optional new-win)
-  "A `ffap' replacement which checks for existence of file at
+  "A `ffap' replacement which checks for existence of the file at
 point under a few known directories. Calls original if it's more
 complicated than this."
   (interactive "P")

@@ -21,7 +21,8 @@
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
-                  ;; "~/poligon/luzem/"
+                  "~/poligon/rozcode/"
+                  "~/poligon/bookm/"
                   ;; "~/poligon/lscript/"
                   ))
 

@@ -50,7 +50,6 @@
   "~/.emacs.d/plugins2"
   "~/.emacs.d/forked-plugins/")
 
-
 ;; import macros for checking hostname
 (load "my-system-config")
 
@@ -162,7 +161,8 @@
 (load-indexed "my-vcs-config")
 
 ;; org-mode customizations
-;; (load-indexed "my-org-config")
+(load-indexed "my-org-config")
+
 
 (require 'my-download-page)
 
