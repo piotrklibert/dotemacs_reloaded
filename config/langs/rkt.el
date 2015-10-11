@@ -42,7 +42,7 @@
 
 (add-hook 'scheme-mode-hook 'my-scheme-hook)
 
-(require 'racket-mode)
+(require 'racket-mode-autoloads)
 
 ;; Geiser config
 ;; (require 'geiser)

@@ -66,12 +66,12 @@
 
 
 
-(require 'org)
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(add-hook 'remember-mode-hook 'org-remember-apply-template)
+;; (require 'org)
+;; (setq remember-annotation-functions '(org-remember-annotation))
+;; (setq remember-handler-functions '(org-remember-handler))
+;; (add-hook 'remember-mode-hook 'org-remember-apply-template)
 
-(setq org-src-fontify-natively t)
+;; (setq org-src-fontify-natively t)
 
 ;; (setq org-remember-templates
 ;;      '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i" "~/todo/todo.org" "TASKS")

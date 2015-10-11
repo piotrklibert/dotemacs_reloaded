@@ -1,11 +1,12 @@
 (require 'alchemist)                    ; Elixir REPL
-(require 'coffee-mode)
 (require 'elixir-mode)                  ;
+
+(require 'coffee-mode)
+(require 'livescript-mode)
 (require 'haxe-mode)                    ;
 (require 'io-mode)
-(require 'js2-mode)
+(require 'js2-mode-autoloads)
 (require 'json-mode)
-(require 'livescript-mode)
 (require 'nginx-mode)                   ;
 (require 'nim-mode)                     ;
 (require 'nxml-mode)                    ;
@@ -18,12 +19,13 @@
 (defun load-many (&rest file-list) (dolist (file file-list)
                                      (load/expand file)))
 
-(load-many  "~/.emacs.d/config/langs/el.el"
-            "~/.emacs.d/config/langs/rkt.el"
-            "~/.emacs.d/config/langs/cl.el"
-            "~/.emacs.d/config/langs/prolog.el"
-            ;; "~/.emacs.d/config/langs/j.el"
-            )
+(load-many
+ "~/.emacs.d/config/langs/el.el"
+ "~/.emacs.d/config/langs/rkt.el"
+ "~/.emacs.d/config/langs/cl.el"
+ "~/.emacs.d/config/langs/prolog.el"
+ "~/.emacs.d/config/langs/j.el"
+ )
 
 
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . conf-mode))
@@ -34,8 +36,8 @@
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 
 
-(require 'smalltalk-mode)
-(add-to-list 'auto-mode-alist '("\\.st\\'" . smalltalk-mode))
+;; (require 'smalltalk-mode)
+;; (add-to-list 'auto-mode-alist '("\\.st\\'" . smalltalk-mode))
 
 
 (require 'lua-mode)
@@ -81,7 +83,6 @@
 
 ;;
 ;; Erlang and Distel (Erlang shell integration) config
-;; (require 'erlang-start)
 (require 'erlang)
 (require 'distel)
 

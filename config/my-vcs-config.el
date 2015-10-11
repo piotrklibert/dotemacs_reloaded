@@ -1,15 +1,18 @@
-(require 'git)
-(require 'git-blame)
+;; (require 'git)
+;; (require 'git-blame)
 
-(require 'magit)
-(require 'magit-blame)
+(require 'magit-autoloads)
+
+(autoload
+  'magit-blame "magit-blame"
+  "Major mode for editing Markdown files" t)
+;; (require 'magit-blame)
 
 (define-key magit-mode-map    (kbd "C-w")    my-wnd-keys)
 (define-key mode-specific-map (kbd "C-g")   'magit-status) ; C-c C-g
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame)  ; C-c C-M-g
 
 (defvar my-current-ticket-name nil)
-;; (setq my-current-ticket-name "RPA-6")
 
 (defun my-tagasauris-set-ticket (ticket)
   (interactive "sNew ticket name: ")

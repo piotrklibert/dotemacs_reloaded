@@ -10,18 +10,18 @@
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
 
-;; Two GIANT packages: CEDET and Org-Mode
+;; Two giant packages: CEDET and Org-Mode
 
-;; (unless (featurep 'cedet-devel-load)
-;;   ;; do not load cedet if it's loaded already - happens when using dumped
-;;   ;; emacs with normal init file
-;;   (condition-case nil
-;;       (progn
-;;         (load "~/cedet/cedet-devel-load.el")
-;;         (load "~/cedet/contrib/cedet-contrib-load.el"))
-;;     (error (message (concat "Fetch the latest CEDET package and place it "
-;;                             "inside `~/cedet/'. Remember to `make' it.")))))
-;; 
+(unless (featurep 'cedet-devel-load)
+  ;; do not load cedet if it's loaded already - happens when using dumped
+  ;; emacs with normal init file
+  (condition-case nil
+      (progn
+        (load "~/cedet/cedet-devel-load.el")
+        (load "~/cedet/contrib/cedet-contrib-load.el"))
+    (error (message (concat "Fetch the latest CEDET package and place it "
+                            "inside `~/cedet/'. Remember to `make' it.")))))
+
 
 (add-to-list 'load-path "~/portless/org-mode/lisp/")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
@@ -162,8 +162,7 @@
 (load-indexed "my-vcs-config")
 
 ;; org-mode customizations
-(load-indexed "my-org-config")
-
+;; (load-indexed "my-org-config")
 
 (require 'my-download-page)
 
