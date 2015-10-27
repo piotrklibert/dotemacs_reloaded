@@ -9,22 +9,19 @@
   '(progn
     (define-key magit-mode-map    (kbd "C-w")    my-wnd-keys)))
 
-(eval-after-load "magit-blame"
-  '(add-hook 'magit-blame-mode-hook
-             'my-magit-blame-hook))
-
 
 (define-key mode-specific-map (kbd "C-g")   'magit-status) ; C-c C-g
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame) ; C-c C-M-g
 
 
-(defun my-magit-blame-hook ()
-  (if magit-blame-mode
-      (fci-mode -1)
-    (fci-mode 1)))
-
-
-
+;; customize: magit-blame-disable-modes instead of this hook
+;; (eval-after-load "magit-blame"
+;;   '(add-hook 'magit-blame-mode-hook
+;;              'my-magit-blame-hook))
+;; (defun my-magit-blame-hook ()
+;;   (if magit-blame-mode
+;;       (fci-mode -1)
+;;     (fci-mode 1)))
 
 
 (define-key git-commit-mode-map

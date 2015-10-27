@@ -2,7 +2,7 @@
 (require 'pp)
 (require 'electric)
 (require 'thingatpt)
-(require 'powerline)
+
 (require 'rainbow-mode)
 (require 'fic-ext-mode)
 (require 'rainbow-delimiters)
@@ -77,7 +77,7 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
 ;;(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
-(semantic-mode 1)
+;; (semantic-mode 1)
 
 
 (turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch

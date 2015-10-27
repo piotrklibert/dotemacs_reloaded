@@ -11,6 +11,7 @@
         c-electric-colon
         c-electric-delete-forward
         coffee-dedent-line-backspace
+        comment-dwim
         comment-or-uncomment-region-or-line
         company-abort
         delete-indentation

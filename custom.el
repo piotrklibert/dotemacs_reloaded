@@ -84,6 +84,7 @@
     (flymake-checkers-coffee flymake-checkers-emacs-lisp flymake-checkers-php flymake-checkers-python-flake8 flymake-checkers-python-pyflakes flymake-checkers-ruby flymake-checkers-php flymake-checkers-sh flymake-checkers-sh-bash flymake-checkers-sh-zsh flymake-checkers-tex)))
  '(flymake-no-changes-timeout 5)
  '(flymake-start-syntax-check-on-newline t)
+ '(fringe-mode (quote (10 . 8)) nil (fringe))
  '(fuzzy-accept-error-rate 0.2)
  '(geiser-mode-auto-p nil)
  '(git-commit-mode-hook
@@ -103,6 +104,7 @@
  '(helm-M-x-always-save-history t)
  '(helm-adaptive-mode t nil (helm-adaptive))
  '(helm-ag-ignore-patterns (quote ("#*")))
+ '(helm-ag-insert-at-point (quote sexp))
  '(helm-ag-use-agignore t)
  '(helm-ag-use-grep-ignore-list t)
  '(helm-bookmark-show-location t)
@@ -146,6 +148,8 @@
  '(image-dired-thumb-width 250)
  '(imenu-sort-function (quote imenu--sort-by-name))
  '(imenu-use-popup-menu nil)
+ '(indicate-buffer-boundaries nil)
+ '(indicate-empty-lines t)
  '(inferior-lisp-program "/home/cji/ccl/lx86cl64" t)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
@@ -257,6 +261,9 @@
  '(package-selected-packages
    (quote
     (w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
+ '(powerline-default-separator (quote rounded))
+ '(powerline-height nil)
+ '(powerline-text-scale-factor nil)
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 2)
  '(prolog-electric-colon-flag t)
@@ -349,6 +356,10 @@
  '(j-verb-face ((t (:foreground "dark cyan"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
+ '(powerline-active1 ((t (:inherit mode-line :background "gray22"))))
+ '(powerline-active2 ((t (:inherit mode-line :background "gray40"))))
+ '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray11"))))
+ '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray20"))))
  '(swiper-line-face ((t (:inherit highlight :background "black"))))
  '(swiper-match-face-1 ((t (:inherit isearch-lazy-highlight-face :background "black"))))
  '(swiper-match-face-2 ((t (:inherit isearch :background "black"))))

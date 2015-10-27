@@ -112,8 +112,9 @@ backend process."
    ;; t for REQUIRE-MATCH means that we will get fully expanded/completed name
    ;; even if user hits return without completing the name (ie. pr<return>
    ;; instead of pr<tab><enter>)
-   (list (ido-completing-read "Choose the set of root dirs: "
-                          fuzzy-find-root-names nil t "" 'fuzzy-find-root-names)))
+   (let ((fuzzy-find-root-names (copy-seq fuzzy-find-root-names)))
+    (list (ido-completing-read "Choose the set of root dirs: "
+                               fuzzy-find-root-names nil t "" 'fuzzy-find-root-names))))
   (let*
       ((root-set-symbol (intern root-set-name))
        (dirs (cdr (assoc root-set-symbol fuzzy-find-roots))))

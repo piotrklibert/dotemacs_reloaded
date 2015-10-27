@@ -127,6 +127,7 @@ On error (read-only), quit without selecting."
 
 
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
+(define-key my-toggle-keys (kbd "ł") 'toggle-truncate-lines)
 
 
 ;; Use remap because setting a C-a key would potentially conflict with other

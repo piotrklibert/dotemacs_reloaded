@@ -21,6 +21,8 @@
 (require 'sunrise-x-tree)
 (require 'sunrise-x-modeline)
 
+(require 'my-powerline-config)
+
 (defun sr-y-n-or-a-p (prompt)
     "Ask the user with PROMPT for an answer y/n/a ('a' stands for 'always').
 Returns t if the answer is y/Y, nil if the answer is n/N or the

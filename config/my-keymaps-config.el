@@ -11,14 +11,14 @@
   (interactive)
   (unless (stringp map)
     (setq map (symbol-name map)))
-  (ag-regexp (concat "(global-set-|define-)key.*" "")
+  (ag-regexp (concat "(global-set-|define-)key.*" map)
              "/home/cji/.emacs.d/config/"))
 
 
 ;; Mainly used for toggling things, invoking commands that used twice on
 ;; the same thing do nothing.
 (define-prefix-command 'my-toggle-keys)
-(global-set-key (kbd "C-t") 'my-toggle-keys)
+(global-set-key (kbd "þ") 'my-toggle-keys)
 ;; (find-my-bindings-for 'my-toggle-keys)
 
 
