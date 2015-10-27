@@ -5,11 +5,46 @@
 ;; * one line message only
 ;; * notify about failure too
 
-;; (setq org-html-htmlize-output-type 'inline-css) ;; default
+
+(defun my-org-hook ()
+  (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
+  (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
+  (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
+  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
+  (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading))
+
+(add-hook 'org-mode-hook 'my-org-hook)
+
+
+(defun my-tangle-and-run ()
+  (interactive)
+  (load-theme 'whiteboard)
+  (org-html-export-to-html)
+  (org-babel-tangle)
+  (load-theme 'wombat)
+  (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null"))
+
+(global-set-key (kbd "s-c") 'my-tangle-and-run)
+
+(global-set-key (kbd "<kp-up>")     'org-previous-visible-heading)
+(global-set-key (kbd "<kp-down>")   'org-next-visible-heading)
+(global-set-key (kbd "C-<kp-up>")   'org-previous-block)
+(global-set-key (kbd "C-<kp-down>") 'org-next-block)
+
 (setq org-html-htmlize-output-type 'inline-css)
+(setq org-html-htmlize-font-prefix "")
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+(setq org-directory "~/todo/")
+(setq org-agenda-files (list "~/todo/"))
+(setq org-mobile-directory "~/orgmobile/")
+(setq org-mobile-inbox-for-pull "~/todo/mobile-pull.org")
+(setq org-default-notes-file "~/todo/notes")
+
+
+(org-clock-persistence-insinuate)
+
 ;; (setq org-html-htmlize-font-prefix "") ;; default
 ;; (setq org-html-htmlize-font-prefix "org-")
-(setq org-html-htmlize-font-prefix "")
 
 
 (setq org-structure-template-alist
@@ -39,15 +74,6 @@
 
 
 
-(setq org-treat-S-cursor-todo-selection-as-state-change nil)
-
-(setq org-directory "~/todo/")
-(setq org-agenda-files (list "~/todo/"))
-(setq org-mobile-directory "~/orgmobile/")
-(setq org-mobile-inbox-for-pull "~/todo/mobile-pull.org")
-
-(setq org-default-notes-file "~/todo/notes")
-(org-clock-persistence-insinuate)
 
 
 
@@ -55,29 +81,20 @@
 
 (add-to-list 'org-src-lang-modes '("ls" . livescript))
 
-(setq org-babel-load-languages '((emacs-lisp . t)
-                                 (python . t)
-                                 (scheme . t)
-                                 (js . t)
-                                 (ls . t)
-                                 (livescript . t)
-                                 (io . t)))
+(setq org-babel-load-languages
+      (--map (cons it t)
+             '(emacs-lisp python scheme js ls livescript io)))
 
 
-
-
-;; (require 'org)
-;; (setq remember-annotation-functions '(org-remember-annotation))
-;; (setq remember-handler-functions '(org-remember-handler))
-;; (add-hook 'remember-mode-hook 'org-remember-apply-template)
-
+;; This is the default, but it didn't work for me for some reason. It then
+;; started working suddenly...
 ;; (setq org-src-fontify-natively t)
 
-;; (setq org-remember-templates
-;;      '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i" "~/todo/todo.org" "TASKS")
-;;        ("Post" ?p "* %T %^{topic}\n %?" "~/todo/posty.org")
-;;        ("Journal" ?j "* %T\n\t%?" "~/todo/journal.org")
-;;        ("Browsing" ?j "* %T\n\t%?" "~/todo/journal.org")))
+(setq org-remember-templates
+     '(("Todo" ?t "* TODO %? %^g\nAdded: %U\n%i" "~/todo/todo.org" "TASKS")
+       ("Post" ?p "* %T %^{topic}\n %?" "~/todo/posty.org")
+       ("Journal" ?j "* %T\n\t%?" "~/todo/journal.org")
+       ("Browsing" ?j "* %T\n\t%?" "~/todo/journal.org")))
 
 
 (setq org-capture-templates
@@ -127,92 +144,6 @@
                 ((org-agenda-overriding-header "Notes")
                  (org-tags-match-list-sublevels nil)))))))
 
-;; '((" " "Agenda"
-;;    ((agenda "" nil)
-;;     (tags "REFILE"
-;;           ((org-agenda-overriding-header "Tasks to Refile")
-;;            (org-tags-match-list-sublevels nil)))
-;;     (tags-todo "-CANCELLED/!"
-;;                ((org-agenda-overriding-header "Stuck Projects")
-;;                 (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-;;                 (org-agenda-sorting-strategy
-;;                  '(priority-down category-keep))))
-;;     (tags-todo "-HOLD-CANCELLED/!"
-;;                ((org-agenda-overriding-header "Projects")
-;;                 (org-agenda-skip-function 'bh/skip-non-projects)
-;;                 (org-agenda-sorting-strategy
-;;                  '(priority-down category-keep))))
-;;     (tags-todo "-CANCELLED/!NEXT"
-;;                ((org-agenda-overriding-header "Project Next Tasks")
-;;                 (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-;;                 (org-tags-match-list-sublevels t)
-;;                 (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-sorting-strategy
-;;                  '(priority-down todo-state-down effort-up category-keep))))
-;;     (tags-todo "-REFILE-CANCELLED-WAITING/!"
-;;                ((org-agenda-overriding-header (if (marker-buffer org-agenda-restrict-begin) "Project Subtasks" "Standalone Tasks"))
-;;                 (org-agenda-skip-function 'bh/skip-project-tasks-maybe)
-;;                 (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-sorting-strategy
-;;                  '(category-keep))))
-;;     (tags-todo "-CANCELLED+WAITING/!"
-;;                ((org-agenda-overriding-header "Waiting and Postponed Tasks")
-;;                 (org-agenda-skip-function 'bh/skip-stuck-projects)
-;;                 (org-tags-match-list-sublevels nil)
-;;                 (org-agenda-todo-ignore-scheduled 'future)
-;;                 (org-agenda-todo-ignore-deadlines 'future)))
-;;     (tags "-REFILE/"
-;;           ((org-agenda-overriding-header "Tasks to Archive")
-;;            (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-;;            (org-tags-match-list-sublevels nil))))
-;;    nil))
-
-;; Custom agenda command definitions
-;; (
-;;       (quote
-
-;;               ("h" "Habits" tags-todo "STYLE=\"habit\""
-;;                ((org-agenda-overriding-header "Habits")
-;;                 (org-agenda-sorting-strategy
-;;                  '(todo-state-down effort-up category-keep))))
-
-;;               ("r" "Tasks to Refile" tags "REFILE"
-;;                ((org-agenda-overriding-header "Tasks to Refile")
-;;                 (org-tags-match-list-sublevels nil)))
-;;               ("#" "Stuck Projects" tags-todo "-CANCELLED/!"
-;;                ((org-agenda-overriding-header "Stuck Projects")
-;;                 (org-agenda-skip-function 'bh/skip-non-stuck-projects)))
-;;               ("n" "Next Tasks" tags-todo "-WAITING-CANCELLED/!NEXT"
-;;                ((org-agenda-overriding-header "Next Tasks")
-;;                 (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-;;                 (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                 (org-tags-match-list-sublevels t)
-;;                 (org-agenda-sorting-strategy
-;;                  '(todo-state-down effort-up category-keep))))
-;;               ("R" "Tasks" tags-todo "-REFILE-CANCELLED/!-HOLD-WAITING"
-;;                ((org-agenda-overriding-header "Tasks")
-;;                 (org-agenda-skip-function 'bh/skip-project-tasks-maybe)
-;;                 (org-agenda-sorting-strategy
-;;                  '(category-keep))))
-;;               ("p" "Projects" tags-todo "-HOLD-CANCELLED/!"
-;;                ((org-agenda-overriding-header "Projects")
-;;                 (org-agenda-skip-function 'bh/skip-non-projects)
-;;                 (org-agenda-sorting-strategy
-;;                  '(category-keep))))
-;;               ("w" "Waiting Tasks" tags-todo "-CANCELLED+WAITING/!"
-;;                ((org-agenda-overriding-header "Waiting and Postponed tasks"))
-;;                (org-tags-match-list-sublevels nil))
-;;               ("A" "Tasks to Archive" tags "-REFILE/"
-;;                ((org-agenda-overriding-header "Tasks to Archive")
-;;                 (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-;;                 (org-tags-match-list-sublevels nil))))))
-
 
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
@@ -240,16 +171,7 @@
     (org-table-recalculate)))
 
 
-(defun my-org-hook ()
-  ;; (define-key org-mode-map (kbd "<f4>")         'swap-cells)  ; orgtbl mode
-  (define-key org-mode-map (kbd "C-c <up>")     'outline-previous-visible-heading)
-  (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
-  (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
-  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
-  (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading))
 
-
-(add-hook 'org-mode-hook 'my-org-hook)
 
 
 ;; org-goto-interface
@@ -294,7 +216,7 @@ e.g. Sunday, September 17, 2000."
 ;; \___/|_| \_\\____|     |_|    \___/|____/|_| |_/_/  |_|    \___/|_____|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; YaSnippet: mo - insert my-org defun
+;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'deferred)
@@ -348,6 +270,10 @@ e.g. Sunday, September 17, 2000."
       (deferred:nextc it (lambda (out)
                            (message "rsync finished" out)
                            (deferred:succeed out))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 

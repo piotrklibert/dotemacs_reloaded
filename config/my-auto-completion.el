@@ -23,16 +23,17 @@
 ;; "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets"
 (yas-global-mode 1)
 
-(setq my-ac-fci-was-enabled? nil)
+(defvar my-ac-fci-was-enabled? nil)
+(make-variable-buffer-local 'my-ac-fci-was-enabled?)
+
 ;; FCI-mode is problematic and makes ac popups become tangled sometimes, so
 ;; it's safer to turn it off while completion is taking place
 (defadvice ac-menu-create (before ac-menu-create-adv activate)
   (setq my-ac-fci-was-enabled? fci-mode)
-  (fci-mode -1)
-  )
+  (fci-mode -1))
+
 (defadvice ac-menu-delete (after ac-menu-delete-adv activate)
-  (when my-ac-fci-was-enabled? (fci-mode 1))
-  )
+  (when my-ac-fci-was-enabled? (fci-mode 1)))
 
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
