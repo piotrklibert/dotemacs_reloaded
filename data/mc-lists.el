@@ -19,8 +19,10 @@
         electric-newline-and-maybe-indent
         electric-pair-backward-delete-char
         electric-pair-delete-pair
+        elpy-nav-forward-indent
         elscreen-create
         end-of-buffer
+        end-of-visual-line
         erlang-electric-comma
         eval-last-sexp
         forward-sexp
@@ -33,6 +35,7 @@
         keyboard-escape-quit
         kill-region
         kill-sexp
+        kill-visual-line
         livescript-dedent-line-backspace
         mark-lines-next-line
         mark-word
@@ -45,6 +48,8 @@
         org-cycle
         org-end-of-line
         org-force-self-insert
+        org-metaleft
+        org-metaright
         org-self-insert-command
         org-shiftcontrolleft
         org-yank

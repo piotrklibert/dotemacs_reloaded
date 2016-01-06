@@ -1263,20 +1263,18 @@ Use \\[toggle-read-only] to permit editing."
 
 ;; GNU Emacs
 
-(defvar elscreen-e21-mode-line-string "[0]")
-(defun elscreen-e21-mode-line-update ()
-  (when (elscreen-screen-modified-p 'elscreen-e21-mode-line-update)
-    (setq elscreen-e21-mode-line-string
-          (format "[%d]" (elscreen-get-current-screen)))
-    (force-mode-line-update)))
-
-(let ((point (memq 'mode-line-position mode-line-format))
-      (elscreen-mode-line-elm '(elscreen-display-screen-number
-                                (" " elscreen-e21-mode-line-string))))
-  (when (null (member elscreen-mode-line-elm mode-line-format))
-    (setcdr point (cons elscreen-mode-line-elm (cdr point)))))
-
-(add-hook 'elscreen-screen-update-hook 'elscreen-e21-mode-line-update)
+;; (defvar elscreen-e21-mode-line-string "[0]")
+;; (defun elscreen-e21-mode-line-update ()
+;;   (when (elscreen-screen-modified-p 'elscreen-e21-mode-line-update)
+;;     (setq elscreen-e21-mode-line-string
+;;           (format "[%d]" (elscreen-get-current-screen)))
+;;     (force-mode-line-update)))
+;; (let ((point (memq 'mode-line-position mode-line-format))
+;;       (elscreen-mode-line-elm '(elscreen-display-screen-number
+;;                                 (" " elscreen-e21-mode-line-string))))
+;;   (when (null (member elscreen-mode-line-elm mode-line-format))
+;;     (setcdr point (cons elscreen-mode-line-elm (cdr point)))))
+;; (add-hook 'elscreen-screen-update-hook 'elscreen-e21-mode-line-update)
 
   ;; Menu
 

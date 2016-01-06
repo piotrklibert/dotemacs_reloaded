@@ -95,7 +95,7 @@ hiding the results buffer."
 different window, according to `ag-open-in-other-window'."
   (if ag-reuse-window
       ;; prevent changing the window
-      (flet ((pop-to-buffer (buffer &rest args)
+      (cl-flet ((pop-to-buffer (buffer &rest args)
                             (switch-to-buffer buffer)))
         (compilation-next-error-function n reset))
     ;; just navigate to the results as normal

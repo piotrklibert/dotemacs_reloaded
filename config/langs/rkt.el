@@ -7,32 +7,28 @@
 
 
 (require 'scheme)
-
-(defun indent/tag-for-modes (modes tags)
-  (loop for tag in tags
-        do (loop for mode in modes
-                 do (put (car tag) mode (cdr tag)))))
-
+(require 'lang-utils)
 
 
 (indent/tag-for-modes
-    '(scheme-indent-function racket-indent-function)
+    '(scheme-indent-function
+      racket-indent-function)
   '((serve/servlet . 1)
     (send-resp! . 1)
     (~> . 1)
     (call-with-semaphore . 1)
     (response/full . 3)
-    (with-semaphore . 1)))
+    (with-semaphore . 1)
+    (check-exn . 1)
+    (run-movie . 1)))
 
 
-(loop for mode in '(scheme-mode racket-mode lisp-mode)
+(loop for mode in '(scheme-mode racket-mode)
       do (font-lock-add-keywords mode
-           '(
-             ("prog1" . font-lock-keyword-face)
-             ("send-resp!" . font-lock-keyword-face)
+           '(("send-resp!" . font-lock-keyword-face)
+             ("serve/servlet" . font-lock-keyword-face)
              ("send/suspend" . font-lock-builtin-face)
-             ("defcommand" . font-lock-keyword-face)
-             )))
+             ("defcommand" . font-lock-keyword-face))))
 
 (defun my-scheme-hook ()
   (paredit-mode)

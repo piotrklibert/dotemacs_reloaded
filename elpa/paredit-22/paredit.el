@@ -761,7 +761,7 @@ If such a comment exists, delete the comment (including all leading
                (not n)
                (prog1 (region-end) (goto-char (region-beginning))))))
     (let ((spacep (paredit-space-for-delimiter-p nil open)))
-      (if spacep (insert " "))
+      ;; (if spacep (insert " "))
       (insert open)
       (save-excursion
         ;; Move past the desired region.

@@ -14,12 +14,14 @@
 (require 'tuareg)                       ; OCaml mode and REPL
 (require 'web-mode)                     ;
 
+(load "txr-mode.el")
 
 (defun load/expand (fname) (load (f-expand fname)))
 (defun load-many (&rest file-list) (dolist (file file-list)
                                      (load/expand file)))
 
 (load-many
+ "~/.emacs.d/config/langs/lang-utils.el"
  "~/.emacs.d/config/langs/el.el"
  "~/.emacs.d/config/langs/rkt.el"
  "~/.emacs.d/config/langs/cl.el"

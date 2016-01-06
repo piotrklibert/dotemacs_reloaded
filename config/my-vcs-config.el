@@ -1,6 +1,9 @@
 (require 'git-commit)
 (require 'magit-autoloads)
-
+(require 'pcase)
+(require 'gh)
+(require 'magit-gh-pulls)
+(add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
 (autoload
   'magit-blame "magit-blame"
   "Major mode for editing Markdown files" t)

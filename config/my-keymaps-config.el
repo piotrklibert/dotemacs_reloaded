@@ -37,4 +37,10 @@
 ;; Keys related to moving, rearrangind and killing buffers and windows.
 (define-prefix-command 'my-wnd-keys)
 (global-set-key (kbd "C-w") 'my-wnd-keys)
+
+(defun my-calc-hook ()
+  (message "calc hook")
+  (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys))
+(add-hook 'calc-mode-hook 'my-calc-hook)
+(define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)
 ;; (find-my-bindings-for 'my-wnd-keys)

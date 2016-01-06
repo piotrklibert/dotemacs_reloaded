@@ -142,7 +142,7 @@
        cands "\n"))))
 
 
-(define-key my-find-keys (kbd "o")      'helm-occur)
+(define-key my-find-keys (kbd "o")        'helm-occur)
 (define-key my-find-keys (kbd "C-o")      'swiper)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
@@ -155,7 +155,7 @@
 
 (autoload 'helm-do-ag-project-root "helm-ag" "" t)
 (define-key my-find-keys (kbd "C-a")      'helm-do-ag-project-root)
-(define-key my-find-keys (kbd "a")        'ag)
+(define-key my-find-keys (kbd "a")        'helm-do-ag)
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 

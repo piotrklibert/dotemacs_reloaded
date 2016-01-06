@@ -134,6 +134,12 @@ On error (read-only), quit without selecting."
 ;; enhancements to beginning-of-line (like in Org mode).
 (global-set-key [remap move-beginning-of-line]
                 'back-to-indentation-or-beginning)
+(global-set-key (kbd "C-a")
+                'back-to-indentation-or-beginning)
+
+
+;; no idea where or why I overriden default <return> function in isearch...
+(define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
 
 
 ;;                        _   _  ___   ___  _  ______
@@ -279,7 +285,6 @@ to the right."
   (newline))
 
 
-
 (defun my-unix-line-endings (&optional save)
   "Make current file's newlines converted to unix format if they
 are not already."
@@ -330,7 +335,6 @@ Handles prefix arg like `move-beginning-of-line' does."
     (move-beginning-of-line 1)
     (when (= orig-point (point))
       (back-to-indentation))))
-
 
 
 (defmacro like-this-maker (name dir)

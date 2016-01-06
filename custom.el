@@ -8,7 +8,7 @@
  '(ac-disable-faces nil)
  '(ac-modes
    (quote
-    (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 lisp-mode slime-repl-mode scala-mode)))
+    (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 lisp-mode slime-repl-mode scala-mode txr-mode)))
  '(ac-quick-help-delay 0.4)
  '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
@@ -21,6 +21,8 @@
  '(blink-cursor-mode nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
+ '(calendar-date-style (quote european))
+ '(calendar-week-start-day 1)
  '(coffee-tab-width 4)
  '(column-number-mode t)
  '(company-backends
@@ -94,6 +96,8 @@
  '(global-auto-revert-non-file-buffers t)
  '(global-git-commit-mode t)
  '(global-linum-mode nil)
+ '(global-visible-mark-mode-exclude-alist (quote ("*\\.\\**")))
+ '(global-visual-line-mode t)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
@@ -157,8 +161,44 @@
  '(ivy-display-style (quote fancy))
  '(ivy-height 10)
  '(ivy-wrap t)
+ '(jabber-account-list
+   (quote
+    (("klibertpiotr@10clouds.xmpp.slack.com"
+      (:disabled . t)
+      (:password . "10clouds.Cixe46iDhcqIeU0hj7SO")
+      (:network-server . "10clouds.xmpp.slack.com")
+      (:connection-type . starttls))
+     ("cji@direct.klibert.pl"
+      (:password . "cji")
+      (:network-server . "direct.klibert.pl")
+      (:connection-type . starttls)))))
+ '(jabber-alert-info-message-hooks (quote (jabber-info-echo jabber-info-display)))
+ '(jabber-alert-message-function (quote my-jabber-message-default-message))
+ '(jabber-alert-message-hooks
+   (quote
+    (jabber-message-stumpwm jabber-message-tmux jabber-message-beep jabber-message-echo jabber-message-display jabber-message-scroll)))
+ '(jabber-alert-muc-hooks
+   (quote
+    (jabber-muc-stumpwm jabber-muc-echo jabber-muc-scroll)))
+ '(jabber-alert-presence-hooks
+   (quote
+    (jabber-presence-stumpwm-presence jabber-presence-echo)))
+ '(jabber-auto-reconnect t)
+ '(jabber-backlog-days 300)
+ '(jabber-backlog-number 80)
+ '(jabber-chat-foreign-prompt-format "[%t] %n>
+")
+ '(jabber-chat-local-prompt-format "[%t] %n>
+")
+ '(jabber-connection-ssl-program (quote openssl))
+ '(jabber-groupchat-prompt-format "[%t] %n>
+")
+ '(jabber-history-enabled t)
+ '(jabber-invalid-certificate-servers (quote ("klibert.pl" "direct.klibert.pl")))
+ '(jabber-reconnect-delay 15)
  '(jedi:complete-on-dot t)
  '(js-indent-level 2)
+ '(js2-basic-offset 2)
  '(less-css-indent-level 4)
  '(linum-delay t)
  '(livescript-tab-width 4)
@@ -179,6 +219,7 @@
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("~/todo/")))
  '(org-archive-location "todo.archive::datetree/* From %s")
+ '(org-babel-js-cmd "/home/cji/software/nodejs/bin/node")
  '(org-babel-load-languages
    (quote
     ((emacs-lisp . t)
@@ -260,7 +301,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
+    (jabber w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
  '(powerline-default-separator (quote rounded))
  '(powerline-height nil)
  '(powerline-text-scale-factor nil)
@@ -303,8 +344,10 @@
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 4)
  '(shell-file-name "/bin/bash")
- '(shell-prompt-pattern "# ")
  '(show-paren-mode t)
+ '(slime-repl-history-file "~/.emacs.d/data/slime-history.eld")
+ '(slime-repl-history-remove-duplicates t)
+ '(slime-repl-history-trim-whitespaces t)
  '(speedbar-default-position (quote left))
  '(speedbar-hide-button-brackets-flag t)
  '(speedbar-show-unknown-files t)
@@ -315,13 +358,14 @@
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
+ '(starttls-extra-arguments (quote ("--insecure")))
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(tags-revert-without-query t)
  '(tool-bar-mode nil)
  '(tramp-backup-directory-alist (quote (("." . "~/.saves"))))
- '(tramp-default-host "localhost")
+ '(tramp-verbose 5)
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
  '(undo-tree-auto-save-history t)
@@ -331,6 +375,7 @@
  '(uniquify-strip-common-suffix t)
  '(uniquify-trailing-separator-p t)
  '(visible-mark-max 3)
+ '(visual-line-fringe-indicators (quote (nil nil)))
  '(web-mode-code-indent-offset 4)
  '(web-mode-comment-style 1)
  '(web-mode-css-indent-offset 2)

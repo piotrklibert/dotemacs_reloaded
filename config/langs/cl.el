@@ -5,6 +5,10 @@
 (setq slime-contribs '(slime-fancy))
 (require 'slime-autoloads)
 
+(font-lock-add-keywords 'lisp-mode
+  '(("defcommand" . font-lock-keyword-face)
+    ("defstruct"       . font-lock-keyword-face)))
+
 (defun my-lisp-hook ()
   (interactive)
   (paredit-mode 1))

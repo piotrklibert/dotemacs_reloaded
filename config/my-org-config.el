@@ -22,7 +22,8 @@
   (org-html-export-to-html)
   (org-babel-tangle)
   (load-theme 'wombat)
-  (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null"))
+  ;; (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null")
+  )
 
 (global-set-key (kbd "s-c") 'my-tangle-and-run)
 

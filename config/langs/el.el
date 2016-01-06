@@ -1,11 +1,19 @@
 ;;
 ;; Emacs Lisp mode tweaks
 ;;
-
+(require 'subr-x)
 (require 'paredit-autoloads)
+(require 'lang-utils)
 
-(put 'font-lock-add-keywords 'lisp-indent-function 1)
-(put 'indent/tag-for-modes 'lisp-indent-function 1)
+
+(indent/tag-for-modes
+    '(lisp-indent-function)
+  '((font-lock-add-keywords . 1)
+    (run-at-time . 2)
+    (define-frame-preference . 1)
+    (run-with-timer . 2)
+    (indent/tag-for-modes . 1)))
+
 
 (font-lock-add-keywords 'emacs-lisp-mode
   '(("eval-after-load" . font-lock-keyword-face)
@@ -14,8 +22,9 @@
     ("\bit\b"          . font-lock-builtin-face)))
 
 
-;; no idea where or why I overriden default <return> function in isearch...
-(define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
+
+(defalias '-> 'thread-first)
+(defalias '->> 'thread-last)
 
 (defun my-interactive-byte-compile ()
   (interactive)
@@ -25,11 +34,13 @@
   (interactive "P")
   (cond
    ((not arg) (call-interactively 'eval-last-sexp))
-   ;; TODO: add ability for inserting result without pp via C-u C-u
    (t (call-interactively 'pp-eval-last-sexp))))
 
 
 
+;;
+;; Emacs Lisp hook
+;;
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
@@ -49,7 +60,9 @@
 
 
 
-
+;;
+;; Eshell hook
+;;
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 (defun my-eshell-hook ()
   (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)
@@ -57,13 +70,3 @@
   (define-key eshell-mode-map (kbd "<down>") 'next-line)
   (define-key eshell-mode-map [remap kill-whole-line] 'eshell-kill-input)
   )
-
-(require 'subr-x)
-(defalias '-> 'thread-first)
-(defalias '->> 'thread-last)
-
-
-
-(list 3 4 5 '(76 5))
-'(3 :asd 5
-   (76 5))

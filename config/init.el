@@ -1,7 +1,9 @@
 ;; (package-initialize)
-
+(require 'calc)
 (fringe-mode     '(4 . 8))
 ;; disable early so they don't appear during startup
+
+(setf frame-title-format "Emacs starting...")
 (menu-bar-mode    1)
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
@@ -119,7 +121,13 @@
 
 ;; schedule starting of Emacs server after everything else is loaded (5 min
 ;; *should* be enough for startup :))
-(run-at-time "5 min" nil 'server-start)
+;; DISABLED: I don't like the warning that pops up if there is another server
+;; running already
+;; (defun my-start-server ()
+;;   (condition-case nil
+;;       (server-start)
+;;     (nil nil)))
+;; (run-at-time "5 min" nil 'server-start)
 
 (defmacro load-indexed (arg)
   (list 'load arg))
@@ -128,7 +136,6 @@
 (load-indexed "my-keymaps-config")
 
 ;; Make pressing <return> mean "yes" in minibufer
-;; TODO: teach Sunrise Commander the same trick
 (load-indexed "my-minibuf-prompt")
 
 ;; Settings and additional functionality for auto-completion and snippets
@@ -163,6 +170,8 @@
 ;; org-mode customizations
 (load-indexed "my-org-config")
 
+;; JABBER.el (XMPP) settings
+(load-indexed "my-jabber")
 
 (require 'my-download-page)
 

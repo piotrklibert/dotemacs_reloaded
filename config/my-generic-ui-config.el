@@ -23,23 +23,16 @@
 
 (require 'my-powerline-config)
 
-(defun sr-y-n-or-a-p (prompt)
-    "Ask the user with PROMPT for an answer y/n/a ('a' stands for 'always').
-Returns t if the answer is y/Y, nil if the answer is n/N or the
-symbol `ALWAYS' if the answer is a/A."
-    (setq prompt (concat prompt "([y]es/<return>, [n]o or [a]lways)"))
-    (let ((resp -1))
-      (while (not (memq resp '(?y ?Y ?n ?N ?a ?A 10 return)))
-        (setq resp (read-event prompt))
-        (setq prompt "Please answer [y]es/<return>, [n]o or [a]lways "))
-      (if (and (numberp resp) (>= resp 97))
-          (setq resp (- resp 32)))
-      (case resp
-        (?Y t)
-        (10 t)
-        ('return t)
-        (?A 'ALWAYS)
-        (t nil))))
+;; Frame TITLE (displayed on StumpWM mode-line (or on the title bar))
+(setf frame-title-format
+      '("Emacs - "
+        (:eval (condition-case nil
+                   (car (reverse (s-split "/" buffer-file-name)))
+                 (error (buffer-name))))
+        ":"
+        (:eval (s-replace "/home/cji/" "~/" default-directory))))
+
+
 
 (define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
 
@@ -190,6 +183,7 @@ symbol `ALWAYS' if the answer is a/A."
 
 (define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
 (define-key my-bookmarks-keys (kbd "C-l") 'helm-bookmarks)
+(define-key my-bookmarks-keys (kbd "M-l") 'edit-bookmarks)
 (define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
 
 ;; Use iDo for fast buffer switching
@@ -256,12 +250,16 @@ symbol `ALWAYS' if the answer is a/A."
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
 ;;                   type            key       file ext     default path
-(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/todo/")
 (make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
+(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon")
+(make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
 (make-buffer-opener python       (kbd "C-p")    ".py"      "~/poligon/python/")
-(make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/")
-(make-buffer-opener artist       (kbd "C-a")    ".art.txt" "~/poligon/")
+(make-buffer-opener racket       (kbd "C-r")    ".rkt"     "~/poligon/rkt/")
 (make-buffer-opener livescript   (kbd "C-j")    ".ls"      "~/poligon/lscript/")
+(make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/config/")
+(make-buffer-opener erlang       (kbd "C-o")    ".erl"     "~/poligon/")
+(make-buffer-opener elixir       (kbd "C-o")    ".ex"      "~/poligon/")
+(make-buffer-opener ocaml        (kbd "C-o")    ".ml"      "~/poligon/")
 
 
 (setq my-new-buffer-helm-source
