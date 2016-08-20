@@ -21,10 +21,13 @@
 
 ;; Interactive dev settings
 (setq slime-contribs '(slime-fancy))
-(setq inferior-lisp-program "/bin/sbcl")
 (require 'slime-autoloads)
 
+(if-hostname "Pior Klibert Mac"
+  (setq inferior-lisp-program "/usr/local/bin/sbcl"))
 
-(run-at-time "1 sec" nil
-  (lambda ()
-    (slime-connect "127.0.0.1" 4005)))
+(if-hostname f23
+  (setq inferior-lisp-program "/bin/sbcl")
+  (run-at-time "1 sec" nil
+    (lambda ()
+      (slime-connect "127.0.0.1" 4005))))

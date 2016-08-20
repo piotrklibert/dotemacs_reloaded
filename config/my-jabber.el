@@ -26,6 +26,8 @@
 (define-key jabber-roster-mode-map (kbd "<f5>") 'jabber-reconnect)
 
 
+(defadvice jabber-display-roster (after switch-to-roster activate)
+  (switch-to-buffer "*-jabber-roster-*"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                   ALERTS

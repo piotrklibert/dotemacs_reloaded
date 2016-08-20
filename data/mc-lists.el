@@ -102,6 +102,7 @@
         dired-previous-line
         elscreen-next
         elscreen-previous
+        helm-occur
         ibuffer
         ido-find-file
         iedit-mode

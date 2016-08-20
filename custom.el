@@ -21,6 +21,7 @@
  '(blink-cursor-mode nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
+ '(browse-url-browser-function (quote browse-url-default-macosx-browser))
  '(calendar-date-style (quote european))
  '(calendar-week-start-day 1)
  '(cider-inspector-page-size 50)
@@ -28,6 +29,7 @@
  '(cider-preferred-build-tool "lein")
  '(cider-prompt-for-symbol nil)
  '(cider-repl-use-pretty-printing t)
+ '(cider-prompt-for-symbol nil)
  '(coffee-tab-width 4)
  '(column-number-mode t)
  '(company-backends
@@ -77,6 +79,8 @@
    (quote
     (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
+ '(elscreen-default-buffer-name "*Ibuffer*")
+ '(elscreen-tab-display-kill-screen nil)
  '(enable-recursive-minibuffers t)
  '(eshell-cannot-leave-input-list
    (quote
@@ -306,7 +310,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (hy-mode jabber w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
+    (ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode)))
  '(powerline-default-separator (quote rounded))
  '(powerline-height nil)
  '(powerline-text-scale-factor nil)
@@ -332,6 +336,7 @@
      (cider-refresh-before-fn . "reloaded.repl/suspend")
      (checkdoc-package-keywords-flag)
      (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+     (checkdoc-package-keywords-flag)
      (mangle-whitespace . t)
      (Lowercase . Yes)
      (Syntax . Common-lisp)
@@ -367,7 +372,7 @@
  '(sr-speedbar-auto-refresh nil)
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
- '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
+ '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el" t)
  '(starttls-extra-arguments (quote ("--insecure")))
  '(tab-stop-list
    (quote
@@ -406,6 +411,8 @@
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
+ '(elscreen-tab-current-screen-face ((t (:background "wheat2" :foreground "black"))))
+ '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
  '(hl-line ((t (:background "gray18"))))
  '(j-verb-face ((t (:foreground "dark cyan"))))

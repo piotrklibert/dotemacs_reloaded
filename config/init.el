@@ -89,9 +89,8 @@
     (if-hostname urkaja2                ; at home
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))
-    (if-hostname fedora.vbox.com
-      (set-face-attribute 'default nil
-                          :font "Bitstream Vera Sans Mono-13"))))
+    (set-face-attribute 'default nil
+                        :font "Monaco-12")))
 
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)

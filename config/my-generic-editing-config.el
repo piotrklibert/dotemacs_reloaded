@@ -82,8 +82,8 @@ On error (read-only), quit without selecting."
 ;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
 ;; make artist-mode leave mouse pointer shape alone (it changes it otherwise)
-(eval-after-load "artist"
-  (setq artist-pointer-shape x-pointer-left-ptr))
+;; (eval-after-load "artist"
+;;   (setq artist-pointer-shape x-pointer-left-ptr))
 
 ;; make sure we're using english dictionary even if the locale says otherwise
 ;; (ispell-change-dictionary "english")

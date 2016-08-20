@@ -11,7 +11,8 @@
   \(set other-var other-val\)
   ... \)"
   (declare (indent defun))
-  (if (equal (symbol-name name)
+  (if (equal (or (and (symbolp name) (symbol-name name))
+                 name)
              (s-trim (shell-command-to-string "hostname")))
       `(progn ,@body)
     '(list 1)))

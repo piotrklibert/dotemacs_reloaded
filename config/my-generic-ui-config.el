@@ -208,6 +208,7 @@
 (global-set-key (kbd "C-<f3>")   'sunrise)
 (global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
+(global-set-key (kbd "<escape> <escape>")   'keyboard-quit)
 
 (defun my-eshell-other-window (args)
   (interactive "P")

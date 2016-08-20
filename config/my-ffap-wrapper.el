@@ -7,8 +7,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar my-ffap-roots '("/home/cji/projects/donorship/backend/"
-                        "/home/cji/projects/cars/resources/"))
+(defconst my-ffap-roots '("/home/cji/projects/donorship/backend/"
+                          "/home/cji/projects/cars/resources/"
+                          "/home/cji/projects/donorship/backend/"
+                          "/home/cji/projects/ebundler/code/backend/"
+                          "/Users/piotrklibert/projects/bunsen/"
+                          "/Users/piotrklibert/projects/bunsen/api/resources/"
+                          "/Users/piotrklibert/projects/bunsen/api/"))
 
 
 (defun my-project-ffap (&optional new-win)

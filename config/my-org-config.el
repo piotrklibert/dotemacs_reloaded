@@ -78,7 +78,7 @@
 
 
 
-(require 'ob-ls)
+;; (require 'ob-ls)
 
 (add-to-list 'org-src-lang-modes '("ls" . livescript))
 
