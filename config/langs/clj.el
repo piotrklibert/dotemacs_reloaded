@@ -1,5 +1,6 @@
 (require 'clojure-mode)
 (require 'cider)
+(require 'ac-cider)
 (require 'slamhound)
 
 (defun my-clojure-hook ()
@@ -18,8 +19,7 @@
   (save-window-excursion
     (cider-connect "127.0.0.1" 12121)))
 
-;; (define-key clojure-mode-map (kbd "M-.") 'my-cider-goto-var)
-
-;; (defun my-cider-goto-var () )
-
-;; (cider-prompt-for-symbol)
+(setq cider-cljs-lein-repl
+      "(do (require 'figwheel-sidecar.repl-api)
+           (figwheel-sidecar.repl-api/start-figwheel!)
+           (figwheel-sidecar.repl-api/cljs-repl))")
