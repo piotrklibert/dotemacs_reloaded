@@ -36,11 +36,13 @@
         kill-region
         kill-sexp
         kill-visual-line
+        kmacro-start-macro-or-insert-counter
         livescript-dedent-line-backspace
         mark-lines-next-line
         mark-word
         my-dedent
         my-eval-last-sexp
+        my-indent
         my-toggle-quotes
         nim-indent-electric-colon
         nxml-electric-slash
@@ -56,6 +58,7 @@
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
+        paredit-backslash
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
         paredit-doublequote
@@ -70,11 +73,13 @@
         paredit-splice-sexp
         paredit-split-sexp
         paredit-wrap-round
+        paredit-wrap-square
         prolog-electric-dot
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         python-indent-shift-left
         python-indent-shift-right
+        scroll-other-window-down
         sgml-slash
         slime-autodoc-space
         suspend-frame
@@ -83,6 +88,8 @@
         wdired-next-line
         wdired-previous-line
         wdired-upcase-word
+        yaml-electric-backspace
+        yaml-electric-dash-and-dot
         yas-expand
         ))
 
@@ -90,6 +97,7 @@
       '(
         artist-down-mouse-1
         artist-down-mouse-3
+        cider-eval-defun-at-point
         dired-next-line
         dired-previous-line
         elscreen-next
@@ -104,4 +112,5 @@
         org-delete-char
         picture-self-insert
         smex
+        tfb-up
         ))

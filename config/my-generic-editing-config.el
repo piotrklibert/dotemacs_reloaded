@@ -1,3 +1,4 @@
+(require 'cl-lib)
 (require 'neotree)
 
 (require 'recentf)
@@ -102,7 +103,6 @@ On error (read-only), quit without selecting."
 (global-set-key (kbd "C-x C-d")    'sr-dired)
 
 (global-set-key (kbd "C-x C-k")    'kill-region)
-(global-set-key (kbd "C-x b")      'helm-buffers-list)
 (global-set-key (kbd "C-c C-k")    'kill-region)
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)

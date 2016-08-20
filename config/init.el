@@ -102,9 +102,9 @@
 
 ;; Make each new frame maximized by default
 ;; TODO: maximize only first frame, this interferes with ediff
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (set-frame-parameter frame 'fullscreen 'maximized)))
+;; (add-hook 'after-make-frame-functions
+;;           (lambda (frame)
+;;             (set-frame-parameter frame 'fullscreen 'maximized)))
 
 
 
@@ -118,16 +118,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(defmacro make-self-quoting (name)
+  "Make NAME into a self-quoting function like `lambda'."
+  `(defmacro ,name (&rest cdr)
+     (list 'function (cons ',name cdr))))
+
+(make-self-quoting closure)
 
 ;; schedule starting of Emacs server after everything else is loaded (5 min
 ;; *should* be enough for startup :))
-;; DISABLED: I don't like the warning that pops up if there is another server
-;; running already
-;; (defun my-start-server ()
-;;   (condition-case nil
-;;       (server-start)
-;;     (nil nil)))
-;; (run-at-time "5 min" nil 'server-start)
+(defun my-start-server ()
+  (condition-case nil
+      (server-start)
+    (nil (message "asdasd"))))
+(run-at-time "5 min" nil 'my-start-server)
 
 (defmacro load-indexed (arg)
   (list 'load arg))
@@ -245,17 +249,20 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-(put 'downcase-region 'disabled nil)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
 (put 'dired-find-alternate-file 'disabled nil)
+(put 'downcase-region 'disabled nil)

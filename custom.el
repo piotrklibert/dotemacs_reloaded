@@ -8,7 +8,7 @@
  '(ac-disable-faces nil)
  '(ac-modes
    (quote
-    (erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 lisp-mode slime-repl-mode scala-mode txr-mode)))
+    (elixir-mode erlang-mode emacs-lisp-mode lisp-interaction-mode c-mode cc-mode c++-mode java-mode clojure-mode scala-mode scheme-mode coffee-mode ocaml-mode tuareg-mode perl-mode cperl-mode python-mode ruby-mode ecmascript-mode livescript-mode javascript-mode js-mode js2-mode php-mode css-mode makefile-mode sh-mode fortran-mode f90-mode ada-mode xml-mode sgml-mode racket-mode geiser-repl-mode elixir-mode2 lisp-mode slime-repl-mode scala-mode txr-mode)))
  '(ac-quick-help-delay 0.4)
  '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
@@ -23,6 +23,11 @@
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
  '(calendar-date-style (quote european))
  '(calendar-week-start-day 1)
+ '(cider-inspector-page-size 50)
+ '(cider-pprint-fn (quote pprint))
+ '(cider-preferred-build-tool "lein")
+ '(cider-prompt-for-symbol nil)
+ '(cider-repl-use-pretty-printing t)
  '(coffee-tab-width 4)
  '(column-number-mode t)
  '(company-backends
@@ -97,7 +102,7 @@
  '(global-git-commit-mode t)
  '(global-linum-mode nil)
  '(global-visible-mark-mode-exclude-alist (quote ("*\\.\\**")))
- '(global-visual-line-mode t)
+ '(global-visual-line-mode nil)
  '(gnus-article-sort-functions (quote (gnus-article-sort-by-date)))
  '(gnus-asynchronous t)
  '(gnus-group-mode-hook (quote (gnus-agent-mode gnus-topic-mode)))
@@ -301,7 +306,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (jabber w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
+    (hy-mode jabber w3m alchemist neotree ac-slime zencoding-mode yaml-mode xml-rpc virtualenv undo-tree unbound tuareg tidy sr-speedbar smex slime shell-here shampoo sentence-highlight scala-mode2 rust-mode register-list regex-dsl rainbow-mode rainbow-delimiters quack pyvirtualenv python-pylint python-django pymacs pylint pyflakes pycomplete project phi-search-mc phi-rectangle pep8 peg pcre2el parenface-plus parenface paredit-menu paredit-everywhere outlined-elisp-mode outline-magic occur-x occur-default-current-word nurumacs nose nginx-mode mo-git-blame mmm-mode main-line macrostep loop livescript-mode levenshtein less-css-mode json-mode jira j-mode iy-go-to-char ipython iedit idomenu ido-ubiquitous ido-load-library idle-highlight-mode hl-sexp hl-sentence hl-line+ highline highlight-indentation highlight haxe-mode gitconfig-mode git-rebase-mode git-commit-mode git-auto-commit-mode gh ggtags fuzzy fsharp-mode fringe-helper flymake-python-pyflakes flymake-jshint find-file-in-project find-file-in-git-repo fill-column-indicator fic-ext-mode f eshell-manual epoch-view epc elnode elixir-mode ein dired+ crontab-mode company-inf-python col-highlight coffee-mode clj-mode clips-mode cider buffer-stack auto-indent-mode auto-complete-nxml ag ack ace-jump-buffer ac-js2 ac-geiser)))
  '(powerline-default-separator (quote rounded))
  '(powerline-height nil)
  '(powerline-text-scale-factor nil)
@@ -322,7 +327,12 @@
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((mangle-whitespace . t)
+    ((cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
+     (cider-refresh-after-fn . "reloaded.repl/resume")
+     (cider-refresh-before-fn . "reloaded.repl/suspend")
+     (checkdoc-package-keywords-flag)
+     (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+     (mangle-whitespace . t)
      (Lowercase . Yes)
      (Syntax . Common-lisp)
      (Lowercase . YES)
@@ -342,7 +352,7 @@
  '(scroll-conservatively 108)
  '(semanticdb-project-roots (quote ("/usr/www/tagasauris/")))
  '(set-mark-command-repeat-pop t)
- '(sgml-basic-offset 4)
+ '(sgml-basic-offset 2)
  '(shell-file-name "/bin/bash")
  '(show-paren-mode t)
  '(slime-repl-history-file "~/.emacs.d/data/slime-history.eld")
@@ -405,6 +415,7 @@
  '(powerline-active2 ((t (:inherit mode-line :background "gray40"))))
  '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray11"))))
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray20"))))
+ '(rainbow-delimiters-depth-7-face ((t (:foreground "cadet blue"))))
  '(swiper-line-face ((t (:inherit highlight :background "black"))))
  '(swiper-match-face-1 ((t (:inherit isearch-lazy-highlight-face :background "black"))))
  '(swiper-match-face-2 ((t (:inherit isearch :background "black"))))

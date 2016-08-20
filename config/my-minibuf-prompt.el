@@ -1,6 +1,5 @@
-
-
 (defalias 'yes-or-no-p 'y-or-n-p)
+
 (defun y-or-n-p (prompt)
   "Ask user a \"y or n\" question.  Return t if answer is \"y\".
   PROMPT is the string to display to ask the question.  It should

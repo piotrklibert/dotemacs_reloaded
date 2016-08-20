@@ -21,19 +21,26 @@
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
-                  "~/poligon/rozcode/"
-                  "~/poligon/bookm/"
+                  ;; "~/poligon/rozcode/"
+                  ;; "~/poligon/bookm/"
+                  "~/poligon/slock/"
+                  "~/poligon/mangi/"
+                  "~/poligon/adnoter/"
                   ;; "~/poligon/lscript/"
                   ))
 
+
   (rq          . ("~/projects/reqviewer/"
                   "~/projects/reqplayer/"))
-
+  (pl          . ("~/poligon/planties/"))
   ;; WORK RELATED
+  (nlu         . ("~/projects/nlu"))
+  (bu          . ("~/projects/bunsen"))
+  (sn          . ("~/projects/snowboy"))
   (ion         . ("~/projects/ion/"))
-
+  (an          . ("~/projects/tenclouds-analytics/"))
   (sp          . ("~/projects/sp/"))
-  (eb          . ("~/projects/ebundler/code/"))
+  (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
   (dn          . ("~/projects/donorship/backend/"
                   "~/projects/donorship/frontend/"))
 

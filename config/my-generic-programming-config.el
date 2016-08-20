@@ -8,6 +8,8 @@
 (require 'rainbow-delimiters)
 
 (require 'ggtags)
+(require 'tags-tree)
+(require 'imenu-tree)
 
 (require 'flymake)
 ;; (require 'eassist)
@@ -28,7 +30,6 @@
 (require 'jka-compr)                    ; searches tags in gzipped sources too
 (require 'ls-lisp)                      ; elisp ls replacement
 
-(require 'electric)
 
 (eval-after-load "replace"
   '(progn
@@ -154,11 +155,15 @@
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
 
 (autoload 'helm-do-ag-project-root "helm-ag" "" t)
-(define-key my-find-keys (kbd "C-a")      'helm-do-ag-project-root)
-(define-key my-find-keys (kbd "a")        'helm-do-ag)
+(define-key my-find-keys (kbd "C-a")      'my-helm-do-ag-current-dir)
+(define-key my-find-keys (kbd "a")        'helm-do-ag-project-root)
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
+
+(defun my-helm-do-ag-current-dir ()
+  (interactive)
+  (helm-do-ag (f-dirname (buffer-file-name (current-buffer))) "*.*"))
 
 
 
@@ -180,6 +185,7 @@
 
 
 (add-hook 'prog-mode-hook 'my-init-prog-mode)
+(add-hook 'nim-mode-hook 'my-init-prog-mode)
 
 (defun my-init-prog-mode ()
   ;; modes which should be enabled by default:
@@ -207,6 +213,7 @@
 
   (local-set-key (kbd "C-x C-x") 'exchange-point-and-mark)
   (local-set-key (kbd "<return>") 'newline-and-indent))
+
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 

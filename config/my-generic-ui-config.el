@@ -13,7 +13,10 @@
 (require 'direx)
 (require 'generic-x)
 (require 'smex)
+
 (require 'sr-speedbar)
+(autoload 'dirtree "dirtree" "Add directory to tree view" t)
+
 (require 'edmacro)
 (require 'unbound)
 
@@ -44,7 +47,8 @@
 
 (global-auto-revert-mode 1)
 (global-auto-composition-mode -1)       ; for entering strange chars, not needed
-(mouse-avoidance-mode 'exile)           ; should move mouse away from point
+(mouse-avoidance-mode -1)              ; clicking on a currently typed word is
+                                        ; difficult if this is enabled
 (auto-compression-mode 1)               ; transparent editing of compressed files
 (file-name-shadow-mode 1)               ; no idea :)
 (savehist-mode 1)                       ; save the minibuffer history on exit
@@ -168,7 +172,8 @@
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
 
   (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
-  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end))
+  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
+  (hl-line-mode))
 
 
 
@@ -186,16 +191,12 @@
 (define-key my-bookmarks-keys (kbd "M-l") 'edit-bookmarks)
 (define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
 
-;; Use iDo for fast buffer switching
-(define-key ctl-x-map (kbd "b")     'ido-switch-buffer)
+(define-key ctl-x-map (kbd "b")     'helm-buffers-list)
 (define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
 
 ;; Use ibuffer rather than whatever Emacs uses by default...
 (define-key ctl-x-map (kbd "C-b")   'ibuffer)
 
-;; There are some alternatives to ibuffer, I'm currently testing helm
-;; (define-key ctl-x-map (kbd "C-M-b") 'bs-show)
-;; (define-key ctl-x-map (kbd "C-M-b") 'electric-buffer-listw)
 
 (global-set-key (kbd "M-X")      'smex-major-mode-commands)
 (global-set-key (kbd "M-x")      'helm-M-x)

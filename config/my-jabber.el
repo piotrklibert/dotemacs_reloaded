@@ -4,15 +4,15 @@
 (require 'jabber-keepalive)
 (require 'autosmiley)
 
+(defun my-start-jabber ()
+  (jabber-connect-all)
+  (jabber-whitespace-ping-start)
+  (jabber-keepalive-start))
 
 ;; INIT: start a Jabber client in the background, 30 seconds after Emacs starts
-(run-at-time "30" nil
-  (lambda ()
-    (jabber-connect-all)
-    (jabber-whitespace-ping-start)
-    (jabber-keepalive-start)))
+;; (run-at-time "30 sec" nil 'my-start-jabber)
 
-(add-hook 'jabber-chat-mode-hook 'autosmiley-mode)
+;; (add-hook 'jabber-chat-mode-hook 'autosmiley-mode)
 
 
 (defun jabber-reconnect ()
@@ -54,10 +54,12 @@
 bottom-left corner of the screen."
   'jabber-stumpwm-display-message)
 
+(defvar *last-jabber-msg* "")
 (defun jabber-stumpwm-display-message (text &optional title)
   (when title
+    (setf *last-jabber-msg* title)
     (slime-eval-list `(let ((stumpwm:*message-window-gravity* :bottom-left))
-                        (stumpwm:message ,title)))))
+                        (stumpwm:message ,text)))))
 
 
 

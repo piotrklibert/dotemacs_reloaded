@@ -8,7 +8,7 @@
 
 
 (defvar my-ffap-roots '("/home/cji/projects/donorship/backend/"
-                        "/home/cji/projects/ebundler/code/backend/"))
+                        "/home/cji/projects/cars/resources/"))
 
 
 (defun my-project-ffap (&optional new-win)

@@ -2,24 +2,27 @@
 (require 'elixir-mode)                  ;
 
 (require 'coffee-mode)
+
 (require 'livescript-mode)
-(require 'haxe-mode)                    ;
+;; (require 'haxe-mode)
 (require 'io-mode)
 (require 'js2-mode-autoloads)
 (require 'json-mode)
 (require 'nginx-mode)                   ;
-(require 'nim-mode)                     ;
 (require 'nxml-mode)                    ;
 (require 'rust-mode-autoloads)
 (require 'tuareg)                       ; OCaml mode and REPL
 (require 'web-mode)                     ;
 
+
+(defun load/expand (fname)
+  (load (f-expand fname)))
+
+(defun load-many (&rest file-list)
+  (dolist (file file-list)
+    (load/expand file)))
+
 (load "txr-mode.el")
-
-(defun load/expand (fname) (load (f-expand fname)))
-(defun load-many (&rest file-list) (dolist (file file-list)
-                                     (load/expand file)))
-
 (load-many
  "~/.emacs.d/config/langs/lang-utils.el"
  "~/.emacs.d/config/langs/el.el"
@@ -27,6 +30,8 @@
  "~/.emacs.d/config/langs/cl.el"
  "~/.emacs.d/config/langs/prolog.el"
  "~/.emacs.d/config/langs/j.el"
+ "~/.emacs.d/config/langs/clj.el"
+;; "~/.emacs.d/config/langs/nim.el"
  )
 
 
