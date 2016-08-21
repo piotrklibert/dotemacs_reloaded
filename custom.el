@@ -29,7 +29,6 @@
  '(cider-preferred-build-tool "lein")
  '(cider-prompt-for-symbol nil)
  '(cider-repl-use-pretty-printing t)
- '(cider-prompt-for-symbol nil)
  '(coffee-tab-width 4)
  '(column-number-mode t)
  '(company-backends
@@ -374,6 +373,7 @@
  '(sr-use-commander-keys t)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el" t)
  '(starttls-extra-arguments (quote ("--insecure")))
+ '(synosaurus-choose-method (quote popup))
  '(tab-stop-list
    (quote
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))

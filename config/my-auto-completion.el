@@ -28,9 +28,10 @@
 
 ;; FCI-mode is problematic and makes ac popups become tangled sometimes, so
 ;; it's safer to turn it off while completion is taking place
-(defadvice ac-menu-create (before ac-menu-create-adv activate)
+(defadvice popup-create (before popup-create-adv  activate)
   (setq my-ac-fci-was-enabled? fci-mode)
-  (fci-mode -1))
+  (when fci-mode
+    (fci-mode -1)))
 
 (defadvice ac-menu-delete (after ac-menu-delete-adv activate)
   (when my-ac-fci-was-enabled? (fci-mode 1)))

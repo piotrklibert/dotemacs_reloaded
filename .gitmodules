@@ -100,3 +100,6 @@
 [submodule "forked-plugins/powerline"]
 	path = forked-plugins/powerline
 	url = https://github.com/milkypostman/powerline.git
+[submodule "forked-plugins/synosaurus"]
+	path = forked-plugins/synosaurus
+	url = https://github.com/hpdeifel/synosaurus/

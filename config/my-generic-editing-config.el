@@ -34,6 +34,8 @@
 (setq-default save-place t)
 (setq save-place-file (expand-file-name "h.places" user-emacs-directory))
 
+(require 'synosaurus)
+(require 'synosaurus-wordnet)
 
 (require 'helm)
 

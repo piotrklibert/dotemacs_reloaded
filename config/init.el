@@ -31,10 +31,12 @@
 (defun add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
   (dolist (dir dirs)
-     (add-to-list 'load-path dir)
-     (let
-       ((default-directory dir))
-       (normal-top-level-add-subdirs-to-load-path))))
+    (add-to-list 'load-path dir)
+    (let
+        ((default-directory dir))
+      (normal-top-level-add-subdirs-to-load-path))))
+
+
 
 ;; we don't want to add direct children of Emacs home directory to path,
 ;; because there are many non-lisp dirs in there
