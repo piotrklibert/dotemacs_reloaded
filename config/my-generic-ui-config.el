@@ -46,12 +46,12 @@
 
 
 (global-auto-revert-mode 1)
-(global-auto-composition-mode -1)       ; for entering strange chars, not needed
+(global-auto-composition-mode -1)      ; for entering strange chars, not needed
 (mouse-avoidance-mode -1)              ; clicking on a currently typed word is
-                                        ; difficult if this is enabled
-(auto-compression-mode 1)               ; transparent editing of compressed files
-(file-name-shadow-mode 1)               ; no idea :)
-(savehist-mode 1)                       ; save the minibuffer history on exit
+                                       ; difficult if this is enabled
+(auto-compression-mode 1)              ; transparent editing of compressed files
+(file-name-shadow-mode 1)              ; no idea :)
+(savehist-mode 1)                      ; save the minibuffer history on exit
 
 
 ;; schedule imports to be done after some modules are imported
