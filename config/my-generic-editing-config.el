@@ -1,4 +1,3 @@
-(require 'cl-lib)
 (require 'neotree)
 
 (require 'recentf)
@@ -9,7 +8,7 @@
 (require 'register-list)                ; M-x register-list
 
 (require 'auto-mark)
-(global-auto-mark-mode 1)
+(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
 
 (require 'mark-lines)                   ; mark whole line no matter where pt is
 (require 'visible-mark)                 ; recompile after Emacs update!
@@ -35,12 +34,9 @@
 (setq-default save-place t)
 (setq save-place-file (expand-file-name "h.places" user-emacs-directory))
 
-;; edit all occurances of a regexp in a separate buffer (disabled becaus I
-;; learned that occur-mode has this feature already - under 'e')
-;; (require 'all)
-;; (require 'all-ext)
 
 (require 'helm)
+
 (defun helm-backspace ()
   "Forward to `backward-delete-char'.
 On error (read-only), quit without selecting."

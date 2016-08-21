@@ -1,4 +1,5 @@
 (require 'cl)
+(require 'cl-lib)
 (require 'pp)
 (require 'electric)
 (require 'thingatpt)
@@ -82,7 +83,6 @@
 
 
 (turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch
-(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
 (wrap-region-global-mode t)             ; select region and press ( to wrap it
 (electric-pair-mode 1)
 

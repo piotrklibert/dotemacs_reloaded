@@ -1,7 +1,7 @@
 (require 'clojure-mode)
 (require 'cider)
 (require 'ac-cider)
-(require 'slamhound)
+;; (require 'slamhound)
 
 (defun my-clojure-hook ()
   (define-key mode-specific-map (kbd "n") 'slamhound)

@@ -2,7 +2,6 @@
 (require 'calc)
 (fringe-mode     '(4 . 8))
 ;; disable early so they don't appear during startup
-
 (setf frame-title-format "Emacs starting...")
 (menu-bar-mode    1)
 (tool-bar-mode   -1)
@@ -80,7 +79,7 @@
   ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
   (interactive)
   (when window-system
-    (if-hostname f21  ; at work
+    (if-hostname f23
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-11"))
     (if-hostname fedorcia2
@@ -89,8 +88,9 @@
     (if-hostname urkaja2                ; at home
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-13"))
-    (set-face-attribute 'default nil
-                        :font "Monaco-12")))
+    (if-hostname "Piotr Klibert Mac"
+      (set-face-attribute 'default nil
+			  :font "Monaco-12"))))
 
 (add-hook 'after-make-frame-functions 'my-set-default-font)
 (my-set-default-font)
@@ -249,19 +249,18 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 
+
+(put 'dired-find-alternate-file 'disabled nil)
+(put 'downcase-region 'disabled nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(put 'dired-find-alternate-file 'disabled nil)
-(put 'downcase-region 'disabled nil)
