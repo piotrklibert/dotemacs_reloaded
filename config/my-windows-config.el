@@ -58,8 +58,10 @@
 
 (define-key my-wnd-keys (kbd "C-s")                 'split-window-below)
 (define-key my-wnd-keys (kbd "\"")                  'split-window-below)
+(define-key my-wnd-keys (kbd "C-\"")                'split-window-below)
 (define-key my-wnd-keys (kbd "C-v")                 'split-window-right)
 (define-key my-wnd-keys (kbd "%")                   'split-window-right)
+(define-key my-wnd-keys (kbd "C-%")                 'split-window-right)
 
 (define-key my-wnd-keys (kbd "C-z")                 'delete-window)
 (define-key my-wnd-keys (kbd "C-k")                 'kill-buffer-and-window)
@@ -76,6 +78,8 @@
 (define-key my-wnd-keys (kbd "C-c")                 'copy-to-register)
 
 (define-key my-wnd-keys (kbd "C-t")                 'tiling-cycle)
+(define-key my-wnd-keys (kbd "C-'")                 'ace-window)
+(define-key my-wnd-keys (kbd "'")                   'ace-window)
 
 (global-set-key (kbd "C-<f4>")                      'delete-frame)
 (define-key my-wnd-keys (kbd "C-f")                 'delete-frame)

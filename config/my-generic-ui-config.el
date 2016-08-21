@@ -19,7 +19,7 @@
 
 (require 'edmacro)
 (require 'unbound)
-
+(require 'ace-window)
 (require 'sunrise-commander)
 (require 'sunrise-x-tree)
 (require 'sunrise-x-modeline)

@@ -31,16 +31,18 @@
 (defadvice popup-create (before popup-create-adv  activate)
   (setq my-ac-fci-was-enabled? fci-mode)
   (when fci-mode
-    (fci-mode -1)))
+    (fci-mode 0)))
 
 (defadvice ac-menu-delete (after ac-menu-delete-adv activate)
-  (when my-ac-fci-was-enabled? (fci-mode 1)))
+  (when my-ac-fci-was-enabled?
+    (fci-mode 1)))
 
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
 (global-set-key (kbd "C-c .") 'hippie-expand)
 (global-set-key (kbd "C-<tab>") 'ac-start)
 
+(define-key popup-menu-keymap (kbd "<return>") 'popup-select)
 
 (when (boundp 'ac-completing-map)
   ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
