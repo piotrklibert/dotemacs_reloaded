@@ -10,7 +10,7 @@
       p
     (concat (substring p 0 2) ".." (substring p -2))))
 
-(defun my-shorten-path-drop-segments (path max-size)
+(defun my-shorten-path/drop-segments (path max-size)
   (if (< (length path) max-size)
       path
     (let ((p (s-split "/" path))
@@ -20,7 +20,7 @@
         (setf p (cdr p)))
       (my-join-path p))))
 
-(defun my-shorten-path-shorten-segments (path max-size)
+(defun my-shorten-path/shorten-segments (path max-size)
   (if (< (length path) max-size)
       path
     (let ((p (s-split "/" path))
@@ -47,7 +47,7 @@
   (condition-case error
       (-> (buffer-file-name)
         (my-pl-format-dir)
-        (my-shorten-path-drop-segments my-powerline-max-path-length)
+        (my-shorten-path/drop-segments my-powerline-max-path-length)
         (concat "/"))
     (error "")))
 
