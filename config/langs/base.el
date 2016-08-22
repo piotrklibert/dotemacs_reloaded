@@ -138,13 +138,6 @@
 ;;       '((opendylan ("/usr/local/bin/dswank")
 ;;                    :env ("OPEN_DYLAN_USER_REGISTRIES=/home/cji/portless/dylan/sources/registry/:/home/cji/poligon/hello-dylan/registry"))))
 
-;; Clojure & ClojureScript
-;;
-;; (require 'cider-autoloads)
-;; (require 'clojure-mode-autoloads)
-;; (add-hook 'clojure-mode-hook 'paredit-mode)
-;; (put-clojure-indent 'om-transact 1)
-;;
 ;; Julia mode does not provide autoloads at this point and I don't use it yet,
 ;; so importing it on emacs start is not jusifiable.
 ;; (require 'julia-mode)
