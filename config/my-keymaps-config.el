@@ -12,17 +12,17 @@
   (unless (stringp map)
     (setq map (symbol-name map)))
   (ag-regexp (concat "(global-set-|define-)key.*" map)
-             "/home/cji/.emacs.d/config/"))
+             (f-full"~/.emacs.d/config/")))
 
 
 ;; Mainly used for toggling things, invoking commands that used twice on
 ;; the same thing do nothing.
 (define-prefix-command 'my-toggle-keys)
-(global-set-key (kbd "þ") 'my-toggle-keys)
+(global-set-key (kbd "C-t") 'my-toggle-keys)
 ;; (find-my-bindings-for 'my-toggle-keys)
 
 
-;; Functions related to searching paths, files and everything else.
+;; functions related to searching paths, files and everything else.
 (define-prefix-command 'my-find-keys)
 (global-set-key (kbd "C-f") 'my-find-keys)
 ;; (find-my-bindings-for 'my-find-keys)

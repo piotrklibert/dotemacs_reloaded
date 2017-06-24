@@ -94,21 +94,21 @@ Requires active CIDER connection."
          ;; time and some garbage results for the latter two calls.
          (when (f-exists? fname)
            (delete-file fname)
-           (setq result (nrepl-dict-get result "value"))
-           (if (good-resultp result)
-               (with-current-buffer buf
-                 (save-excursion
-                   (goto-char (point-min))
-                   (forward-sexp)       ; skips any header comments before the ns
-                   (backward-kill-sexp)
-                   ;; `result' is a string literal with some characters escaped,
-                   ;; we need to clear these escapes before inserting result
-                   ;; into the buffer
-                   (-> result
-                     (replace-in-string "\\\\n" "\n")
-                     (replace-in-string "\\\"" "")
-                     (insert))))
-             (message "Something went wrong: %s" result))))))))
+           (let ((result-val (nrepl-dict-get result "value")))
+             (if (good-resultp result-val)
+                 (with-current-buffer buf
+                   (save-excursion
+                     (goto-char (point-min))
+                     (forward-sexp)    ; skips any header comments before the ns
+                     (backward-kill-sexp)
+                     ;; `result' is a string literal with some characters escaped,
+                     ;; we need to clear these escapes before inserting result
+                     ;; into the buffer
+                     (-> result-val
+                       (replace-in-string "\\\\n" "\n")
+                       (replace-in-string "\\\"" "")
+                       (insert))))
+               (message "Something went wrong: %s" (nrepl-dict-keys result))))))))))
 
 
 (provide 'slamhound)

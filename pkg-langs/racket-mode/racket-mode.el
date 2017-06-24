@@ -1,6 +1,7 @@
+
 ;;; racket-mode.el --- Major mode for Racket language.
 
-;; Copyright (c) 2013-2015 by Greg Hendershott.
+;; Copyright (c) 2013-2016 by Greg Hendershott.
 
 ;; Package: racket-mode
 ;; Package-Requires: ((emacs "24.3") (faceup "0.0.2") (s "1.9.0"))
@@ -21,18 +22,16 @@
 
 ;; Goals:
 ;; - Focus on Racket (not various Schemes).
-;; - Fontify all Racket keywords, builtins, and so on.
-;; - Fontify variations of define for functions and variables.
-;; - Indent Racket forms (even `for/fold` and `for*/fold`).
 ;; - Follow DrRacket concepts where applicable.
-;; - Compatible with Emacs 24.3+.
+;; - Thorough font-lock and indent.
+;; - Compatible with Emacs 24.3+ and Racket 5.3.5+.
 ;;
 ;; Details: https://github.com/greghendershott/racket-mode
 
 ;;; Code:
 
 (defconst racket-mode-copyright
-  "Copyright (c) 2013-2014 by Greg Hendershott. Portions Copyright (c) Free Software Foundation and Copyright (c) 2002-2012 Neil Van Dyke.")
+  "Copyright (c) 2013-2016 by Greg Hendershott. Portions Copyright (c) Free Software Foundation and Copyright (c) 2002-2012 Neil Van Dyke.")
 
 (defconst racket-mode-legal-notice
   "This is free software; you can redistribute it and/or modify it under the
@@ -46,6 +45,7 @@ http://www.gnu.org/licenses/ for details.")
 (defconst racket-mode-version "0.4")
 
 (require 'racket-edit)
+(require 'racket-imenu)
 (require 'racket-profile)
 (require 'racket-repl)
 (require 'racket-collection)
@@ -55,7 +55,8 @@ http://www.gnu.org/licenses/ for details.")
 
 (defvar racket-mode-map
   (racket--easy-keymap-define
-   '(("C-c C-k"     racket-run)
+   '((("C-c C-c"
+       "C-c C-k")   racket-run)
      ("C-c C-z"     racket-repl)
      ("<f5>"        racket-run-and-switch-to-repl)
      ("M-C-<f5>"    racket-racket)
@@ -70,13 +71,12 @@ http://www.gnu.org/licenses/ for details.")
      ("C-c C-e r"   racket-expand-region)
      ("C-c C-e a"   racket-expand-again)
      ("C-c C-x C-f" racket-open-require-path)
-     ("RET"         newline-and-indent)
      ("TAB"         indent-for-tab-command)
      ("M-C-u"       racket-backward-up-list)
      ("["           racket-smart-open-bracket)
-     (")"           racket-insert-closing-paren)
-     ("]"           racket-insert-closing-bracket)
-     ("}"           racket-insert-closing-brace)
+     (")"           racket-insert-closing)
+     ("]"           racket-insert-closing)
+     ("}"           racket-insert-closing)
      ("C-c C-p"     racket-cycle-paren-shapes)
      ("M-C-y"       racket-insert-lambda)
      ("C-c C-d"     racket-doc)
@@ -112,11 +112,17 @@ http://www.gnu.org/licenses/ for details.")
      "---"
      ["Again" racket-expand-again])
     ["Switch to REPL" racket-repl]
+    ("Tools"
+     ["Profile" racket-profile]
+     ["Check Syntax" racket-check-syntax-mode]
+     ["Error Trace" racket-run-with-errortrace])
     "---"
     ["Comment" comment-dwim]
     ["Insert λ" racket-insert-lambda]
     ["Indent Region" indent-region]
     ["Cycle Paren Shapes" racket-cycle-paren-shapes]
+    ["Align" racket-align]
+    ["Unalign" racket-unalign]
     "---"
     ["Visit Definition" racket-visit-definition]
     ["Visit Module" racket-visit-module]
@@ -136,21 +142,9 @@ http://www.gnu.org/licenses/ for details.")
     ["Describe" racket-describe]
     ["Customize..." customize-mode]))
 
-(defvar racket-imenu-generic-expression
-  '((nil
-     "^(define\\s-+(?\\(\\sw+\\)" 1)
-    ("Struct"
-     "^(struct\\s-+\\(\\sw+\\)" 1)
-    ("Syntax"
-     "^(define-syntax\\s-+(?\\(\\sw+\\)" 1))
-  "Imenu generic expression for racket mode.  See `imenu-generic-expression'.")
-
 (defun racket--variables-imenu ()
-  (set (make-local-variable 'imenu-case-fold-search) t)
-  (set (make-local-variable 'imenu-generic-expression)
-       racket-imenu-generic-expression)
-  (set (make-local-variable 'imenu-syntax-alist)
-       '(("+-*/.<>=?!$%_&~^:" . "w"))))
+  (setq-local imenu-case-fold-search t)
+  (setq-local imenu-create-index-function #'racket--imenu-create-index-function))
 
 ;;;###autoload
 (define-derived-mode racket-mode prog-mode
@@ -159,7 +153,6 @@ http://www.gnu.org/licenses/ for details.")
 \\{racket-mode-map}"
   (racket--variables-for-both-modes)
   (racket--variables-imenu)
-  (racket--company-setup)
   (hs-minor-mode t))
 
 ;;;###autoload
@@ -169,13 +162,5 @@ http://www.gnu.org/licenses/ for details.")
   (add-to-list 'interpreter-mode-alist '("racket" . racket-mode)))
 
 (provide 'racket-mode)
-
-;; Local Variables:
-;; coding: utf-8
-;; comment-column: 40
-;; indent-tabs-mode: nil
-;; require-final-newline: t
-;; show-trailing-whitespace: t
-;; End:
 
 ;;; racket-mode.el ends here

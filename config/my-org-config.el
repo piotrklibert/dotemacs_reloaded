@@ -19,13 +19,19 @@
 (defun my-tangle-and-run ()
   (interactive)
   (load-theme 'whiteboard)
+  (rainbow-mode -1)
+  (hl-line-mode -1)
+  (fic-ext-mode -1)
+  (auto-mark-mode -1)
+  (visible-mark-mode -1)
+  (rainbow-delimiters-mode -1)
   (org-html-export-to-html)
-  (org-babel-tangle)
+  ;; (org-babel-tangle)
   (load-theme 'wombat)
   ;; (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null")
   )
 
-(global-set-key (kbd "s-c") 'my-tangle-and-run)
+;; (global-set-key (kbd "s-c") 'my-tangle-and-run)
 
 (global-set-key (kbd "<kp-up>")     'org-previous-visible-heading)
 (global-set-key (kbd "<kp-down>")   'org-next-visible-heading)
@@ -150,9 +156,9 @@
       browse-url-generic-program "google-chrome")
 
 
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c r") 'org-remember)
-(global-set-key (kbd "C-c c") 'org-capture)
+;; (global-set-key (kbd "C-c a") 'org-agenda)
+;; (global-set-key (kbd "C-c r") 'org-remember)
+;; (global-set-key (kbd "C-c c") 'org-capture)
 
 
 (defun my-org-jump-to-heading (heading)

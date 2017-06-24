@@ -5,11 +5,12 @@
 ;; explicitly
 
 
-(ffip-defroots 'my-projects ("~/secure/" "~/todo/"
-                             "~/.stumpwm.d/"
-                             "~/.emacs.d/config/")
+(ffip-defroots 'my-projects
+  ("~/secure/" "~/todo/" "~/.stumpwm.d/" "~/.emacs.d/config/" "~/mgmnt/")
+
   (lanchat     . ("~/poligon/lanchat/"))
   (klibertpl   . ("~/projects/klibert_pl/"))
+  (mtr         . ("~/poligon/mtr/io/"))
 
   (my-projects . ("~/mgmnt/"
                   "~/.emacs.d/pkg-langs/elpy/"
@@ -43,7 +44,8 @@
   (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
   (dn          . ("~/projects/donorship/backend/"
                   "~/projects/donorship/frontend/"))
-
+  (na          . ("~/projects/truststamp/naea/"))
+  (dep         . ("~/projects/truststamp/deployment/ansible-deployment/"))
   (10c         . ("~/projects/images/repo/")))
 
 

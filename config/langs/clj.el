@@ -3,6 +3,8 @@
 (require 'ac-cider)
 (require 'slamhound)
 
+(ac-cider-setup)
+
 (defun my-clojure-hook ()
   (define-key mode-specific-map (kbd "n") 'slamhound)
   (paredit-mode 1))
@@ -11,7 +13,13 @@
 (add-hook 'cider-repl-mode-hook 'my-clojure-hook)
 
 (define-clojure-indent
-  (throw-error-info 1))
+  (throw-error-info 1)
+  (match 1)
+  (-> 1)
+  (->> 1)
+  (fact 1)
+  (facts 1)
+  )
 
 
 (defun cider-quick-reconnect ()

@@ -20,7 +20,9 @@
     (response/full . 3)
     (with-semaphore . 1)
     (check-exn . 1)
-    (run-movie . 1)))
+    (run-movie . 1)
+    (new . 1)
+    (set! . 1)))
 
 
 (loop for mode in '(scheme-mode racket-mode)
@@ -31,10 +33,10 @@
              ("defcommand" . font-lock-keyword-face))))
 
 (defun my-scheme-hook ()
+  (my-init-prog-mode)
   (paredit-mode)
   (rainbow-mode 1)
-  (undo-tree-mode)
-  (hs-minor-mode))
+  (undo-tree-mode))
 
 (add-hook 'scheme-mode-hook 'my-scheme-hook)
 

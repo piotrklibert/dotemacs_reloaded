@@ -1,9 +1,11 @@
 (require 'git-commit)
 (require 'magit-autoloads)
 (require 'pcase)
+
 ;; (require 'gh)
 ;; (require 'magit-gh-pulls)
 ;; (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+
 (autoload
   'magit-blame "magit-blame"
   "Major mode for editing Markdown files" t)
@@ -14,8 +16,23 @@
 
 
 (define-key mode-specific-map (kbd "C-g")   'magit-status) ; C-c C-g
-(define-key mode-specific-map (kbd "C-M-g") 'magit-blame) ; C-c C-M-g
+(define-key mode-specific-map (kbd "C-M-g") 'magit-blame)  ; C-c C-M-g
 
+(defun my-auto-refresh-magit ()
+  (let
+      ((magit-buffer (-find (lambda (x)
+                              (s-contains? "magit" (buffer-name x)))
+                            (buffer-list))))
+    (when (not (eq (current-buffer) magit-buffer))
+      (with-current-buffer magit-buffer
+        (magit-refresh-buffer)))))
+
+;; (cancel-timer
+;;  (-find (lambda (x)
+;;           (eq (timer--function x) #'my-auto-refresh-magit))
+;;         timer-list))
+;; (setq my-auto-refresh-magit-timer
+;;       (run-at-time nil 5 #'my-auto-refresh-magit))
 
 ;; customize: magit-blame-disable-modes instead of this hook
 ;; (eval-after-load "magit-blame"

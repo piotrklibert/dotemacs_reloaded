@@ -5,7 +5,6 @@
 (require 'paredit-autoloads)
 (require 'lang-utils)
 
-
 (indent/tag-for-modes
     '(lisp-indent-function)
   '((font-lock-add-keywords . 1)
@@ -42,6 +41,8 @@
 ;; Emacs Lisp hook
 ;;
 (add-hook 'emacs-lisp-mode-hook 'my-elisp-mode-setup)
+(add-hook 'inferior-emacs-lisp-mode-hook 'my-elisp-mode-setup) ; for ielm command
+
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
   (local-set-key (kbd "C-M-d") 'duplicate-line-or-region)

@@ -9,7 +9,6 @@
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 4* carefully check where which completion is active (config of auto-complete)
 ;;
-(require 'fill-column-indicator)
 (require 'auto-complete)
 (require 'auto-complete-config)
 (ac-config-default)
@@ -20,26 +19,12 @@
 (require 'jedi)
 
 ;; most snippets for YAS are here:
-;; "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets"
+;; "~/.emacs.d/forked-plugins/yasnippet/snippets"
 (yas-global-mode 1)
-
-(defvar my-ac-fci-was-enabled? nil)
-(make-variable-buffer-local 'my-ac-fci-was-enabled?)
-
-;; FCI-mode is problematic and makes ac popups become tangled sometimes, so
-;; it's safer to turn it off while completion is taking place
-(defadvice popup-create (before popup-create-adv  activate)
-  (setq my-ac-fci-was-enabled? fci-mode)
-  (when fci-mode
-    (fci-mode 0)))
-
-(defadvice ac-menu-delete (after ac-menu-delete-adv activate)
-  (when my-ac-fci-was-enabled?
-    (fci-mode 1)))
 
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
-(global-set-key (kbd "C-c .") 'hippie-expand)
+(global-set-key (kbd "C-c .")   'hippie-expand)
 (global-set-key (kbd "C-<tab>") 'ac-start)
 
 (define-key popup-menu-keymap (kbd "<return>") 'popup-select)
@@ -67,6 +52,7 @@
                                          last-sources))))
   (setq-default ac-sources default-sources ))
 
+(add-to-list 'ac-modes 'io-mode)
 
 ;;
 ;; YASnippet completions config

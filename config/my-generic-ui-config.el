@@ -6,13 +6,13 @@
 (require 'ido)
 (require 'idomenu)
 (require 'ido-vertical-mode)
+;; (require 'smex)
 
 (require 'helm)
 (require 'helm-config)
 
 (require 'direx)
 (require 'generic-x)
-(require 'smex)
 
 (require 'sr-speedbar)
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
@@ -25,6 +25,11 @@
 (require 'sunrise-x-modeline)
 
 (require 'my-powerline-config)
+
+
+(defadvice pop-to-mark-command (after recenter-after-pop activate)
+  (recenter))
+
 
 ;; Frame TITLE (displayed on StumpWM mode-line (or on the title bar))
 (setf frame-title-format
@@ -202,7 +207,12 @@
 (global-set-key (kbd "M-x")      'helm-M-x)
 (global-set-key (kbd "s-x")      'smex)
 
+(defun my-dirtree ()
+  (interactive)
+  (dirtree (f-dirname (buffer-file-name (current-buffer))) t))
+
 (global-set-key (kbd "C-<f1>")   'neotree-toggle)
+(global-set-key (kbd "C-M-<f1>") 'my-dirtree)
 (global-set-key (kbd "C-<f2>")   'helm-recentf)
 
 (global-set-key (kbd "C-<f3>")   'sunrise)
@@ -251,7 +261,7 @@
 (defvar my-new-buffer-map (make-sparse-keymap))
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
-;;                   type            key       file ext     default path
+;;                  type            key       file ext     default path
 (make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
 (make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon")
 (make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
@@ -264,10 +274,9 @@
 (make-buffer-opener ocaml        (kbd "C-o")    ".ml"      "~/poligon/")
 
 
-(setq my-new-buffer-helm-source
-      `((name . "Buffer types")
-        (candidates . ,my-openers)
-        (action . (lambda (candidate) (funcall candidate)))))
+(setq my-new-buffer-helm-source `((name       . "Buffer types")
+                                  (candidates . ,my-openers)
+                                  (action     . (lambda (candidate) (funcall candidate)))))
 
 (defun my-new-buffer-helm ()
   (interactive)

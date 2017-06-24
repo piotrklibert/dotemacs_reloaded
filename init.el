@@ -1,1 +1,1 @@
-config/init.el
+/home/cji/.emacs.d/config/init.el

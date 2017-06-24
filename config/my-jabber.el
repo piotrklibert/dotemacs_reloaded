@@ -38,8 +38,6 @@
   (slime-eval `(swank:interactive-eval
                 ,(format "%S" sexp))))
 
-
-
 (defun my-jabber-message-default-message (from buffer text)
   (when (or jabber-message-alert-same-buffer
             (not (memq (selected-window) (get-buffer-window-list buffer))))
@@ -50,7 +48,6 @@
       (format "Message from %s: %s" (jabber-jid-displayname from) text))))
 
 
-
 (define-jabber-alert stumpwm
   "Displays message using the Slime connection to StumpWM instance in
 bottom-left corner of the screen."
@@ -58,11 +55,11 @@ bottom-left corner of the screen."
 
 (defvar *last-jabber-msg* "")
 (defun jabber-stumpwm-display-message (text &optional title)
-  (when title
-    (setf *last-jabber-msg* title)
-    (slime-eval-list `(let ((stumpwm:*message-window-gravity* :bottom-left))
-                        (stumpwm:message ,text)))))
+  (setf *last-jabber-msg* title)
+  (slime-eval-list `(let ((stumpwm:*message-window-gravity* :bottom-left))
+                      (stumpwm:message ,text))))
 
+;; (jabber-stumpwm-display-message "asdasdS" "sdf")
 
 
 (define-jabber-alert stumpwm-presence

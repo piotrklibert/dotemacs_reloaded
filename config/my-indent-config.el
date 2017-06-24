@@ -30,12 +30,11 @@ it before."
   (setq deactivate-mark nil)
   (setq mark-active t))
 
-(defadvice indent-rigidly
-  (after indent-rigidly-keep-region activate)
+(defadvice indent-rigidly (after indent-rigidly-keep-region activate)
   (setq deactivate-mark nil))
 
-(defadvice indent-for-tab-command       ; ie. TAB in elisp mode
-  (around indent-for-tab-keep-region activate)
+(defadvice indent-for-tab-command (around indent-for-tab-keep-region activate)
+  ;; ie. TAB in elisp mode
   (let ((region-info (my-get-region-or-line-bounds)))
     ad-do-it
     (when (car region-info)
@@ -49,17 +48,20 @@ it before."
       (region-was-active? start end) (my-get-region-or-line-bounds)
     (indent-rigidly start end (funcall dir arg))))
 
+(defvar my-indent-width 4)
+(make-variable-buffer-local 'my-indent-width)
+
 (defun my-indent (&optional arg)
   (interactive "P")
   (when (and arg (listp arg))
     (setq arg (car arg)))
-  (my-indent-rigidly '+ arg))
+  (my-indent-rigidly '+ my-indent-width))
 
 (defun my-dedent (&optional arg)
   (interactive "P")
   (when (and arg (listp arg))
     (setq arg (car arg)))
-  (my-indent-rigidly '- arg))
+  (my-indent-rigidly '- my-indent-width))
 
 
 (defun align-line-cont-chars (col)

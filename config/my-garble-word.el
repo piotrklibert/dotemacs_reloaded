@@ -13,10 +13,12 @@
 
 
 
-(defun garble-sexp ()
-  (interactive)
-  (destructuring-bind
-      (word beg . end) (thing-at-point-with-bounds 'sexp)
-    (delete-region beg end)
-    (insert (get-random-identifier (length word)))
-    (message "%s" word)))
+(defun garble-sexp (arg)
+  (interactive "P")
+  (let
+      ((my-garbling-characters (if arg (string-to-vector "0123456789") my-garbling-characters)))
+    (destructuring-bind
+        (word beg . end) (thing-at-point-with-bounds 'sexp)
+      (delete-region beg end)
+      (insert (get-random-identifier (length word)))
+      (message "%s" word))))

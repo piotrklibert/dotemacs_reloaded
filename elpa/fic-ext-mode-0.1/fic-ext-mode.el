@@ -34,8 +34,8 @@
 ;;
 ;; M-x fic-ext-mode
 ;;
-;; NOTE: If you manually turn on fic-ext-mode, you you might need to force re-fontification initially
-;;   M-x font-lock-fontify-buffer
+;; NOTE: If you manually turn on fic-ext-mode, you you might need to force
+;;   re-fontification initially M-x font-lock-fontify-buffer
 
 ;;; Code:
 

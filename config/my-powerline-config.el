@@ -53,6 +53,7 @@
   (condition-case error
       (-> (buffer-file-name)
         (my-pl-format-dir)
+
         (my-shorten-path/drop-segments my-powerline-max-path-length)
         (concat "/"))
     (error "")))
@@ -60,16 +61,17 @@
 
 (defvar my-powerline-max-path-length 30)
 
+(defface my-file-name-face
+  '((t (:inherit mode-line :background "dark slate blue")))
+  "")
 
 (defpowerline powerline-buffer-id
   (let ((buffer-ident (powerline-trim
                        (format-mode-line
                         mode-line-buffer-identification))))
     (concat
-     (propertize (concat " " (my-pl-buffer-dir))
-                 'face 'diff-added-face)
-     (propertize (concat " " buffer-ident " ")
-                 'face 'pl/buffer-id-face))))
+     (propertize (concat " " (my-pl-buffer-dir)) 'face 'lazy-highlight)
+     (propertize (concat buffer-ident " ")   'face 'my-file-name-face))))
 
 
 (provide 'my-powerline-config)

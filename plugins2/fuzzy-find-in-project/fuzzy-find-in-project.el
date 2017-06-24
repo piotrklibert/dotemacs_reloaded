@@ -10,8 +10,8 @@
     (dolist (r alist)
       (let*
           ((paths (append (cdr r) commons))
-           (expanded (-map 'f-expand  paths)))
-        (push `(,(car r)  ,@expanded) roots)
+           (expanded (-map 'f-expand paths)))
+        (push `(,(car r) ,@expanded) roots)
         (push (symbol-name (car r)) names)))
     `(progn
        (setq fuzzy-find-roots (quote ,roots))
@@ -21,7 +21,6 @@
 
 (defvar fuzzy-find-roots nil "")
 (defvar fuzzy-find-root-names nil "")
-
 (defvar fuzzy-find-project-root nil "")
 
 

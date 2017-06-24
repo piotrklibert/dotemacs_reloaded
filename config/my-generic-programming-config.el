@@ -1,6 +1,10 @@
+(require 'thingatpt)
+(require 'isearch)
 (require 'cl)
 (require 'cl-lib)
+(require 'tail)
 (require 'pp)
+(require 'pp+)
 (require 'electric)
 (require 'thingatpt)
 
@@ -16,6 +20,8 @@
 ;; (require 'eassist)
 ;; (require 'flymake-checkers)
 
+(require 'helm-ag)
+(require 'swiper)
 
 (require 'columnize)
 
@@ -31,30 +37,28 @@
 (require 'jka-compr)                    ; searches tags in gzipped sources too
 (require 'ls-lisp)                      ; elisp ls replacement
 
+(require 'ztree)
+(setq ztree-draw-unicode-lines t)
 
 (eval-after-load "replace"
   '(progn
      (require 'occur-x)
      (require 'occur-default-current-word)
-     (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)
-     (message "occur-x activated")))
+     (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)))
 
 
-
-;; Needs to be configured before require because. Just because.
+;; presse `C-u C-c <space>` to jump to lines
 (setq ace-jump-mode-submode-list
-      '(ace-jump-word-mode
-        ace-jump-line-mode              ; make C-u C-c spc jump to lines
-        ace-jump-char-mode))
-(require 'ace-jump-mode)                ; quickly jump to char
+      '(ace-jump-word-mode ace-jump-line-mode ace-jump-char-mode))
+(require 'ace-jump-mode)                ; quickly jump to char/line
+(global-set-key (kbd "C-c C-=") 'ace-window)
+
 
 (require 'my-highlight-word)            ; somewhat like * in Vim
 (require 'my-ffap-wrapper)
-
 (require 'my-pygmentize)
-
-;; that's silly, but it's my first "real" Elisp, so I keep it around :)
-(require 'my-toggle-true-false)
+(require 'my-toggle-true-false)         ; it's silly, but it's my first "real"
+                                        ; Elisp, so I keep it around :)
 
 ;; (eval-after-load "ace-jump-mode"
 ;;   '(ace-jump-mode-enable-mark-sync))
@@ -67,9 +71,8 @@
 ;;             \___ \|  _|   | |   | |  | ||  \| | |  _\___ \
 ;;              ___) | |___  | |   | |  | || |\  | |_| |___) |
 ;;             |____/|_____| |_|   |_| |___|_| \_|\____|____/
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;
+;;================================================================================
 
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)                     ; Maintain tag database.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
@@ -81,9 +84,7 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
 ;; (semantic-mode 1)
 
-
 (turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch
-(wrap-region-global-mode t)             ; select region and press ( to wrap it
 (electric-pair-mode 1)
 
 (column-number-mode t)                  ; show col num on modeline
@@ -92,41 +93,6 @@
 
 (setq ls-lisp-use-insert-directory-program t)
 (setq insert-directory-program "~/.emacs.d/ls.sh")
-
-
-;;                           _  _________   ______
-;;                          | |/ / ____\ \ / / ___|
-;;                          | ' /|  _|  \ V /\___ \
-;;                          | . \| |___  | |  ___) |
-;;                          |_|\_\_____| |_| |____/
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
-
-(global-set-key (kbd "C-c C-l") 'pygmentize)
-(global-set-key (kbd "C-=")     'indent-for-tab-command)
-(global-set-key (kbd "C-M-=")   'align-by-current-symbol)
-(global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
-(global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
-(global-set-key (kbd "<f9>")    'my-make)
-
-(defun my-make ()
-  (interactive)
-  (let
-      ;; TODO: make this search for Makefile in directories above current file
-      ((default-directory "/home/cji/projects/klibert_pl/"))
-    (compile "make")))
-
-;;
-;; Utilities for navigating around the codebase: searching, greping, jumping...
-;;
-(define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
-(define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
-
-(require 'helm-ag)
-(require 'swiper)
-(setf ivy-format-function 'my-ivy-format)
 
 (defun my-ivy-format (cands)
   "Transform CANDS into a string for minibuffer."
@@ -141,7 +107,28 @@
              (concat (substring s 0 (- ww 3)) "...")
            s))
        cands "\n"))))
+(setf ivy-format-function 'my-ivy-format)
 
+
+;;                           _  _________   ______
+;;                          | |/ / ____\ \ / / ___|
+;;                          | ' /|  _|  \ V /\___ \
+;;                          | . \| |___  | |  ___) |
+;;                          |_|\_\_____| |_| |____/
+;;
+;;================================================================================
+
+(define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
+
+(global-set-key (kbd "C-c C-l") 'pygmentize)
+(global-set-key (kbd "C-=")     'indent-for-tab-command)
+(global-set-key (kbd "C-M-=")   'align-by-current-symbol)
+(global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
+(global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "<f9>")    'my-make)
+
+(define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
+(define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
 
 (define-key my-find-keys (kbd "o")        'helm-occur)
 (define-key my-find-keys (kbd "C-o")      'swiper)
@@ -161,61 +148,15 @@
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
 
-(defun my-helm-do-ag-current-dir ()
-  (interactive)
-  (helm-do-ag (f-dirname (buffer-file-name (current-buffer))) "*.*"))
-
-
-
-
-;; XXX: This proved to be slower and to have much worse interface than fuzzy-find.
-;; As such it's not needed anymore, but I left it here to remind me to look
-;; into the plugin use of minibuffer, which I might use someday.
-;; XXX: (require 'find-file-in-project-autoloads)
-;; (define-key my-find-keys (kbd "C-M-f") 'find-file-in-project)
-
-
+;;                        _   _  ___   ___  _  ______
+;;                       | | | |/ _ \ / _ \| |/ / ___|
+;;                       | |_| | | | | | | | ' /\___ \
+;;                       |  _  | |_| | |_| | . \ ___) |
+;;                       |_| |_|\___/ \___/|_|\_\____/
 ;;
-;;              ____  ____   ___   ____   _   _  ___   ___  _  __
-;;             |  _ \|  _ \ / _ \ / ___| | | | |/ _ \ / _ \| |/ /
-;;             | |_) | |_) | | | | |  _  | |_| | | | | | | | ' /
-;;             |  __/|  _ <| |_| | |_| | |  _  | |_| | |_| | . \
-;;             |_|   |_| \_\\___/ \____| |_| |_|\___/ \___/|_|\_\
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;================================================================================
 
-
-(add-hook 'prog-mode-hook 'my-init-prog-mode)
-(add-hook 'nim-mode-hook 'my-init-prog-mode)
-
-(defun my-init-prog-mode ()
-  ;; modes which should be enabled by default:
-  (electric-pair-mode 1)
-  (fic-ext-mode 1)
-  (rainbow-delimiters-mode 1)
-  (rainbow-mode 1)
-  (hl-line-mode 1)
-  (fci-mode 1)
-  (undo-tree-mode 1)
-  (delete-selection-mode 1)
-  (flymake-mode 1)
-  ;; (global-linum-mode 1) made pdf viewing (Doc Mode) unusable, and it offered
-  ;; no way of excluding just some modes, so I had to enable it locally for
-  ;; prog-mode buffers only
-  (linum-mode 1)
-
-  ;; in Python it doesn't work well - folds whole classes, but not methods
-  (when (not (memq major-mode
-                   '(python-mode sh-mode web-mode sql-mode)))
-    (hs-minor-mode)
-    (local-set-key (kbd "C-c C-c C-h") 'hs-hide-all)
-    (local-set-key (kbd "C-c C-c C-s") 'hs-show-all)
-    (local-set-key (kbd "C-c C-c C-t") 'hs-toggle-hiding))
-
-  (local-set-key (kbd "C-x C-x") 'exchange-point-and-mark)
-  (local-set-key (kbd "<return>") 'newline-and-indent))
-
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(require 'my-generic-programming-init-hook)
 
 
 (defun my-kill-scratch-buffer-hook ()
@@ -234,7 +175,7 @@ don't need to worry about saving scratch buffer contents anymore
                                                     (point-min)
                                                     (point-max)))))
     (goto-char (point-min))
-    (insert "================================================================================\n")
+    (insert "\n\n================================================================================\n")
     (insert (format-time-string "%A, %B %e, %Y %D -- %-I:%M %p\n"))
     (insert "================================================================================\n\n")
     (append-to-file (point-min) (point-max) "~/scratch")))
@@ -248,13 +189,25 @@ don't need to worry about saving scratch buffer contents anymore
         (my-kill-scratch-buffer-hook)))))
 (add-hook 'kill-emacs-hook 'my-kill-emacs-scratch-hook)
 
-;;  __  ____   __       _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
-;; |  \/  \ \ / /      |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
-;; | |\/| |\ V /       | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
-;; | |  | | | |        |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
-;; |_|  |_| |_|        |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;              _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
+;;             |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
+;;             | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
+;;             |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
+;;             |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
+;;
+;;================================================================================
+
+(defun my-make ()
+  (interactive)
+  (let
+      ((default-directory "/home/cji/projects/klibert_pl/"))
+    (compile "make")))
+
+
+(defun my-helm-do-ag-current-dir ()
+  (interactive)
+  (helm-do-ag (f-dirname (buffer-file-name (current-buffer))) "*.*"))
 
 
 (defun my-imenu-show-popup ()
@@ -262,6 +215,7 @@ don't need to worry about saving scratch buffer contents anymore
 default."
   (interactive)
   (helm-imenu))
+
 
 (defun my-toggle-quotes ()
   "If point is inside quoted string, replace single quates with
@@ -298,7 +252,6 @@ there's no active region."
     (comment-or-uncomment-region beg end)))
 
 
-
 (defun global-occur (arg)
   "Find occurences of arg in all but temporary opened buffers."
   (interactive "sSearch string: ")
@@ -308,30 +261,21 @@ there's no active region."
        (buffers (remove-if-not search-buffer-p (buffer-list))))
     (multi-occur buffers arg)))
 
-(defun global-occur-choices ()
+
+(defun my-isearch-current-word ()
+  "Reset current isearch to a word-mode search of the word under point."
   (interactive)
-  (global-occur "pdb"))
+  (setq isearch-word t
+        isearch-string ""
+        isearch-message "")
+  (isearch-yank-string
+   (if (not (region-active-p))
+       (word-at-point)
+     (prog1 (buffer-substring-no-properties (region-beginning) (region-end))
+       (deactivate-mark)))))
 
-
-
-;; I-search like in VIM * and # - actually it's easy. C-w pastes
-;; current word to minibuffer when I-search is active. So
-;; C-s C-w and C-r C-w does the trick.
-;;
-;; There's a little snippet to bind it to C-* (don't know if I want it):
-;;
-;; (require "thingatpt")
-;; (require "isearch")
-;; (define-key isearch-mode-map (kbd "C-*")
-;;   (lambda ()
-;;     "Reset current isearch to a word-mode search of the word under point."
-;;     (interactive)
-;;     (setq isearch-word t
-;;           isearch-string ""
-;;           isearch-message "")
-;;     (isearch-yank-string (word-at-point))))
-;;
-;;
+(define-key isearch-mode-map (kbd "C-2") 'my-isearch-current-word)
+(define-key isearch-mode-map (kbd "C-@") 'my-isearch-current-word)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               Camelize name

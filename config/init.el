@@ -10,19 +10,11 @@
 ;; this doesn't want to be set anywhere else...
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
 
-
 ;; Two giant packages: CEDET and Org-Mode
-
-(unless (featurep 'cedet-devel-load)
-  ;; do not load cedet if it's loaded already - happens when using dumped
-  ;; emacs with normal init file
-  (condition-case nil
-      (progn
-        (load "~/cedet/cedet-devel-load.el")
-        (load "~/cedet/contrib/cedet-contrib-load.el"))
-    (error (message (concat "Fetch the latest CEDET package and place it "
-                            "inside `~/cedet/'. Remember to `make' it.")))))
-
+(require 'cedet)
+(unless (featurep 'cedet)
+  (message (concat "Fetch the latest CEDET package and place it "
+                   "inside `~/cedet/'. Remember to `make' it.")))
 
 (add-to-list 'load-path "~/portless/org-mode/lisp/")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp/")
@@ -81,9 +73,9 @@
   ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono-12")
   (interactive)
   (when window-system
-    (if-hostname f23
+    (if-hostname f25b
       (set-face-attribute 'default nil
-                          :font "Bitstream Vera Sans Mono-11"))
+                          :font "Bitstream Vera Sans Mono-13"))
     (if-hostname fedorcia2
       (set-face-attribute 'default nil
                           :font "Bitstream Vera Sans Mono-9"))
@@ -135,7 +127,10 @@
 (run-at-time "5 min" nil 'my-start-server)
 
 (defmacro load-indexed (arg)
-  (list 'load arg))
+  `(condition-case nil
+       (load ,arg)
+     (error (message "Couldn't load: %s" ,arg))))
+
 
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts.
 (load-indexed "my-keymaps-config")
@@ -154,8 +149,6 @@
 ;; C-w C-... Elscreen lives here, too (under C-M-z ...).
 (load-indexed "my-windows-config")
 
-;; Main configuration for Python
-(load-indexed "my-python-config")
 
 ;; JavaScript, YAML, Rust, Racket and so on - configuration
 (load-indexed "langs/base.el")

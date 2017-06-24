@@ -5,6 +5,10 @@
       '(
         ace-jump-done
         ace-jump-mode
+        artist-backward-char
+        artist-next-line
+        artist-previous-line
+        asm-comment
         back-to-indentation-or-beginning
         backward-sexp
         beginning-of-buffer
@@ -24,28 +28,38 @@
         end-of-buffer
         end-of-visual-line
         erlang-electric-comma
+        eshell-bol
         eval-last-sexp
+        fill-paragraph
         forward-sexp
         fuzzy-find-choose-root-set
+        helm-M-x
         indent-for-tab-command
         iy-go-to-char--command
         iy-go-to-char-quit
         jedi:dot-complete
         join-region
         keyboard-escape-quit
+        keyboard-quit
         kill-region
         kill-sexp
         kill-visual-line
         kmacro-start-macro-or-insert-counter
         livescript-dedent-line-backspace
+        magit-status
         mark-lines-next-line
         mark-word
+        markdown-demote
+        markdown-exdent-or-delete
         my-dedent
+        my-delete-indentation-down
         my-eval-last-sexp
         my-indent
         my-toggle-quotes
+        nim-electric-backspace
         nim-indent-electric-colon
         nxml-electric-slash
+        occur-x-undo-filter
         org-beginning-of-line
         org-cycle
         org-end-of-line
@@ -79,6 +93,7 @@
         python-indent-electric-colon
         python-indent-shift-left
         python-indent-shift-right
+        racket-insert-lambda
         scroll-other-window-down
         sgml-slash
         slime-autodoc-space
@@ -102,10 +117,15 @@
         dired-previous-line
         elscreen-next
         elscreen-previous
+        eval-defun
+        fuzzy-find-in-project
         helm-occur
         ibuffer
         ido-find-file
         iedit-mode
+        isearch-repeat-forward
+        magit-blame
+        magit-blame-quit
         mouse-drag-vertical-line
         mouse-select-window
         mouse-set-region

@@ -13,6 +13,8 @@
  '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
+ '(auto-indent-backward-delete-char-behavior (quote untabify))
+ '(auto-indent-blank-lines-on-move nil)
  '(auto-mark-ignore-move-on-sameline nil)
  '(auto-revert-interval 2)
  '(auto-revert-mode-text " AR")
@@ -50,6 +52,7 @@
  '(delete-selection-mode nil)
  '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
  '(dired-use-ls-dired (quote unspecified))
+ '(diredp-hide-details-initially-flag nil)
  '(direx:closed-icon "▶ ")
  '(direx:leaf-icon "- ")
  '(direx:open-icon "▼ ")
@@ -78,9 +81,10 @@
    (quote
     (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
- '(elscreen-default-buffer-name "*Ibuffer*")
+ '(elscreen-default-buffer-name "*scratch*")
  '(elscreen-tab-display-kill-screen nil)
  '(enable-recursive-minibuffers t)
+ '(epg-gpg-program "gpg")
  '(eshell-cannot-leave-input-list
    (quote
     (beginning-of-line-text beginning-of-line move-to-column move-to-left-margin move-to-tab-stop forward-char backward-char delete-char delete-backward-char backward-delete-char backward-delete-char-untabify kill-paragraph backward-kill-paragraph kill-sentence backward-kill-sentence kill-sexp backward-kill-sexp kill-word backward-kill-word kill-region forward-list backward-list forward-page backward-page forward-point forward-paragraph backward-paragraph backward-prefix-chars forward-sentence backward-sentence forward-sexp backward-sexp forward-to-indentation backward-to-indentation backward-up-list forward-word backward-word next-line forward-visible-line forward-comment forward-thing)))
@@ -97,6 +101,7 @@
  '(fringe-mode (quote (10 . 8)) nil (fringe))
  '(fuzzy-accept-error-rate 0.2)
  '(geiser-mode-auto-p nil)
+ '(generic-ignore-files-regexp "[GPS]*[Tt][Aa][Gg][Ss]\\'")
  '(git-commit-mode-hook
    (quote
     (turn-on-auto-fill flyspell-mode my-magit-commit-hook)) t)
@@ -125,8 +130,10 @@
  '(helm-imenu-fuzzy-match t)
  '(help-at-pt-display-when-idle (quote never) nil (help-at-pt))
  '(help-at-pt-timer-delay 3)
- '(ibuffer-default-sorting-mode (quote major-mode))
- '(ibuffer-deletion-char 88)
+ '(ibuffer-default-shrink-to-minimum-size t)
+ '(ibuffer-default-sorting-mode (quote filename/process))
+ '(ibuffer-deletion-char 215)
+ '(ibuffer-deletion-face (quote web-mode-comment-keyword-face))
  '(ibuffer-elide-long-columns t)
  '(ibuffer-expert t)
  '(ibuffer-formats
@@ -162,7 +169,7 @@
  '(imenu-use-popup-menu nil)
  '(indicate-buffer-boundaries nil)
  '(indicate-empty-lines t)
- '(inferior-lisp-program "/home/cji/ccl/lx86cl64" t)
+ '(inferior-lisp-program "/usr/local/bin/sbcl" t)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
@@ -180,17 +187,17 @@
       (:password . "cji")
       (:network-server . "direct.klibert.pl")
       (:connection-type . starttls)))))
- '(jabber-alert-info-message-hooks (quote (jabber-info-echo jabber-info-display)))
+ '(jabber-alert-info-message-hooks
+   (quote
+    (jabber-info-stumpwm jabber-info-beep jabber-info-echo)))
  '(jabber-alert-message-function (quote my-jabber-message-default-message))
  '(jabber-alert-message-hooks
    (quote
-    (jabber-message-stumpwm jabber-message-tmux jabber-message-beep jabber-message-echo jabber-message-display jabber-message-scroll)))
+    (jabber-message-stumpwm-presence jabber-message-echo jabber-message-scroll)))
  '(jabber-alert-muc-hooks
    (quote
     (jabber-muc-stumpwm jabber-muc-echo jabber-muc-scroll)))
- '(jabber-alert-presence-hooks
-   (quote
-    (jabber-presence-stumpwm-presence jabber-presence-echo)))
+ '(jabber-alert-presence-hooks (quote (jabber-presence-stumpwm-presence)))
  '(jabber-auto-reconnect t)
  '(jabber-backlog-days 300)
  '(jabber-backlog-number 80)
@@ -222,12 +229,15 @@
  '(minimap-update-delay 0.3)
  '(mouse-avoidance-threshold 10)
  '(mumamo-background-colors nil)
+ '(ns-alternate-modifier (quote super))
+ '(ns-auto-hide-menu-bar nil)
+ '(ns-command-modifier (quote meta))
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-files (quote ("~/todo/")))
  '(org-archive-location "todo.archive::datetree/* From %s")
- '(org-babel-js-cmd "/home/cji/software/nodejs/bin/node")
+ '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
    (quote
     ((emacs-lisp . t)
@@ -235,13 +245,12 @@
      (scheme . t)
      (js . t)
      (io . t)
-     (shell . t)
      (ditaa . t))))
- '(org-babel-noweb-wrap-end "->")
- '(org-babel-noweb-wrap-start "<-")
+ '(org-babel-process-comment-text (quote org-remove-indentation) nil nil "smc")
  '(org-babel-shell-names
    (quote
     ("sh" "bash" "csh" "ash" "dash" "ksh" "mksh" "posh" "zsh")))
+ '(org-babel-tangle-uncomment-comments t)
  '(org-clock-into-drawer t)
  '(org-clock-persist (quote clock))
  '(org-columns-default-format
@@ -262,7 +271,10 @@
       (:strike-through t)
       "<del>" "</del>"))))
  '(org-enforce-todo-dependencies t)
+ '(org-export-coding-system (quote utf-8))
  '(org-export-creator-string "")
+ '(org-export-use-babel nil)
+ '(org-export-with-statistics-cookies nil)
  '(org-global-properties
    (quote
     (("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00"))))
@@ -270,6 +282,23 @@
  '(org-habit-show-habits-only-for-today nil)
  '(org-hide-leading-stars t)
  '(org-hierarchical-todo-statistics nil)
+ '(org-html-infojs-options
+   (quote
+    ((path . "http://orgmode.org/org-info.js")
+     (view . "info")
+     (toc . :with-toc)
+     (ftoc . "0")
+     (tdepth . "max")
+     (sdepth . "max")
+     (mouse . "underline")
+     (buttons . "0")
+     (ltoc . "1")
+     (up . :html-link-up)
+     (home . :html-link-home))))
+ '(org-html-keep-old-src t)
+ '(org-html-klipse-js
+   "https://storage.googleapis.com/app.klipse.tech/plugin_prod/js/klipse_plugin.min.js")
+ '(org-html-klipsify-src nil)
  '(org-log-done (quote note))
  '(org-log-into-drawer t)
  '(org-log-repeat (quote note))
@@ -283,6 +312,7 @@
  '(org-show-siblings (quote ((default . t) (isearch t))))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)
+ '(org-src-fontify-natively t)
  '(org-tag-alist
    (quote
     ((:startgroup)
@@ -300,6 +330,7 @@
    (quote
     ((sequence "TODO(t!)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")
      (sequence "INACTIVE(i!)" "ACTIVE(a@)" "SUSPENDED(u@)" "|" "FINISHED(f@)"))))
+ '(org-use-sub-superscripts nil)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
@@ -309,7 +340,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode)))
+    (with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode)))
  '(powerline-default-separator (quote rounded))
  '(powerline-height nil)
  '(powerline-text-scale-factor nil)
@@ -319,18 +350,22 @@
  '(prolog-electric-dot-flag t)
  '(prolog-indent-width 4)
  '(python-check-command "flake8")
+ '(python-environment-virtualenv (quote ("virtualenv" "--system-site-packages" "--quiet")))
  '(quack-programs
    (quote
     ("csi -:c" "mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
+ '(racket-racket-program "/Applications/Racket v6.8/bin/racket")
+ '(racket-raco-program "/Applications/Racket v6.8/bin/raco")
  '(racket-use-company-mode nil)
  '(recentf-auto-cleanup (quote never))
- '(recentf-max-menu-items 100)
- '(recentf-max-saved-items 100)
+ '(recentf-max-menu-items 500)
+ '(recentf-max-saved-items 1000)
  '(recentf-menu-action (quote find-file))
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
+    ((bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)")
+     (cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
      (cider-refresh-after-fn . "reloaded.repl/resume")
      (cider-refresh-before-fn . "reloaded.repl/suspend")
      (checkdoc-package-keywords-flag)
@@ -371,6 +406,7 @@
  '(sr-speedbar-auto-refresh nil)
  '(sr-speedbar-right-side nil)
  '(sr-use-commander-keys t)
+ '(sr-windows-locked nil)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el" t)
  '(starttls-extra-arguments (quote ("--insecure")))
  '(synosaurus-choose-method (quote popup))
@@ -379,8 +415,8 @@
     (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(tags-revert-without-query t)
  '(tool-bar-mode nil)
- '(tramp-backup-directory-alist (quote (("." . "~/.saves"))))
- '(tramp-verbose 5)
+ '(tramp-backup-directory-alist (quote (("." . "~/.saves"))) nil (tramp))
+ '(tramp-verbose 5 nil (tramp))
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
  '(undo-tree-auto-save-history t)
@@ -408,6 +444,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:foreground "red" :height 4.0))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
@@ -415,6 +452,7 @@
  '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
  '(hl-line ((t (:background "gray18"))))
+ '(hl-sexp-face ((t (:background "gray23"))))
  '(j-verb-face ((t (:foreground "dark cyan"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))

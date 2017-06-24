@@ -4,10 +4,24 @@
 ;;
 ;; Example usage:
 ;;
-;; (load "align-by-current-symbol.el")
+;; (require 'align-by-current-symbol)
 ;; (global-set-key (kbd "C-c C-.") 'align-by-current-symbol)
 ;;
-;; Just position a point on something you want aligned and invoke the command.
+;; Then just position a point on something you want aligned and invoke the
+;; command. For example, place point on any of the `=` chars in the following
+;; snippet and call `align-by-current-symbol`
+;;
+;; url = models.URLField()
+;; creator = models.CharField(max_length=255)
+;; created = models.DateTimeField(auto_now_add=True) data = JSONField()
+;;
+;; and this is what you'd get:
+;;
+;; url     = models.URLField()
+;; creator = models.CharField(max_length=255)
+;; created = models.DateTimeField(auto_now_add=True)
+;; data    = JSONField()
+;;
 
 (eval-when-compile
   (require 'cl))
@@ -20,11 +34,11 @@
 (require 'my-utils)
 
 
-(defvar abc-skip-chars " \t\n")
+(defconst abc-skip-chars (seq-map (lambda (x) x) " \t\n"))
+
 (defun abc-skip-regexp ()
   "Stop-chars for determining symbol boundaries."
   (rx (any " \t\n")))
-
 
 
 ;;;###autoload

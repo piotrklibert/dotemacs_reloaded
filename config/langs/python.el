@@ -27,8 +27,7 @@
 (defun my-elpy-mode-setup ()
   (jedi:setup)
   (eldoc-mode 1)
-  (setq ac-sources (-distinct (append '(ac-source-filename
-                                        ac-source-jedi-direct)
+  (setq ac-sources (-distinct (append '(ac-source-filename ac-source-jedi-direct)
                                       ac-sources)))
 
   (define-key elpy-mode-map (kbd "<M-right>") nil)
@@ -46,7 +45,6 @@
   (local-set-key (kbd "M-}") 'python-nav-forward-block)
 
   (local-set-key (kbd "C-{") 'python-nav-backward-defun)
-  (local-set-key (kbd "C-}") 'python-nav-forward-defun)
-  )
+  (local-set-key (kbd "C-}") 'python-nav-forward-defun))
 
 (add-hook 'elpy-mode-hook 'my-elpy-mode-setup)

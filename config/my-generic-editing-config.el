@@ -1,43 +1,54 @@
 (require 'neotree)
-
-(require 'recentf)
-(recentf-mode 1)
-
-(require 'delim-col)                    ; formats columnar text, needs config
-
-(require 'register-list)                ; M-x register-list
-
-(require 'auto-mark)
-(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
-
-(require 'mark-lines)                   ; mark whole line no matter where pt is
-(require 'visible-mark)                 ; recompile after Emacs update!
-(global-visible-mark-mode 1)
-
-(require 'wrap-region)                  ; select region and press " to wrap it
-                                        ; with quotes
-
-(require 'fill-column-indicator)        ; vertical line on the 'fill' col
-(require 'undo-tree)                    ; visualisation of undo/redo
-
-(require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
-(browse-kill-ring-default-keybindings)
-
-
+(require 'undo-tree)                    ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
 (require 'iedit-rect)                   ; C-<return>
+(require 'register-list)                ; M-x register-list
+(require 'mark-lines)                   ; mark whole line no matter where pt is
+(require 'helm)                         ; reworked minibuffer
 
+;; (require 'delim-col)                 ; formats columnar text, TODO: needs config
+
+(require 'recentf)
+(recentf-mode 1)
+
+(require 'auto-mark)
+(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
+
+(require 'visible-mark)                 ; recompile after Emacs update!
+(global-visible-mark-mode 1)
+
+(require 'wrap-region)                  ; select region and press " or ( or {,
+(wrap-region-global-mode t)             ; etc. to wrap it
+
+(require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
+(browse-kill-ring-default-keybindings)
+
+(require 'textobjects)                  ; eg. C-x w { or C-x w "
+(global-textobject-mark-mode 1)
 
 (require 'saveplace)                    ; Save point position between sessions
-(setq-default save-place t)
-(setq save-place-file (expand-file-name "h.places" user-emacs-directory))
+(setq save-place-file (f-expand "point_position_history" user-emacs-directory))
+(save-place-mode t)
 
-(require 'synosaurus)
-(require 'synosaurus-wordnet)
+(setq mc/list-file "~/.emacs.d/data/mc-lists.el")
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
-(require 'helm)
+(require 'expand-region)
+(define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
+(define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
+
+(require 'iy-go-to-char)
+(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
+
+(setq line-number-display-limit-width 2000000)
+
+(defadvice upcase-word     (before upcase-word-advice     activate) (move-to-word-beginning))
+(defadvice downcase-word   (before downcase-word-advice   activate) (move-to-word-beginning))
+(defadvice capitalize-word (before capitalize-word-advice activate) (move-to-word-beginning))
+
 
 (defun helm-backspace ()
   "Forward to `backward-delete-char'.
@@ -51,40 +62,34 @@ On error (read-only), quit without selecting."
 (define-key helm-map (kbd "DEL") 'helm-backspace)
 
 
-(defun backward-word-upcase ()
+(defun move-to-word-beginning ()
   (unless (looking-back "\\b")
     (backward-word)))
 
-(defadvice upcase-word (before upcase-word-advice activate)
-  (backward-word-upcase))
-(defadvice downcase-word (before downcase-word-advice activate)
-  (backward-word-upcase))
-(defadvice capitalize-word (before capitalize-word-advice activate)
-  (backward-word-upcase))
+(defun my-delete-indentation ()
+  (interactive)
+  (delete-indentation))
+
+(defun my-delete-indentation-down ()
+  (interactive)
+  (delete-indentation t))
 
 
-(setq mc/list-file "~/.emacs.d/data/mc-lists.el")
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-
-(require 'expand-region)
-(define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
-(define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
-
-(require 'textobjects)
-(global-textobject-mark-mode 1)
-
-(require 'iy-go-to-char)
-(add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
-;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
-
+;;; DISABLED
+;;
 ;; make artist-mode leave mouse pointer shape alone (it changes it otherwise)
 ;; (eval-after-load "artist"
 ;;   (setq artist-pointer-shape x-pointer-left-ptr))
-
+;;
 ;; make sure we're using english dictionary even if the locale says otherwise
 ;; (ispell-change-dictionary "english")
+;;
+;; Breaks auto-complete popups and other plugins:
+;; (require 'fill-column-indicator)        ; vertical line on the 'fill' col
+;;
+;; (require 'synosaurus)                   ; thesaurus support
+;; (require 'synosaurus-wordnet)
+;; (define-key mode-specific-map (kbd "M-$") 'synosaurus-lookup)
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -93,12 +98,19 @@ On error (read-only), quit without selecting."
 ;;                          |_|\_\_____| |_| |____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(global-set-key (kbd "C-c >") 'iy-go-to-or-up-to-continue)
+(global-set-key (kbd "C-c <") 'iy-go-to-or-up-to-continue-backward)
+
+(define-key global-map (kbd "s-<up>")   'my-delete-indentation)
+(define-key global-map (kbd "s-<down>") 'my-delete-indentation-down)
+
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-=")     'mc/mark-all-like-this)
+(global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
 (global-set-key (kbd "C-x C-d")    'sr-dired)
+(global-set-key (kbd "s-<SPC>")    'just-one-space)
 
 (global-set-key (kbd "C-x C-k")    'kill-region)
 (global-set-key (kbd "C-c C-k")    'kill-region)
@@ -122,18 +134,16 @@ On error (read-only), quit without selecting."
 (global-set-key (kbd "C-v")            'kill-whole-line)
 (global-set-key (kbd "M-j")            'join-region)
 (global-set-key (kbd "C-x r C-y")      'yank-rectangle-as-text)
-
+(global-set-key (kbd "C-c C-o")        'browse-url-at-point)
 
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
-(define-key my-toggle-keys (kbd "ł") 'toggle-truncate-lines)
+(define-key my-toggle-keys (kbd "ł")   'toggle-truncate-lines)
 
 
 ;; Use remap because setting a C-a key would potentially conflict with other
 ;; enhancements to beginning-of-line (like in Org mode).
-(global-set-key [remap move-beginning-of-line]
-                'back-to-indentation-or-beginning)
-(global-set-key (kbd "C-a")
-                'back-to-indentation-or-beginning)
+(global-set-key [remap move-beginning-of-line] 'back-to-indentation-or-beginning)
+(global-set-key                    (kbd "C-a") 'back-to-indentation-or-beginning)
 
 
 ;; no idea where or why I overriden default <return> function in isearch...
@@ -157,10 +167,11 @@ On error (read-only), quit without selecting."
   (delete-selection-mode 1)
   (undo-tree-mode 1)
   (turn-on-auto-fill)
-
+  (linum-mode 1)
+  ;; (wrap-region 1)
   ;; This fucks up empty lines display in text modes, so
   ;; it's disabled
-  (fci-mode -1))
+)
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 

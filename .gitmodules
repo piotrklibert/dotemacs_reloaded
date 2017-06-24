@@ -103,3 +103,12 @@
 [submodule "forked-plugins/synosaurus"]
 	path = forked-plugins/synosaurus
 	url = https://github.com/hpdeifel/synosaurus/
+[submodule "forked-plugins/ztree"]
+	path = forked-plugins/ztree
+    url = git@github.com:fourier/ztree.git
+[submodule "forked-plugins/idris-mode"]
+	path = forked-plugins/idris-mode
+	url = git@github.com:idris-hackers/idris-mode.git
+[submodule "forked-plugins/prop-menu"]
+	path = forked-plugins/prop-menu
+	url = git@github.com:david-christiansen/prop-menu-el.git
