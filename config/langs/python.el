@@ -17,12 +17,39 @@
 (elpy-use-ipython)
 (setq elpy-rpc--timeout 5)            ; new version is a bit slower than it was
 
-;; ELPY - ElDoc config
+(defconst venv-dir-names
+  '(".venv" "venv" "env" ".env"))
 
 
-;;
-;;                           Additional keybindings
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun my-switch-venv (dir)
+  (jedi:stop-server)
+  (pyvenv-activate dir)
+  (elpy-rpc-restart)
+  (jedi:setup)
+  dir)
+
+(defun my-search-venv (dir)
+  (let
+      ((res (loop for x in venv-dir-names
+                  for p = (f-join dir x)
+                  if (f-exists? p)
+                  return p)))
+    (if res
+        res
+      (when (f-parent dir)
+        (my-search-venv (f-parent dir))))))
+
+;; (my-switch-venv (my-search-venv "/home/cji/projects/truststamp/naea/backend/corn/"))
+;; (my-switch-venv (my-search-venv "/home/cji/poligon/mangi/manga/"))
+
+(defun aac ()
+  (interactive)
+  (let*
+      ((buf-dir (-> (current-buffer) buffer-file-name f-parent))
+       (env (-> buf-dir my-search-venv my-switch-venv)))
+    (if env
+        (message "Found env: %s" env)
+      (message "Virtualenv not found!"))))
 
 (defun my-elpy-mode-setup ()
   (jedi:setup)

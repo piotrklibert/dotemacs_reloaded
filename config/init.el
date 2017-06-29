@@ -126,10 +126,11 @@
     (nil (message "asdasd"))))
 (run-at-time "5 min" nil 'my-start-server)
 
+
 (defmacro load-indexed (arg)
-  `(condition-case nil
+  `(condition-case err
        (load ,arg)
-     (error (message "Couldn't load: %s" ,arg))))
+     (error (message "Couldn't load: %s (%s)" ,arg (error-message-string err)))))
 
 
 ;; import custom keymaps declarations, used by DEFINE-KEY in scripts.
@@ -145,11 +146,6 @@
 ;; config - mainly ido-mode
 (load-indexed "my-generic-ui-config")
 
-;; Keybinding and function that deal with windows and buffers, mostly bound to
-;; C-w C-... Elscreen lives here, too (under C-M-z ...).
-(load-indexed "my-windows-config")
-
-
 ;; JavaScript, YAML, Rust, Racket and so on - configuration
 (load-indexed "langs/base.el")
 
@@ -158,6 +154,10 @@
 
 ;; everything that's useful for programming and not language specific
 (load-indexed "my-generic-programming-config")
+
+;; Keybinding and function that deal with windows and buffers, mostly bound to
+;; C-w C-... Elscreen lives here, too (under C-M-z ...).
+(load-indexed "my-windows-config")
 
 ;; project definitions for fuzzy find and others
 (load-indexed "my-projects")
@@ -229,12 +229,13 @@
 ;; Don't add lines when <down> is pressed at the end of a file
 (setq next-line-add-newlines nil)
 
-(setq-default imenu-auto-rescan t
-              color-theme-is-global t
-              sentence-end-double-space nil
-              mouse-yank-at-point t
-              whitespace-line-column 80
-              diff-switches "-u")
+(setq-default
+ imenu-auto-rescan t
+ color-theme-is-global t
+ sentence-end-double-space nil
+ mouse-yank-at-point t
+ whitespace-line-column 80
+ diff-switches "-u")
 
 (add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
@@ -247,15 +248,3 @@
 
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'downcase-region 'disabled nil)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

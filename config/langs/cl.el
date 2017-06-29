@@ -19,16 +19,11 @@
 
 (add-hook 'lisp-mode-hook 'my-lisp-hook)
 
-lisp-mode-hook
-
 (defun my-lisp-repl-hook ()
   (paredit-mode 1))
 
 (add-hook 'slime-repl-mode-hook  'my-lisp-repl-hook)
 
-
-
-(setq inferior-lisp-program "/bin/sbcl")
 (run-at-time "1 sec" nil
   (lambda ()
     (slime-connect "127.0.0.1" 4005)

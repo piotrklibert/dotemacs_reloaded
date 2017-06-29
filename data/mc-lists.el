@@ -130,6 +130,7 @@
         mouse-select-window
         mouse-set-region
         mouse-yank-primary
+        next-buffer
         org-delete-char
         picture-self-insert
         smex

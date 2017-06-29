@@ -81,6 +81,7 @@
    (quote
     (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
+ '(elpy-rpc-python-command "python")
  '(elscreen-default-buffer-name "*scratch*")
  '(elscreen-tab-display-kill-screen nil)
  '(enable-recursive-minibuffers t)
@@ -169,7 +170,7 @@
  '(imenu-use-popup-menu nil)
  '(indicate-buffer-boundaries nil)
  '(indicate-empty-lines t)
- '(inferior-lisp-program "/usr/local/bin/sbcl" t)
+ '(inferior-lisp-program "/bin/sbcl" t)
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
@@ -220,6 +221,7 @@
  '(lua-indent-level 4)
  '(lua-indent-string-contents t)
  '(magit-push-always-verify nil)
+ '(magit-visit-ref-behavior (quote (create-branch checkout-branch)))
  '(minimap-always-recenter t)
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
@@ -451,6 +453,7 @@
  '(elscreen-tab-current-screen-face ((t (:background "wheat2" :foreground "black"))))
  '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
+ '(helm-ff-file ((t (:inherit nil))))
  '(hl-line ((t (:background "gray18"))))
  '(hl-sexp-face ((t (:background "gray23"))))
  '(j-verb-face ((t (:foreground "dark cyan"))))

@@ -49,29 +49,31 @@
     (-butlast)
     (s-join "/")))
 
+(defconst my-powerline-max-path-length 30)
+
 (defun my-pl-buffer-dir ()
   (condition-case error
       (-> (buffer-file-name)
         (my-pl-format-dir)
-
         (my-shorten-path/drop-segments my-powerline-max-path-length)
         (concat "/"))
     (error "")))
 
 
-(defvar my-powerline-max-path-length 30)
 
 (defface my-file-name-face
-  '((t (:inherit mode-line :background "dark slate blue")))
-  "")
+  '((t (:inherit mode-line
+        :background "dark slate blue"
+        :underline nil)))
+  "A font used for displaying current buffer's file name.")
 
 (defpowerline powerline-buffer-id
   (let ((buffer-ident (powerline-trim
                        (format-mode-line
                         mode-line-buffer-identification))))
     (concat
-     (propertize (concat " " (my-pl-buffer-dir)) 'face 'lazy-highlight)
-     (propertize (concat buffer-ident " ")   'face 'my-file-name-face))))
+     (propertize (my-pl-buffer-dir) 'face 'lazy-highlight)
+     (propertize buffer-ident       'face 'my-file-name-face))))
 
 
 (provide 'my-powerline-config)
