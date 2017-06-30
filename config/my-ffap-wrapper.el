@@ -37,7 +37,10 @@
   (cl-block nil
     (let*
         ((fname (ffap-string-at-point))
-         (buf-dir (-> (current-buffer) buffer-file-name f-parent))
+         (buf-name (-> (current-buffer) buffer-file-name))
+         (buf-dir (if (not buf-name)
+                      (return nil)
+                    (f-parent buf-name)))
          found)
       (setf found (search-path-in-parents buf-dir fname))
       (when found

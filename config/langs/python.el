@@ -4,20 +4,20 @@
 
 (require 'python-django-autoloads)
 
-(require 'jedi-autoloads)
-(eval-after-load 'jedi
-  '(progn
-     (require 'jedi-direx)
-     (add-hook 'jedi-mode-hook 'jedi-direx:setup)))
-
-
 (require 'elpy-autoloads)
 (setq elpy-rpc--timeout 5)           ; new version is a bit slower than it was
 (add-hook 'python-mode-hook 'my-elpy-mode-setup)
 (add-hook 'pyvenv-post-activate-hooks 'elpy-rpc--disconnect)
 
+;; TODO: update the dependencies, investigate failures
+;; (require 'jedi-autoloads)
+;; (eval-after-load 'jedi
+;;   '(progn
+;;      (require 'jedi-direx)
+;;      (add-hook 'jedi-mode-hook 'jedi-direx:setup)))
+
 (defun my-elpy-mode-setup ()
-  (jedi:setup)
+  ;; (jedi:setup)
   (eldoc-mode 1)
   (elpy-mode)
   (setq ac-sources
