@@ -827,6 +827,7 @@ You most likely do not want to call `browse-kill-ring-mode' directly; use
        '(nil t nil nil nil
              (font-lock-fontify-region-function . browse-kill-ring-fontify-region)))
   (define-key browse-kill-ring-mode-map (kbd "q") 'browse-kill-ring-quit)
+  (define-key browse-kill-ring-mode-map (kbd "C-g") 'browse-kill-ring-quit)
   (define-key browse-kill-ring-mode-map (kbd "U") 'browse-kill-ring-undo-other-window)
   (define-key browse-kill-ring-mode-map (kbd "d") 'browse-kill-ring-delete)
   (define-key browse-kill-ring-mode-map (kbd "s") 'browse-kill-ring-search-forward)
@@ -835,7 +836,9 @@ You most likely do not want to call `browse-kill-ring-mode' directly; use
   (define-key browse-kill-ring-mode-map (kbd "l") 'browse-kill-ring-occur)
   (define-key browse-kill-ring-mode-map (kbd "e") 'browse-kill-ring-edit)
   (define-key browse-kill-ring-mode-map (kbd "n") 'browse-kill-ring-forward)
+  (define-key browse-kill-ring-mode-map (kbd "<down>") 'browse-kill-ring-forward)
   (define-key browse-kill-ring-mode-map (kbd "p") 'browse-kill-ring-previous)
+  (define-key browse-kill-ring-mode-map (kbd "<up>") 'browse-kill-ring-previous)
   (define-key browse-kill-ring-mode-map [(mouse-2)] 'browse-kill-ring-mouse-insert)
   (define-key browse-kill-ring-mode-map (kbd "?") 'describe-mode)
   (define-key browse-kill-ring-mode-map (kbd "h") 'describe-mode)

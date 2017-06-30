@@ -1,12 +1,11 @@
-(require 'neotree)
-(require 'undo-tree)                    ; visualisation of undo/redo (C-x u)
+(require 'neotree-autoloads)
+(require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
 (require 'iedit-rect)                   ; C-<return>
 (require 'register-list)                ; M-x register-list
 (require 'mark-lines)                   ; mark whole line no matter where pt is
-(require 'helm)                         ; reworked minibuffer
 
 ;; (require 'delim-col)                 ; formats columnar text, TODO: needs config
 
@@ -22,8 +21,14 @@
 (require 'wrap-region)                  ; select region and press " or ( or {,
 (wrap-region-global-mode t)             ; etc. to wrap it
 
-(require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
-(browse-kill-ring-default-keybindings)
+(defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
+  (interactive "p")
+  (if (not (eq last-command 'yank))
+      (progn
+        (require 'browse-kill-ring)     ; visualisation of kill-ring (M-y)
+        (browse-kill-ring))
+    (barf-if-buffer-read-only)
+    ad-do-it))
 
 (require 'textobjects)                  ; eg. C-x w { or C-x w "
 (global-textobject-mark-mode 1)
@@ -49,19 +54,6 @@
 (defadvice downcase-word   (before downcase-word-advice   activate) (move-to-word-beginning))
 (defadvice capitalize-word (before capitalize-word-advice activate) (move-to-word-beginning))
 
-
-(defun helm-backspace ()
-  "Forward to `backward-delete-char'.
-On error (read-only), quit without selecting."
-  (interactive)
-  (condition-case nil
-      (backward-delete-char 1)
-    (error
-     (helm-keyboard-quit))))
-
-(define-key helm-map (kbd "DEL") 'helm-backspace)
-
-
 (defun move-to-word-beginning ()
   (unless (looking-back "\\b")
     (backward-word)))
@@ -74,22 +66,6 @@ On error (read-only), quit without selecting."
   (interactive)
   (delete-indentation t))
 
-
-;;; DISABLED
-;;
-;; make artist-mode leave mouse pointer shape alone (it changes it otherwise)
-;; (eval-after-load "artist"
-;;   (setq artist-pointer-shape x-pointer-left-ptr))
-;;
-;; make sure we're using english dictionary even if the locale says otherwise
-;; (ispell-change-dictionary "english")
-;;
-;; Breaks auto-complete popups and other plugins:
-;; (require 'fill-column-indicator)        ; vertical line on the 'fill' col
-;;
-;; (require 'synosaurus)                   ; thesaurus support
-;; (require 'synosaurus-wordnet)
-;; (define-key mode-specific-map (kbd "M-$") 'synosaurus-lookup)
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -355,12 +331,13 @@ Handles prefix arg like `move-beginning-of-line' does."
     `(defun ,defun-name ()
        (interactive)
        (let
-           ((,wname (thing-at-point 'word t)))
+           ((,wname (thing-at-point 'sexp t)))
+         (when (eq ',dir 'forward)
+           (ignore-errors (forward-sexp)))
          (when ,wname
            (,search-name (concat "\\b" ,wname "\\b")))
-         (if (eq dir 'backward)
-	     t
-	   (backward-char (length ,wname))) ))))
+         (unless (eq ',dir 'backward)
+	       (backward-char (length ,wname))) ))))
 
 (like-this-maker next forward)
 (like-this-maker prev backward)

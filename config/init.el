@@ -28,7 +28,7 @@
 
 (require 'my-utils)
 (require 'my-system-config)
-(require 'my-packages)
+(load-safe "my-packages")
 
 
 ;; Font and modes configuration when running in graphical mode.
@@ -62,10 +62,10 @@
 ;; TODO: move to `custom.el' and/or `my-generic-editing-config.el'
 (setq-default indent-tabs-mode nil) ; DON'T use tabs for indenting, use spaces only
 (setq-default tab-width 4)              ; Length of tab is 4 SPC
+(setq-default indicate-empty-lines t)   ; Show empty lines
 (setq tab-width 4)                      ; Make sure tab width is set!
 (setq indent-line-function 'insert-tab) ; Set indent function to the default, because.
 (setq sentence-end-double-space nil)    ; Sentences end with one space
-(setq-default indicate-empty-lines t)   ; Show empty lines
 (setq require-final-newline 't)         ; Always newline at end of file
 (setq blink-matching-paren-distance nil) ; Blinking parenthesis
 (setq show-paren-style 'parenthesis)    ; Highlight text between parens

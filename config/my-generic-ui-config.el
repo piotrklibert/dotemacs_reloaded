@@ -10,7 +10,18 @@
 
 (require 'helm-autoloads)
 (eval-after-load 'helm
-  '(require 'helm-config))
+  '(progn
+     (require 'helm-config)
+     (define-key helm-map (kbd "DEL") 'helm-backspace)))
+
+(defun helm-backspace ()
+  "Forward to `backward-delete-char'. On error (read-only), quit
+without selecting."
+  (interactive)
+  (condition-case nil
+      (backward-delete-char 1)
+    (error (helm-keyboard-quit))))
+
 
 (require 'direx)
 (require 'generic-x)
