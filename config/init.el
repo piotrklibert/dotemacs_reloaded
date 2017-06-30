@@ -1,11 +1,12 @@
-;; (package-initialize)
-(require 'calc)
-(fringe-mode     '(4 . 8))
 ;; disable early so they don't appear during startup
 (setf frame-title-format "Emacs starting...")
+(fringe-mode     '(4 . 8))
 (menu-bar-mode    1)
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
+
+;; (package-initialize)                    ; that's not necessary, we handle paths on our own
+(require 'calc)
 
 ;; this doesn't want to be set anywhere else...
 (setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
@@ -43,6 +44,7 @@
   "~/.emacs.d/elpa"
   "~/.emacs.d/pkg-langs"
   "~/.emacs.d/plugins2"
+  "~/.emacs.d/plugins"
   "~/.emacs.d/forked-plugins/")
 
 ;; import macros for checking hostname
@@ -126,10 +128,17 @@
     (nil (message "asdasd"))))
 (run-at-time "5 min" nil 'my-start-server)
 
+(defmacro measure-time (s &rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "Loading %s took: %.06f" ,s (float-time (time-since time)))))
+
+(measure-time "a" "asd")
 
 (defmacro load-indexed (arg)
   `(condition-case err
-       (load ,arg)
+       (measure-time ,arg (load ,arg))
      (error (message "Couldn't load: %s (%s)" ,arg (error-message-string err)))))
 
 

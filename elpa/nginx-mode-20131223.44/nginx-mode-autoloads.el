@@ -15,6 +15,7 @@ The variable nginx-indent-level controls the amount of indentation.
 
 \(fn)" t nil)
 
+(provide 'nginx-mode-autoloads)
 ;;;***
 
 ;; Local Variables:

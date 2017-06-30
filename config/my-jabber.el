@@ -1,10 +1,41 @@
 ;; JABBER
-(require 'jabber)
-(require 'jabber-alert)
-(require 'jabber-keepalive)
-(require 'autosmiley)
+(require 'jabber-autoloads)
+
+(eval-after-load 'jabber
+  '(progn
+     (require 'jabber-alert)
+     (require 'jabber-keepalive)
+     (require 'autosmiley)
+
+     (define-jabber-alert stumpwm
+       "Displays message using the Slime connection to StumpWM instance in bottom-left corner of the screen."
+       'jabber-stumpwm-display-message)
+
+     (defvar *last-jabber-msg* "")
+     (defun jabber-stumpwm-display-message (text &optional title)
+       (setf *last-jabber-msg* title)
+       (slime-eval-list `(let ((stumpwm:*message-window-gravity* :bottom-left))
+                      (stumpwm:message ,text))))
+
+     ;; (jabber-stumpwm-display-message "asdasdS" "sdf")
+
+
+     (define-jabber-alert stumpwm-presence
+       "Displays message using the Slime connection to StumpWM instance in top-right corner of the screen."
+       'jabber-stumpwm-display-presence)
+
+     (defun jabber-stumpwm-display-presence (who msg &rest rest)
+       (setf msg (substring-no-properties msg))
+       (slime-eval-list `(stumpwm:message ,msg)))
+
+
+     ))
 
 (defun my-start-jabber ()
+  (interactive)
+  (require 'jabber)
+  (define-key jabber-chat-mode-map (kbd "<f5>") 'jabber-reconnect)
+  (define-key jabber-roster-mode-map (kbd "<f5>") 'jabber-reconnect)
   (jabber-connect-all)
   (jabber-whitespace-ping-start)
   (jabber-keepalive-start))
@@ -22,8 +53,6 @@
   (jabber-connect-all))
 
 
-(define-key jabber-chat-mode-map (kbd "<f5>") 'jabber-reconnect)
-(define-key jabber-roster-mode-map (kbd "<f5>") 'jabber-reconnect)
 
 
 (defadvice jabber-display-roster (after switch-to-roster activate)
@@ -46,27 +75,3 @@
                 (jabber-jid-resource from)
                 (jabber-jid-displayname (jabber-jid-user from)))
       (format "Message from %s: %s" (jabber-jid-displayname from) text))))
-
-
-(define-jabber-alert stumpwm
-  "Displays message using the Slime connection to StumpWM instance in
-bottom-left corner of the screen."
-  'jabber-stumpwm-display-message)
-
-(defvar *last-jabber-msg* "")
-(defun jabber-stumpwm-display-message (text &optional title)
-  (setf *last-jabber-msg* title)
-  (slime-eval-list `(let ((stumpwm:*message-window-gravity* :bottom-left))
-                      (stumpwm:message ,text))))
-
-;; (jabber-stumpwm-display-message "asdasdS" "sdf")
-
-
-(define-jabber-alert stumpwm-presence
-  "Displays message using the Slime connection to StumpWM instance in top-right
-corner of the screen."
-  'jabber-stumpwm-display-presence)
-
-(defun jabber-stumpwm-display-presence (who msg &rest rest)
-  (setf msg (substring-no-properties msg))
-  (slime-eval-list `(stumpwm:message ,msg)))

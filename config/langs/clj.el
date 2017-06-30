@@ -1,16 +1,17 @@
 (require 'clojure-mode)
-(require 'cider)
-(require 'ac-cider)
-(require 'slamhound)
+;; (require 'slamhound)
 
-(ac-cider-setup)
+;; (require 'cider)
+;; (require 'ac-cider)
+;; (ac-cider-setup)
+;; (add-hook 'cider-repl-mode-hook 'my-clojure-hook)
+
 
 (defun my-clojure-hook ()
   (define-key mode-specific-map (kbd "n") 'slamhound)
   (paredit-mode 1))
 
 (add-hook 'clojure-mode-hook 'my-clojure-hook)
-(add-hook 'cider-repl-mode-hook 'my-clojure-hook)
 
 (define-clojure-indent
   (throw-error-info 1)

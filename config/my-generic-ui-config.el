@@ -18,11 +18,15 @@
 (autoload 'dirtree "dirtree" "Add directory to tree view" t)
 
 (require 'edmacro)
-(require 'unbound)
+(require 'unbound-autoloads)
 (require 'ace-window)
-(require 'sunrise-commander)
-(require 'sunrise-x-tree)
-(require 'sunrise-x-modeline)
+
+(require 'sunrise-autoloads)
+(eval-after-load 'sunrise-commander
+  '(progn
+     (message "Loading Sunrise plugins...")
+     (require 'sunrise-x-tree)
+     (require 'sunrise-x-modeline)))
 
 (require 'my-powerline-config)
 

@@ -82,7 +82,7 @@
                                 :underline t)
             (push symbol faces)))
         (setq visible-mark-non-trailing-faces (nreverse faces)))))
-                  
+
 (defun visible-mark-initialize-overlays ()
   (mapcar 'delete-overlay visible-mark-overlays)
   (let (overlays)
@@ -114,15 +114,13 @@
 (require 'easy-mmode)
 
 (defun visible-mark-mode-maybe ()
-  (when (cond
-         ((minibufferp (current-buffer)) nil)
-         ((flet ((fun (arg)
-                      (if (null arg) nil
-                        (or (string-match (car arg) (buffer-name))
-                            (fun (cdr arg))))))
-            (fun global-visible-mark-mode-exclude-alist)) nil)
-         (t t))
-    (visible-mark-mode)))
+  (let*
+      ((priv-buffer-rx (rx "*" (1+ any) "*"))
+       (exclude-rxs (append (list priv-buffer-rx) global-visible-mark-mode)))
+    (when (not (loop for exclude-rx in exclude-rxs
+                     if (string-match exclude-rx (buffer-name))
+                     return t))
+      (visible-mark-mode))))
 
 (define-minor-mode visible-mark-mode
   "A mode to make the mark visible."

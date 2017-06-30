@@ -1,8 +1,8 @@
 (require 'livescript-mode)
 (require 'json-mode)
-(require 'nginx-mode)                   ;
+(require 'nginx-mode-autoloads)         ;
 
-(require 'web-mode)                     ;
+(require 'web-mode-autoloads)           ;
 
 
 (defun load/expand (fname)
@@ -70,8 +70,8 @@
 
 ;;
 ;; Erlang and Distel (Erlang shell integration) config
-(require 'erlang)
-(require 'distel)
+(require 'erlang-autoloads)
+(require 'distel-autoloads)
 
 (add-to-list 'auto-mode-alist '("\\.erl\\'" . erlang-mode))
 (add-to-list 'auto-mode-alist '("\\.hrl\\'" . erlang-mode))
@@ -82,13 +82,15 @@
   (erlang-electric-newline)
   (erlang-indent-line))
 
-(define-key erlang-mode-map (kbd "") 'my-erlang-newline)
 
 (defun my-erlang-mode-hook ()
   (linum-mode t)
   (distel-setup))
 
-(add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
+(eval-after-load 'erlang
+  '(progn
+     (define-key erlang-mode-map (kbd "") 'my-erlang-newline)
+     (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)))
 
 
 (defun save-nginx-conf-hook ()
