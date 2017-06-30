@@ -1,6 +1,6 @@
-(require 'elixir-mode)                  ;
+(require 'elixir-mode-autoloads)                  ;
 
 (defun my-elixir-hook ()
   (require 'alchemist))
-
-(add-hook 'elixir-mode-hook  'my-elixir-hook)
+(eval-after-load 'elixir-mode
+  '(add-hook 'elixir-mode-hook  'my-elixir-hook))

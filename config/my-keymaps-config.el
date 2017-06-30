@@ -41,6 +41,8 @@
 (defun my-calc-hook ()
   (message "calc hook")
   (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys))
-(add-hook 'calc-mode-hook 'my-calc-hook)
-(define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)
+(eval-after-load 'calc
+  '(progn
+     (add-hook 'calc-mode-hook 'my-calc-hook)
+     (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
 ;; (find-my-bindings-for 'my-wnd-keys)

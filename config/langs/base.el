@@ -6,7 +6,7 @@
 
 
 (defun load/expand (fname)
-  (load (f-expand fname)))
+  (load-safe (f-expand fname)))
 
 (defun load-many (&rest file-list)
   (dolist (file file-list)

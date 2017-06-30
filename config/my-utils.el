@@ -1,25 +1,45 @@
-(require 'cl)
 (require 's)
 (require 'f)
+(require 'cl)
+(require 'dash)
 
-(setq example-path  "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:\
-/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:\
-./:/root/node_modules/.bin:/usr/local/kde4/bin:/root/portless/racket/racket/bin/")
 
+(defmacro measure-time (s &rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "Loading %s took: %.06f" ,s (float-time (time-since time)))))
+
+(defmacro load-safe (arg)
+  `(condition-case err
+       (measure-time ,arg (load ,arg))
+     (error (my-log (propertize "Couldn't load: %s %s" 'face 'error)
+                    ,arg err))))
+
+
+(defconst example-path
+  (concat "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:/bin:/usr/sbin:"
+          "/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:"
+          "/usr/local/kde4/bin"))
+
+;; (only-existing-paths)
 (cl-defun only-existing-paths (&optional path)
-  (s-join
-   ":"
-   (--filter (f-exists? (f-expand it))
-                        (s-split ":" (or path example-path)))))
-
+  (let
+      ((existing-paths (--filter (f-exists? (f-expand it))
+                                 (s-split ":" (or path (getenv "PATH") example-path)))))
+    (s-join ":" existing-paths)))
 
 (defvar my-debug-flag t)
 
-(defun my-log (&rest things)
-  (when my-debug-flag
-    (with-current-buffer (get-buffer "*Messages*")
-      (loop for thing in things
-            do (insert (format "%s\n" thing))))))
+;; (my-log (propertize "some thing %s another" 'face 'error) "or")
+(defun my-log (fmt &rest things)
+  (with-current-buffer (get-buffer "*Messages*")
+    (let ((inhibit-read-only t))
+      (goto-char (point-max))
+      (unless (zerop (current-column))
+        (insert "\n"))
+      (insert (apply 'format fmt things))
+      (insert "\n"))))
 
 
 (defun buffer-line (&optional lineno)
@@ -54,7 +74,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun magic-dir-p (dir) (member (file-name-nondirectory dir) (list "." "..")))
+(defun magic-dir-p (dir)
+  (member (file-name-nondirectory dir)
+          '("." "..")))
 
 (defun directory-subdirs (root)
   (loop for filename in (directory-files root t)
@@ -119,6 +141,7 @@ defined in."
       (goto-char 1)
       (while (setq form (safe-read-sexp))
         (setq forms (cons form forms))))
+
     (setq funs (--keep (when (eq 'defun (car it))
                          (cadr it))
                        (reverse forms)))
@@ -130,21 +153,24 @@ defined in."
                (newline)
                (insert toc-string)))
       (newline)
-      (delete-region (line-beginning-position) (point-max))
+      ;; (delete-region (line-beginning-position) (point-max))
       (--each funs (insert (format ";; %s\n" it))))))
 
 
+(defun my-remove-files (target-dir files)
+  (let ((current-dir default-directory))
+    (cd target-dir)
+    (dolist (file files) (delete-file file))
+    (cd current-dir)))
+
 
 (defun my-timer (msg &optional label)
-  (lexical-let
-      ((msg msg)
-       (label label))
+  (lexical-let ((msg msg)
+                (label label))
     (lambda ()
       (interactive "P")
-      (x-popup-dialog (get-window-with-predicate
-                       (lambda (x) t))
-                      (list msg
-                            (cons (or label "ok!") t))) )))
+      (x-popup-dialog (get-window-with-predicate (lambda (x) t))
+                      (list msg (cons (or label "ok!") t))) )))
 
 
 
@@ -199,11 +225,7 @@ return a new alist whose car is the new pair and cdr is ALIST."
       alist)))
 
 
-(defun my-remove-files (target-dir files)
-  (let ((current-dir default-directory))
-    (cd target-dir)
-    (dolist (file files) (delete-file file))
-    (cd current-dir)))
+
 
 
 

@@ -53,8 +53,6 @@
 
 ;;; Code:
 
-(require 'helm)
-(require 'helm-help)
 (eval-when-compile
   (require 'cl))
 

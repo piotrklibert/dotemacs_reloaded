@@ -8,8 +8,9 @@
 (require 'ido-vertical-mode)
 ;; (require 'smex)
 
-(require 'helm)
-(require 'helm-config)
+(require 'helm-autoloads)
+(eval-after-load 'helm
+  '(require 'helm-config))
 
 (require 'direx)
 (require 'generic-x)
@@ -239,7 +240,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; quickly opening buffers of some kind (for scribbling) with key binds
+;; quickly opening buffers of some kind (for scribbling) with key bindings
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -27,11 +27,10 @@
 (run-at-time "1 sec" nil
   (lambda ()
     (slime-connect "127.0.0.1" 4005)
-    (run-at-time "2 sec" nil
+    (run-at-time "1 sec" nil
       (lambda ()
         (let ((repl-wins (-filter (lambda (x)
-                                    (s-contains?
-                                     "repl sbcl" (-> x window-buffer buffer-name)))
+                                    (s-contains? "repl sbcl" (-> x window-buffer buffer-name)))
                                   (window-list))))
           (when (> (length repl-wins) 0)
             (-map (lambda (x) (delete-window x)) repl-wins))
