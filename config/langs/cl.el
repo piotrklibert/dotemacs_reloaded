@@ -6,11 +6,15 @@
 (setq slime-contribs '(slime-fancy))
 (require 'slime)
 
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
 (font-lock-add-keywords 'lisp-mode
   '(("defcommand" . font-lock-keyword-face)
     ("defstruct"  . font-lock-keyword-face)))
 
+(indent/tag-for-modes
+    '(lisp-indent-function)
+  '((define-modeline-subthread . 1)))
 
 (defun my-lisp-hook ()
   (define-key slime-mode-map (kbd "C-c C-c") 'slime-repl)

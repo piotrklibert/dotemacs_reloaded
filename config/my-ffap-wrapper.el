@@ -19,7 +19,7 @@
   (if (not (string= subpath ""))
       (loop for joined = (f-join path subpath)
             for parent = (f-parent path)
-            if (-> joined f-exists?) return joined
+            if (f-exists? joined) return joined
             while parent do (setf path parent))
     nil))
 
@@ -43,12 +43,8 @@
                     (f-parent buf-name)))
          found)
       (setf found (search-path-in-parents buf-dir fname))
-      (when found
-        (message "1")
-        (return found))
-
+      (when found (return found))
       (setf found (search-path-in-roots fname))
-      (message "2")
       (when found (return found)))))
 
 (defun my-project-ffap (&optional new-win)
