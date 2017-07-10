@@ -24,8 +24,9 @@
 
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
-(global-set-key (kbd "C-c .")   'hippie-expand)
-(global-set-key (kbd "C-<tab>") 'ac-start)
+(define-key global-map (kbd "C-c .")   'hippie-expand)
+(define-key global-map (kbd "C-<tab>") 'ac-start)
+(define-key global-map (kbd "C-M-/")   'helm-dabbrev)
 
 (define-key popup-menu-keymap (kbd "<return>") 'popup-select)
 
@@ -53,6 +54,13 @@
   (setq-default ac-sources default-sources ))
 
 (add-to-list 'ac-modes 'io-mode)
+
+(require 'ac-slime)
+(add-hook 'slime-mode-hook 'set-up-slime-ac)
+(add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+(eval-after-load "auto-complete"
+  '(add-to-list 'ac-modes 'slime-repl-mode))
+
 
 ;;
 ;; YASnippet completions config
