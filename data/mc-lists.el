@@ -49,6 +49,7 @@
         magit-status
         mark-lines-next-line
         mark-word
+        markdown-cycle
         markdown-demote
         markdown-exdent-or-delete
         my-dedent
@@ -110,6 +111,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        align-by-current-symbol
         artist-down-mouse-1
         artist-down-mouse-3
         cider-eval-defun-at-point

@@ -459,6 +459,8 @@
  '(j-verb-face ((t (:foreground "dark cyan"))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
+ '(org-block-begin-line ((t (:foreground "#9ED5D5" :underline "#9ED5D5" :height 0.85))))
+ '(org-block-end-line ((t (:foreground "#9ED5D5" :overline "#9ED5D5" :height 0.85))))
  '(powerline-active1 ((t (:inherit mode-line :background "gray22"))))
  '(powerline-active2 ((t (:inherit mode-line :background "gray40"))))
  '(powerline-inactive1 ((t (:inherit mode-line-inactive :background "gray11"))))
