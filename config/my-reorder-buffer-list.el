@@ -6,8 +6,7 @@
 ;; I wanted to be able to move to Nth last displayed buffer and have it moved at
 ;; the top, with all the other buffers still where they were. I implement this
 ;; by "freezing" a buffer list and switching between buffers without making them
-;; current. I then install a timer, which performs a full switch-to-buffer after
-;; a given time elapsed and the buffer wasn't changed.
+;; current.
 ;;
 ;; This could use some love, but it works for me well enough for now.
 
@@ -19,8 +18,29 @@
   list pos)
 
 (defvar my-file-buffers nil)
-(defvar my-last-traverse nil)
-(defvar my-deferred nil)
+
+(defun tfb-done ()
+  (interactive)
+  (tfb-finish)
+  (setq overriding-local-map nil)
+  (let* ((keys (progn
+                 (setq unread-command-events (append (this-single-command-raw-keys)
+                                                     unread-command-events))
+                 (read-key-sequence-vector "")))
+         (command (and keys (key-binding keys))))
+    (when (commandp command)
+      (setq this-command          command)
+      (setq this-original-command command)
+      (call-interactively command))))
+
+(defun tfb-override-local-map ()
+  "Override the local key map for jump char CHAR."
+  (setq overriding-local-map
+        (let ((map (make-sparse-keymap)))
+          (define-key map (kbd "C-M-<next>")  #'tfb-up)
+          (define-key map (kbd "C-M-<prior>") #'tfb-down)
+          (define-key map [t]                 #'tfb-done)
+          map)))
 
 ;; Shortened accessors
 (defmacro make-fbl (list pos) `(make-file-buffers-list :list ,list :pos ,pos))
@@ -29,7 +49,7 @@
 
 (defmacro fb-list-nth (fb-list)
   "Get a current buffer out of given `file-buffers-list' struct.
-If it's `pos' is somehow out of range, wrap it before returning."
+If its `pos' is somehow out of range, wrap it before returning."
   `(let*
        ((pos   (file-buffers-list-pos ,fb-list))
         (list  (file-buffers-list-list ,fb-list) )
@@ -39,12 +59,9 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 
 (defun tfb-hidden-buf? (it)
-
   (and (s-contains? "*" it)
-       (not (s-contains? "REPL" it))
-       (not (s-contains? "scratch" it)))
-
-  )
+       (not (s-contains? "repl" (s-downcase it)))
+       (not (s-contains? "scratch" (s-downcase it)))))
 
 (defun tfb-buf-names ()
   (let ((names (-map 'buffer-name (buffer-list))))
@@ -56,36 +73,20 @@ If it's `pos' is somehow out of range, wrap it before returning."
 
 (defun tfb-finish ()
   (switch-to-buffer (fb-list-nth my-file-buffers))
-  (setq my-file-buffers  nil
-        my-last-traverse nil
-        my-deferred      nil)
+  (setq my-file-buffers  nil)
   (message "Current buffer made first in buffer list."))
 
-(defun my-schedule-cleanup ()
-  (unless my-deferred
-    (setq my-deferred
-     (deferred:$
-       (deferred:wait 1000)
-
-       (deferred:nextc it
-         (lambda (x)
-           (if (> (- (float-time) my-last-traverse) 1.2)
-               (tfb-finish)
-             (setq my-deferred nil)
-             (my-schedule-cleanup))))))))
-
 (defun tfb-moveto (&optional delta)
-  (setq my-last-traverse   (float-time))
   (unless delta            (setq delta 1))
   (unless my-file-buffers  (tfb-init))
-  (let*
-      ((pos (fbl-pos))
-       (len (length (fbl-list)))
-       (dest (+ pos delta))
-       (dest (if (< dest 0) (1- len) dest)))
+  (unless overriding-local-map
+    (tfb-override-local-map))
+  (let* ((pos (fbl-pos))
+         (len (length (fbl-list)))
+         (dest (+ pos delta))
+         (dest (if (< dest 0) (1- len) dest)))
     (setf (file-buffers-list-pos my-file-buffers) dest)
-    (switch-to-buffer (fb-list-nth my-file-buffers) t)
-    (my-schedule-cleanup)))
+    (switch-to-buffer (fb-list-nth my-file-buffers) t)))
 
 (defun tfb-up ()
   (interactive)
@@ -94,38 +95,6 @@ If it's `pos' is somehow out of range, wrap it before returning."
 (defun tfb-down ()
   (interactive)
   (tfb-moveto -1))
-
-(defvar tfb-mouse-up-flag nil)
-(defun tfb-mouse-up ()
-  (interactive)
-  (unless tfb-mouse-up-flag
-    (deferred:$
-      (deferred:next
-        (lambda ()
-          (tfb-up)
-          (setq tfb-mouse-up-flag t)))
-      (deferred:wait 350)
-      (deferred:nextc it
-        (lambda (time)
-          (setq tfb-mouse-up-flag nil))))))
-
-(defvar tfb-mouse-down-flag nil)
-(defun tfb-mouse-down ()
-  (interactive)
-  (unless tfb-mouse-down-flag
-    (deferred:$
-      (deferred:next
-        (lambda ()
-          (tfb-down)
-          (setq tfb-mouse-down-flag t)))
-      (deferred:wait 350)
-      (deferred:nextc it
-        (lambda (time)
-          (setq tfb-mouse-down-flag nil))))))
-
-
-;; (global-set-key (kbd "<mouse-6>") nil)
-;; (global-set-key (kbd "<mouse-7>") nil)
 
 (global-set-key (kbd "C-M-<prior>") 'tfb-down)
 (global-set-key (kbd "C-M-<next>")  'tfb-up)
