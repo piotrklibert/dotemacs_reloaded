@@ -1,8 +1,11 @@
-;(require 'nim-mode)
-;(require 'nim-suggest)
+(use-package nim-mode
+  :mode "\\.nim\\'"
+  :commands nim-mode
+  :config
+  (require 'nim-suggest)
+  ;; (add-to-list 'company-backends 'company-nim)
+  (add-hook 'nim-mode-hook 'my-nim-hook))
 
-;; (add-to-list 'company-backends 'company-nim)
-;; ;(add-to-list 'auto-indent-multiple-indent-modes 'nim-mode)
 
 (defun my-nim-hook ()
   (define-key nim-mode-map (kbd "C-c C-n") 'c2nim)
@@ -12,10 +15,8 @@
   (auto-complete-mode 1)
   (nimsuggest-mode 1)
   (auto-indent-mode 1)
-  (setq forward-sexp-function nil)
-  )
+  (setq forward-sexp-function nil))
 
-(add-hook 'nim-mode-hook 'my-nim-hook)
 (defun my-c2nim (beg end)
   (interactive "r")
   (let

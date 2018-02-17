@@ -1,14 +1,12 @@
-(require 'git-commit)
 (require 'magit-autoloads)
-(require 'pcase)
 
-;; (require 'gh)
-;; (require 'magit-gh-pulls)
-;; (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+(use-package git-commit
+  :commands git-commit-setup
+  :config
+  (define-key git-commit-mode-map (kbd "C-c C-s") 'my-set-ticket))
 
-(autoload
-  'magit-blame "magit-blame"
-  "Major mode for editing Markdown files" t)
+(use-package magit-blame
+  :commands magit-blame)
 
 (eval-after-load "magit"
   '(progn
@@ -20,39 +18,21 @@
 
 (defun my-auto-refresh-magit ()
   (let
-      ((magit-buffer (-find (lambda (x)
-                              (s-contains? "magit" (buffer-name x)))
-                            (buffer-list))))
+      ((magit-buffer (--find (s-contains? "magit" (buffer-name it))
+                             (buffer-list))))
     (when (not (eq (current-buffer) magit-buffer))
       (with-current-buffer magit-buffer
         (magit-refresh-buffer)))))
-
-;; (cancel-timer
-;;  (-find (lambda (x)
-;;           (eq (timer--function x) #'my-auto-refresh-magit))
-;;         timer-list))
+;; (cancel-timer (--find (eq (timer--function it) #'my-auto-refresh-magit)
+;;                       timer-list))
 ;; (setq my-auto-refresh-magit-timer
 ;;       (run-at-time nil 5 #'my-auto-refresh-magit))
-
-;; customize: magit-blame-disable-modes instead of this hook
-;; (eval-after-load "magit-blame"
-;;   '(add-hook 'magit-blame-mode-hook
-;;              'my-magit-blame-hook))
-;; (defun my-magit-blame-hook ()
-;;   (if magit-blame-mode
-;;       (fci-mode -1)
-;;     (fci-mode 1)))
-
-
-(define-key git-commit-mode-map
-  (kbd "C-c C-s") 'my-set-ticket)
 
 (defvar my-current-ticket-name nil)
 
 (defun my-set-ticket (ticket)
   (interactive "sNew ticket name: ")
   (setq my-current-ticket-name ticket))
-
 
 ;; M-x customize git-commit-mode-hook
 (defun my-magit-commit-hook ()

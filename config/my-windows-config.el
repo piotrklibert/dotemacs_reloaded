@@ -14,10 +14,10 @@
 ;; (require 'minimap)
 ;; (global-set-key (kbd "C-<tab>")           'elscreen-next)
 (global-set-key (kbd "C-<next>")          'elscreen-next)
+(global-set-key (kbd "C-<XF86AudioPlay>") 'elscreen-previous)
 
-(global-set-key (kbd "C-S-<tab>")         'elscreen-previous)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'elscreen-previous)
 (global-set-key (kbd "C-<prior>")         'elscreen-previous)
+(global-set-key (kbd "C-<XF86AudioNext>") 'elscreen-next)
 
 
 ;; my-wnd-keys - C-w prefix
@@ -39,8 +39,25 @@
 
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
 
+(defmacro refresh-tab-bar-after (&rest funcs)
+  `(progn ,@(loop for f in funcs
+                collect (let ()
+                          `(defadvice ,f (after refresh-tab-bar activate)
+                             (elscreen-e21-tab-update t))))))
+
+(refresh-tab-bar-after
+ windmove-up
+ windmove-down
+ windmove-left
+ windmove-right)
+
+
+
 (define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)
 (define-key my-wnd-keys (kbd "C-<right>")           'windmove-right)
+(define-key my-wnd-keys (kbd "C-<up>")              'windmove-up)
+(define-key my-wnd-keys (kbd "C-<down>")            'windmove-down)
+
 
 (define-key my-wnd-keys (kbd "<right>")             'my-enlarge-window-horizontally)
 (define-key my-wnd-keys (kbd "<left>")              'my-shrink-window-horizontally)
@@ -49,8 +66,7 @@
 (define-key my-wnd-keys (kbd "<down>")              'shrink-window)
 
 
-(define-key my-wnd-keys (kbd "C-<up>")              'windmove-up)
-(define-key my-wnd-keys (kbd "C-<down>")            'windmove-down)
+
 (define-key my-wnd-keys (kbd "M-<up>"   )           'buf-move-up)
 (define-key my-wnd-keys (kbd "M-<down>" )           'buf-move-down)
 (define-key my-wnd-keys (kbd "M-<right>")           'buf-move-right)
@@ -99,6 +115,7 @@
                (delete-window win)))))
 
 
+
 (defun force-kill-buffer (&optional arg)
   "Sometimes interactive version of `kill-buffer' doesn't work,
 but call from elisp works. (Probably because kill-buffer key is
@@ -107,3 +124,19 @@ remapped or something)."
   (when arg
     (save-buffer))
   (kill-buffer))
+
+;; Auto-refresh ibuffer
+
+(defvar switched-to-buffer-hook nil)
+
+(defadvice switch-to-buffer (after run-switched-to-buffer-hook activate)
+  (run-hooks 'switched-to-buffer-hook))
+
+(add-hook 'switched-to-buffer-hook 'auto-refresh-ibuffer)
+(defun auto-refresh-ibuffer ()
+  (when (eq major-mode 'ibuffer-mode)
+    (refresh-ibuffer)))
+
+(defun refresh-ibuffer ()
+  (setf ibuffer-display-maybe-show-predicates t)
+  (ibuffer-update t))

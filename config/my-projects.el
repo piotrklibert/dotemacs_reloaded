@@ -9,11 +9,10 @@
   ("~/secure/" "~/todo/" "~/.stumpwm.d/" "~/.emacs.d/config/" "~/mgmnt/")
 
   (lanchat     . ("~/poligon/lanchat/"))
-  (klibertpl   . ("~/projects/klibert_pl/"))
+  (klibertpl   . ("~/priv/klibert_pl/"))
   (mtr         . ("~/poligon/mtr/io/"))
 
-  (my-projects . ("~/mgmnt/"
-                  "~/.emacs.d/pkg-langs/elpy/"
+  (my-projects . ("~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"
 
@@ -31,20 +30,23 @@
                   ))
 
 
-  (rq          . ("~/projects/reqviewer/"
-                  "~/projects/reqplayer/"))
-  (pl          . ("~/poligon/planties/"))
+  ;; (rq          . ("~/projects/reqviewer/"
+  ;;                 "~/projects/reqplayer/"))
+  ;; (pl          . ("~/poligon/planties/"))
+  (ts          . ("~/projects/truststamp/"))
   ;; WORK RELATED
-  (nlu         . ("~/projects/nlu"))
-  (bu          . ("~/projects/bunsen"))
-  (sn          . ("~/projects/snowboy"))
-  (ion         . ("~/projects/ion/"))
-  (an          . ("~/projects/tenclouds-analytics/"))
-  (sp          . ("~/projects/sp/"))
-  (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
-  (dn          . ("~/projects/donorship/backend/"
-                  "~/projects/donorship/frontend/"))
+  ;; (nlu         . ("~/projects/nlu"))
+  ;; (bu          . ("~/projects/bunsen"))
+  ;; (sn          . ("~/projects/snowboy"))
+  ;; (ion         . ("~/projects/ion/"))
+  ;; (an          . ("~/projects/tenclouds-analytics/"))
+  ;; (sp          . ("~/projects/sp/"))
+  ;; (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
+  ;; (dn          . ("~/projects/donorship/backend/"
+  ;;                 "~/projects/donorship/frontend/"))
+  (po          . ("~/projects/ts-services/poppy/"))
   (na          . ("~/projects/truststamp/naea/"))
+  (sf          . ("~/projects/ts-services/sunflower/"))
   (dep         . ("~/projects/truststamp/deployment/ansible-deployment/"))
   (10c         . ("~/projects/images/repo/")))
 

@@ -1,4 +1,3 @@
-(require 'prolog)
 
 (defun flymake-prolog-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
@@ -20,6 +19,6 @@
   (flymake-mode 1))
 
 
-(push '("\\.pl\\'" . prolog-mode)  auto-mode-alist)
-
-(add-hook 'prolog-mode-hook 'my-prolog-hook)
+(use-package prolog
+  :mode ("\\.pl\\'" . prolog-mode)
+  :config (add-hook 'prolog-mode-hook 'my-prolog-hook))

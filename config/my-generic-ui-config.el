@@ -1,17 +1,16 @@
+(require 'generic-x)
+
 (defun make-local-hook (&rest things)
   "Something somewhere calls this obsolete function; I couldn't
   find it by grepping the sources so I decided to mock it to get
   rid of annoying warnings.")
 
-(require 'ido)
-(require 'idomenu)
-(require 'ido-vertical-mode)
-;; (require 'smex)
 
 (require 'helm-autoloads)
 (eval-after-load 'helm
   '(progn
      (require 'helm-config)
+     (setq helm-M-x-fuzzy-match t)
      (define-key helm-map (kbd "DEL") 'helm-backspace)))
 
 (defun helm-backspace ()
@@ -23,17 +22,12 @@ without selecting."
     (error (helm-keyboard-quit))))
 
 
-(require 'direx)
-(require 'generic-x)
+(use-package dirtree
+  :commands dirtree)
 
-(require 'sr-speedbar)
-(autoload 'dirtree "dirtree" "Add directory to tree view" t)
-
-(require 'edmacro)
 (require 'unbound-autoloads)
-(require 'ace-window)
-
 (require 'sunrise-autoloads)
+
 (eval-after-load 'sunrise-commander
   '(progn
      (message "Loading Sunrise plugins...")
@@ -47,6 +41,7 @@ without selecting."
   (recenter))
 
 
+
 ;; Frame TITLE (displayed on StumpWM mode-line (or on the title bar))
 (setf frame-title-format
       '("Emacs - "
@@ -56,9 +51,6 @@ without selecting."
         ":"
         (:eval (s-replace "/home/cji/" "~/" default-directory))))
 
-
-
-(define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
 
 ;; Whenever a file that Emacs is editing has been changed by another
 ;; program the user normally has to execute the command `revert-buffer'
@@ -76,10 +68,7 @@ without selecting."
 
 
 ;; schedule imports to be done after some modules are imported
-(eval-after-load "dired"
-  '(progn
-     (require 'dired-x)
-     (require 'dired+)))
+
 
 (eval-after-load "info"
   '(require 'info+))
@@ -94,8 +83,24 @@ without selecting."
 (eval-after-load "thingatpt"
   '(require 'thingatpt+))
 
-(eval-after-load "bookmark"
-  '(require 'bookmark+))
+
+(defun my-dired-back-to-top ()
+  (interactive)
+  (beginning-of-buffer)
+  (dired-next-line 4))
+
+(defun my-dired-jump-to-bottom ()
+  (interactive)
+  (end-of-buffer)
+  (dired-next-line -1))
+
+(eval-after-load "dired"
+  '(progn
+     (define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
+     (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
+     (define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
+     (require 'dired-x)
+     (require 'dired+)))
 
 
 
@@ -111,6 +116,8 @@ without selecting."
 ;; IDo - Interactively Do Things. Has autocompletions in minibufer. Very, very
 ;; nice, particularly as a replacement to normal read
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
+(require 'ido)
+(require 'ido-vertical-mode)
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -132,36 +139,6 @@ without selecting."
 (setq ido-file-extensions-order
       '(".org" ".py" ".el" ".coffee" ".ls" ".less" ".txt"))
 
-
-;; Smex - built on top of IDo M-x replacement.
-;; http://www.emacswiki.org/emacs/Smex
-(setq smex-save-file (concat user-emacs-directory "data/smex-items")
-      smex-history-length 100)
-(smex-initialize)
-
-(setq helm-M-x-fuzzy-match t)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                            ____  _ _
-;;                           |  _ \(_)_ __ ___  __| |
-;;                           | | | | | '__/ _ \/ _` |
-;;                           | |_| | | | |  __/ (_| |
-;;                           |____/|_|_|  \___|\__,_|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun my-dired-back-to-top ()
-  (interactive)
-  (beginning-of-buffer)
-  (dired-next-line 4))
-
-(defun my-dired-jump-to-bottom ()
-  (interactive)
-  (end-of-buffer)
-  (dired-next-line -1))
-
-(define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
-(define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
 
 
 
@@ -219,9 +196,9 @@ without selecting."
 (define-key ctl-x-map (kbd "C-b")   'ibuffer)
 
 
-(global-set-key (kbd "M-X")      'smex-major-mode-commands)
 (global-set-key (kbd "M-x")      'helm-M-x)
-(global-set-key (kbd "s-x")      'smex)
+;; (global-set-key (kbd "s-x")      'smex)
+;; (global-set-key (kbd "M-X")      'smex-major-mode-commands)
 
 (defun my-dirtree ()
   (interactive)
@@ -236,12 +213,15 @@ without selecting."
 
 (global-set-key (kbd "<escape> <escape>")   'keyboard-quit)
 
+(global-set-key (kbd "C-<f8>") 'text-scale-increase)
+(global-set-key (kbd "C-<f9>") 'text-scale-set)
+(global-set-key (kbd "C-<f7>") 'text-scale-decrease)
+
 (defun my-eshell-other-window (args)
   (interactive "P")
   (split-window-right)
   (windmove-right)
   (eshell))
-
 
 
 (define-key mode-specific-map  (kbd "C-e") 'eshell)
@@ -299,3 +279,5 @@ without selecting."
   (helm :sources '(my-new-buffer-helm-source)))
 
 (global-set-key (kbd "M-n") 'my-new-buffer-helm)
+
+(provide 'my-generic-ui-config)

@@ -1,4 +1,14 @@
 (require 'neotree-autoloads)
+
+(defun my-neotree-hook ()
+  (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
+  )
+
+(add-hook 'neotree-mode-hook 'my-neotree-hook)
+
+
 (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
@@ -74,6 +84,10 @@
 ;;                          |_|\_\_____| |_| |____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(global-set-key (kbd "C-c +") 'text-scale-increase)
+(global-set-key (kbd "C-c -") 'text-scale-decrease)
+(global-set-key (kbd "C-c 0") #'(lambda () (interactive) (text-scale-set 0)))
+
 (global-set-key (kbd "C-c >") 'iy-go-to-or-up-to-continue)
 (global-set-key (kbd "C-c <") 'iy-go-to-or-up-to-continue-backward)
 
@@ -85,7 +99,9 @@
 (global-set-key (kbd "C-c C-=")     'mc/mark-all-like-this)
 (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
-(global-set-key (kbd "C-x C-d")    'sr-dired)
+(global-set-key (kbd "C-x C-d")    'dired-at-point)
+(global-set-key (kbd "C-x M-d")    'sr-dired)
+
 (global-set-key (kbd "s-<SPC>")    'just-one-space)
 
 (global-set-key (kbd "C-x C-k")    'kill-region)

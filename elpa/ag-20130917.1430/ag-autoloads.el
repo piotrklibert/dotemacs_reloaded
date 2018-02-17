@@ -52,7 +52,7 @@ Kill all ag-mode buffers other than the current buffer.
 ;;;***
 
 ;;;### (autoloads nil nil ("ag-pkg.el") (21058 3137 704586 180000))
-
+(provide 'ag-autoloads)
 ;;;***
 
 ;; Local Variables:

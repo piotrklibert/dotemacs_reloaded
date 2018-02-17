@@ -1,3 +1,4 @@
+(require 'dash)
 (require 'powerline)
 
 (powerline-default-theme)
@@ -44,9 +45,9 @@
 (defun my-pl-format-dir (buffer-path)
   (->> buffer-path
     (s-replace "projects/" "")
-    (s-replace "/Users/piotrklibert/" "")
+    (s-replace "/home/cji" "~")
     (s-split "/")
-    (-butlast)
+    -butlast
     (s-join "/")))
 
 (defconst my-powerline-max-path-length 30)

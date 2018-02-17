@@ -102,9 +102,7 @@
         (discard-input))))
     (let ((ret (eq answer 'act)))
       (unless noninteractive
-        ;; FIXME this prints one too many spaces, since prompt
-        ;; already ends in a space.  Eg "... (y or n)  y".
-        (message "%s %s" prompt (if ret "y" "n")))
+        (message "%s%s" prompt (if ret "y" "n")))
       ret)))
 
 

@@ -1,4 +1,41 @@
-(require 'io-mode)
+(defun my-io-mode-hook ()
+  (auto-complete-mode 1)
+  (setq imenu-generic-expression nil)
+  (setq imenu-create-index-function 'io-imenu-create-index))
+
+(defun looking-at-line (re)
+  (save-excursion
+    (beginning-of-line)
+    (looking-at re)))
+
+(defun io-imenu-create-index ()
+  (let ((case-fold-search nil)
+        (subidx (list "global"))
+        (current-class "global")
+        idx)
+    (beginning-of-buffer)
+    (condition-case nil
+        (while t
+          (search-forward-regexp io-imenu-re)
+          (cond
+           ((looking-at-line io-class-re)
+            (setq current-class (match-string-no-properties 2))
+            (setq idx (append idx (list (reverse subidx))))
+            (setq subidx (list current-class)))
+
+           ((looking-at-line io-method-re)
+            (setq subidx (cons (cons
+                                (match-string-no-properties 2)
+                                (point))
+                               subidx)))))
+      (error
+       (setq idx (append idx (list (reverse subidx))))))
+    idx))
+
+(use-package io-mode
+  :mode "\\.io\\'"
+  :config
+  (add-hook 'io-mode-hook 'my-io-mode-hook))
 
 ;; (progn
 ;;   (defconst spaces '(0+ " "))
@@ -25,53 +62,11 @@
 ;;     (rx-to-string (list 'or io-class-rx io-method1-rx io-method2-rx))))
 
 
-(defun my-io-mode-hook ()
-  (auto-complete-mode 1)
-  (setq imenu-generic-expression nil)
-  (setq imenu-create-index-function 'io-imenu-create-index))
 
-(defun looking-at-line (re)
-  (save-excursion
-    (beginning-of-line)
-    (looking-at re)))
-
-(defun io-imenu-create-index ()
-  (let ((case-fold-search nil)
-        idx
-        (subidx (list "global"))
-        (current-class "global")
-        )
-    (beginning-of-buffer)
-    (condition-case nil
-        (while t
-          (search-forward-regexp io-imenu-re)
-          (cond
-           ((looking-at-line io-class-re)
-            (setq current-class (match-string-no-properties 2))
-            ;; (setq current-class-end
-            ;;       (condition-case nil
-            ;;           (save-excursion
-            ;;             (backward-char)
-            ;;             (forward-sexp)
-            ;;             (point))
-            ;;         (error nil)))
-            ;; (message current-class-end)
-            (setq idx (append idx (list (reverse subidx))))
-            (setq subidx (list current-class)))
-
-           ((looking-at-line io-method-re)
-            (setq subidx (cons (cons
-                                (match-string-no-properties 2)
-                                (point))
-                               subidx)))))
-      (error
-       (setq idx (append idx (list (reverse subidx))))))
-    idx))
 
 ;; (with-current-buffer "parsing.io"
 ;;   (save-excursion
 ;;     (io-imenu-create-index)))
-(add-hook 'io-mode-hook 'my-io-mode-hook)
 
 ;; (setq
 ;;  py->io/defs

@@ -11,9 +11,15 @@
   (define-key org-mode-map (kbd "C-c <down>")   'outline-next-visible-heading)
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
   (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
-  (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading))
+  (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading)
+  (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
+  (define-key org-mode-map (kbd "<kp-up>")      'org-previous-visible-heading)
+  (define-key org-mode-map (kbd "<kp-down>")    'org-next-visible-heading)
+  (define-key org-mode-map (kbd "C-<kp-up>")    'org-previous-block)
+  (define-key org-mode-map (kbd "C-<kp-down>")  'org-next-block))
 
-(add-hook 'org-mode-hook 'my-org-hook)
+(eval-after-load "org"
+  '(add-hook 'org-mode-hook 'my-org-hook))
 
 
 (defun my-tangle-and-run ()
@@ -31,12 +37,7 @@
   ;; (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null")
   )
 
-;; (global-set-key (kbd "s-c") 'my-tangle-and-run)
 
-(global-set-key (kbd "<kp-up>")     'org-previous-visible-heading)
-(global-set-key (kbd "<kp-down>")   'org-next-visible-heading)
-(global-set-key (kbd "C-<kp-up>")   'org-previous-block)
-(global-set-key (kbd "C-<kp-down>") 'org-next-block)
 
 (setq org-html-htmlize-output-type 'inline-css)
 (setq org-html-htmlize-font-prefix "")
@@ -48,7 +49,7 @@
 (setq org-default-notes-file "~/todo/notes")
 
 
-(org-clock-persistence-insinuate)
+;; (org-clock-persistence-insinuate)
 
 ;; (setq org-html-htmlize-font-prefix "") ;; default
 ;; (setq org-html-htmlize-font-prefix "org-")
@@ -80,13 +81,10 @@
   "Face used for the line delimiting the end of source blocks.")
 
 
-
-
-
-
-;; (require 'ob-ls)
-
-(add-to-list 'org-src-lang-modes '("ls" . livescript))
+(eval-after-load "org"
+  '(progn (require 'ob-ls)
+          (add-to-list 'org-src-lang-modes
+                       '("ls" . livescript))))
 
 (setq org-babel-load-languages
       (--map (cons it t)
@@ -226,57 +224,57 @@ e.g. Sunday, September 17, 2000."
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'deferred)
+;; (require 'deferred)
 
-;;
-;; INTERFACE
-;;
+;; ;;
+;; ;; INTERFACE
+;; ;;
 
-;;;###autoload
-(defun my-org-export ()
-  (interactive)
-  (my-bzr-commit-and-push)
-  ;; (deferred:$
-  ;;   (deferred:call 'org-mobile-push)
-  ;;   (deferred:next (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
-  ;;   (deferred:nextc it (lambda (p)         (my-bzr-commit-and-push)))
-  ;;   (deferred:error it (lambda (er)        (message "err: %s" er)))
-  ;;   (deferred:nextc it (lambda (&rest arg) (message "export finished"))))
-  )
+;; ;;;###autoload
+;; (defun my-org-export ()
+;;   (interactive)
+;;   (my-bzr-commit-and-push)
+;;   ;; (deferred:$
+;;   ;;   (deferred:call 'org-mobile-push)
+;;   ;;   (deferred:next (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
+;;   ;;   (deferred:nextc it (lambda (p)         (my-bzr-commit-and-push)))
+;;   ;;   (deferred:error it (lambda (er)        (message "err: %s" er)))
+;;   ;;   (deferred:nextc it (lambda (&rest arg) (message "export finished"))))
+;;   )
 
-;;;###autoload
-(defun my-org-import ()
-  (interactive)
-  (deferred:$
-    (my-start-rsync "ec2:orgmobile/ orgmobile")
-    (deferred:nextc it
-      (lambda (out)
-        (org-mobile-pull)
-        (message "import finished")))))
-
-
-;;
-;; IMPLEMENTATION
-;;
-
-(defun my-bzr-commit-and-push ()
-  (message "bzr commit & push being called")
-  (deferred:$
-    (deferred:process-shell "cd ~/todo/ && bzr ci -m \"commit\"")
-    (deferred:nextc it (lambda (output)
-                         (deferred:process-shell "cd ~/todo/ && bzr push")))
-    (deferred:nextc it (lambda (output)
-                         (message "bzr finished")))))
+;; ;;;###autoload
+;; (defun my-org-import ()
+;;   (interactive)
+;;   (deferred:$
+;;     (my-start-rsync "ec2:orgmobile/ orgmobile")
+;;     (deferred:nextc it
+;;       (lambda (out)
+;;         (org-mobile-pull)
+;;         (message "import finished")))))
 
 
-(defun my-start-rsync (spec)
-  (message "start-rsync being called")
-  (let ((cmd (concat "cd ~/ && rsync --rsh=\"ssh\" -avc " spec)))
-    (deferred:$
-      (deferred:process-shell cmd)
-      (deferred:nextc it (lambda (out)
-                           (message "rsync finished" out)
-                           (deferred:succeed out))))))
+;; ;;
+;; ;; IMPLEMENTATION
+;; ;;
+
+;; (defun my-bzr-commit-and-push ()
+;;   (message "bzr commit & push being called")
+;;   (deferred:$
+;;     (deferred:process-shell "cd ~/todo/ && bzr ci -m \"commit\"")
+;;     (deferred:nextc it (lambda (output)
+;;                          (deferred:process-shell "cd ~/todo/ && bzr push")))
+;;     (deferred:nextc it (lambda (output)
+;;                          (message "bzr finished")))))
+
+
+;; (defun my-start-rsync (spec)
+;;   (message "start-rsync being called")
+;;   (let ((cmd (concat "cd ~/ && rsync --rsh=\"ssh\" -avc " spec)))
+;;     (deferred:$
+;;       (deferred:process-shell cmd)
+;;       (deferred:nextc it (lambda (out)
+;;                            (message "rsync finished" out)
+;;                            (deferred:succeed out))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

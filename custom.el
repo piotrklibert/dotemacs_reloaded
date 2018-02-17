@@ -23,7 +23,7 @@
  '(blink-cursor-mode nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(bookmark-default-file "~/.emacs.d/data/bookmarks")
- '(browse-url-browser-function (quote browse-url-default-macosx-browser))
+ '(browse-url-browser-function (quote browse-url-chrome))
  '(calendar-date-style (quote european))
  '(calendar-week-start-day 1)
  '(cider-inspector-page-size 50)
@@ -32,6 +32,7 @@
  '(cider-prompt-for-symbol nil)
  '(cider-repl-use-pretty-printing t)
  '(coffee-tab-width 4)
+ '(column-highlight-mode nil)
  '(column-number-mode t)
  '(company-backends
    (quote
@@ -81,7 +82,7 @@
    (quote
     (elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-sane-defaults)))
  '(elpy-rpc-backend "jedi")
- '(elpy-rpc-python-command "python")
+ '(elpy-rpc-python-command "python3")
  '(elscreen-default-buffer-name "*scratch*")
  '(elscreen-tab-display-kill-screen nil)
  '(enable-recursive-minibuffers t)
@@ -94,10 +95,22 @@
  '(fast-but-imprecise-scrolling t)
  '(fic-highlighted-words (quote ("FIXME" "TODO" "BUG" "REDFLAG" "XXX")))
  '(fill-column 80)
+ '(flycheck-checkers
+   (quote
+    (python-pycheckers fsharp-fsautocomplete fsharp-fsautocomplete-lint ada-gnat asciidoctor asciidoc c/c++-clang c/c++-gcc c/c++-cppcheck cfengine chef-foodcritic coffee coffee-coffeelint coq css-csslint css-stylelint d-dmd dockerfile-hadolint elixir-dogma erlang-rebar3 erlang emacs-lisp eruby-erubis fortran-gfortran go-gofmt go-golint go-vet go-build go-test go-errcheck go-unconvert go-gosimple groovy haml handlebars haskell-stack-ghc haskell-ghc haskell-hlint html-tidy javascript-eslint javascript-jshint javascript-jscs javascript-standard json-jsonlint json-python-json less less-stylelint lua-luacheck lua perl perl-perlcritic php php-phpmd php-phpcs processing protobuf-protoc pug puppet-parser puppet-lint python-flake8 python-pylint python-pycompile r-lintr racket rpm-rpmlint markdown-mdl nix rst-sphinx rst ruby-rubocop ruby-reek ruby-rubylint ruby ruby-jruby rust-cargo rust scala scala-scalastyle scheme-chicken scss-lint scss-stylelint sass/scss-sass-lint sass scss sh-bash sh-posix-dash sh-posix-bash sh-zsh sh-shellcheck slim slim-lint sql-sqlint systemd-analyze tex-chktex tex-lacheck texinfo typescript-tslint verilog-verilator xml-xmlstarlet xml-xmllint yaml-jsyaml yaml-ruby)))
+ '(flycheck-clang-include-path (quote ("/usr/local/include/cjson")))
+ '(flycheck-clang-language-standard nil)
+ '(flycheck-display-errors-delay 0.5)
+ '(flycheck-pycheckers-checkers (quote (flake8 mypy3)))
+ '(flycheck-pycheckers-ignore-codes
+   (quote
+    ("C0411" "C0413" "C0103" "C0111" "W0142" "W0201" "W0232" "W0403" "W0511" "E1002" "E1101" "E1103" "R0201" "R0801" "R0903" "R0904" "R0914" "E241")))
+ '(flycheck-pycheckers-max-line-length 220)
+ '(flycheck-python-mypy-args (quote ("--strict-optional" "--follow-imports=normal")))
  '(flymake-checkers-checkers
    (quote
     (flymake-checkers-coffee flymake-checkers-emacs-lisp flymake-checkers-php flymake-checkers-python-flake8 flymake-checkers-python-pyflakes flymake-checkers-ruby flymake-checkers-php flymake-checkers-sh flymake-checkers-sh-bash flymake-checkers-sh-zsh flymake-checkers-tex)))
- '(flymake-no-changes-timeout 5)
+ '(flymake-no-changes-timeout 2)
  '(flymake-start-syntax-check-on-newline t)
  '(fringe-mode (quote (10 . 8)) nil (fringe))
  '(fuzzy-accept-error-rate 0.2)
@@ -108,7 +121,6 @@
     (turn-on-auto-fill flyspell-mode my-magit-commit-hook)) t)
  '(git-commit-summary-max-length 76)
  '(global-auto-revert-non-file-buffers t)
- '(global-git-commit-mode t)
  '(global-linum-mode nil)
  '(global-visible-mark-mode-exclude-alist nil)
  '(global-visual-line-mode nil)
@@ -342,17 +354,19 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode)))
+    (flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode)))
  '(powerline-default-separator (quote rounded))
  '(powerline-height nil)
  '(powerline-text-scale-factor nil)
  '(proced-auto-update-flag t)
- '(proced-auto-update-interval 2)
+ '(proced-auto-update-interval 1)
  '(prolog-electric-colon-flag t)
  '(prolog-electric-dot-flag t)
  '(prolog-indent-width 4)
  '(python-check-command "flake8")
  '(python-environment-virtualenv (quote ("virtualenv" "--system-site-packages" "--quiet")))
+ '(python-shell-buffer-name "python repl")
+ '(python-shell-interpreter "python3")
  '(quack-programs
    (quote
     ("csi -:c" "mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi")))
@@ -366,7 +380,14 @@
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
    (quote
-    ((bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)")
+    ((Log . clx\.log)
+     (Package . Xlib)
+     (Package . CL-FAD)
+     (Package . ASDF)
+     (Package . CL-User)
+     (Package . FSet)
+     (Syntax . ANSI-Common-Lisp)
+     (bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)")
      (cider-cljs-lein-repl . "(do (dev) (go) (cljs-repl))")
      (cider-refresh-after-fn . "reloaded.repl/resume")
      (cider-refresh-before-fn . "reloaded.repl/suspend")
@@ -391,11 +412,15 @@
      (whitespace-line-column . 80))))
  '(scheme-program-name "csi -:c")
  '(scroll-conservatively 108)
+ '(semantic-c-dependency-system-include-path
+   (quote
+    ("/usr/include" "/usr/local/include/cjson" "/usr/local/include" "/usr/include/opencv")))
  '(semanticdb-project-roots (quote ("/usr/www/tagasauris/")))
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 2)
  '(shell-file-name "/bin/bash")
  '(show-paren-mode t)
+ '(slime-enable-evaluate-in-emacs t)
  '(slime-repl-history-file "~/.emacs.d/data/slime-history.eld")
  '(slime-repl-history-remove-duplicates t)
  '(slime-repl-history-trim-whitespaces t)
@@ -418,6 +443,7 @@
  '(tags-revert-without-query t)
  '(tool-bar-mode nil)
  '(tramp-backup-directory-alist (quote (("." . "~/.saves"))) nil (tramp))
+ '(tramp-syntax (quote default) nil (tramp))
  '(tramp-verbose 5 nil (tramp))
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
@@ -449,6 +475,7 @@
  '(aw-leading-char-face ((t (:foreground "red" :height 4.0))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
+ '(col-highlight ((t (:background "dark gray"))))
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
  '(elscreen-tab-current-screen-face ((t (:background "wheat2" :foreground "black"))))
  '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))

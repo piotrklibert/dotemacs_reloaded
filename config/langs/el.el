@@ -11,15 +11,16 @@
     (run-at-time . 2)
     (define-frame-preference . 1)
     (run-with-timer . 2)
-    (indent/tag-for-modes . 1)))
+    (indent/tag-for-modes . 1)
+    (propertize . 1)
+    (font-lock-for-modes . 1)))
 
 
 (font-lock-add-keywords 'emacs-lisp-mode
   '(("eval-after-load" . font-lock-keyword-face)
     ("defstruct"       . font-lock-keyword-face)
     ("\bfunctionp?"    . font-lock-keyword-face)
-    ("\bit\b"          . font-lock-builtin-face)))
-
+    ("\bit\b"          . font-lock-keyword-face)))
 
 
 (defalias '-> 'thread-first)
@@ -57,7 +58,8 @@
   (define-key paredit-mode-map (kbd "C-c C-j")     'eval-print-last-sexp)
   (define-key paredit-mode-map (kbd "C-M-d")       'duplicate-line-or-region)
 
-  (global-set-key [remap eval-last-sexp] 'my-eval-last-sexp))
+  (global-set-key [remap eval-last-sexp] 'my-eval-last-sexp)
+  (flycheck-mode -1))
 
 
 

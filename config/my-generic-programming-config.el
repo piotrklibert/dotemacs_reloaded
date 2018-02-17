@@ -1,44 +1,67 @@
-(require 'thingatpt)
 (require 'isearch)
 (require 'cl)
 (require 'cl-lib)
-(require 'tail)
 (require 'pp)
 (require 'pp+)
+(require 'ffap)                         ; find file at point
 (require 'electric)
 (require 'thingatpt)
-
-(require 'rainbow-mode)
-(require 'fic-ext-mode)
-(require 'rainbow-delimiters)
-
-(require 'ggtags)
-(require 'tags-tree)
-(require 'imenu-tree)
-
 (require 'flymake)
+(require 'jka-compr)                    ; searches tags in gzipped sources too
+
+(require 'ls-lisp)                      ; elisp ls replacement
+(setf ls-lisp-use-insert-directory-program t)
+(setf insert-directory-program             "~/.emacs.d/ls.sh")
+
+(require 'fuzzy)                        ; fuzzy isearch support
 ;; (require 'eassist)
 ;; (require 'flymake-checkers)
 
-(require 'helm-ag)
-(require 'swiper)
 
-(require 'columnize)
+(require 'ag-autoloads)                 ; ack replacement in C
+(require 'ggtags-autoloads)
+(require 'rainbow-mode-autoloads)
+(require 'fic-ext-mode-autoloads)
+(require 'rainbow-delimiters-autoloads)
 
-(require 'align-string)
-(require 'align-regexp)
-(require 'align-by-current-symbol)      ; use with C-u for "strange" symbols,
-                                        ; like ' ( ; and so on
 
-(require 'ag)                           ; ack replacement in C
-(require 'ffap)                         ; find file at point
-(require 'fuzzy)                        ; fuzzy isearch support
+(use-package tail
+  :commands tail-file)
 
-(require 'jka-compr)                    ; searches tags in gzipped sources too
-(require 'ls-lisp)                      ; elisp ls replacement
+(use-package tags-tree
+  :commands tags-tree)
 
-(require 'ztree)
-(setq ztree-draw-unicode-lines t)
+(use-package imenu-tree
+  :commands imenu-tree)
+
+(use-package helm-ag
+  :commands helm-do-ag-project-root helm-do-ag)
+
+(use-package swiper
+  :commands swiper)
+
+(use-package columnize
+  :commands columnize-text columnize-strings)
+
+(use-package ztree
+  :commands ztree-dir
+  :config
+  (setq ztree-draw-unicode-lines t))
+
+(use-package ace-jump-mode              ; quickly jump to char/line
+  ;; jump to lines with prefix arg
+  :commands ace-jump-mode
+  :init
+  (setq ace-jump-mode-submode-list '(ace-jump-word-mode
+                                     ace-jump-line-mode
+                                     ace-jump-char-mode)))
+
+(use-package ace-window
+  :commands ace-window)
+
+(use-package align-by-current-symbol
+  ; use with C-u to align by char instead of word
+  :commands align-by-current-symbol)
 
 (eval-after-load "replace"
   '(progn
@@ -47,10 +70,6 @@
      (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)))
 
 
-;; presse `C-u C-c <space>` to jump to lines
-(setq ace-jump-mode-submode-list
-      '(ace-jump-word-mode ace-jump-line-mode ace-jump-char-mode))
-(require 'ace-jump-mode)                ; quickly jump to char/line
 (global-set-key (kbd "C-c C-=") 'ace-window)
 
 
@@ -59,10 +78,6 @@
 (require 'my-pygmentize)
 (require 'my-toggle-true-false)         ; it's silly, but it's my first "real"
                                         ; Elisp, so I keep it around :)
-
-;; (eval-after-load "ace-jump-mode"
-;;   '(ace-jump-mode-enable-mark-sync))
-;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
 
 
 
@@ -78,37 +93,24 @@
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
-;;(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
-;; (semantic-mode 1)
 
-(turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch
-(electric-pair-mode 1)
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
+;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
 
-(column-number-mode t)                  ; show col num on modeline
-(show-paren-mode t)                     ; highlight matching parens
+(semantic-mode 1)
 
+(defun my-prog-settings ()
+  (turn-on-fuzzy-isearch)               ; complement: turn-off-fuzzy-isearch
+  (show-paren-mode t)                   ; highlight matching parens
+  (column-number-mode t)                ; show col num on modeline
+  (electric-pair-mode 1))
 
-(setq ls-lisp-use-insert-directory-program t)
-(setq insert-directory-program "~/.emacs.d/ls.sh")
+(add-hook 'prog-mode-hook 'my-prog-settings)
 
-(defun my-ivy-format (cands)
-  "Transform CANDS into a string for minibuffer."
-  (if (bound-and-true-p truncate-lines)
-      (mapconcat (lambda (x) (concat "                    " x) )
-                 cands "\n")
-    (let ((ww (- (window-width)
-                 (if (and (boundp 'fringe-mode) (eq fringe-mode 0)) 1 0))))
-      (mapconcat
-       (lambda (s)
-         (if (> (length s) ww)
-             (concat (substring s 0 (- ww 3)) "...")
-           s))
-       cands "\n"))))
 (setf ivy-format-function 'my-ivy-format)
-
+(setf gdb-many-windowsf t)
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -130,8 +132,8 @@
 (define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
 (define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
 
-(define-key my-find-keys (kbd "o")        'helm-occur)
-(define-key my-find-keys (kbd "C-o")      'swiper)
+(define-key my-find-keys (kbd "o")        'swiper)
+(define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
@@ -187,6 +189,7 @@ don't need to worry about saving scratch buffer contents anymore
     (when scratch
       (with-current-buffer scratch
         (my-kill-scratch-buffer-hook)))))
+
 (add-hook 'kill-emacs-hook 'my-kill-emacs-scratch-hook)
 
 

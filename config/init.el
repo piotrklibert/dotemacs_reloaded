@@ -1,12 +1,15 @@
-;; This needs to be set before it's used, but I don't know where it's used for
-;; the first time so I placed it before *everything* :)
-(setq srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
-
+;; Added by Package.el. Not needed. Should die.
+;; (package-initialize)
 
 ;; Basic look & feel customization, placed here so that Emacs looks good from the
 ;; start :)
 (setf frame-title-format "Emacs starting..."
-      inhibit-startup-message t)        ; Don't show splash on startup
+      inhibit-startup-message t         ; Don't show splash on startup
+      package-enable-at-startup nil
+      load-prefer-newer t
+      use-package-verbose t
+      fast-but-imprecise-scrolling t)
+
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 (fringe-mode     '(4 . 8))
@@ -17,6 +20,8 @@
 
 ;; Add the paths of plugins to load-path.
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/portless/org-mode")
+
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
 
 (add-subdirs-to-path
@@ -26,8 +31,10 @@
   "~/.emacs.d/pkg-langs"
   "~/.emacs.d/elpa")
 
+(require 'use-package)
 (require 'my-utils)
 (require 'my-system-config)
+
 (load-safe "my-packages")
 
 
@@ -36,21 +43,22 @@
 ;; Beware: Help At Pt group!
 
 (defun my-set-default-font (&optional frame)
-  ;; another possible font: "DejaVu Sans Mono-12"
   (interactive)
   (cl-flet
       ((set-font (font-name) (set-face-attribute 'default nil :font font-name)))
     (my-match-hostname
-      (f25b                => (set-font "Bitstream Vera Sans Mono-13"))
+      ;; another possible font: "DejaVu Sans Mono-12"
+      (f25b                => (set-font "Bitstream Vera Sans Mono-14"))
       (fedorcia2           => (set-font "Bitstream Vera Sans Mono-9"))
       (urkaja2             => (set-font "Bitstream Vera Sans Mono-13"))
       ("Piotr Klibert Mac" => (set-font "Monaco-12")))))
 
 
+
 (when window-system
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)
-  (set-mouse-color "sky blue")
+  ;; (set-mouse-color "green") ; TODO: doesn't work for some reason?
 
   (add-hook 'after-make-frame-functions 'my-set-default-font)
   (my-set-default-font)
@@ -108,6 +116,7 @@
   (condition-case nil
       (server-start)
     (nil (message "Couldn't start the server!"))))
+
 (run-at-time "1 min 30 sec" nil 'my-start-server)
 
 
@@ -121,8 +130,7 @@
 ;; Settings and additional functionality for auto-completion and snippets
 (load-safe "my-auto-completion")
 
-;; Additional interfaces and functionalities (through plugins) activation and
-;; config - mainly ido-mode
+;; Additional interfaces and functionalities activation and config
 (load-safe "my-generic-ui-config")
 
 ;; JavaScript, YAML, Rust, Racket and so on - configuration
@@ -156,3 +164,9 @@
 ;; Load settings from Emacs Customize system.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+
+
+
+(provide 'init)
+;;; init.el ends here

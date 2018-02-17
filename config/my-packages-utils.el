@@ -1,3 +1,10 @@
+(defun load/expand (fname)
+  (load-safe (f-expand fname)))
+
+(defun load-many (&rest file-list)
+  (dolist (file file-list)
+    (load/expand file)))
+
 (defun add-subdirs-to-path (&rest dirs)
   "Add given directory and all it's (immediate) subdirectories to load-path."
   (declare (indent 0))

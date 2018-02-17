@@ -14,6 +14,12 @@
         beginning-of-buffer
         c-electric-colon
         c-electric-delete-forward
+        c-electric-lt-gt
+        c-electric-paren
+        c-electric-semi&comma
+        c-electric-slash
+        c-electric-star
+        c-indent-line-or-region
         coffee-dedent-line-backspace
         comment-dwim
         comment-or-uncomment-region-or-line
@@ -23,6 +29,7 @@
         electric-newline-and-maybe-indent
         electric-pair-backward-delete-char
         electric-pair-delete-pair
+        elpy-nav-backward-indent
         elpy-nav-forward-indent
         elscreen-create
         end-of-buffer
@@ -32,6 +39,8 @@
         eval-last-sexp
         fill-paragraph
         forward-sexp
+        fsharp-ac/electric-dot
+        fsharp-electric-backspace
         fuzzy-find-choose-root-set
         helm-M-x
         indent-for-tab-command
@@ -52,6 +61,7 @@
         markdown-cycle
         markdown-demote
         markdown-exdent-or-delete
+        move-text-up
         my-dedent
         my-delete-indentation-down
         my-eval-last-sexp
@@ -76,6 +86,7 @@
         paredit-backslash
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
+        paredit-comment-dwim
         paredit-doublequote
         paredit-forward-delete
         paredit-forward-kill-word
@@ -84,6 +95,7 @@
         paredit-meta-doublequote
         paredit-newline
         paredit-open-round
+        paredit-reindent-defun
         paredit-semicolon
         paredit-splice-sexp
         paredit-split-sexp
@@ -100,6 +112,7 @@
         slime-autodoc-space
         suspend-frame
         transpose-sexps
+        transpose-words
         wdired-capitalize-word
         wdired-next-line
         wdired-previous-line
@@ -117,6 +130,7 @@
         cider-eval-defun-at-point
         dired-next-line
         dired-previous-line
+        elpy-shell-send-region-or-buffer
         elscreen-next
         elscreen-previous
         eval-defun
@@ -132,9 +146,15 @@
         mouse-select-window
         mouse-set-region
         mouse-yank-primary
+        move-text-down
         next-buffer
         org-delete-char
         picture-self-insert
+        read-only-mode
+        repeat
+        slime-eval-defun
         smex
+        tfb-done
         tfb-up
+        undo-tree-visualize
         ))

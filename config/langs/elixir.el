@@ -3,4 +3,4 @@
 (defun my-elixir-hook ()
   (require 'alchemist))
 (eval-after-load 'elixir-mode
-  '(add-hook 'elixir-mode-hook  'my-elixir-hook))
+  '(add-hook 'elixir-mode-hook 'my-elixir-hook))

@@ -52,12 +52,14 @@ it before."
 (make-variable-buffer-local 'my-indent-width)
 
 (defun my-indent (&optional arg)
+  (if (equalp major-mode 'groovy-mode) (setf my-indent-width 2))
   (interactive "P")
   (when (and arg (listp arg))
     (setq arg (car arg)))
   (my-indent-rigidly '+ my-indent-width))
 
 (defun my-dedent (&optional arg)
+  (if (equalp major-mode 'groovy-mode) (setf my-indent-width 2))
   (interactive "P")
   (when (and arg (listp arg))
     (setq arg (car arg)))

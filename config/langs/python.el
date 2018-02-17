@@ -2,24 +2,44 @@
 ;; (require 'ein)
 ;; (setq ein:use-auto-complete t)
 
+(require 'jedi-autoloads)
 (require 'python-django-autoloads)
-
 (require 'elpy-autoloads)
+
 (setq elpy-rpc--timeout 5)           ; new version is a bit slower than it was
 (add-hook 'python-mode-hook 'my-elpy-mode-setup)
 (add-hook 'pyvenv-post-activate-hooks 'elpy-rpc--disconnect)
 
-;; TODO: update the dependencies, investigate failures
-;; (require 'jedi-autoloads)
-;; (eval-after-load 'jedi
-;;   '(progn
-;;      (require 'jedi-direx)
-;;      (add-hook 'jedi-mode-hook 'jedi-direx:setup)))
+
+(eval-after-load 'elpy
+  '(elpy-use-ipython))
+
+
+
+(defun python-shell-send-line-or-region (&optional num)
+  "Sends either a line given by NUM or current line to Python shell."
+  (interactive)
+  (if (use-region-p)
+      (progn
+        (python-shell-send-region (region-beginning)
+                                  (region-end)))
+    (when num
+      (goto-line num))
+    (python-shell-send-region (line-beginning-position)
+                              (line-end-position))))
+
+(require 'flycheck-pycheckers)
+(global-flycheck-mode 1)
+(with-eval-after-load 'flycheck
+  (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup))
 
 (defun my-elpy-mode-setup ()
-  ;; (jedi:setup)
+  "Setting up Python things."
+
+  (jedi:setup)
   (eldoc-mode 1)
   (elpy-mode)
+
   (setq ac-sources
         (-distinct (append '(ac-source-filename ac-source-jedi-direct)
                            ac-sources)))
@@ -31,6 +51,8 @@
   (define-key elpy-mode-map (kbd "<M-down>")  nil)
 
   (local-set-key (kbd "<M-,>")  'pop-tag-mark)
+  (local-set-key (kbd "C-x C-e")  'python-shell-send-line-or-region)
+  (local-set-key (kbd "C-<return>")  'python-shell-send-line-or-region)
 
   ;; (setq ac-sources (cons 'ac-source-yasnippet ac-sources))
   (local-set-key (kbd "C-M->") 'python-indent-shift-right)
@@ -44,12 +66,7 @@
 
 
 
-(eval-after-load 'elpy
-  '(elpy-use-ipython))
-
-
-(defconst venv-dir-names
-  '(".venv" "venv" "env" ".env"))
+(defconst venv-dir-names '(".venv" "venv" "env" ".env"))
 
 (defun my-switch-venv (dir)
   (when dir
@@ -70,7 +87,7 @@
         (my-search-venv (f-parent dir))))))
 
 ;; (my-switch-venv (my-search-venv "/home/cji/projects/truststamp/naea/backend/corn/"))
-;; (my-switch-venv (my-search-venv "/home/cji/poligon/mangi/manga/"))
+;; (my-switch-venv (my-search-venv "/home/cji/priv/klibert_pl/build/"))
 
 (defun aac ()
   (interactive)
@@ -78,5 +95,5 @@
       ((buf-dir (-> (current-buffer) buffer-file-name f-parent))
        (env (-> buf-dir my-search-venv my-switch-venv)))
     (if env
-        (message "Found env: %s" env)
+        (message "Found env: %s; activated!" env)
       (message "Virtualenv not found!"))))

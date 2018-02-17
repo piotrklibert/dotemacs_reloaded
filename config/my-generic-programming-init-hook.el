@@ -4,15 +4,6 @@
 (add-hook 'nim-mode-hook   'my-init-prog-mode)
 (add-hook 'io-mode-hook    'my-init-prog-mode)
 
-
-;; TODO: maybe move to utils
-;; See: https://en.wikipedia.org/wiki/SKI_combinator_calculus/Informal_description
-(defmacro K (prev expr)
-  (let ((pnam (gensym)))
-    `(let ((,pnam ,prev))
-       (-> ,pnam ,expr)
-       ,pnam)))
-
 (defun my-setup-hs-minor-mode ()
   (hs-minor-mode 1)
   (-> (current-local-map)

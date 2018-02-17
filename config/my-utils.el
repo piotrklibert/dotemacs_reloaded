@@ -2,7 +2,29 @@
 (require 'f)
 (require 'cl)
 (require 'dash)
+(require 'pcase)
 
+
+(defun my-ivy-format (cands)
+  "Transform CANDS into a string for minibuffer."
+  (if (bound-and-true-p truncate-lines)
+      (mapconcat (lambda (x) (concat "                    " x) )
+                 cands "\n")
+    (let ((ww (- (window-width)
+                 (if (and (boundp 'fringe-mode) (eq fringe-mode 0)) 1 0))))
+      (mapconcat
+       (lambda (s)
+         (if (> (length s) ww)
+             (concat (substring s 0 (- ww 3)) "...")
+           s))
+       cands "\n"))))
+
+;; See: https://en.wikipedia.org/wiki/SKI_combinator_calculus/Informal_description
+(defmacro K (prev expr)
+  (let ((pnam (gensym)))
+    `(let ((,pnam ,prev))
+       (-> ,pnam ,expr)
+       ,pnam)))
 
 (defmacro measure-time (s &rest body)
   "Measure the time it takes to evaluate BODY."
@@ -223,11 +245,6 @@ return a new alist whose car is the new pair and cdr is ALIST."
         (cons (cons key value) alist)
       (setcdr elm value)
       alist)))
-
-
-
-
-
 
 
 (provide 'my-utils)
