@@ -678,7 +678,11 @@ from `elscreen-frame-confs', a cons cell."
                              elscreen-buffer-to-nickname-alist-internal
                              'string-match (buffer-name))
                             (cons 'buffer-name (buffer-name)))))
-                    (window-list)))
+                    (-filter (lambda (win)
+                               (-> win window-buffer buffer-name
+                                   (string-equal "*elscreen-tabs*")
+                                   not))
+                              (window-list))))
 
              (let (nickname-list)
                (while (> (length nickname-type-map) 0)
@@ -1425,27 +1429,61 @@ Use \\[toggle-read-only] to permit editing."
 (defconst elscreen-half-space
   (eval-when-compile
     (propertize " " 'display '(space :width 0.5))))
+
 (defconst elscreen-tab-separator
   (eval-when-compile
     (propertize " " 'face 'elscreen-tab-background-face
                     'display '(space :width 0.5))))
+
 (defconst elscreen-control-tab
   (eval-when-compile
-    (propertize
-     "<->"
-     'face 'elscreen-tab-control-face
-     'keymap (elscreen-e21-tab-create-keymap
-                 'down-mouse-1 'elscreen-previous
-                 'down-mouse-2 'elscreen-create
-                 'down-mouse-3 'elscreen-next)
-     'help-echo (concat "mouse-1: previous screen, "
-                        "mouse-2: create new screen, "
-                        "mouse-3: next screen"))))
+    (propertize "<->"
+      'face 'elscreen-tab-control-face
+      'keymap (elscreen-e21-tab-create-keymap 'down-mouse-1 'elscreen-previous
+                                              'down-mouse-2 'elscreen-create
+                                              'down-mouse-3 'elscreen-next)
+      'help-echo (concat "mouse-1: previous screen, "
+                         "mouse-2: create new screen, "
+                         "mouse-3: next screen"))))
+
+(defun kill-screen-keymap (s)
+  (lexical-let
+      (screen s)
+      (elscreen-e21-tab-create-keymap
+    'mouse-1 (lambda (e)
+               (interactive "e")
+               (elscreen-kill screen))
+    'M-mouse-1 (lambda (e)
+                 (interactive "e")
+                 (elscreen-kill-screen-and-buffers screen)))))
+
+(defun kill-screen-help-tooltip (screen)
+  (format (concat "mouse-1: kill screen %d,"
+                  "M-mouse-1: kill screen %d and buffers on it")
+          screen
+          screen))
+
+(defun kill-screen-closing-X (screen)
+  (propertize "[X]"
+    'local-map (kill-screen-keymap screen)
+    'help-echo (kill-screen-help-tooltip screen) ))
+
+(defun get-screen-label (screen screen-to-name-alist)
+  (format "%d%s%s%s"
+          screen
+          (elscreen-status-label screen)
+          half-space
+          (elscreen-e21-tab-escape-%
+           (elscreen-truncate-screen-name
+            (get-alist screen screen-to-name-alist)
+            (elscreen-e21-tab-width) t))))
+
 
 
 (defun elscreen-e21-tab-update (&optional force)
   (when (and (not (window-minibuffer-p))
              (or (elscreen-screen-modified-p 'elscreen-tab-update) force))
+
     (walk-windows
      (lambda (window)
        (with-current-buffer (window-buffer window)
@@ -1482,46 +1520,28 @@ Use \\[toggle-read-only] to permit editing."
 
           (mapc
            (lambda (screen)
-             (let ((kill-screen
-                    (propertize
-                     "[X]"
-                     'local-map (elscreen-e21-tab-create-keymap
-                                 'mouse-1 `(lambda (e)
-                                             (interactive "e")
-                                             (elscreen-kill ,screen))
-                                 'M-mouse-1 `(lambda (e)
-                                               (interactive "e")
-                                               (elscreen-kill-screen-and-buffers ,screen)))
-                     'help-echo (format "mouse-1: kill screen %d, M-mouse-1: kill screen %d and buffers on it" screen screen))))
+             (let ((kill-screen (kill-screen-closing-X screen)))
                (setq elscreen-e21-tab-format
                      (nconc
                       elscreen-e21-tab-format
                       (list
                        (propertize
-                        (concat
-                         (when (or (eq elscreen-tab-display-kill-screen 'left)
-                                   (eq elscreen-tab-display-kill-screen t))
-                           kill-screen)
-                         half-space
-                         (propertize
-                          (format "%d%s%s%s"
-                                  screen
-                                  (elscreen-status-label screen)
-                                  half-space
-                                  (elscreen-e21-tab-escape-%
-                                   (elscreen-truncate-screen-name
-                                    (get-alist screen screen-to-name-alist)
-                                    (elscreen-e21-tab-width) t)))
-                          'help-echo (get-alist screen screen-to-name-alist)
-                          'local-map (elscreen-e21-tab-create-keymap
-                                      'mouse-1 `(lambda (e)
-                                                  (interactive "e")
-                                                  (elscreen-goto ,screen))))
-                         (when (eq elscreen-tab-display-kill-screen 'right)
-                           (concat half-space kill-screen)))
-                        'face (if (eq current-screen screen)
-                                  'elscreen-tab-current-screen-face
-                                'elscreen-tab-other-screen-face))
+                           (concat
+                            (when (or (eq elscreen-tab-display-kill-screen 'left)
+                                      (eq elscreen-tab-display-kill-screen t))
+                              kill-screen)
+                            half-space
+                            (propertize (get-screen-label screen screen-to-name-alist)
+                              'help-echo (get-alist screen screen-to-name-alist)
+                              'local-map (elscreen-e21-tab-create-keymap
+                                          'down-mouse-1 `(lambda (e)
+                                                           (interactive "e")
+                                                           (elscreen-goto ,screen))))
+                            (when (eq elscreen-tab-display-kill-screen 'right)
+                              (concat half-space kill-screen)))
+                         'face (if (eq current-screen screen)
+                                   'elscreen-tab-current-screen-face
+                                 'elscreen-tab-other-screen-face))
                        tab-separator)))))
            screen-list)
 
@@ -1530,9 +1550,9 @@ Use \\[toggle-read-only] to permit editing."
                  elscreen-e21-tab-format
                  (list
                   (propertize
-                   (make-string (window-width) ?\ )
-                   'face 'elscreen-tab-background-face
-                   'local-map (elscreen-e21-tab-create-keymap)))))
+                      (make-string (window-width) ?\ )
+                    'face 'elscreen-tab-background-face
+                    'local-map (elscreen-e21-tab-create-keymap)))))
           ;; (setq header-line-format elscreen-e21-tab-format)
           (setq header-line-format nil)
           (with-current-buffer (window-buffer win)
