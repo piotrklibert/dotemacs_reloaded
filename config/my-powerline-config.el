@@ -1,4 +1,5 @@
 (require 'dash)
+(require 's)
 (require 'powerline)
 
 (powerline-default-theme)

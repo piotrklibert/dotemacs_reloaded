@@ -7,20 +7,20 @@
       inhibit-startup-message t         ; Don't show splash on startup
       package-enable-at-startup nil
       load-prefer-newer t
-      use-package-verbose t
       fast-but-imprecise-scrolling t)
 
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 (fringe-mode     '(4 . 8))
-(menu-bar-mode    1)
+(menu-bar-mode    -1)
 (load-theme       'wombat)
 (set-cursor-color "white")
 
 
 ;; Add the paths of plugins to load-path.
 (add-to-list 'load-path "~/.emacs.d/config")
-(add-to-list 'load-path "~/portless/org-mode")
+(add-to-list 'load-path "~/portless/org-mode/lisp")
+(add-to-list 'load-path "~/portless/org-mode/contrib/lisp")
 
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
 
@@ -32,6 +32,8 @@
   "~/.emacs.d/elpa")
 
 (require 'use-package)
+(setf use-package-verbose t)
+
 (require 'my-utils)
 (require 'my-system-config)
 
@@ -48,23 +50,22 @@
       ((set-font (font-name) (set-face-attribute 'default nil :font font-name)))
     (my-match-hostname
       ;; another possible font: "DejaVu Sans Mono-12"
-      (f25b                => (set-font "Bitstream Vera Sans Mono-14"))
-      (fedorcia2           => (set-font "Bitstream Vera Sans Mono-9"))
-      (urkaja2             => (set-font "Bitstream Vera Sans Mono-13"))
-      ("Piotr Klibert Mac" => (set-font "Monaco-12")))))
-
+      (f28        => (set-font "DejaVu Sans Mono-14"))
+      (f25b       => (set-font "Bitstream Vera Sans Mono-14"))
+      (fedorcia2  => (set-font "Bitstream Vera Sans Mono-9"))
+      (urkaja2    => (set-font "Bitstream Vera Sans Mono-13")))))
 
 
 (when window-system
   (mouse-wheel-mode t)
   (blink-cursor-mode -1)
-  ;; (set-mouse-color "green") ; TODO: doesn't work for some reason?
-
   (add-hook 'after-make-frame-functions 'my-set-default-font)
   (my-set-default-font)
   ;; make setting default font available from keyboard if it somehow didn't run
   (global-set-key (kbd "C-<f10>") 'my-set-default-font))
 
+
+;; (setq show-paren-style 'parenthesis)    ; Highlight text between parens
 
 ;; Other basic editing settings.
 ;; TODO: move to `custom.el' and/or `my-generic-editing-config.el'
@@ -76,7 +77,7 @@
 (setq sentence-end-double-space nil)    ; Sentences end with one space
 (setq require-final-newline 't)         ; Always newline at end of file
 (setq blink-matching-paren-distance nil) ; Blinking parenthesis
-(setq show-paren-style 'parenthesis)    ; Highlight text between parens
+
 (setq next-line-add-newlines nil)       ; Don't add lines when <down> is pressed
                                         ; at the end of a file
 
@@ -114,8 +115,10 @@
 ;; *should* be enough for startup :))
 (defun my-start-server ()
   (condition-case nil
-      (server-start)
-    (nil (message "Couldn't start the server!"))))
+      (progn
+        (server-start)
+        (message "Server started!"))
+    (t (message "Couldn't start the server!"))))
 
 (run-at-time "1 min 30 sec" nil 'my-start-server)
 
@@ -164,8 +167,6 @@
 ;; Load settings from Emacs Customize system.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
-
 
 
 (provide 'init)

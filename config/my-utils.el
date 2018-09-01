@@ -1,7 +1,7 @@
 (require 's)
+(require 'dash)
 (require 'f)
 (require 'cl)
-(require 'dash)
 (require 'pcase)
 
 

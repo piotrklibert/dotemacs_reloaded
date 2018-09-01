@@ -1,9 +1,15 @@
+;; -*- lexical-binding: t -*-
 ;;
 ;; Emacs Lisp mode tweaks
 ;;
+
 (require 'subr-x)
-(require 'paredit-autoloads)
 (require 'lang-utils)
+(require 's)
+(require 'flymake)
+(require 'flycheck)
+(require 'eshell)
+(require 'paredit)
 
 (indent/tag-for-modes
     '(lisp-indent-function)
@@ -46,8 +52,11 @@
 
 (defun my-elisp-mode-setup ()
   (paredit-mode 1)
+  (delete 'elisp-flymake-checkdoc flymake-diagnostic-functions)
   (local-set-key (kbd "C-M-d") 'duplicate-line-or-region)
 
+  (define-key mode-specific-map (kbd "C-d") 'describe-function)
+  (define-key mode-specific-map (kbd "d")   'describe-function)
   (define-key mode-specific-map (kbd "C-b") 'my-interactive-byte-compile)
   (define-key mode-specific-map (kbd "C-j") 'eval-print-last-sexp)
   (define-key mode-specific-map (kbd "C-f") 'find-function)
@@ -71,5 +80,97 @@
   (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)
   (define-key eshell-mode-map (kbd "<up>") 'previous-line)
   (define-key eshell-mode-map (kbd "<down>") 'next-line)
-  (define-key eshell-mode-map [remap kill-whole-line] 'eshell-kill-input)
-  )
+  (define-key eshell-mode-map [remap kill-whole-line] 'eshell-kill-input))
+
+
+;; (require 'subr-x)
+;; (require 'cl-lib)
+
+;; (defun my-get-subdirs (dir)
+;;   (let*
+;;       ((entries (directory-files dir))
+;;        (dirs (cl-remove-if (lambda (z)
+;;                              (or (not (file-directory-p
+;;                                        (string-join (list dir z))))
+;;                                  (member z '("." ".."))))
+;;                            entries)))
+;;     (mapcar (lambda (x) (string-join (list dir x))) dirs)))
+;; (my-get-subdirs "/home/cji/")
+;; (defun add-subdirs-to-path (&rest dirs)
+;;   "Add given directory and all it's (immediate) subdirectories to load-path."
+;;   (declare (indent 0))
+;;   (dolist (dir dirs)
+;;     (let ((dir (expand-file-name dir)))
+;;       ;; (message "%s" dir)
+;;       (add-to-list 'load-path dir)
+;;       (cl-loop for d in (my-get-subdirs dir)
+;;                do (add-to-list 'load-path d)))))
+
+(defun pp-to-cmd (obj)
+  (let ((s (->> (pp-to-string obj)
+             (s-replace "\n" ""))))
+   (replace-regexp-in-string (rx (1+ " ")) " " s t t)))
+
+
+(defun elisp-flymake-byte-compile (report-fn &rest _args)
+  "A Flymake backend for elisp byte compilation.
+Spawn an Emacs process that byte-compiles a file representing the
+current buffer state and calls REPORT-FN when done."
+  (when elisp-flymake--byte-compile-process
+    (when (process-live-p elisp-flymake--byte-compile-process)
+      (kill-process elisp-flymake--byte-compile-process)))
+  (let ((temp-file (make-temp-file "elisp-flymake-byte-compile"))
+        (source-buffer (current-buffer)))
+    (save-restriction
+      (widen)
+      (write-region (point-min) (point-max) temp-file nil 'nomessage))
+    (let*
+        ((output-buffer (generate-new-buffer " *elisp-flymake-byte-compile*"))
+         (eval-str (pp-to-cmd
+                    '(progn
+                       (load "/home/cji/.emacs.d/config/my-packages-utils.el")
+                       (add-subdirs-to-path
+                         "~/.emacs.d/plugins/"
+                         "~/.emacs.d/forked-plugins/" "~/.emacs.d/plugins2/"
+                         "~/.emacs.d/pkg-langs/" "~/.emacs.d/elpa/")
+                       (require 'use-package))))
+         (cmd (list (expand-file-name invocation-name invocation-directory)
+                    "-Q"
+                    "--batch"
+                    ;; "--eval" "(setq load-prefer-newer t)" ; for testing
+                    "--eval" eval-str
+                    "-L" default-directory
+                    "-f" "elisp-flymake--batch-compile-for-flymake"
+                    temp-file)))
+      ;; (message "%s" eval-str)
+      (setq
+       elisp-flymake--byte-compile-process
+       (make-process
+        :name "elisp-flymake-byte-compile"
+        :buffer output-buffer
+        :command cmd
+        :connection-type 'pipe
+        :sentinel
+        (lambda (proc _event)
+          (when (eq (process-status proc) 'exit)
+            (unwind-protect
+                (cond
+                 ((not (and (buffer-live-p source-buffer)
+                            (eq proc (with-current-buffer source-buffer
+                                       elisp-flymake--byte-compile-process))))
+                  (flymake-log :warning
+                               "byte-compile process %s obsolete" proc))
+                 ((zerop (process-exit-status proc))
+                  (elisp-flymake--byte-compile-done report-fn
+                                                    source-buffer
+                                                    output-buffer))
+                 (t
+                  (funcall report-fn
+                           :panic
+                           :explanation
+                           (format "byte-compile process %s died" proc))))
+              (ignore-errors (delete-file temp-file))
+              ;; (kill-buffer output-buffer)
+              )))))
+      :stderr null-device
+      :noquery t)))

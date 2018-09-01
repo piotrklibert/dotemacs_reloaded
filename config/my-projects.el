@@ -11,7 +11,9 @@
   (lanchat     . ("~/poligon/lanchat/"))
   (klibertpl   . ("~/priv/klibert_pl/"))
   (mtr         . ("~/poligon/mtr/io/"))
-
+  (em          . ("~/.emacs.d/forked-plugins/"
+                  "~/.emacs.d/plugins/"
+                  "~/.emacs.d/plugins2/"))
   (my-projects . ("~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"

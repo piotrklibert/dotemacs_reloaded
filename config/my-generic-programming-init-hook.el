@@ -13,6 +13,7 @@
     (K (define-key (kbd "C-s-=") 'hs-hide-all))))
 
 (add-hook 'nxml-mode-hook 'my-setup-hs-minor-mode)
+(require 'diminish)
 
 (defun my-init-prog-mode ()
   ;; modes which should be enabled by default for every prog mode:
@@ -25,6 +26,20 @@
   (delete-selection-mode 1)
   (flymake-mode 1)
   (linum-mode 1)
+
+  (turn-on-fuzzy-isearch)               ; complement: turn-off-fuzzy-isearch
+  (show-paren-mode t)                   ; highlight matching parens
+  (column-number-mode t)                ; show col num on modeline
+
+  (diminish 'rainbow-mode)
+  (diminish 'fic-ext-mode)
+  (diminish 'hs-minor-mode)
+  (diminish 'eldoc-mode)
+  (diminish 'wrap-region-mode)
+  (diminish 'paredit-mode)
+  (diminish 'auto-complete-mode)
+  (diminish 'undo-tree-mode)
+
   ;; (global-linum-mode 1) ; disabled: made pdf viewing (Doc Mode) unusable
   ;; (fci-mode 1) ; fill column indicator - broke Org exports among other things
 

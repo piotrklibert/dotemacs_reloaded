@@ -9,10 +9,11 @@
   (let (roots names)
     (dolist (r alist)
       (let*
-          ((paths (append (cdr r) commons))
+          ((paths (-uniq (append (cdr r) commons)))
            (expanded (-map 'f-expand paths)))
         (push `(,(car r) ,@expanded) roots)
         (push (symbol-name (car r)) names)))
+
     `(progn
        (setq fuzzy-find-roots (quote ,roots))
        (setq fuzzy-find-root-names (quote ,names))

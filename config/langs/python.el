@@ -78,9 +78,9 @@
 
 (defun my-search-venv (dir)
   (let
-      ((res (loop for x in venv-dir-names
-                  for p = (f-join dir x)
-                  if (f-exists? p) return p)))
+      ((res (cl-loop for x in venv-dir-names
+                     for p = (f-join dir x)
+                     if (f-exists? p) return p)))
     (if res
         res
       (when (f-parent dir)

@@ -1,4 +1,9 @@
+(require 'use-package)
 (require 'generic-x)
+(require 'avy)
+
+(define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
+
 
 (defun make-local-hook (&rest things)
   "Something somewhere calls this obsolete function; I couldn't

@@ -22,7 +22,8 @@
 (defmacro my-match-hostname (&rest body)
   (declare (indent 0))
   (let ((conds (loop for condition in body
-                     collect `((hostname-p ',(car condition)) ,@(cddr condition)))))
+                     collect `((hostname-p ',(car condition))
+                               ,@(cddr condition)))))
     `(cond ,@conds)))
 
 ;; (my-match-hostname
@@ -38,8 +39,4 @@
                                         ; `function', which is not defined by default
 
 
-
-
 (provide 'my-system-config)
-
-;; (cddr (list 1 2 3 4))

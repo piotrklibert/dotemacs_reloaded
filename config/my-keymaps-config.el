@@ -1,3 +1,6 @@
+(require 'f)
+(require 'ag-autoloads)
+
 (defun find-all-my-global-bindings ()
   (interactive)
   (ag-regexp "(global-set-|local-set-)key" "/home/cji/.emacs.d/config/"))
@@ -37,6 +40,7 @@
 ;; Keys related to moving, rearrangind and killing buffers and windows.
 (define-prefix-command 'my-wnd-keys)
 (global-set-key (kbd "C-w") 'my-wnd-keys)
+(require 'calc-mode)
 
 (defun my-calc-hook ()
   (message "calc hook")
@@ -46,3 +50,5 @@
      (add-hook 'calc-mode-hook 'my-calc-hook)
      (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
 ;; (find-my-bindings-for 'my-wnd-keys)
+
+(provide 'my-keymaps-config)

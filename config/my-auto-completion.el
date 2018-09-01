@@ -1,4 +1,3 @@
-
 ;;   ____ ___  __  __ ____  _     _____ _____ _____ ____  ____
 ;;  / ___/ _ \|  \/  |  _ \| |   | ____|_   _| ____|  _ \/ ___|
 ;; | |  | | | | |\/| | |_) | |   |  _|   | | |  _| | |_) \___ \
@@ -10,38 +9,42 @@
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 4* carefully check where which completion is active (config of auto-complete)
 ;;
-(use-package auto-complete
-  :commands ac-start auto-complete-mode
-  :config
-  (require 'auto-complete-config)
-  (require 'ac-company)
-  (ac-config-default)
-  (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-  (let*
-      ((last-sources '(ac-source-semantic ac-source-yasnippet))
-       (start-sources '(ac-source-filename))
-       (default-sources (-distinct (append start-sources
-                                           ac-sources
-                                           last-sources))))
-    (setq-default ac-sources default-sources))
-  (add-to-list 'ac-modes 'io-mode)
-  (define-key popup-menu-keymap (kbd "<return>") 'popup-select)
-  (when (boundp 'ac-completing-map)
-    ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
-    ;; but this makes ac-complete unavailable, so here it is remapped
-    (define-key ac-completing-map (kbd "C-<return>") 'ac-complete)
+;; use-package auto-complete
+;; :commands ac-start auto-complete-mode global-auto-complete-mode
+;; :config
 
-    ;; no idea why I did this...
-    (define-key ac-completing-map (kbd "<insert>") 'ac-expand))  )
+(require 'auto-complete)
+(require 'auto-complete-config)
+(require 'ac-company)
+(ac-config-default)
+
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
+(add-to-list 'ac-modes 'io-mode)
+
+(let*
+    ((last-sources '(ac-source-semantic ac-source-yasnippet))
+     (start-sources '(ac-source-filename))
+     (default-sources (-distinct (append start-sources
+                                         ac-sources
+                                         last-sources))))
+  (setq-default ac-sources default-sources))
+
+(define-key popup-menu-keymap (kbd "<return>") 'popup-select)
+
+(when (boundp 'ac-completing-map)
+  ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
+  ;; but this makes ac-complete unavailable, so here it is remapped
+  (define-key ac-completing-map (kbd "C-<return>") 'ac-complete))
+
 
 ;(require 'readline-complete)
-(require 'hippie-exp)
 (require 'yasnippet)
-
-
 ;; most snippets for YAS are here:
 ;; " ~/.emacs.d/forked-plugins/yasnippet/snippets"
 (yas-global-mode 1)
+
+
+(require 'hippie-exp)
 
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
@@ -49,15 +52,9 @@
 (define-key global-map (kbd "C-<tab>") 'ac-start)
 (define-key global-map (kbd "C-M-/")   'helm-dabbrev)
 
-
-
-
-
 ;; by default:
 ;; (global-set-key (kbd "M-/") 'dabbrev-expand)
 ;; also auto-complete binds to <tab>
-
-
 
 (eval-after-load "slime"
   '(progn

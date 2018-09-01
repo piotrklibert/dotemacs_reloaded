@@ -3,6 +3,7 @@
 (defun my-neotree-hook ()
   (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
   (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
   (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
   )
 
@@ -13,11 +14,9 @@
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
-(require 'iedit-rect)                   ; C-<return>
+(require 'iedit-rect)                   ; mark region & C-<return>
 (require 'register-list)                ; M-x register-list
 (require 'mark-lines)                   ; mark whole line no matter where pt is
-
-;; (require 'delim-col)                 ; formats columnar text, TODO: needs config
 
 (require 'recentf)
 (recentf-mode 1)
@@ -65,7 +64,7 @@
 (defadvice capitalize-word (before capitalize-word-advice activate) (move-to-word-beginning))
 
 (defun move-to-word-beginning ()
-  (unless (looking-back "\\b")
+  (unless (looking-back "\\b" nil)
     (backward-word)))
 
 (defun my-delete-indentation ()

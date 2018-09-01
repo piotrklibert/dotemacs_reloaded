@@ -1,5 +1,10 @@
+(require 'use-package)
+(require 'f)
+(require 'my-keymaps-config)
+
 (require 'isearch)
-(require 'cl)
+(eval-when-compile
+  (require 'cl))
 (require 'cl-lib)
 (require 'pp)
 (require 'pp+)
@@ -25,53 +30,28 @@
 (require 'rainbow-delimiters-autoloads)
 
 
-(use-package tail
-  :commands tail-file)
-
-(use-package tags-tree
-  :commands tags-tree)
-
-(use-package imenu-tree
-  :commands imenu-tree)
-
-(use-package helm-ag
-  :commands helm-do-ag-project-root helm-do-ag)
-
-(use-package swiper
-  :commands swiper)
-
-(use-package columnize
-  :commands columnize-text columnize-strings)
+(use-package tail       :commands tail-file)
+(use-package tags-tree  :commands tags-tree)
+(use-package imenu-tree :commands imenu-tree)
+(use-package helm-ag    :commands helm-do-ag
+                                  helm-do-ag-project-root)
+(use-package swiper     :commands swiper)
+(use-package columnize  :commands columnize-text
+                                  columnize-strings)
+(use-package ace-window :commands ace-window)
 
 (use-package ztree
   :commands ztree-dir
-  :config
-  (setq ztree-draw-unicode-lines t))
+  :config (setq ztree-draw-unicode-lines t))
 
-(use-package ace-jump-mode              ; quickly jump to char/line
-  ;; jump to lines with prefix arg
-  :commands ace-jump-mode
-  :init
-  (setq ace-jump-mode-submode-list '(ace-jump-word-mode
-                                     ace-jump-line-mode
-                                     ace-jump-char-mode)))
-
-(use-package ace-window
-  :commands ace-window)
-
-(use-package align-by-current-symbol
-  ; use with C-u to align by char instead of word
-  :commands align-by-current-symbol)
+;; use with C-u to align by char instead of word
+(use-package align-by-current-symbol :commands align-by-current-symbol)
 
 (eval-after-load "replace"
   '(progn
      (require 'occur-x)
      (require 'occur-default-current-word)
      (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)))
-
-
-(global-set-key (kbd "C-c C-=") 'ace-window)
-
 
 (require 'my-highlight-word)            ; somewhat like * in Vim
 (require 'my-ffap-wrapper)
@@ -101,16 +81,8 @@
 
 (semantic-mode 1)
 
-(defun my-prog-settings ()
-  (turn-on-fuzzy-isearch)               ; complement: turn-off-fuzzy-isearch
-  (show-paren-mode t)                   ; highlight matching parens
-  (column-number-mode t)                ; show col num on modeline
-  (electric-pair-mode 1))
-
-(add-hook 'prog-mode-hook 'my-prog-settings)
-
+(require 'ivy)
 (setf ivy-format-function 'my-ivy-format)
-(setf gdb-many-windowsf t)
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -129,10 +101,14 @@
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<f9>")    'my-make)
 
-(define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
-(define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
 
-(define-key my-find-keys (kbd "o")        'swiper)
+(define-key mode-specific-map (kbd "e") 'flymake-show-diagnostics-buffer)
+(define-key mode-specific-map (kbd "w w") 'flymake-show-diagnostics-buffer)
+(define-key mode-specific-map (kbd "w <down>") 'flymake-goto-next-error)
+(define-key mode-specific-map (kbd "w <up>") 'flymake-goto-prev-error)
+
+
+(define-key my-find-keys (kbd "o")        'occur)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
@@ -212,6 +188,7 @@ don't need to worry about saving scratch buffer contents anymore
   (interactive)
   (helm-do-ag (f-dirname (buffer-file-name (current-buffer))) "*.*"))
 
+(require 'helm-imenu)
 
 (defun my-imenu-show-popup ()
   "Somehow I didn't find any setting for making this the
@@ -261,7 +238,7 @@ there's no active region."
   (let*
       ((search-buffer-p (lambda (buf)
                           (not (string-match "*" (buffer-name buf)))))
-       (buffers (remove-if-not search-buffer-p (buffer-list))))
+       (buffers (cl-remove-if-not search-buffer-p (buffer-list))))
     (multi-occur buffers arg)))
 
 
