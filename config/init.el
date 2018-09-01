@@ -12,7 +12,7 @@
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 (fringe-mode     '(4 . 8))
-(menu-bar-mode    -1)
+(menu-bar-mode    1)
 (load-theme       'wombat)
 (set-cursor-color "white")
 

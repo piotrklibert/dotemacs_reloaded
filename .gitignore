@@ -82,3 +82,4 @@ pkg-langs
 /jabber-avatar-cache
 /jabber-history
 snippets
+.mypy_cache
