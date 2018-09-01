@@ -53,6 +53,11 @@
      (require 'occur-default-current-word)
      (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)))
 
+
+(eval-after-load "pcase"
+  '(put 'pcase 'function-documentation '()))
+
+
 (require 'my-highlight-word)            ; somewhat like * in Vim
 (require 'my-ffap-wrapper)
 (require 'my-pygmentize)
@@ -106,6 +111,7 @@
 (define-key mode-specific-map (kbd "w w") 'flymake-show-diagnostics-buffer)
 (define-key mode-specific-map (kbd "w <down>") 'flymake-goto-next-error)
 (define-key mode-specific-map (kbd "w <up>") 'flymake-goto-prev-error)
+(define-key mode-specific-map (kbd "M-.") 'xref-find-definitions-other-window)
 
 
 (define-key my-find-keys (kbd "o")        'occur)
