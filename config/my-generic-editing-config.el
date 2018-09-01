@@ -54,6 +54,25 @@
 (define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
 
+
+(defun my-join-next-line ()
+  (interactive)
+  (join-line 1))
+
+
+(defun my-join-prev-line ()
+  (interactive)
+  (previous-line 1)
+  (my-join-next-line))
+
+
+(define-key mode-specific-map (kbd "C-<down>") 'my-join-next-line) ; C-c C-<down>
+(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c C-<down>
+
+(define-key mode-specific-map (kbd "C-<up>") 'my-join-prev-line) ; C-c C-<up>
+(define-key mode-specific-map (kbd "<up>") 'my-join-prev-line) ; C-c C-<up>
+
+
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
 
@@ -85,7 +104,7 @@
 
 (global-set-key (kbd "C-c +") 'text-scale-increase)
 (global-set-key (kbd "C-c -") 'text-scale-decrease)
-(global-set-key (kbd "C-c 0") #'(lambda () (interactive) (text-scale-set 0)))
+(global-set-key (kbd "C-c 0") (lambda () (interactive) (text-scale-set 0)))
 
 (global-set-key (kbd "C-c >") 'iy-go-to-or-up-to-continue)
 (global-set-key (kbd "C-c <") 'iy-go-to-or-up-to-continue-backward)
@@ -180,9 +199,11 @@
 (defun yank-quote ()
   (with-current-buffer (find-file-noselect "~/quotes.txt")
     (goto-char (point-max))
+    (insert "\n=========================================\n")
+    (my-insert-now)
     (insert "\n\n")
     (yank)
-    (insert "\n\n")
+    (insert "\n\n=========================================\n")
     (save-buffer)))
 
 (defun add-to-quotes ()
@@ -193,9 +214,13 @@
            (end (region-end)))
         (kill-ring-save beg end)
         (yank-quote))
-    (kill-ring-save (line-beginning-position)
-                    (line-end-position))
-    (yank-quote)))
+    (find-file-other-window "~/quotes.txt")
+    (goto-char (point-max))
+    (insert "\n=========================================\n")
+    (my-insert-now)
+    (insert "\n\n")
+    (save-excursion
+      (insert "\n\n=========================================\n"))))
 
 (define-key mode-specific-map (kbd "q") 'add-to-quotes)
 (define-key mode-specific-map (kbd "C-q") 'add-to-quotes)

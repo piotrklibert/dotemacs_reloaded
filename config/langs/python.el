@@ -6,14 +6,17 @@
 (require 'python-django-autoloads)
 (require 'elpy-autoloads)
 
+
+(defvar elpy-rpc--timeout)
 (setq elpy-rpc--timeout 5)           ; new version is a bit slower than it was
+
+
 (add-hook 'python-mode-hook 'my-elpy-mode-setup)
 (add-hook 'pyvenv-post-activate-hooks 'elpy-rpc--disconnect)
 
 
-(eval-after-load 'elpy
-  '(elpy-use-ipython))
-
+;; (eval-after-load 'elpy
+;;   '(elpy-use-ipython))
 
 
 (defun python-shell-send-line-or-region (&optional num)
