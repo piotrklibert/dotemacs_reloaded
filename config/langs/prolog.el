@@ -1,6 +1,7 @@
+(require 'flymake)
 
 (defun flymake-prolog-init ()
-  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+  (let* ((temp-file   (flymake-proc-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
          (local-file  (file-relative-name
                        temp-file
@@ -12,10 +13,10 @@
   (require 'flymake)
   (make-local-variable 'flymake-allowed-file-name-masks)
   (make-local-variable 'flymake-err-line-patterns)
-  (setq flymake-err-line-patterns
+  (setq flymake-proc-err-line-patterns
         '(("ERROR: (?\\(.*?\\):\\([0-9]+\\)" 1 2)
           ("Warning: (\\(.*\\):\\([0-9]+\\)" 1 2)))
-  (setq flymake-allowed-file-name-masks '(("\\.pl\\'" flymake-prolog-init)))
+  (setq flymake-proc-allowed-file-name-masks '(("\\.pl\\'" flymake-prolog-init)))
   (flymake-mode 1))
 
 
