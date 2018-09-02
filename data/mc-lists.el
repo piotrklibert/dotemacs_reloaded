@@ -55,6 +55,7 @@
         kill-visual-line
         kmacro-start-macro-or-insert-counter
         livescript-dedent-line-backspace
+        magit-copy-buffer-revision
         magit-status
         mark-lines-next-line
         mark-word
@@ -63,7 +64,9 @@
         markdown-exdent-or-delete
         move-text-up
         my-dedent
+        my-delete-indentation
         my-delete-indentation-down
+        my-enlarge-window-horizontally
         my-eval-last-sexp
         my-indent
         my-toggle-quotes
@@ -71,9 +74,13 @@
         nim-indent-electric-colon
         nxml-electric-slash
         occur-x-undo-filter
+        org-add-note
         org-beginning-of-line
+        org-comment-dwim
         org-cycle
+        org-delete-char
         org-end-of-line
+        org-fill-paragraph
         org-force-self-insert
         org-metaleft
         org-metaright
@@ -86,6 +93,7 @@
         paredit-backslash
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
+        paredit-close-round
         paredit-comment-dwim
         paredit-doublequote
         paredit-forward-delete
@@ -128,6 +136,7 @@
         artist-down-mouse-1
         artist-down-mouse-3
         cider-eval-defun-at-point
+        describe-key
         dired-next-line
         dired-previous-line
         elpy-shell-send-region-or-buffer
@@ -148,13 +157,14 @@
         mouse-yank-primary
         move-text-down
         next-buffer
-        org-delete-char
+        org-ctrl-c-ctrl-c
+        paredit-forward-barf-sexp
         picture-self-insert
         read-only-mode
         repeat
         slime-eval-defun
         smex
-        tfb-done
+        tfb-down
         tfb-up
         undo-tree-visualize
         ))
