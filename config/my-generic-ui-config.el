@@ -188,11 +188,21 @@ without selecting."
 ;;              |____/___|_| \_|____/___|_| \_|\____|____/                     ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun my-bookmark-set ()
+  (interactive)
+  (if (region-active-p)
+      (bookmark-set (buffer-substring-no-properties (region-beginning)
+                                                    (region-end)))
+    (let ((name (s-trim (thing-at-point 'line t))))
+      (if (equal "" name)
+          (bookmark-set)
+        (bookmark-set name))))
+  (message "Bookmark set!"))
 
-(define-key my-bookmarks-keys (kbd "C-b") 'bookmark-set)
+
+(define-key my-bookmarks-keys (kbd "C-b") 'my-bookmark-set)
 (define-key my-bookmarks-keys (kbd "C-l") 'helm-bookmarks)
 (define-key my-bookmarks-keys (kbd "M-l") 'edit-bookmarks)
-(define-key my-bookmarks-keys (kbd "C-t") 'bm-toggle)
 
 (define-key ctl-x-map (kbd "b")     'helm-buffers-list)
 (define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
@@ -218,9 +228,6 @@ without selecting."
 
 (global-set-key (kbd "<escape> <escape>")   'keyboard-quit)
 
-(global-set-key (kbd "C-<f8>") 'text-scale-increase)
-(global-set-key (kbd "C-<f9>") 'text-scale-set)
-(global-set-key (kbd "C-<f7>") 'text-scale-decrease)
 
 (defun my-eshell-other-window (args)
   (interactive "P")
@@ -230,9 +237,12 @@ without selecting."
 
 
 (define-key mode-specific-map  (kbd "C-e") 'eshell)
+(define-key mode-specific-map  (kbd "C-s") 'shell-here)
 (define-key mode-specific-map  (kbd "M-e") 'my-eshell-other-window)
 
-
+(defun my-shell-mode-hook ()
+  (local-set-key (kbd "C-l") 'comint-clear-buffer))
+(add-hook 'shell-mode-hook 'my-shell-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

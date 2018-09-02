@@ -16,6 +16,14 @@
 (define-key mode-specific-map (kbd "C-g")   'magit-status) ; C-c C-g
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame)  ; C-c C-M-g
 
+
+(defadvice magit-section-show (after my-magit-selection-show-hook activate)
+  (recenter 5)
+  )
+(defadvice magit-section-hide (after my-magit-selection-show-hook activate)
+  ;; (recenter)
+  )
+
 (defun my-auto-refresh-magit ()
   (let
       ((magit-buffer (--find (s-contains? "magit" (buffer-name it))

@@ -131,8 +131,10 @@ current buffer state and calls REPORT-FN when done."
                        (load "/home/cji/.emacs.d/config/my-packages-utils.el")
                        (add-subdirs-to-path
                          "~/.emacs.d/plugins/"
-                         "~/.emacs.d/forked-plugins/" "~/.emacs.d/plugins2/"
-                         "~/.emacs.d/pkg-langs/" "~/.emacs.d/elpa/")
+                         "~/.emacs.d/forked-plugins/"
+                         "~/.emacs.d/plugins2/"
+                         "~/.emacs.d/pkg-langs/"
+                         "~/.emacs.d/elpa/")
                        (require 'use-package))))
          (cmd (list (expand-file-name invocation-name invocation-directory)
                     "-Q"
