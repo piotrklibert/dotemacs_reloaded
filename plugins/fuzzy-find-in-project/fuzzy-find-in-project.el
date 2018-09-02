@@ -356,7 +356,7 @@ begins with '> '."
   "Moves the completion index marker by `completion-index-delta'
 and marks the line corresponding to the currently selected
 completion."
-  (with-current-buffer  fuzzy-find-completion-buffer-name
+  (with-current-buffer fuzzy-find-completion-buffer-name
     (let
         ((buffer-read-only nil)
          (lines-count      (count-lines (point-min) (point-max)))

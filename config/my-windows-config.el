@@ -1,10 +1,10 @@
 (require 'tiling)
 (require 'golden-ratio)
-(require 'elscreen)
 (require 'uniquify)
 (require 'buffer-move)
 (require 'my-reorder-buffer-list)
 
+(require 'elscreen)
 (elscreen-start)
 
 ;; (global-set-key (kbd "M-<f2>") 'minimap-mode)
@@ -33,10 +33,9 @@
 
 
 
-  ;; C-w is taken by cut by default, and life without it would be less than
-  ;; comfortable, so we place it under C-w C-w
-
-
+;; I would like to use C-w as a prefix for all window-manipulating functions,
+;; but it is taken by cut by default. Life without it would be less than
+;; comfortable, so we transfer it to C-w C-w.
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
 
 (defmacro refresh-tab-bar-after (&rest funcs)
@@ -53,52 +52,50 @@
 
 
 
-(define-key my-wnd-keys (kbd "C-<left>")            'windmove-left)
-(define-key my-wnd-keys (kbd "C-<right>")           'windmove-right)
-(define-key my-wnd-keys (kbd "C-<up>")              'windmove-up)
-(define-key my-wnd-keys (kbd "C-<down>")            'windmove-down)
+(define-key my-wnd-keys (kbd "C-<left>")     'windmove-left)
+(define-key my-wnd-keys (kbd "C-<right>")    'windmove-right)
+(define-key my-wnd-keys (kbd "C-<up>")       'windmove-up)
+(define-key my-wnd-keys (kbd "C-<down>")     'windmove-down)
 
+(define-key my-wnd-keys (kbd "<right>")      'my-enlarge-window-horizontally)
+(define-key my-wnd-keys (kbd "<left>")       'my-shrink-window-horizontally)
 
-(define-key my-wnd-keys (kbd "<right>")             'my-enlarge-window-horizontally)
-(define-key my-wnd-keys (kbd "<left>")              'my-shrink-window-horizontally)
+(define-key my-wnd-keys (kbd "<up>")         'enlarge-window)
+(define-key my-wnd-keys (kbd "<down>")       'shrink-window)
 
-(define-key my-wnd-keys (kbd "<up>")                'enlarge-window)
-(define-key my-wnd-keys (kbd "<down>")              'shrink-window)
+(define-key my-wnd-keys (kbd "M-<up>"   )    'buf-move-up)
+(define-key my-wnd-keys (kbd "M-<down>" )    'buf-move-down)
+(define-key my-wnd-keys (kbd "M-<right>")    'buf-move-right)
+(define-key my-wnd-keys (kbd "M-<left>" )    'buf-move-left)
 
+(define-key my-wnd-keys (kbd "C-s")          'split-window-below)
+(define-key my-wnd-keys (kbd "\"")           'split-window-below)
+(define-key my-wnd-keys (kbd "C-\"")         'split-window-below)
+(define-key my-wnd-keys (kbd "C-v")          'split-window-right)
+(define-key my-wnd-keys (kbd "%")            'split-window-right)
+(define-key my-wnd-keys (kbd "C-%")          'split-window-right)
 
-
-(define-key my-wnd-keys (kbd "M-<up>"   )           'buf-move-up)
-(define-key my-wnd-keys (kbd "M-<down>" )           'buf-move-down)
-(define-key my-wnd-keys (kbd "M-<right>")           'buf-move-right)
-(define-key my-wnd-keys (kbd "M-<left>" )           'buf-move-left)
-
-(define-key my-wnd-keys (kbd "C-s")                 'split-window-below)
-(define-key my-wnd-keys (kbd "\"")                  'split-window-below)
-(define-key my-wnd-keys (kbd "C-\"")                'split-window-below)
-(define-key my-wnd-keys (kbd "C-v")                 'split-window-right)
-(define-key my-wnd-keys (kbd "%")                   'split-window-right)
-(define-key my-wnd-keys (kbd "C-%")                 'split-window-right)
-
-(define-key my-wnd-keys (kbd "C-z")                 'delete-window)
-(define-key my-wnd-keys (kbd "C-k")                 'kill-buffer-and-window)
-(define-key my-wnd-keys (kbd "C-M-d")               'kill-buffer-and-window)
-(define-key my-wnd-keys (kbd "C-d")                 'force-kill-buffer)
+(define-key my-wnd-keys (kbd "C-z")          'delete-window)
+(define-key my-wnd-keys (kbd "C-k")          'kill-buffer-and-window)
+(define-key my-wnd-keys (kbd "C-M-d")        'kill-buffer-and-window)
+(define-key my-wnd-keys (kbd "C-d")          'force-kill-buffer)
 
 ;; ie. C-x C-M-f
-(define-key ctl-x-map (kbd "C-M-f")                 'find-file-other-window)
+(define-key ctl-x-map (kbd "C-M-f")          'find-file-other-window)
 
-(define-key my-wnd-keys (kbd "C-o")                 'delete-other-windows)
-(define-key my-wnd-keys (kbd "M-o")                 'golden-ratio)
-(define-key my-wnd-keys (kbd "C-M-o")               'kill-other-window-and-buffer)
+(define-key my-wnd-keys (kbd "C-o")          'delete-other-windows)
+(define-key my-wnd-keys (kbd "M-o")          'golden-ratio)
+(define-key my-wnd-keys (kbd "C-M-o")        'kill-other-window-and-buffer)
 
-(define-key my-wnd-keys (kbd "C-c")                 'copy-to-register)
+(define-key my-wnd-keys (kbd "C-c")          'copy-to-register)
 
-(define-key my-wnd-keys (kbd "C-t")                 'tiling-cycle)
-(define-key my-wnd-keys (kbd "C-'")                 'ace-window)
-(define-key my-wnd-keys (kbd "'")                   'ace-window)
+(define-key my-wnd-keys (kbd "C-t")          'tiling-cycle)
+(define-key my-wnd-keys (kbd "C-'")          'ace-window)
+(define-key my-wnd-keys (kbd "'")            'ace-window)
 
-(global-set-key (kbd "C-<f4>")                      'delete-frame)
-(define-key my-wnd-keys (kbd "C-f")                 'delete-frame)
+;; (global-set-key (kbd "C-<f4>")                'delete-frame)
+(global-set-key (kbd "C-<f4>")                'server-edit)
+(define-key my-wnd-keys (kbd "C-f")           'delete-frame)
 
 
 ;;

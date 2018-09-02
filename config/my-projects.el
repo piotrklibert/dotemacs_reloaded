@@ -46,11 +46,9 @@
   ;; (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
   ;; (dn          . ("~/projects/donorship/backend/"
   ;;                 "~/projects/donorship/frontend/"))
-  (po          . ("~/projects/ts-services/poppy/"))
   (na          . ("~/projects/truststamp/naea/"))
-  (sf          . ("~/projects/ts-services/sunflower/"))
-  (dep         . ("~/projects/truststamp/deployment/ansible-deployment/"))
-  (10c         . ("~/projects/images/repo/")))
+  (lg          . ("~/projects/anthill/" "~/projects/lightcorn/"))
+)
 
 
 

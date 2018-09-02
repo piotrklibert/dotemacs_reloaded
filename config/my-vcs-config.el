@@ -18,7 +18,8 @@
 
 
 (defadvice magit-section-show (after my-magit-selection-show-hook activate)
-  (recenter 5)
+  (when (eq major-mode 'magit-status-mode)
+   (recenter 5))
   )
 (defadvice magit-section-hide (after my-magit-selection-show-hook activate)
   ;; (recenter)

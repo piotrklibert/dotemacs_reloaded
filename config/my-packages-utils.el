@@ -1,3 +1,5 @@
+;; -*- mode: emacs-lisp -*-
+
 (defun load/expand (fname)
   (load-safe (f-expand fname)))
 

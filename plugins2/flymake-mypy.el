@@ -24,13 +24,15 @@
 
 
 (defun flymake-mypy-init ()
-  (interactive)
   "Init mypy."
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
+  (interactive)
+  (message "flymake-mypy-init called")
+  (let*
+      ((temp-file (flymake-proc-init-create-temp-buffer-copy
+                   'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+                    temp-file
+                    (file-name-directory buffer-file-name))))
     (list "mypy" (list "--follow-imports=normal" local-file "-s"))))
 
 
