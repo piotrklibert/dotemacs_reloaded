@@ -47,12 +47,37 @@
 ;; use with C-u to align by char instead of word
 (use-package align-by-current-symbol :commands align-by-current-symbol)
 
+(defun my-occur-mode-hook ()
+  (turn-on-occur-x-mode)
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
 (eval-after-load "replace"
   '(progn
      (require 'occur-x)
      (require 'occur-default-current-word)
-     (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)))
+     (add-hook 'occur-mode-hook 'my-occur-mode-hook)))
 
+(defun my-msg-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(add-hook 'message-mode-hook 'my-msg-mode-hook)
+
+(defun my-info-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(add-hook 'Info-mode-hook 'my-info-mode-hook)
+
+(define-key help-map (kbd "C-a") 'helm-apropos)
+(define-key help-map (kbd "a") 'apropos)
+
+(defun helm-apropos-functions (default)
+  "Preconfigured helm to describe functions."
+  (interactive (list (thing-at-point 'symbol)))
+  (helm :sources (list (helm-def-source--emacs-functions))
+        :history 'helm-apropos-history
+        :buffer "*helm apropos*"
+        :input default
+        :preselect default))
+(define-key help-map (kbd "C-f") 'helm-apropos-functions)
 
 (eval-after-load "pcase"
   '(put 'pcase 'function-documentation '()))
@@ -192,7 +217,10 @@ don't need to worry about saving scratch buffer contents anymore
 
 (defun my-helm-do-ag-current-dir ()
   (interactive)
-  (helm-do-ag (f-dirname (buffer-file-name (current-buffer))) "*.*"))
+  (let*
+      ((fname (buffer-file-name (current-buffer)))
+       (dir (if fname (f-dirname fname) default-directory)))
+    (helm-do-ag dir "*.*")))
 
 (require 'helm-imenu)
 
