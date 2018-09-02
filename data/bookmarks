@@ -1,0 +1,49 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("(defun elscreen-frame-change-size-hook (f)"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "screen-frame-cha")
+ (rear-context-string . "w))))\n\n(defun el")
+ (position . 59877))
+("‘no-delete-other-windows’"
+ (front-context-string . "delete-other-win")
+ (rear-context-string . "indows::).\n\n‘no-")
+ (position . 1973359)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Window Parameters")
+ (handler . Info-bookmark-jump))
+("not delete any window whose ‘no-delete-other-windows’ parameter is"
+ (front-context-string . "-delete-other-wi")
+ (rear-context-string . "window whose ‘no")
+ (position . 1817547)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Deleting Windows")
+ (handler . Info-bookmark-jump))
+("(defun elscreen-make-frame-confs (frame &optional keep-window-configuration)"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "al keep-window-c")
+ (rear-context-string . "s (frame &option")
+ (position . 16174))
+("(defun elscreen-e21-tab-update (&optional force)"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "optional force)\n")
+ (rear-context-string . "21-tab-update (&")
+ (position . 59833))
+("(defvar elscreen-screen-update-hook nil)"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "te-hook nil)\n(de")
+ (rear-context-string . "reen-screen-upda")
+ (position . 21961))
+("(defconst elscreen-control-tab"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "screen-control-t")
+ (rear-context-string . "))\n\n(defconst el")
+ (position . 58319))
+("(let ((name (s-trim"
+ (filename . "~/.emacs.d/config/my-generic-ui-config.el")
+ (front-context-string . "\n               ")
+ (rear-context-string . "t ((name (s-trim")
+ (position . 6540))
+)

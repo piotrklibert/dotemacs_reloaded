@@ -1,12 +1,10 @@
-;; Added by Package.el. Not needed. Should die.
-;; (package-initialize)
-
 ;; Basic look & feel customization, placed here so that Emacs looks good from the
 ;; start :)
 (setf frame-title-format "Emacs starting..."
       inhibit-startup-message t         ; Don't show splash on startup
       package-enable-at-startup nil
       load-prefer-newer t
+      debug-on-error t
       fast-but-imprecise-scrolling t)
 
 (tool-bar-mode   -1)
@@ -19,8 +17,22 @@
 
 ;; Add the paths of plugins to load-path.
 (add-to-list 'load-path "~/.emacs.d/config")
+
 (add-to-list 'load-path "~/portless/org-mode/lisp")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp")
+
+
+;; Load CEDET.
+;; See cedet/common/cedet.info for configuration details.
+(load-file (expand-file-name "~/portless/cedet/cedet-devel-load.el"))
+;; Enable Semantic
+(semantic-mode 1)
+;; For semantic submodules, see doc-string of `semantic-default-submodes'
+
+(load-file (expand-file-name "~/portless/cedet/contrib/cedet-contrib-load.el"))
+
+
+
 
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
 
@@ -167,6 +179,9 @@
 ;; Load settings from Emacs Customize system.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
+
+
+(setf debug-on-error nil)
 
 
 (provide 'init)
