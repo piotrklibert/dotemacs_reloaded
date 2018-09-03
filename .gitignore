@@ -83,3 +83,4 @@ pkg-langs
 /jabber-history
 snippets
 .mypy_cache
+/forked-plugins

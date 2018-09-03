@@ -126,5 +126,6 @@ remapped or something)."
 (defun my-buffer-list-update-hook ()
   (and (eq major-mode 'ibuffer-mode)
        (ibuffer-current-state-list)))
-(add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
+;; buffer-list-update-hook
+;; (add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
 ;; (remove-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)

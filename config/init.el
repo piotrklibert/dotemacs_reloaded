@@ -32,6 +32,20 @@
 (load-file (expand-file-name "~/portless/cedet/contrib/cedet-contrib-load.el"))
 
 
+(defun my-file-handler (operation &rest args)
+  (cond
+   ((eq operation 'make-auto-save-file-name)
+    ;; TODO: should return a full path to auto-save file
+    (format "/tmp/asdasd" ))
+
+   (t (let ((inhibit-file-name-handlers
+             (cons 'my-file-handler
+                   (and (eq inhibit-file-name-operation operation)
+                        inhibit-file-name-handlers)))
+            (inhibit-file-name-operation operation))
+        (apply operation args)))))
+
+;; (add-to-list 'file-name-handler-alist (cons ".*" #'my-file-handler))
 
 
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
@@ -88,7 +102,7 @@
 (setq indent-line-function 'insert-tab) ; Set indent function to the default, because.
 (setq sentence-end-double-space nil)    ; Sentences end with one space
 (setq require-final-newline 't)         ; Always newline at end of file
-(setq blink-matching-paren-distance nil) ; Blinking parenthesis
+(setq blink-matching-paren-distance nil) ; Blink parenthesis even if far
 
 (setq next-line-add-newlines nil)       ; Don't add lines when <down> is pressed
                                         ; at the end of a file
@@ -100,20 +114,6 @@
               whitespace-line-column      80
               diff-switches              "-u")
 
-;; TODO: more robust backup config - move to `custom.el'
-(setq backup-directory-alist `(("." . "~/.saves")))
-;; (defvar user-temporary-file-directory (concat "/tmp/" user-login-name "/emacs_backup/"))
-;; (make-directory user-temporary-file-directory t)
-;; (setq make-backup-files t)
-;; (setq backup-by-copying t)
-;; (setq version-control t)
-;; (setq delete-old-versions t)
-;; (setq kept-new-versions 10)
-;; (setq backup-directory-alist `(("." . ,user-temporary-file-directory)))
-;; (setq tramp-backup-directory-alist backup-directory-alist)
-;; (setq tramp-auto-save-directory user-temporary-file-directory)
-;; (setq auto-save-list-file-prefix (concat user-temporary-file-directory ".auto-saves-"))
-;; (setq auto-save-file-name-transforms `((".*" ,user-temporary-file-directory t)))
 
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'downcase-region 'disabled nil)

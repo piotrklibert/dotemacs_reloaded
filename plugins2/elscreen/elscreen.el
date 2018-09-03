@@ -1489,12 +1489,13 @@ Use \\[toggle-read-only] to permit editing."
     (when (window-parameter w 'elscreen-tabs)
       (delete-window w))))
 
-(defun elscreen-frame-change-size-hook (f)
+(defun elscreen-window-size-change-hook (f)
   (when (frame-size-changed-p f)
     (elscreen-reset-tabs)
     (elscreen-e21-tab-update 'force)))
 
-(add-hook 'window-size-change-functions 'elscreen-frame-change-size-hook)
+;; window-size-change-functions
+(add-hook 'window-size-change-functions 'elscreen-window-size-change-hook)
 
 (defun elscreen-e21-tab-update (&optional force)
   (when elscreen-is-first-frame
@@ -1528,7 +1529,10 @@ Use \\[toggle-read-only] to permit editing."
         (set-window-parameter win 'no-delete-other-windows t)
         (set-window-parameter win 'elscreen-tabs t)
 
-        (assert (equal buf (window-buffer win)))
+        (assert win t "Couldn't create window dedicated for elscreen tabs")
+        (assert (equal buf (window-buffer win)) t
+                "Tried refreshing elscreen tabs in a wrong buffer:  %s %s %s"
+                buf win (window-buffer win))
 
         (with-current-buffer (window-buffer win)
           (assert (not (buffer-file-name)))

@@ -69,6 +69,11 @@
 (define-key help-map (kbd "C-a") 'helm-apropos)
 (define-key help-map (kbd "a") 'apropos)
 
+(defun my-help-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(add-hook 'help-mode-hook 'my-help-mode-hook)
+
 
 (autoload 'helm-def-source--emacs-functions "helm-elisp")
 (defun helm-apropos-functions (default)
@@ -143,6 +148,7 @@
 
 
 (define-key my-find-keys (kbd "o")        'occur)
+(define-key my-find-keys (kbd "l")        'avy-goto-line)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)

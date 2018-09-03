@@ -18,8 +18,13 @@
  '(auto-revert-interval 2)
  '(auto-revert-mode-text " AR")
  '(auto-revert-verbose nil)
+ '(auto-save-file-name-transforms '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)))
  '(auto-save-visited-file-name nil)
+ '(avy-highlight-first t)
  '(avy-timeout-seconds 0.35)
+ '(backup-by-copying t)
+ '(backup-by-copying-when-linked t)
+ '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
  '(blink-cursor-mode nil)
  '(blink-matching-paren-distance nil)
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
@@ -49,7 +54,10 @@
  '(css-indent-offset 4)
  '(debug-on-error nil)
  '(debug-on-quit nil)
+ '(delete-auto-save-files t)
+ '(delete-old-versions 'other)
  '(delete-selection-mode nil)
+ '(dired-kept-versions 20)
  '(dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
  '(dired-use-ls-dired 'unspecified)
  '(diredp-hide-details-initially-flag nil)
@@ -91,6 +99,7 @@
  '(fast-but-imprecise-scrolling t)
  '(fic-highlighted-words
    '("FIXME" "TODO" "BUG" "REDFLAG" "XXX" "HACK" "NOTE" "WARN" "WARNING"))
+ '(file-precious-flag t)
  '(fill-column 80)
  '(flycheck-checkers
    '(python-pycheckers fsharp-fsautocomplete fsharp-fsautocomplete-lint ada-gnat asciidoctor asciidoc c/c++-clang c/c++-gcc c/c++-cppcheck cfengine chef-foodcritic coffee coffee-coffeelint coq css-csslint css-stylelint d-dmd dockerfile-hadolint elixir-dogma erlang-rebar3 erlang emacs-lisp eruby-erubis fortran-gfortran go-gofmt go-golint go-vet go-build go-test go-errcheck go-unconvert go-gosimple groovy haml handlebars haskell-stack-ghc haskell-ghc haskell-hlint html-tidy javascript-eslint javascript-jshint javascript-jscs javascript-standard json-jsonlint json-python-json less less-stylelint lua-luacheck lua perl perl-perlcritic php php-phpmd php-phpcs processing protobuf-protoc pug puppet-parser puppet-lint python-flake8 python-pylint python-pycompile r-lintr racket rpm-rpmlint markdown-mdl nix rst-sphinx rst ruby-rubocop ruby-reek ruby-rubylint ruby ruby-jruby rust-cargo rust scala scala-scalastyle scheme-chicken scss-lint scss-stylelint sass/scss-sass-lint sass scss sh-bash sh-posix-dash sh-posix-bash sh-zsh sh-shellcheck slim slim-lint sql-sqlint systemd-analyze tex-chktex tex-lacheck texinfo typescript-tslint verilog-verilator xml-xmlstarlet xml-xmllint yaml-jsyaml yaml-ruby))
@@ -214,6 +223,8 @@
  '(jedi:complete-on-dot t)
  '(js-indent-level 2)
  '(js2-basic-offset 2)
+ '(kept-new-versions 20)
+ '(kept-old-versions 20)
  '(less-css-indent-level 4)
  '(linum-delay t)
  '(livescript-tab-width 4)
@@ -230,7 +241,7 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
- '(org-agenda-files '("~/todo/") t)
+ '(org-agenda-files '("~/todo/"))
  '(org-archive-location "todo.archive::datetree/* From %s")
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
@@ -239,7 +250,7 @@
      (scheme . t)
      (js . t)
      (io . t)
-     (ditaa . t)) t)
+     (ditaa . t)))
  '(org-babel-noweb-wrap-end ">=")
  '(org-babel-noweb-wrap-start "=<")
  '(org-babel-process-comment-text 'org-remove-indentation nil nil "smc")
@@ -250,8 +261,8 @@
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-confirm-babel-evaluate nil)
- '(org-default-notes-file "~/todo/notes" t)
- '(org-directory "~/todo/" t)
+ '(org-default-notes-file "~/todo/notes")
+ '(org-directory "~/todo/")
  '(org-drawers '("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES"))
  '(org-emphasis-alist
    '(("*" bold "<b>" "</b>")
@@ -448,6 +459,7 @@
  '(uniquify-separator ":")
  '(uniquify-strip-common-suffix t)
  '(uniquify-trailing-separator-p t)
+ '(version-control t)
  '(visible-mark-max 3)
  '(visual-line-fringe-indicators '(nil nil))
  '(web-mode-code-indent-offset 4)
@@ -467,6 +479,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(avy-lead-face ((t (:background "dark orange" :foreground "white"))))
  '(aw-leading-char-face ((t (:foreground "red" :height 4.0))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))

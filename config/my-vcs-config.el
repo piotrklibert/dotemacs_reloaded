@@ -25,6 +25,13 @@
   ;; (recenter)
   )
 
+
+(defun my-magit-refresh-buffer-hook ()
+  (when (eq major-mode 'magit-status-mode)
+   (recenter)))
+
+(add-hook 'magit-refresh-buffer-hook 'my-magit-refresh-buffer-hook)
+
 (defun my-auto-refresh-magit ()
   (let
       ((magit-buffer (--find (s-contains? "magit" (buffer-name it))

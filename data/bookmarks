@@ -2,7 +2,34 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(defun elscreen-frame-change-size-hook (f)"
+(("You can explicitly tell Emacs to make another backup file from a"
+ (front-context-string . "You can explicit")
+ (rear-context-string . "directory’.\n\n   ")
+ (position . 467794)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Backup")
+ (handler . Info-bookmark-jump))
+("(add-hook 'window-size-change-functions 'elscreen-frame-change-size-hook)"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "(add-hook 'windo")
+ (rear-context-string . "hange-functions\n")
+ (position . 60026))
+("** Simple request-response session - full example"
+ (filename . "~/projects/lightcorn/docs/flow.org")
+ (front-context-string . "** Simple reques")
+ (rear-context-string . "n the request.\n\n")
+ (position . 5913))
+("\"Find first wrapper with trigger KEY that should be active in MAJOR-MODE.\""
+ (filename . "~/.emacs.d/forked-plugins/wrap-region/wrap-region.el")
+ (front-context-string . "first wrapper wi")
+ (rear-context-string . "d (key)\n  \"Find ")
+ (position . 5384))
+("(defun wrap-region-define-wrappers ()"
+ (filename . "~/.emacs.d/forked-plugins/wrap-region/wrap-region.el")
+ (front-context-string . "ppers ()\n  \"Defi")
+ (rear-context-string . "egion-define-wra")
+ (position . 11157))
+("(defun elscreen-frame-change-size-hook (f)"
  (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
  (front-context-string . "screen-frame-cha")
  (rear-context-string . "w))))\n\n(defun el")
