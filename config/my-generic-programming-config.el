@@ -69,6 +69,8 @@
 (define-key help-map (kbd "C-a") 'helm-apropos)
 (define-key help-map (kbd "a") 'apropos)
 
+
+(autoload 'helm-def-source--emacs-functions "helm-elisp")
 (defun helm-apropos-functions (default)
   "Preconfigured helm to describe functions."
   (interactive (list (thing-at-point 'symbol)))
@@ -77,6 +79,7 @@
         :buffer "*helm apropos*"
         :input default
         :preselect default))
+
 (define-key help-map (kbd "C-f") 'helm-apropos-functions)
 
 (eval-after-load "pcase"

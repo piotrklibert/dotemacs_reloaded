@@ -123,17 +123,8 @@ remapped or something)."
   (kill-buffer))
 
 ;; Auto-refresh ibuffer
-
-(defvar switched-to-buffer-hook nil)
-
-(defadvice switch-to-buffer (after run-switched-to-buffer-hook activate)
-  (run-hooks 'switched-to-buffer-hook))
-
-(add-hook 'switched-to-buffer-hook 'auto-refresh-ibuffer)
-(defun auto-refresh-ibuffer ()
-  (when (eq major-mode 'ibuffer-mode)
-    (refresh-ibuffer)))
-
-(defun refresh-ibuffer ()
-  (setf ibuffer-display-maybe-show-predicates t)
-  (ibuffer-update t))
+(defun my-buffer-list-update-hook ()
+  (and (eq major-mode 'ibuffer-mode)
+       (ibuffer-current-state-list)))
+(add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
+;; (remove-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)

@@ -98,16 +98,18 @@ it before."
     (tcl-mode tcl-indent-level tcl-continued-indent-level)
     (typescript-mode typescript-indent-level)
     (web-mode web-mode-indent-style)
-    (yaml-mode yaml-indent-offset)))
+    (yaml-mode yaml-indent-offset)
+    (org-mode 2)))
 
 (defun my-indent-rigidly (dir &optional arg)
   (unless arg
-    (setq arg (if-let (mm-indent-varname (car (alist-get major-mode my-indent-varnames-alist)))
-                  (if (or (eq major-mode 'emacs-lisp-mode)
-                          (eq major-mode 'lisp-interaction-mode))
-                      2
-                    4)
-                (symbol-value mm-indent-varname))))
+    (setq arg (let
+                  ((mm-indent-varname (car (alist-get major-mode my-indent-varnames-alist))))
+                (cond
+                 ((member major-mode '(emacs-lisp-mode lisp-interaction-mode)) 2)
+                 ((and mm-indent-varname (numberp mm-indent-varname)) mm-indent-varname)
+                 ((and mm-indent-varname (symbolp mm-indent-varname)) (symbol-value mm-indent-varname))
+                 ((null mm-indent-varname) 4)))))
   (destructuring-bind
       (region-was-active? start end) (my-get-region-or-line-bounds)
     (indent-rigidly start end (funcall dir arg))))
@@ -128,7 +130,7 @@ it before."
   (interactive "n")
   (save-excursion
     (goto-char (1- (line-end-position)))
-    (insert-char ?\   (- col (length (buffer-line))))))
+    (insert-char ?\\   (- col (length (buffer-line))))))
 
 
 (provide 'my-indent-config)

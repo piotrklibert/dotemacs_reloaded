@@ -1503,6 +1503,7 @@ Use \\[toggle-read-only] to permit editing."
   (when (and (not (window-minibuffer-p))
              (frame-parameter (selected-frame) 'origin)
              (or (elscreen-screen-modified-p 'elscreen-tab-update) force))
+
     (walk-windows
      (lambda (window)
        (with-current-buffer (window-buffer window)
@@ -1526,7 +1527,11 @@ Use \\[toggle-read-only] to permit editing."
              (win (display-buffer-in-side-window buf '((side . top)))))
         (set-window-parameter win 'no-delete-other-windows t)
         (set-window-parameter win 'elscreen-tabs t)
+
+        (assert (equal buf (window-buffer win)))
+
         (with-current-buffer (window-buffer win)
+          (assert (not (buffer-file-name)))
           (setq window-min-height 0)
           (shrink-window-if-larger-than-buffer win)
           (fundamental-mode)
