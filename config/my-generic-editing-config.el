@@ -9,6 +9,14 @@
 
 (add-hook 'neotree-mode-hook 'my-neotree-hook)
 
+(defun my-delete-file-advice (fname &rest args)
+  (when (equal (buffer-file-name (current-buffer)) fname)
+    (backup-buffer)
+    (kill-buffer)
+    (message "delete-file: killed buffer visiting %s" fname)))
+
+(advice-add 'delete-file :after #'my-delete-file-advice)
+
 
 (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate

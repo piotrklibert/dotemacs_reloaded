@@ -261,6 +261,8 @@
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-confirm-babel-evaluate nil)
+ '(org-confirm-elisp-link-function nil)
+ '(org-confirm-shell-link-function nil)
  '(org-default-notes-file "~/todo/notes")
  '(org-directory "~/todo/")
  '(org-drawers '("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES"))

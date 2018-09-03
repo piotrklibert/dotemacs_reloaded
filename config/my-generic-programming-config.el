@@ -162,6 +162,8 @@
 (autoload 'helm-do-ag-project-root "helm-ag" "" t)
 (define-key my-find-keys (kbd "C-a")      'my-helm-do-ag-current-dir)
 (define-key my-find-keys (kbd "a")        'helm-do-ag-project-root)
+(define-key my-find-keys (kbd "M-a")      'ag)
+
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
