@@ -1,19 +1,6 @@
 (eval-when-compile
   (require 'use-package))
 
-;; (require 'nxml-mode)
-(require 'js2-mode-autoloads)
-(require 'rust-mode-autoloads)
-
-
-(use-package groovy-mode
-  :config (add-hook 'groovy-mode-hook #'linum-mode)
-  :mode "\\.groovy\\'")
-
-(use-package fsharp-mode
-  :config (add-hook 'fsharp-mode-hook #'linum-mode)
-  :mode "\\.\\(fs\\|fsi\\|fsx\\)\\'")
-
 (use-package lua-mode        :mode "\\.lua$"  :interpreter "lua")
 (use-package livescript-mode :mode "\\.ls\\'" :interpreter "lsc")
 (use-package julia-mode      :mode "\\.jl\\'")
@@ -25,6 +12,20 @@
 (use-package nginx-mode      :mode ".*nginx.*\\.conf\\'")
 (use-package tuareg          :mode ("\\.\\(ml\\|mli\\)\\'" . tuareg-mode)) ; OCaml
 
+
+;; (require 'nxml-mode)
+;; (require 'json-mode)
+(require 'js2-mode-autoloads)
+(require 'rust-mode-autoloads)
+
+
+(use-package groovy-mode
+  :config (add-hook 'groovy-mode-hook #'linum-mode)
+  :mode "\\.groovy\\'")
+
+(use-package fsharp-mode
+  ;; :config (add-hook 'fsharp-mode-hook #'linum-mode)
+  :mode "\\.\\(fs\\|fsi\\|fsx\\)\\'")
 
 ;; (let ((re (rx  "/" (any "Cc") (any "Mm") "ake"
 ;;                    (any "Ll") "ists" (optional ".txt")

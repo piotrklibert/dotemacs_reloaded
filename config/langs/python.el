@@ -42,6 +42,7 @@
   (jedi:setup)
   (eldoc-mode 1)
   (elpy-mode)
+  (flymake-mode -1)
 
   (setq ac-sources
         (-distinct (append '(ac-source-filename ac-source-jedi-direct)
@@ -91,6 +92,7 @@
 
 ;; (my-switch-venv (my-search-venv "/home/cji/projects/truststamp/naea/backend/corn/"))
 ;; (my-switch-venv (my-search-venv "/home/cji/priv/klibert_pl/build/"))
+
 
 (defun aac ()
   (interactive)

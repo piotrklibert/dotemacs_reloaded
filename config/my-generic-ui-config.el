@@ -1,15 +1,58 @@
 (require 'generic-x)
-(require 'avy)
-
-
-;(require 'json-mode)
-(defun make-local-hook (&rest things)
-  "Something somewhere calls this obsolete function; I couldn't
-  find it by grepping the sources so I decided to mock it to get
-  rid of annoying warnings.")
-
-
+(require 'avy-autoloads)
 (require 'helm-autoloads)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Text scaling using Hydra; activated by C-c =
+;;
+(require 'hydra)
+(require 'linum)
+
+(defhydra hydra-zoom (global-map "C-c =")
+  "zoom"
+  ("+" text-scale-increase "in")
+  ("=" text-scale-increase "in")
+  ("-" text-scale-decrease "out")
+  ("_" text-scale-decrease "out")
+  ("0"
+   (lambda ()
+     (interactive)
+     (text-scale-set 0)
+     (when linum-mode
+       (linum-mode -1)
+       (linum-mode t)))
+   "zero"))
+
+(define-key mode-specific-map (kbd "+") 'hydra-zoom/text-scale-increase)
+(define-key mode-specific-map (kbd "-") 'hydra-zoom/text-scale-decrease)
+
+;; shell mode has its own ideas about `mode-specific-map', apparently, so we
+;; need to bind the keys explicitly in its map, the `sh-mode-map'
+(require 'shell)
+(defvar sh-mode-map)
+
+(defun my-shell-mode-hook-for-hydra-zoom ()
+  (define-key sh-mode-map (kbd "C-c +") 'hydra-zoom/text-scale-increase)
+  (define-key sh-mode-map (kbd "C-c -") 'hydra-zoom/text-scale-decrease))
+
+(add-hook 'sh-mode-hook 'my-shell-mode-hook-for-hydra-zoom)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defvar rectangle-mark-mode)
+
+(defun hydra-ex-point-mark ()
+  "Exchange point and mark."
+  (interactive)
+  (if rectangle-mark-mode
+      (rectangle-exchange-point-and-mark)
+    (let ((mk (mark)))
+      (rectangle-mark-mode 1)
+      (goto-char mk))))
+
+
 (eval-after-load 'helm
   '(progn
      (require 'helm-config)
@@ -305,20 +348,20 @@ Otherwise, get the symbol at point.")
 
 ;;                  type            key       file ext     default path
 (make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
-(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon")
+(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon/")
 (make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
 (make-buffer-opener python       (kbd "C-p")    ".py"      "~/poligon/python/")
 (make-buffer-opener racket       (kbd "C-r")    ".rkt"     "~/poligon/rkt/")
 (make-buffer-opener livescript   (kbd "C-j")    ".ls"      "~/poligon/lscript/")
 (make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/config/")
 (make-buffer-opener erlang       (kbd "C-o")    ".erl"     "~/poligon/")
-(make-buffer-opener elixir       (kbd "C-o")    ".ex"      "~/poligon/")
-(make-buffer-opener ocaml        (kbd "C-o")    ".ml"      "~/poligon/")
+(make-buffer-opener elixir       (kbd "C-x")    ".ex"      "~/poligon/")
+(make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
 
 
-(setq my-new-buffer-helm-source `((name       . "Buffer types")
-                                  (candidates . ,my-openers)
-                                  (action     . (lambda (candidate) (funcall candidate)))))
+(defvar my-new-buffer-helm-source `((name       . "Buffer types")
+                                    (candidates . ,my-openers)
+                                    (action     . (lambda (candidate) (funcall candidate)))))
 
 (defun my-new-buffer-helm ()
   (interactive)

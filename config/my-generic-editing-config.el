@@ -1,30 +1,16 @@
 (require 'neotree-autoloads)
 
-(defun my-file-handler (operation &rest args)
-  (cond
-   ((eq operation 'make-auto-save-file-name)
-    ;; TODO: should return a full path to auto-save file
-    (format "/tmp/asdasd" ))
-
-   (t (let ((inhibit-file-name-handlers
-             (cons 'my-file-handler
-                   (and (eq inhibit-file-name-operation operation)
-                        inhibit-file-name-handlers)))
-            (inhibit-file-name-operation operation))
-        (apply operation args)))))
-
-;; (add-to-list 'file-name-handler-alist (cons ".*" #'my-file-handler))
-
-
+(defvar neotree-mode-map)
 
 (defun my-neotree-hook ()
   (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
   (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
   (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
-  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
-  )
+  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node))
 
-(add-hook 'neotree-mode-hook 'my-neotree-hook)
+(eval-after-load "neotree"
+ '(add-hook 'neotree-mode-hook 'my-neotree-hook))
+
 
 ;; (defun my-delete-file-advice (fname &rest args)
 ;;   (when (equal (buffer-file-name (current-buffer)) fname)
@@ -35,7 +21,7 @@
 ;; (advice-add 'delete-file :after #'my-delete-file-advice)
 
 
-;; (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
+(require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
@@ -49,7 +35,7 @@
 (require 'auto-mark)
 (global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
 
-(require 'visible-mark)                 ; recompile after Emacs update!
+(require 'visible-mark)
 (global-visible-mark-mode 1)
 
 (require 'wrap-region)                  ; select region and press " or ( or {,
@@ -120,36 +106,37 @@
 ;;                          |_|\_\_____| |_| |____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(global-set-key (kbd "C-c +") 'text-scale-increase)
-(global-set-key (kbd "C-c -") 'text-scale-decrease)
-(global-set-key (kbd "C-c 0") (lambda () (interactive) (text-scale-set 0)))
+;; (global-set-key (kbd "C-c +") 'text-scale-increase)
+;; (global-set-key (kbd "C-c -") 'text-scale-decrease)
+;; (global-set-key (kbd "C-c 0") (lambda () (interactive) (text-scale-set 0)))
 
 (global-set-key (kbd "C-c >") 'iy-go-to-or-up-to-continue)
 (global-set-key (kbd "C-c <") 'iy-go-to-or-up-to-continue-backward)
+(global-set-key (kbd "C-c f") 'iy-go-to-char)
+(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
 
+;; TODO BUG: doesn't work, WM eats s-<up/down> key presses
 (define-key global-map (kbd "s-<up>")   'my-delete-indentation)
 (define-key global-map (kbd "s-<down>") 'my-delete-indentation-down)
 
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-=")     'mc/mark-all-like-this)
-(global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
+;; (global-set-key (kbd "C-c C-=")     'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
 (global-set-key (kbd "C-x C-d")    'dired-at-point)
 (global-set-key (kbd "C-x M-d")    'sr-dired)
 
-(global-set-key (kbd "s-<SPC>")    'just-one-space)
+;; (global-set-key (kbd "s-<SPC>")    'just-one-space)
 
-(global-set-key (kbd "C-x C-k")    'kill-region)
-(global-set-key (kbd "C-c C-k")    'kill-region)
+;; (global-set-key (kbd "C-x C-k")    'kill-region)
+;; (global-set-key (kbd "C-c C-k")    'kill-region)
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)
 (global-set-key (kbd "<insert>")   'read-only-mode)
 (global-set-key (kbd "M-V")        'mark-lines-next-line)
 (global-set-key (kbd "C-{")        'backward-paragraph)
 (global-set-key (kbd "C-}")        'forward-paragraph)
-(global-set-key (kbd "C-c f")      'iy-go-to-char)
-(global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
 
 (global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
 (global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
@@ -213,6 +200,34 @@
 
 (require 'my-move-lines)
 (require 'my-indent-config)
+(require 'my-garble-word)
+
+(defconst my-word-list (s-lines (f-read "/usr/share/dict/linux.words")))
+(defun my-check-dict-format-column (str))
+
+(defun my-check-dict (&optional input)
+  (interactive (list (substring-no-properties
+                      (completing-read "Word? " my-word-list))))
+  (save-selected-window
+    (let
+        ((buf (switch-to-buffer-other-window "*MyDict*"))
+         (word input))
+      (erase-buffer)
+      (call-process-shell-command (concat "/usr/local/bin/dict " word) nil buf)
+      (let
+          ((lines (s-lines (buffer-text-content buf))) tmp)
+        (erase-buffer)
+        (let*
+            ((format-column (lambda (%1)
+                              (->> %1
+                                s-trim
+                                (s-left 25)
+                                (s-pad-left 25 " "))))
+             (formatted (-map (lambda (%1)
+                                (-map format-column (s-split "--" %1))) lines)))
+          (loop for (col-pl col-en) in formatted
+                do (insert (format "%s -- %s\n" col-pl col-en))))))))
+
 
 (defun yank-quote ()
   (with-current-buffer (find-file-noselect "~/quotes.txt")
@@ -368,16 +383,21 @@ which case move it to the first non-whitespace char in line.
 Handles prefix arg like `move-beginning-of-line' does."
   (interactive "^p")
   (setq arg (or arg 1))
+  (if (and (cl-equalp major-mode 'org-mode)
+           (save-excursion
+             (move-beginning-of-line 1)
+             (looking-at (rx (1+ "*")))))
+      (org-beginning-of-line arg)
 
-  ;; Move lines first, with visual-line honored (never used).
-  (when (not (= arg 1))
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
+    ;; Move lines first, with visual-line honored (never used).
+    (when (not (= arg 1))
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
 
-  (let ((orig-point (point)))
-    (move-beginning-of-line 1)
-    (when (= orig-point (point))
-      (back-to-indentation))))
+    (let ((orig-point (point)))
+      (move-beginning-of-line 1)
+      (when (= orig-point (point))
+        (back-to-indentation)))))
 
 
 (defmacro like-this-maker (name dir)

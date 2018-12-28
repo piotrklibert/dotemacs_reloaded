@@ -2,9 +2,7 @@
 ;; C-x C-x after indenting a block just to be able indent it a bit more.
 
 (require 'my-utils)
-
-
-
+(require 'auto-mark)
 
 (defvar my-auto-mark-excludes
   '((indent-region-or-line               . ignore)
@@ -79,6 +77,7 @@ it before."
     (mustache-mode mustache-basic-offset)
     (nginx-mode nginx-indent-level)
     (nxml-mode nxml-child-indent)
+    (nim-mode nim-indent-offset)
     (objc-mode c-basic-offset)
     (octave-mode octave-block-offset)
     (perl-mode perl-indent-level)

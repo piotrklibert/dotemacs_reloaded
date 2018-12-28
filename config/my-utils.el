@@ -1,8 +1,8 @@
-(require 's)
-(require 'dash)
-(require 'f)
-(require 'cl)
+(require 'cl-lib)
 (require 'pcase)
+(require 'dash)
+(require 's)
+(require 'f)
 
 
 (defun my-ivy-format (cands)
@@ -19,6 +19,17 @@
            s))
        cands "\n"))))
 
+
+(defmacro -> (&rest args)
+  (declare (indent 1)
+           (debug (form &rest [&or symbolp (sexp &rest form)])))
+  `(with-no-warnings (thread-first ,@args)))
+
+(defmacro ->> (&rest args)
+  (declare (indent 1)
+           (debug (form &rest [&or symbolp (sexp &rest form)])))
+  `(with-no-warnings (thread-last ,@args)))
+
 ;; See: https://en.wikipedia.org/wiki/SKI_combinator_calculus/Informal_description
 (defmacro K (prev expr)
   (let ((pnam (gensym)))
@@ -26,29 +37,18 @@
        (-> ,pnam ,expr)
        ,pnam)))
 
-(defmacro measure-time (s &rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (message "Loading %s took: %.06f" ,s (float-time (time-since time)))))
-
-(defmacro load-safe (arg)
-  `(condition-case err
-       (measure-time ,arg (load ,arg))
-     (error (my-log (propertize "Couldn't load: %s %s" 'face 'error)
-                    ,arg err))))
-
 
 (defconst example-path
   (concat "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:/bin:/usr/sbin:"
           "/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:"
           "/usr/local/kde4/bin"))
 
-;; (only-existing-paths)
-(cl-defun only-existing-paths (&optional path)
-  (let
-      ((existing-paths (--filter (f-exists? (f-expand it))
-                                 (s-split ":" (or path (getenv "PATH") example-path)))))
+;; (my-only-existing-paths)
+(cl-defun my-only-existing-paths (&optional path)
+  (let*
+      ((paths-string (or path (getenv "PATH") example-path))
+       (paths (s-split ":" paths-string))
+       (existing-paths (--filter (-> it f-expand f-exists?) paths)))
     (s-join ":" existing-paths)))
 
 (defvar my-debug-flag t)
@@ -60,9 +60,22 @@
       (goto-char (point-max))
       (unless (zerop (current-column))
         (insert "\n"))
-      (insert (apply 'format fmt things))
-      (insert "\n"))))
+      (let ((val (apply 'format fmt things)))
+        (insert val)
+        (insert "\n")
+        ;; makes message only display in echo area, but not write to log,
+        ;; avoiding duplication
+        (let (message-log-max nil)
+          (message val))))))
 
+(defun my-log-info (fmt &rest things)
+  (apply 'my-log (propertize fmt 'face 'org-document-info) things))
+
+(defun my-log-error (fmt &rest things)
+  (apply 'my-log (propertize fmt 'face 'error) things))
+
+(defun buffer-text-content (buf)
+   (buffer-substring-no-properties (point-min) (point-max)))
 
 (defun buffer-line (&optional lineno)
   "Get a line in which point is as a string."

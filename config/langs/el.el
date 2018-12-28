@@ -29,8 +29,8 @@
     ("\bit\b"          . font-lock-keyword-face)))
 
 
-(defalias '-> 'thread-first)
-(defalias '->> 'thread-last)
+(define-key emacs-lisp-mode-map (kbd "C-c <left>") 'hs-toggle-hiding)
+
 
 (defun my-interactive-byte-compile ()
   (interactive)

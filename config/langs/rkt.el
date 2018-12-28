@@ -8,12 +8,14 @@
 
 (require 'lang-utils)
 
+
 (defun initialize-any-scheme ()
   (indent/tag-for-modes
       '(scheme-indent-function racket-indent-function)
     '((serve/servlet . 1)
       (send-resp! . 1)
       (~> . 1)
+      (~>> . 1)
       (call-with-semaphore . 1)
       (response/full . 3)
       (with-semaphore . 1)
@@ -49,6 +51,13 @@
   (define-key racket-repl-mode-map (kbd "C-w") my-wnd-keys))
 
 
+(defconst racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
+(defun my-sanitize-auto-modes-racket ()
+  (setq auto-mode-alist (loop for x in auto-mode-alist
+                              unless (s-contains? "rkt" (car x))
+                              collect x)))
+(my-sanitize-auto-modes-racket)
+
 (use-package racket-mode
   :mode "\\.rkt[dl]?\\'"
   :interpreter "racket"
@@ -60,17 +69,11 @@
   (eval-after-load "paredit"
     '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
 
-
-(defconst racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
-(defun my-sanitize-auto-modes-racket ()
-  (setq auto-mode-alist
-        (--remove  (string-match ".rkt" (car it)) auto-mode-alist))
-  ;; add racket-mode to auto-mode-alist
-  (loop for ext in racket-file-exts
-        do (push `(,ext . racket-mode) auto-mode-alist)))
-(my-sanitize-auto-modes-racket)
-
+;; add racket-mode to auto-mode-alist
+;; (loop for ext in racket-file-exts
+;;       do (push `(,ext . racket-mode) auto-mode-alist))
 ;; (assoc "\\.rkt\\'" auto-mode-alist)
+
 ;; geiser uses autoloads and sets auto-mode-alist then, so we need to change it
 ;; back when it happens
 ;; (eval-after-load "geiser-autoloads" '(my-sanitize-auto-modes-racket))

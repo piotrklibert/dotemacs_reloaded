@@ -1,4 +1,3 @@
-
 ;; (defconst models-replacements
 ;;   '(("Column(String(250))" . "models.CharField(max_length=250)")
 ;;     ("Column(Date())"      . "models.DateField()")

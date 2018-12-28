@@ -1,4 +1,3 @@
-
 ;;; flymake-mypy.el --- mypy plugin for flymake
 ;;
 ;; Author: Ryan Kung <ryankung@ieee.org>
@@ -15,7 +14,7 @@
 
 
 ;;; Usage:
-;; (require `flymake-pytyping)
+;; (require `flymake-mypy)
 
 
 ;;; Code:

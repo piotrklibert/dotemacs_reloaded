@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        Custom-save
         ace-jump-done
         ace-jump-mode
         artist-backward-char
@@ -42,6 +43,7 @@
         fsharp-ac/electric-dot
         fsharp-electric-backspace
         fuzzy-find-choose-root-set
+        goto-line
         helm-M-x
         indent-for-tab-command
         iy-go-to-char--command
@@ -69,6 +71,7 @@
         my-enlarge-window-horizontally
         my-eval-last-sexp
         my-indent
+        my-join-next-line
         my-toggle-quotes
         nim-electric-backspace
         nim-indent-electric-colon
@@ -87,6 +90,7 @@
         org-metaright
         org-self-insert-command
         org-shiftcontrolleft
+        org-shiftright
         org-yank
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
@@ -116,7 +120,9 @@
         python-indent-shift-left
         python-indent-shift-right
         racket-insert-lambda
+        reposition-window
         scroll-other-window-down
+        sgml-close-tag
         sgml-slash
         slime-autodoc-space
         suspend-frame
@@ -126,6 +132,7 @@
         wdired-next-line
         wdired-previous-line
         wdired-upcase-word
+        widget-kill-line
         yaml-electric-backspace
         yaml-electric-dash-and-dot
         yas-expand
@@ -151,6 +158,7 @@
         ido-find-file
         iedit-mode
         isearch-repeat-forward
+        kill-rectangle
         magit-blame
         magit-blame-quit
         mouse-drag-vertical-line

@@ -44,6 +44,9 @@
   :commands ztree-dir
   :config (setq ztree-draw-unicode-lines t))
 
+
+(require 'my-hideshow)
+
 ;; use with C-u to align by char instead of word
 (use-package align-by-current-symbol :commands align-by-current-symbol)
 
@@ -136,7 +139,7 @@
 
 (define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
 
-(global-set-key (kbd "C-c C-l") 'pygmentize)
+;; (global-set-key (kbd "C-c C-l") 'pygmentize)
 (global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)

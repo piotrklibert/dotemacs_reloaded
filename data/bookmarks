@@ -1,8 +1,167 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: no-conversion -*- 
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(let ((content (my-org-macro-replace-all-in-string (buffer-string) templates)))"
+(("(while (and (not (eolp)) (> w 0))"
+ (filename . "~/.emacs.d/forked-plugins/popup-el/popup.el")
+ (front-context-string . "          (while")
+ (rear-context-string . "ngth prefix)))\n\n")
+ (position . 22165))
+("(cl-defun popup-set-line-item (popup"
+ (filename . "~/.emacs.d/elpa/popup-20150315.612/popup.el")
+ (front-context-string . "(cl-defun popup-")
+ (rear-context-string . "tring) nil))))\n\n")
+ (position . 11933))
+(";; Set elscreen tab label"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "el\n             ")
+ (rear-context-string . "elscreen tab lab")
+ (position . 29261))
+("copy-dir-locals-to-file-locals\342\200\231 copies directory-local variables to the"
+ (front-context-string . "ocals\342\200\231 copies di")
+ (rear-context-string . "locals-to-file-l")
+ (position . 1578793)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Specifying File Variables")
+ (handler . Info-bookmark-jump))
+("(defun org-babel-execute-maybe ()"
+ (filename . "~/portless/org-mode/lisp/ob-core.el")
+ (front-context-string . "g-babel-execute-")
+ (rear-context-string . "toload\n(defun or")
+ (position . 11401))
+("40.1.4 Command-Line Arguments"
+ (front-context-string . "40.1.4 Command-L")
+ (rear-context-string . "p: Starting Up\n\n")
+ (position . 3162049)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Command-Line Arguments")
+ (handler . Info-bookmark-jump))
+("-- Variable: command-line-args-left"
+ (front-context-string . " -- Variable: co")
+ (rear-context-string . "ssed to Emacs.\n\n")
+ (position . 3164442)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Command-Line Arguments")
+ (handler . Info-bookmark-jump))
+("-- Variable: command-line-args"
+ (front-context-string . " -- Variable: co")
+ (rear-context-string . "cs Invocation.\n\n")
+ (position . 3164317)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Command-Line Arguments")
+ (handler . Info-bookmark-jump))
+("-- User Option: enable-local-variables"
+ (front-context-string . "\n     This varia")
+ (rear-context-string . "-local-variables")
+ (position . 561544)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "File Local Variables")
+ (handler . Info-bookmark-jump))
+("12.12 File Local Variables"
+ (front-context-string . "12.12 File Local")
+ (rear-context-string . " Up: Variables\n\n")
+ (position . 560499)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "File Local Variables")
+ (handler . Info-bookmark-jump))
+("(setq screen-name (buffer-name (window-buffer (selected-window)))"
+ (filename . "~/.emacs.d/plugins2/elscreen/elscreen.el")
+ (front-context-string . "creen-name (buff")
+ (rear-context-string . "         (setq s")
+ (position . 29182))
+("(defun export-lightcorn-docs ()"
+ (filename . "~/.emacs.d/config/org/my-org-babel.el")
+ (front-context-string . "(defun export-li")
+ (rear-context-string . "htcorn-docs ())\n")
+ (position . 3106))
+("org-capture-last-stored"
+ (filename . "~/todo/notes")
+ (front-context-string . "** TODO 3\n   [20")
+ (rear-context-string)
+ (position . 9))
+("org-refile-last-stored"
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** TODO Githubow")
+ (rear-context-string . "0the%20compiler\n")
+ (position . 14510))
+("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
+ (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
+ (front-context-string . ")  ;In case time")
+ (rear-context-string . " (set-buffer buf")
+ (position . 6798))
+(";; when decryption failed (bug#6568).  See the place"
+ (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
+ (front-context-string . "ecryption failed")
+ (rear-context-string . "       ;; when d")
+ (position . 6286))
+("20.6 Completion"
+ (front-context-string . "20.6 Completion\n")
+ (rear-context-string . "p: Minibuffers\n\n")
+ (position . 1001704)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Completion")
+ (handler . Info-bookmark-jump))
+("-- Variable: completion-at-point-functions"
+ (front-context-string . " -- Variable: co")
+ (rear-context-string . "nt-functions\342\200\231:\n\n")
+ (position . 1049075)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Completion in Buffers")
+ (handler . Info-bookmark-jump))
+("20.6.8 Completion in Ordinary Buffers"
+ (front-context-string . "20.6.8 Completio")
+ (rear-context-string . "Up: Completion\n\n")
+ (position . 1048623)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Completion in Buffers")
+ (handler . Info-bookmark-jump))
+("If the value is \342\200\230no\342\200\231, then if the completion table fails to"
+ (front-context-string . "          If the")
+ (rear-context-string . "   \342\200\230:exclusive\342\200\231\n")
+ (position . 1050552)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Completion in Buffers")
+ (handler . Info-bookmark-jump))
+("-- Function: quit-restore-window &optional window bury-or-kill"
+ (front-context-string . "-window &optiona")
+ (rear-context-string . "on: quit-restore")
+ (position . 1891252)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Quitting Windows")
+ (handler . Info-bookmark-jump))
+("This function handles WINDOW and its buffer after quitting.  The"
+ (front-context-string . " WINDOW and its ")
+ (rear-context-string . "function handles")
+ (position . 1891316)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Quitting Windows")
+ (handler . Info-bookmark-jump))
+("* Helm M-x"
+ (filename . "~/todo/helm-help.org")
+ (front-context-string . "Helm M-x\n\n** Tip")
+ (rear-context-string)
+ (position . 3))
+("{{- range $key, $val := .Values.farro.env.secret }}"
+ (filename . "~/projects/harvester/services/farro/templates/secret.yaml")
+ (front-context-string . "{{- range $key, ")
+ (rear-context-string . "EY | b64enc }}'\n")
+ (position . 210))
+(";; 1. Pass non-nil second arg to `dired-get-filename' so we can include `.' and `..'."
+ (filename . "~/.emacs.d/elpa/dired+-21.2/dired+.el")
+ (front-context-string . " second arg to `")
+ (rear-context-string . " 1. Pass non-nil")
+ (position . 95194))
+(";;; json-mode.el --- Major mode for editing JSON files"
+ (filename . "~/.emacs.d/elpa/json-mode-20131016.1653/json-mode.el")
+ (front-context-string . ";;; json-mode.el")
+ (rear-context-string)
+ (position . 1))
+(";; As a rough beginning, what I do is to keep my `remember-data-file' in"
+ (filename . "/usr/local/share/emacs/27.0.50/lisp/textmodes/remember.el")
+ (front-context-string . "ile' in\n;; outli")
+ (rear-context-string . "`remember-data-f")
+ (position . 5497))
+("(let ((content (my-org-macro-replace-all-in-string (buffer-string) templates)))"
  (filename . "~/projects/lightcorn/docs/lisp/org-config.el")
  (front-context-string . "g (buffer-string")
  (rear-context-string . "ace-all-in-strin")
@@ -21,7 +180,7 @@
  (position . 31))
 ("You can explicitly tell Emacs to make another backup file from a"
  (front-context-string . "You can explicit")
- (rear-context-string . "directory’.\n\n   ")
+ (rear-context-string . "directory\342\200\231.\n\n   ")
  (position . 467794)
  (filename . "/usr/local/share/info/emacs")
  (info-node . "Backup")
@@ -51,16 +210,16 @@
  (front-context-string . "screen-frame-cha")
  (rear-context-string . "w))))\n\n(defun el")
  (position . 59877))
-("‘no-delete-other-windows’"
+("\342\200\230no-delete-other-windows\342\200\231"
  (front-context-string . "delete-other-win")
- (rear-context-string . "indows::).\n\n‘no-")
+ (rear-context-string . "indows::).\n\n\342\200\230no-")
  (position . 1973359)
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Window Parameters")
  (handler . Info-bookmark-jump))
-("not delete any window whose ‘no-delete-other-windows’ parameter is"
+("not delete any window whose \342\200\230no-delete-other-windows\342\200\231 parameter is"
  (front-context-string . "-delete-other-wi")
- (rear-context-string . "window whose ‘no")
+ (rear-context-string . "window whose \342\200\230no")
  (position . 1817547)
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Deleting Windows")

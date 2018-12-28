@@ -1,4 +1,3 @@
-
 (add-hook 'prog-mode-hook  'my-init-prog-mode)
 
 
@@ -7,22 +6,6 @@
 (add-hook 'nim-mode-hook   'my-init-prog-mode)
 (add-hook 'io-mode-hook    'my-init-prog-mode)
 
-
-(defvar-local my-hs-global-toggle-hiding-state t
-  "t means show all, nil hide all")
-
-(defun my-hs-global-toggle-hiding ()
-  (interactive)
-  (if my-hs-global-toggle-hiding-state
-      (hs-show-all)
-    (hs-hide-all))
-  (setf my-hs-global-toggle-hiding-state (not my-hs-global-toggle-hiding-state)))
-
-(defun my-setup-hs-minor-mode ()
-  (hs-minor-mode 1)
-  (define-key mode-specific-map (kbd "C-M-=") 'my-hs-global-toggle-hiding)
-  (define-key mode-specific-map (kbd "h") 'hs-toggle-hiding))
-
 (add-hook 'nxml-mode-hook 'my-setup-hs-minor-mode)
 
 (require 'diminish)
@@ -30,7 +13,7 @@
 (defun my-init-prog-mode ()
   ;; Show FIXME TODO in special font
   (fic-ext-mode 1)
-  ;; bg color for eg #0000ff,  white , blue background.
+  ;; bg color for eg #0000ff,  white, blue background.
   (rainbow-mode 1)
   (rainbow-delimiters-mode 1)
   (hl-line-mode 1)                      ; highlight current line
@@ -39,8 +22,8 @@
   (undo-tree-mode 1)
   (delete-selection-mode 1)
   (flymake-mode 1)
-  (linum-mode 1)
-
+  ;; (linum-mode 1)
+  (setq display-line-numbers t)
   (turn-on-fuzzy-isearch)               ; complement: turn-off-fuzzy-isearch
   (show-paren-mode t)                   ; highlight matching parens
   (column-number-mode t)                ; show col num on modeline

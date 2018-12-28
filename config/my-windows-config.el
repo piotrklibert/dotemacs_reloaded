@@ -1,3 +1,4 @@
+(require 'hydra)
 (require 'tiling)
 (require 'golden-ratio)
 (require 'uniquify)
@@ -10,9 +11,49 @@
 ;; (global-set-key (kbd "M-<f2>") 'minimap-mode)
 ;; (golden-ratio-mode t)
 
+(defhydra hydra-splitter ()
+    "splitter"
+    ("<left>" hydra-move-splitter-left)
+    ("<down>" hydra-move-splitter-down)
+    ("<up>" hydra-move-splitter-up)
+    ("<right>" hydra-move-splitter-right))
+
+(require 'windmove)
+
+(defun hydra-move-splitter-left (arg)
+  "Move window splitter left."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (shrink-window-horizontally 10)
+    (enlarge-window-horizontally 10)))
+
+(defun hydra-move-splitter-right (arg)
+  "Move window splitter right."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'right))
+      (enlarge-window-horizontally 10)
+    (shrink-window-horizontally 10)))
+
+(defun hydra-move-splitter-up (arg)
+  "Move window splitter up."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (enlarge-window 5)
+    (shrink-window 5)))
+
+(defun hydra-move-splitter-down (arg)
+  "Move window splitter down."
+  (interactive "p")
+  (if (let ((windmove-wrap-around))
+        (windmove-find-other-window 'up))
+      (shrink-window 5)
+    (enlarge-window 5)))
+
 
 ;; (require 'minimap)
-;; (global-set-key (kbd "C-<tab>")           'elscreen-next)
 (global-set-key (kbd "C-<next>")          'elscreen-next)
 (global-set-key (kbd "C-<XF86AudioPlay>") 'elscreen-previous)
 
@@ -63,10 +104,10 @@
 (define-key my-wnd-keys (kbd "C-<up>")       'windmove-up)
 (define-key my-wnd-keys (kbd "C-<down>")     'windmove-down)
 
-(define-key my-wnd-keys (kbd "<right>")      'my-enlarge-window-horizontally)
-(define-key my-wnd-keys (kbd "<left>")       'my-shrink-window-horizontally)
-(define-key my-wnd-keys (kbd "<up>")         'enlarge-window) ; TODO: make it more natural with regards to arrow directions
-(define-key my-wnd-keys (kbd "<down>")       'shrink-window)
+(define-key my-wnd-keys (kbd "<right>")      'hydra-splitter/hydra-move-splitter-right)
+(define-key my-wnd-keys (kbd "<left>")       'hydra-splitter/hydra-move-splitter-left)
+(define-key my-wnd-keys (kbd "<up>")         'hydra-splitter/hydra-move-splitter-up) ; TODO: make it more natural with regards to arrow directions
+(define-key my-wnd-keys (kbd "<down>")       'hydra-splitter/hydra-move-splitter-down)
 (define-key my-wnd-keys (kbd "=")            'balance-windows)
 (define-key my-wnd-keys (kbd "C-=")          'balance-windows)
 
@@ -130,9 +171,25 @@ remapped or something)."
   (kill-buffer))
 
 ;; Auto-refresh ibuffer
-(defun my-buffer-list-update-hook ()
-  (and (eq major-mode 'ibuffer-mode)
-       (ibuffer-current-state-list)))
-;; buffer-list-update-hook
-;; (add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
+(require 'ibuffer)
+
+(defvar my-last-buffer-list nil)
+
+;; (defun my-buffer-list-update-hook ()
+;;   (condition-case e
+;;       (if-let ((ibuffer-buf (get-buffer "*Ibuffer*"))
+;;                ((not (eq ibuffer-buf (current-buffer))))
+;;                (buffers (buffer-list))
+;;                ((not (eq (length my-last-buffer-list) (length buffers)))))
+;;           (with-current-buffer ibuffer-buf
+;;             (ibuffer-update nil t)
+;;             (setq my-last-buffer-list buffers)))
+;;     (error (message "error! %s" e))))
+
+(defun my-buffer-list-update-hook ())
+(add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
+
+
+;; auto-hscroll-mode
+;; byte-compile-warnings
 ;; (remove-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)

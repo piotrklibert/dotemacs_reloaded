@@ -95,7 +95,7 @@ If its `pos' is somehow out of range, wrap it before returning."
 
 (defun tfb--hidden-buf? (it)
   (and (s-contains? "*" it)
-       ; (not (s-contains? "ibuffer" (s-downcase it)))
+       (not (s-contains? "ibuffer" (s-downcase it)))
        (not (s-contains? "repl"    (s-downcase it)))
        (not (s-contains? "scratch" (s-downcase it)))))
 

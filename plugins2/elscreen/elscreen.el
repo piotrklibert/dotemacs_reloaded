@@ -681,9 +681,11 @@ from `elscreen-frame-confs', a cons cell."
                              'string-match (buffer-name))
                             (cons 'buffer-name (buffer-name)))))
                     (-filter (lambda (win)
-                               (-> win window-buffer buffer-name
-                                   (string-equal "*elscreen-tabs*")
-                                   not))
+                               (-> win
+                                 window-buffer
+                                 buffer-name
+                                 (string-equal "*elscreen-tabs*")
+                                 not))
                              (window-list))))
 
              (let (nickname-list)
@@ -696,8 +698,14 @@ from `elscreen-frame-confs', a cons cell."
                          (if (eq type 'nickname)
                              (delete (car nickname-type-map) nickname-type-map)
                            (cdr nickname-type-map)))))
+
+               ;; Set elscreen tab label
                (setq screen-name
-                     (mapconcat 'identity (reverse nickname-list) ":"))))
+                     (mapconcat 'identity
+                                (list (buffer-name (window-buffer (selected-window)))
+                                      ;(car nickname-list)
+                                      )
+                                ":"))))
 
            (elscreen--set-alist 'screen-to-name-alist screen screen-name))
          screen-list))
@@ -1491,7 +1499,8 @@ Use \\[toggle-read-only] to permit editing."
 
 (defun elscreen-window-size-change-hook (f)
   (when (frame-size-changed-p f)
-    (elscreen-reset-tabs)
+    ;; (message ">>> %s" f)
+    ;; (elscreen-reset-tabs)
     (elscreen-e21-tab-update 'force)))
 
 ;; window-size-change-functions
@@ -1501,6 +1510,7 @@ Use \\[toggle-read-only] to permit editing."
   (when elscreen-is-first-frame
     (set-frame-parameter (selected-frame) 'origin t)
     (setq elscreen-is-first-frame nil))
+
   (when (and (not (window-minibuffer-p))
              (frame-parameter (selected-frame) 'origin)
              (or (elscreen-screen-modified-p 'elscreen-tab-update) force))

@@ -9,24 +9,26 @@
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
 (fringe-mode     '(4 . 8))
-(menu-bar-mode    1)
+(menu-bar-mode    -1)
 (load-theme       'wombat)
 (set-cursor-color "white")
 
 
 ;; Add the paths of plugins to load-path.
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/.emacs.d/config/org")
 
 (add-to-list 'load-path "~/portless/org-mode/lisp")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp")
 
+;; Load CEDET. Turns out the built-in version is more up-to-date than the one
+;; from GIT repo...
+(require 'cedet)
 
-;; Load CEDET.
-;; See cedet/common/cedet.info for configuration details.
 ;; For semantic submodules, see doc-string of `semantic-default-submodes'
-(load-file (expand-file-name "~/portless/cedet/cedet-devel-load.el"))
-(load-file (expand-file-name "~/portless/cedet/contrib/cedet-contrib-load.el"))
+(require 'semantic)
 (semantic-mode 1)                       ; Enable Semantic
+
 
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
 
@@ -54,12 +56,7 @@
   (interactive)
   (cl-flet
       ((set-font (font-name) (set-face-attribute 'default nil :font font-name)))
-    (my-match-hostname
-      ;; another possible font: "DejaVu Sans Mono-12"
-      (f28        => (set-font "DejaVu Sans Mono-14"))
-      (f25b       => (set-font "Bitstream Vera Sans Mono-14"))
-      (fedorcia2  => (set-font "Bitstream Vera Sans Mono-9"))
-      (urkaja2    => (set-font "Bitstream Vera Sans Mono-13")))))
+    (set-font "DejaVu Sans Mono-14")))
 
 
 (when window-system
@@ -89,8 +86,8 @@
 
 (setq-default imenu-auto-rescan           t
               color-theme-is-global       t
-              sentence-end-double-space   nil
               mouse-yank-at-point         t
+              sentence-end-double-space   nil
               whitespace-line-column      80
               diff-switches              "-u")
 
@@ -128,7 +125,7 @@
 ;; Additional interfaces and functionalities activation and config
 (load-safe "my-generic-ui-config")
 
-;; JavaScript, YAML, Rust, Racket and so on - configuration
+;; Python, JavaScript, YAML, Rust, Racket and so on (and on, and on... 🙂) config
 (load-safe "langs/base.el")
 
 ;; Everything that is useful for normal editing or not programming specific
@@ -148,10 +145,10 @@
 (load-safe "my-vcs-config")
 
 ;; org-mode customizations
-(load-safe "my-org-config")
+(load-safe "org/my-org-ux")
 
 ;; JABBER.el (XMPP) settings
-(load-safe "my-jabber")
+;; (load-safe "my-jabber")
 
 (require 'my-download-page)
 
