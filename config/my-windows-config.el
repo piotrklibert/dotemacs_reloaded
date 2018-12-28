@@ -41,7 +41,7 @@
 (defmacro refresh-tab-bar-after (&rest funcs)
   `(progn ,@(loop for f in funcs
                 collect (let ()
-                          `(defadvice ,f (after refresh-tab-bar activate)
+                          `(defadvice ,f (after my-elscreen-refresh-tab-bar activate)
                              (elscreen-e21-tab-update t))))))
 
 (refresh-tab-bar-after
@@ -50,7 +50,13 @@
  windmove-left
  windmove-right)
 
+(defun my-split-window-right ()
+  (interactive)
+  (select-window (split-window-right)))
 
+(defun my-split-window-below ()
+  (interactive)
+  (select-window (split-window-below)))
 
 (define-key my-wnd-keys (kbd "C-<left>")     'windmove-left)
 (define-key my-wnd-keys (kbd "C-<right>")    'windmove-right)
@@ -59,21 +65,22 @@
 
 (define-key my-wnd-keys (kbd "<right>")      'my-enlarge-window-horizontally)
 (define-key my-wnd-keys (kbd "<left>")       'my-shrink-window-horizontally)
-
-(define-key my-wnd-keys (kbd "<up>")         'enlarge-window)
+(define-key my-wnd-keys (kbd "<up>")         'enlarge-window) ; TODO: make it more natural with regards to arrow directions
 (define-key my-wnd-keys (kbd "<down>")       'shrink-window)
+(define-key my-wnd-keys (kbd "=")            'balance-windows)
+(define-key my-wnd-keys (kbd "C-=")          'balance-windows)
 
 (define-key my-wnd-keys (kbd "M-<up>"   )    'buf-move-up)
 (define-key my-wnd-keys (kbd "M-<down>" )    'buf-move-down)
 (define-key my-wnd-keys (kbd "M-<right>")    'buf-move-right)
 (define-key my-wnd-keys (kbd "M-<left>" )    'buf-move-left)
 
-(define-key my-wnd-keys (kbd "C-s")          'split-window-below)
-(define-key my-wnd-keys (kbd "\"")           'split-window-below)
-(define-key my-wnd-keys (kbd "C-\"")         'split-window-below)
-(define-key my-wnd-keys (kbd "C-v")          'split-window-right)
-(define-key my-wnd-keys (kbd "%")            'split-window-right)
-(define-key my-wnd-keys (kbd "C-%")          'split-window-right)
+(define-key my-wnd-keys (kbd "C-s")          'my-split-window-below)
+;; (define-key my-wnd-keys (kbd "\"")           'my-split-window-below)
+;; (define-key my-wnd-keys (kbd "C-\"")         'my-split-window-below)
+(define-key my-wnd-keys (kbd "C-v")          'my-split-window-right)
+;; (define-key my-wnd-keys (kbd "%")            'my-split-window-right)
+;; (define-key my-wnd-keys (kbd "C-%")          'my-split-window-right)
 
 (define-key my-wnd-keys (kbd "C-z")          'delete-window)
 (define-key my-wnd-keys (kbd "C-k")          'kill-buffer-and-window)

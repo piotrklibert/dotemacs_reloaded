@@ -2,7 +2,6 @@
 ;; start :)
 (setf frame-title-format "Emacs starting..."
       inhibit-startup-message t         ; Don't show splash on startup
-      package-enable-at-startup nil
       load-prefer-newer t
       debug-on-error t
       fast-but-imprecise-scrolling t)
@@ -24,38 +23,19 @@
 
 ;; Load CEDET.
 ;; See cedet/common/cedet.info for configuration details.
-(load-file (expand-file-name "~/portless/cedet/cedet-devel-load.el"))
-;; Enable Semantic
-(semantic-mode 1)
 ;; For semantic submodules, see doc-string of `semantic-default-submodes'
-
+(load-file (expand-file-name "~/portless/cedet/cedet-devel-load.el"))
 (load-file (expand-file-name "~/portless/cedet/contrib/cedet-contrib-load.el"))
-
-
-(defun my-file-handler (operation &rest args)
-  (cond
-   ((eq operation 'make-auto-save-file-name)
-    ;; TODO: should return a full path to auto-save file
-    (format "/tmp/asdasd" ))
-
-   (t (let ((inhibit-file-name-handlers
-             (cons 'my-file-handler
-                   (and (eq inhibit-file-name-operation operation)
-                        inhibit-file-name-handlers)))
-            (inhibit-file-name-operation operation))
-        (apply operation args)))))
-
-;; (add-to-list 'file-name-handler-alist (cons ".*" #'my-file-handler))
-
+(semantic-mode 1)                       ; Enable Semantic
 
 (require 'my-packages-utils)            ; for `add-subdirs-to-path'
 
 (add-subdirs-to-path
+  "~/.emacs.d/elpa"
   "~/.emacs.d/forked-plugins/"
   "~/.emacs.d/plugins2"
   "~/.emacs.d/plugins"
-  "~/.emacs.d/pkg-langs"
-  "~/.emacs.d/elpa")
+  "~/.emacs.d/pkg-langs")
 
 (require 'use-package)
 (setf use-package-verbose t)

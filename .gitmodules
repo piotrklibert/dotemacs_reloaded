@@ -112,3 +112,6 @@
 [submodule "forked-plugins/prop-menu"]
 	path = forked-plugins/prop-menu
 	url = git@github.com:david-christiansen/prop-menu-el.git
+[submodule "forked-plugins/hydra"]
+	path = forked-plugins/hydra
+	url = git@github.com:abo-abo/hydra.git

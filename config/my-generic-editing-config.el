@@ -1,5 +1,22 @@
 (require 'neotree-autoloads)
 
+(defun my-file-handler (operation &rest args)
+  (cond
+   ((eq operation 'make-auto-save-file-name)
+    ;; TODO: should return a full path to auto-save file
+    (format "/tmp/asdasd" ))
+
+   (t (let ((inhibit-file-name-handlers
+             (cons 'my-file-handler
+                   (and (eq inhibit-file-name-operation operation)
+                        inhibit-file-name-handlers)))
+            (inhibit-file-name-operation operation))
+        (apply operation args)))))
+
+;; (add-to-list 'file-name-handler-alist (cons ".*" #'my-file-handler))
+
+
+
 (defun my-neotree-hook ()
   (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
   (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
@@ -9,16 +26,16 @@
 
 (add-hook 'neotree-mode-hook 'my-neotree-hook)
 
-(defun my-delete-file-advice (fname &rest args)
-  (when (equal (buffer-file-name (current-buffer)) fname)
-    (backup-buffer)
-    (kill-buffer)
-    (message "delete-file: killed buffer visiting %s" fname)))
+;; (defun my-delete-file-advice (fname &rest args)
+;;   (when (equal (buffer-file-name (current-buffer)) fname)
+;;     (backup-buffer)
+;;     (kill-buffer)
+;;     (message "delete-file: killed buffer visiting %s" fname)))
 
-(advice-add 'delete-file :after #'my-delete-file-advice)
+;; (advice-add 'delete-file :after #'my-delete-file-advice)
 
 
-(require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
+;; (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
@@ -65,20 +82,21 @@
 
 (defun my-join-next-line ()
   (interactive)
+  ;; NOTE: join-line is an alias for delete-indentation
   (join-line 1))
 
 
 (defun my-join-prev-line ()
   (interactive)
-  (previous-line 1)
+  (forward-line -1)
   (my-join-next-line))
 
 
 (define-key mode-specific-map (kbd "C-<down>") 'my-join-next-line) ; C-c C-<down>
-(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c C-<down>
+(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c <down>
 
 (define-key mode-specific-map (kbd "C-<up>") 'my-join-prev-line) ; C-c C-<up>
-(define-key mode-specific-map (kbd "<up>") 'my-join-prev-line) ; C-c C-<up>
+(define-key mode-specific-map (kbd "<up>") 'my-join-prev-line) ; C-c <up>
 
 
 (require 'iy-go-to-char)
@@ -86,21 +104,13 @@
 
 (setq line-number-display-limit-width 2000000)
 
-(defadvice upcase-word     (before upcase-word-advice     activate) (move-to-word-beginning))
-(defadvice downcase-word   (before downcase-word-advice   activate) (move-to-word-beginning))
-(defadvice capitalize-word (before capitalize-word-advice activate) (move-to-word-beginning))
-
 (defun move-to-word-beginning ()
   (unless (looking-back "\\b" nil)
     (backward-word)))
 
-(defun my-delete-indentation ()
-  (interactive)
-  (delete-indentation))
-
-(defun my-delete-indentation-down ()
-  (interactive)
-  (delete-indentation t))
+(defadvice upcase-word     (before my-upcase-word-advice     activate) (move-to-word-beginning))
+(defadvice downcase-word   (before my-downcase-word-advice   activate) (move-to-word-beginning))
+(defadvice capitalize-word (before my-capitalize-word-advice activate) (move-to-word-beginning))
 
 
 ;;                           _  _________   ______

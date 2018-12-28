@@ -1,10 +1,8 @@
-(require 'use-package)
 (require 'generic-x)
 (require 'avy)
 
-(define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
 
-
+;(require 'json-mode)
 (defun make-local-hook (&rest things)
   "Something somewhere calls this obsolete function; I couldn't
   find it by grepping the sources so I decided to mock it to get
@@ -84,6 +82,16 @@ without selecting."
      (require 'help-fns+)
      (require 'help+)
      (require 'help-mode+)))
+
+(autoload 'ag/dwim-at-point "ag"
+  "If there's an active selection, return that.
+Otherwise, get the symbol at point.")
+
+(defun my-info-apropos (str)
+  (interactive (list (read-from-minibuffer "Search manuals for: " (ag/dwim-at-point))))
+  (Info-index-entries-across-manuals str nil '("Elisp")))
+
+(define-key help-map (kbd "I") 'my-info-apropos)
 
 (eval-after-load "thingatpt"
   '(require 'thingatpt+))
@@ -200,12 +208,35 @@ without selecting."
   (message "Bookmark set!"))
 
 
+;; Shortcuts for bookmarks
+(define-prefix-command 'my-bookmarks-keys)
+(global-set-key (kbd "C-b") 'my-bookmarks-keys)
+
 (define-key my-bookmarks-keys (kbd "C-b") 'my-bookmark-set)
 (define-key my-bookmarks-keys (kbd "C-l") 'helm-bookmarks)
 (define-key my-bookmarks-keys (kbd "M-l") 'edit-bookmarks)
 
+
 (define-key ctl-x-map (kbd "b")     'helm-buffers-list)
 (define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
+
+(defun my-switch-buffer-other-elscreen ()
+  (interactive)
+  (elscreen-create)
+  (call-interactively 'helm-buffers-list))
+
+(defun my-find-file-other-elscreen ()
+  (interactive)
+  (elscreen-create)
+  (call-interactively 'helm-find-files))
+
+(define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
+
+;; (define-key ctl-x-map (kbd "C-M-f")   'my-find-file-other-elscreen)
+(define-key ctl-x-map (kbd "C-M-f")   'ido-find-file-other-window)
+
+(define-key ctl-x-map (kbd "f")   'helm-find-files)
+;; previously: (define-key ctl-x-map (kbd "f")   'ido-find-file)
 
 ;; Use ibuffer rather than whatever Emacs uses by default...
 (define-key ctl-x-map (kbd "C-b")   'ibuffer)

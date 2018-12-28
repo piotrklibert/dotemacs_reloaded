@@ -382,8 +382,21 @@ used to limit the exported source code blocks by language."
   )
 
 
+;; TODO: failed experiment, cleanup
+;; (defun my-org-edit-special (&optional arg) (interactive "P") (let ((element (org-element-at-point)) (type (->> (org-element-at-point) (org-element-property :parent) (org-element-property :type)))) (barf-if-buffer-read-only) (if (equal type "note") (my-org-edit-note) (org-edit-special arg))))
+;; (defun my-org-edit-note () (let ((element (org-element-property :parent (org-element-at-point)))) (org-src--edit-element element (org-src--construct-edit-buffer-name (buffer-name) "note") #'text-mode (lambda () (org-escape-code-in-region (point-min) (point-max))))))
+;; (add-to-list org-export-filter-special-block-functions 'my-org-note-filter)
 
 
+(eval-after-load "org"
+  '(setq org-babel-default-header-args
+         (cons '(:noweb . "yes")
+               (assq-delete-all :noweb org-babel-default-header-args))))
+
+;; (with-current-buffer "nowe.org"
+;;   (->> (org-element-at-point)
+;;     (org-element-property :parent)
+;;     (org-element-property :type)))
 
 (defun export-lightcorn-docs ()
   (let ((fname (buffer-file-name)))
@@ -523,8 +536,15 @@ used to limit the exported source code blocks by language."
 
 
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
-;; (global-set-key (kbd "C-c r") 'org-remember)
 ;; (global-set-key (kbd "C-c c") 'org-capture)
+;; (require 'remember)
+
+(defun my-open-notes ()
+  (interactive)
+  (my-split-window-below)
+  (find-file (expand-file-name "~/todo/nowe.org")))
+
+(global-set-key (kbd "C-c r") #'my-open-notes)
 
 
 (defun my-org-jump-to-heading (heading)
@@ -554,21 +574,26 @@ used to limit the exported source code blocks by language."
 ;; Stolen from: http://www.emacswiki.org/cgi-bin/wiki/Journal
 ;; because on my FreeBSD Org crashed with C-c C-s...
 
-(defun my-now (&optional arg)
+(defun my-now ()
   "Insert string for the current time formatted like '2:34 PM'."
-  (interactive "p")
   (format-time-string "%H:%M"))
 
+(defun my-today ()
+  (format-time-string "%Y-%m-%d"))
+
 (defun my-insert-now ()
+  (interactive)
+  (insert (concat "<" (my-now) ">")))
+
+(defun my-insert-datetime ()
   "Insert string for today's date nicely formatted in American style,
 e.g. Sunday, September 17, 2000."
-  (interactive)                         ; permit invocation in minibuffer
-  (let
-      ((date (format-time-string "%Y-%m-%d %a"))
-       (time (my-now)))
-    (insert (concat "<" date " " time ">"))))
-
-
+  (interactive)
+  (let ((date (my-today))
+        (time (my-now))
+        (day (elt '(Mon Tue Wed Thu Fri Sat Sun)
+                  (1- (string-to-number (format-time-string "%u"))))))
+    (insert (concat "<" date " " (symbol-name day) " " time ">"))))
 
 (defun my-insert-today ()
   (interactive)
@@ -576,8 +601,8 @@ e.g. Sunday, September 17, 2000."
     (insert (concat "[" date "]"))))
 
 
-(define-key my-toggle-keys (kbd "t") 'my-insert-now)
-(define-key my-toggle-keys (kbd "C-t") 'my-insert-today)
+;; (define-key my-toggle-keys (kbd "C-t") 'my-insert-datetime)
+;; (define-key my-toggle-keys (kbd "t") 'my-insert-now)
 
 
 
@@ -685,3 +710,5 @@ and press C-c C-x C-u (org-dblock-update) while on it to generate the report.
           (format-time-string (car org-time-stamp-formats)
                               (seconds-to-time startendday))))
         (setq start (+ 86400 start))))))
+
+(provide 'my-org-config)

@@ -82,6 +82,7 @@
         org-end-of-line
         org-fill-paragraph
         org-force-self-insert
+        org-kill-line
         org-metaleft
         org-metaright
         org-self-insert-command
@@ -144,6 +145,7 @@
         elscreen-previous
         eval-defun
         fuzzy-find-in-project
+        global-occur
         helm-occur
         ibuffer
         ido-find-file

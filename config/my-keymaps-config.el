@@ -23,17 +23,7 @@
 (define-prefix-command 'my-toggle-keys)
 (global-set-key (kbd "C-t") 'my-toggle-keys)
 ;; (find-my-bindings-for 'my-toggle-keys)
-
-
-;; functions related to searching paths, files and everything else.
-(define-prefix-command 'my-find-keys)
-(global-set-key (kbd "C-f") 'my-find-keys)
 ;; (find-my-bindings-for 'my-find-keys)
-
-
-;; Shortcuts for bookmarks/
-(define-prefix-command 'my-bookmarks-keys)
-(global-set-key (kbd "C-b") 'my-bookmarks-keys)
 ;; (find-my-bindings-for 'my-bookmarks-keys)
 
 

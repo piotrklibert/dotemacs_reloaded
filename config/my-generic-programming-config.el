@@ -61,10 +61,14 @@
 
 (add-hook 'message-mode-hook 'my-msg-mode-hook)
 
-(defun my-info-mode-hook ()
-  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
 
-(add-hook 'Info-mode-hook 'my-info-mode-hook)
+(defun my-info-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp))
+  (define-key 'Info-mode-map (kbd "<mouse-5>") (lambda () (scroll-down 4)))
+  (define-key 'Info-mode-map (kbd "<mouse-4>") (lambda () (scroll-up 4))))
+
+;; (add-hook 'Info-mode-hook 'my-info-mode-hook)
+;; (remove-hook 'Info-mode-hook 'my-info-mode-hook)
 
 (define-key help-map (kbd "C-a") 'helm-apropos)
 (define-key help-map (kbd "a") 'apropos)
@@ -146,16 +150,23 @@
 (define-key mode-specific-map (kbd "w <up>") 'flymake-goto-prev-error)
 (define-key mode-specific-map (kbd "M-.") 'xref-find-definitions-other-window)
 
+;; functions related to searching paths, files and everything else.
+(defvar my-find-keys)
+(define-prefix-command 'my-find-keys)
+(global-set-key (kbd "C-f") 'my-find-keys)
+
+(define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
 
 (define-key my-find-keys (kbd "o")        'occur)
 (define-key my-find-keys (kbd "l")        'avy-goto-line)
+(define-key my-find-keys (kbd "C-l")      'find-library-other-window)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
 (define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
-(define-key my-find-keys (kbd "C-i")      'idomenu)
+(define-key my-find-keys (kbd "C-i")      'helm-imenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
 

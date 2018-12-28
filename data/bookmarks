@@ -2,7 +2,24 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("You can explicitly tell Emacs to make another backup file from a"
+(("(let ((content (my-org-macro-replace-all-in-string (buffer-string) templates)))"
+ (filename . "~/projects/lightcorn/docs/lisp/org-config.el")
+ (front-context-string . "g (buffer-string")
+ (rear-context-string . "ace-all-in-strin")
+ (position . 7951))
+("Handle C stack overflow caused by too nested Lisp evaluation."
+ (filename . "~/portless/emacs/src/ChangeLog.13")
+ (front-context-string . "	Handle C stack ")
+ (rear-context-string . "pov@yandex.ru>\n\n")
+ (position . 185174))
+("nameserver 10.124.0.2"
+ (filename .
+           #("/sudo:root@f28:/etc/resolv.conf" 6 10
+             (tramp-default t)))
+ (front-context-string . "nameserver 10.12")
+ (rear-context-string . " NetworkManager\n")
+ (position . 31))
+("You can explicitly tell Emacs to make another backup file from a"
  (front-context-string . "You can explicit")
  (rear-context-string . "directory’.\n\n   ")
  (position . 467794)
