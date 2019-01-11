@@ -34,7 +34,7 @@
 
 (add-subdirs-to-path
   "~/.emacs.d/elpa"
-  "~/.emacs.d/forked-plugins/"
+  "~/.emacs.d/forked-plugins"
   "~/.emacs.d/plugins2"
   "~/.emacs.d/plugins"
   "~/.emacs.d/pkg-langs")
