@@ -32,7 +32,7 @@
        (local-file (file-relative-name
                     temp-file
                     (file-name-directory buffer-file-name))))
-    (list "mypy" (list "--follow-imports=normal" local-file "-s"))))
+    (list "mypy" (list "--follow-imports=normal" local-file))))
 
 
 (when (load "flymake" t)

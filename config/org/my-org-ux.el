@@ -1,7 +1,9 @@
 (require 'org)
 (require 'org-table)
+(require 'org-agenda)
 (require 'helm)
 (require 'helm-regexp)
+
 
 (defun my-org-clear-subtree ()
   (interactive)
@@ -151,7 +153,6 @@ locale is set."
         :truncate-lines helm-moccur-truncate-lines))
 
 
-(require 'org-agenda)
 (require 'browse-url)
 
 ;; Do not dim blocked tasks

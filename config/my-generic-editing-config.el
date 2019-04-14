@@ -62,7 +62,6 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 (require 'expand-region)
-(define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
 
 
@@ -141,8 +140,7 @@
 (global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
 (global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
 
-
-;; My little ponies (I mean defuns):
+;;
 (global-set-key (kbd "C-M-d")          'duplicate-line-or-region)
 (global-set-key (kbd "M-S-<down>")     'move-text-down)
 (global-set-key (kbd "M-S-<up>")       'move-text-up)
