@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(while (and (not (eolp)) (> w 0))"
+(("(defun er/prepare-for-more-expansions-internal (repeat-key-str)"
+ (filename . "~/.emacs.d/forked-plugins/expand-region-el/expand-region-core.el")
+ (front-context-string . "-more-expansions")
+ (rear-context-string . "n er/prepare-for")
+ (position . 6286))
+("(while (and (not (eolp)) (> w 0))"
  (filename . "~/.emacs.d/forked-plugins/popup-el/popup.el")
  (front-context-string . "          (while")
  (rear-context-string . "ngth prefix)))\n\n")
@@ -33,13 +38,6 @@
  (front-context-string . "40.1.4 Command-L")
  (rear-context-string . "p: Starting Up\n\n")
  (position . 3162049)
- (filename . "/usr/local/share/info/elisp")
- (info-node . "Command-Line Arguments")
- (handler . Info-bookmark-jump))
-("-- Variable: command-line-args-left"
- (front-context-string . " -- Variable: co")
- (rear-context-string . "ssed to Emacs.\n\n")
- (position . 3164442)
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Command-Line Arguments")
  (handler . Info-bookmark-jump))

@@ -153,10 +153,13 @@
         eval-defun
         fuzzy-find-in-project
         global-occur
+        helm-find-files
         helm-occur
+        hydra-splitter/hydra-move-splitter-left
         ibuffer
         ido-find-file
         iedit-mode
+        iedit-rectangle-mode
         isearch-repeat-forward
         kill-rectangle
         magit-blame
@@ -177,4 +180,6 @@
         tfb-down
         tfb-up
         undo-tree-visualize
+        xref-find-definitions
+        xref-pop-marker-stack
         ))
