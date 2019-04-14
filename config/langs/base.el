@@ -6,7 +6,15 @@
 (use-package julia-mode      :mode "\\.jl\\'")
 (use-package smalltalk-mode  :mode ("\\.st\\'" . smalltalk-mode))
 (use-package json-mode       :mode "\\.json\\'")
-(use-package markdown-mode   :mode "\\.\\(text\\|markdown\\|md\\)\\'")
+
+(use-package markdown-mode
+  :mode "\\.\\(text\\|markdown\\|md\\)\\'"
+  :bind (:map markdown-mode-map
+         ("M-<left>" . left-word)
+         ("M-<right>" . right-word)
+         ("C-<left>" . markdown-promote)
+         ("C-<right>" . markdown-demote)))
+
 (use-package yaml-mode       :mode "\\.\\(yml\\|yaml\\)\\'")
 (use-package haxe-mode       :mode "\\.hx\\'")
 (use-package nginx-mode      :mode ".*nginx.*\\.conf\\'")
@@ -20,7 +28,7 @@
 
 
 (use-package groovy-mode
-  :config (add-hook 'groovy-mode-hook #'linum-mode)
+  ;; :config (add-hook 'groovy-mode-hook #'linum-mode)
   :mode "\\.groovy\\'")
 
 (use-package fsharp-mode
@@ -55,7 +63,9 @@
  "~/.emacs.d/config/langs/python.el"
  "~/.emacs.d/config/langs/nim.el")
 
-
+;; (message "2>>>>>>>>>>>>>>>> %s" (loop for x in auto-mode-alist
+;;                                       when (s-contains? "rkt" (car x))
+;;                                       collect x))
 ;; SQL interactions mode
 ;; (require 'sql-completion)
 ;; (setq sql-interactive-mode-hook
