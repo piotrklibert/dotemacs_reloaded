@@ -71,14 +71,22 @@ without selecting."
 (use-package dirtree
   :commands dirtree)
 
-(require 'unbound-autoloads)
-(require 'sunrise-autoloads)
 
-(eval-after-load 'sunrise-commander
-  '(progn
-     (message "Loading Sunrise plugins...")
-     (require 'sunrise-x-tree)
-     (require 'sunrise-x-modeline)))
+(use-package unbound
+  :commands describe-unbound-keys)
+
+
+(use-package sunrise-commander
+  :commands sunrise sunrise-cd
+  :init
+  (global-set-key (kbd "C-<f3>") 'sunrise)
+  (global-set-key (kbd "M-<f3>") 'sunrise-cd)
+  :config
+  (define-key sr-mode-map (kbd "C-<prior>") 'elscreen-previous)
+  (require 'sunrise-x-tree)
+  (require 'sunrise-x-modeline))
+
+
 
 (require 'my-powerline-config)
 
@@ -297,10 +305,9 @@ Otherwise, get the symbol at point.")
 (global-set-key (kbd "C-M-<f1>") 'my-dirtree)
 (global-set-key (kbd "C-<f2>")   'helm-recentf)
 
-(global-set-key (kbd "C-<f3>")   'sunrise)
-(global-set-key (kbd "M-<f3>")   'sunrise-cd)
 
-(global-set-key (kbd "<escape> <escape>")   'keyboard-quit)
+
+(global-set-key (kbd "<escape>")   'keyboard-quit)
 
 
 (defun my-eshell-other-window (args)
@@ -310,14 +317,57 @@ Otherwise, get the symbol at point.")
   (eshell))
 
 
-(define-key mode-specific-map  (kbd "C-e") 'eshell)
-(define-key mode-specific-map  (kbd "C-s") 'shell-here)
-(define-key mode-specific-map  (kbd "M-e") 'my-eshell-other-window)
+(defun my-shell-here (arg)
+  (interactive "P")
+  (letf (((symbol-function 'pop-to-buffer) #'switch-to-buffer))
+    (if arg
+        (shell)
+      (shell-here))))
 
+(defun my-pop-shell-here (arg)
+  (interactive "P")
+  (if arg
+      (shell)
+    (shell-here)))
+
+
+(define-key mode-specific-map (kbd "C-e") 'eshell)
+(define-key mode-specific-map (kbd "C-s") 'my-shell-here)
+(define-key mode-specific-map (kbd "M-s") 'my-pop-shell-here)
+(define-key mode-specific-map (kbd "M-e") 'my-eshell-other-window)
+
+
+(require 'dirtrack)
+(defconst my-dirtrack-list (list (rx line-start
+                                     (*? anything) "@" (*? anything)
+                                     " " (group (*? anything)) " $")
+                                 1))
 (defun my-shell-mode-hook ()
-  (local-set-key (kbd "C-l") 'comint-clear-buffer))
+  (dirtrack-mode)
+  (setq dirtrack-list my-dirtrack-list)
+  (local-set-key (kbd "C-c C-s") (lambda ()
+                                   (interactive)
+                                   (my-shell-here t)))
+  (local-set-key (kbd "C-c M-s") 'shell)
+  (local-set-key (kbd "C-c M-c") 'comint-kill-subjob)
+  (local-set-key (kbd "C-c C-l") 'comint-clear-buffer)
+  (local-set-key (kbd "C-l") 'recenter-top-bottom)
+  )
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
+(defun my-elscreen-screen-update-hook ()
+  ;; (if (string-match-p (rx "*shell" (* anything) "*")
+  ;;                     (buffer-name (current-buffer)))
+  ;;     (message ">>>> %s" (buffer-name (current-buffer))))
+  )
+(add-hook 'elscreen-screen-update-hook 'my-elscreen-screen-update-hook)
 
+(defun my-term-mode-hook ()
+  (define-key term-mode-map (kbd "C-w") my-wnd-keys)
+  (define-key term-raw-map (kbd "C-w") my-wnd-keys)
+  (define-key term-raw-map (kbd "C-h") help-map))
+
+(add-hook 'term-mode-hook 'my-term-mode-hook)
+(add-hook 'term-exec-hook 'my-term-mode-hook)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; quickly opening buffers of some kind (for scribbling) with key bindings
