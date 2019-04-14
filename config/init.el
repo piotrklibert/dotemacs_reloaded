@@ -160,6 +160,11 @@
 
 (setf debug-on-error nil)
 
+;; XXX: Ugly hack - somehow, between loading org/my-org-ux.el and here, the
+;; Racket entry in auto-mode-alist gets overwritten by Scheme mode. The macro
+;; removes that and associates `.rkt' with `racket-mode' again.
+(make-scheme-great-again)
+
 
 (provide 'init)
 ;;; init.el ends here

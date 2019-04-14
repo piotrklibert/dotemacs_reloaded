@@ -42,7 +42,11 @@
     '(("send-resp!" . font-lock-keyword-face)
       ("serve/servlet" . font-lock-keyword-face)
       ("send/suspend" . font-lock-builtin-face)
+      ("serializable-struct" . font-lock-keyword-face)
       ("zip" . font-lock-builtin-face)
+      ("comp~>" . font-lock-keyword-face)
+      ("~>>" . font-lock-builtin-face)
+      ("~>" . font-lock-builtin-face)
       ("defcommand" . font-lock-keyword-face)
       ("define/case" . font-lock-keyword-face)
       ("define/contract" . font-lock-keyword-face)
@@ -64,6 +68,7 @@
 (defun my-racket-hook ()
   (paredit-mode))
 
+(defvar racket-repl-mode-map)
 (defun my-racket-repl-hook ()
   (paredit-mode)
   (define-key racket-repl-mode-map (kbd "C-w") my-wnd-keys))
@@ -71,21 +76,33 @@
 
 (defconst racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
 (defun my-sanitize-auto-modes-racket ()
+  (message "IIIII'M SAAAANITIZING!")
   (setq auto-mode-alist (loop for x in auto-mode-alist
                               unless (s-contains? "rkt" (car x))
                               collect x)))
 (my-sanitize-auto-modes-racket)
 
-(use-package racket-mode
-  :mode "\\.rkt[dl]?\\'"
-  :interpreter "racket"
-  :config
-  (initialize-any-scheme)
-  (modify-coding-system-alist 'file "\\.rkt[dl]?\\'" 'utf-8)
-  (add-hook 'racket-mode-hook 'my-racket-hook)
-  (add-hook 'racket-repl-mode-hook 'my-racket-repl-hook)
-  (eval-after-load "paredit"
-    '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))
+
+;; called at the end of init.el for reasons
+(defmacro make-scheme-great-again ()
+  `(progn
+     (setq auto-mode-alist (loop for x in auto-mode-alist
+                                 unless (s-contains? "rkt" (car x))
+                                 collect x))
+     (use-package racket-mode
+       :mode "\\.rkt\\'"
+       :interpreter "racket"
+       :config
+       (initialize-any-scheme)
+       (modify-coding-system-alist 'file "\\.rkt[dl]?\\'" 'utf-8)
+       (add-hook 'racket-mode-hook 'my-racket-hook)
+       (add-hook 'racket-repl-mode-hook 'my-racket-repl-hook)
+       (eval-after-load "paredit"
+         '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))))
+
+;; (macroexpand '(make-scheme-great-again))
+
+
 
 ;; add racket-mode to auto-mode-alist
 ;; (loop for ext in racket-file-exts
