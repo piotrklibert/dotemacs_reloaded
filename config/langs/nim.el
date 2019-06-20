@@ -24,8 +24,7 @@
     (with-temp-file "~/c2nim.tmp.c"
       (insert txt))
 
-    (shell-command "/Users/piotrklibert/.nimble/pkgs/c2nim-0.9.12/c2nim  ~/c2nim.tmp.c -o ~/c2nim.tmp.nim")
-    ;; (shell-command "/home/cji/.nimble/bin/c2nim ~/c2nim.tmp.c -o ~/c2nim.tmp.nim")
+    (shell-command "/home/cji/.nimble/bin/c2nim ~/c2nim.tmp.c -o ~/c2nim.tmp.nim")
     (kill-region beg end)
     (insert-file "~/c2nim.tmp.nim")))
 

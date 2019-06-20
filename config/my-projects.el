@@ -35,7 +35,7 @@
   ;; (rq          . ("~/projects/reqviewer/"
   ;;                 "~/projects/reqplayer/"))
   ;; (pl          . ("~/poligon/planties/"))
-  (ts          . ("~/projects/truststamp/"))
+  (ts          . ("~/projects/lightcorn/"))
   ;; WORK RELATED
   ;; (nlu         . ("~/projects/nlu"))
   ;; (bu          . ("~/projects/bunsen"))

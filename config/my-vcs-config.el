@@ -52,12 +52,17 @@
 
 ;; M-x customize git-commit-mode-hook
 (defun my-magit-commit-hook ()
-  (unless my-current-ticket-name
-    (setq my-current-ticket-name
-          (read-string "Ticket name: ")))
-  (goto-char (point-min))
-  (unless (= 0 (length my-current-ticket-name)) ; don't insert a space if not needed
-    (insert my-current-ticket-name " ")
-    (save-excursion
-      (newline)
-      (newline))))
+  (auto-fill-mode)
+  ;; (progn
+  ;;   (unless my-current-ticket-name
+  ;;     (setq my-current-ticket-name
+  ;;           (read-string "Ticket name: ")))
+  ;;   (goto-char (point-min))
+  ;;   (unless (= 0 (length my-current-ticket-name)) ; don't insert a space if not needed
+  ;;     (insert my-current-ticket-name " ")
+  ;;     (save-excursion
+  ;;       (newline)
+  ;;       (newline))))
+  )
+
+(add-hook 'git-commit-mode-hook #'my-magit-commit-hook)

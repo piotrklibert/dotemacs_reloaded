@@ -132,7 +132,6 @@
  '(fuzzy-accept-error-rate 0.2)
  '(geiser-mode-auto-p nil)
  '(generic-ignore-files-regexp "[GPS]*[Tt][Aa][Gg][Ss]\\'")
- '(git-commit-mode-hook '(turn-on-auto-fill flyspell-mode my-magit-commit-hook) t)
  '(git-commit-summary-max-length 76)
  '(global-auto-revert-non-file-buffers t)
  '(global-linum-mode nil)
