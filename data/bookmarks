@@ -1,8 +1,65 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: no-conversion -*- 
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: no-conversion -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(defun er/prepare-for-more-expansions-internal (repeat-key-str)"
+(("* Org Table cheatsheet"
+ (filename . "~/poligon/modts/python_contracts.org")
+ (front-context-string . "et\n\n| C-c TAB   ")
+ (rear-context-string . "g Table cheatshe")
+ (position . 1438))
+("7.5.2 Using column view"
+ (front-context-string . "7.5.2 Using colu")
+ (rear-context-string . "p: Column view\n\n")
+ (position . 222061)
+ (filename . "/usr/local/share/info/org")
+ (info-node . "Using column view")
+ (handler . Info-bookmark-jump))
+("25.10 Org Mode"
+ (front-context-string . "25.10 Org Mode\n=")
+ (rear-context-string . "ode,  Up: Text\n\n")
+ (position . 794887)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Org Mode")
+ (handler . Info-bookmark-jump))
+("25.9 Outline Mode"
+ (front-context-string . "25.9 Outline Mod")
+ (rear-context-string . "ode,  Up: Text\n\n")
+ (position . 779764)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Outline Mode")
+ (handler . Info-bookmark-jump))
+("12.5 Rectangles"
+ (front-context-string . "12.5 Rectangles\n")
+ (rear-context-string . ",  Up: Killing\n\n")
+ (position . 229093)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Rectangles")
+ (handler . Info-bookmark-jump))
+("25.16 Two-Column Editing"
+ (front-context-string . "25.16 Two-Column")
+ (rear-context-string . "les,  Up: Text\n\n")
+ (position . 847073)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Two-Column")
+ (handler . Info-bookmark-jump))
+("(emacs) Text Based Tables"
+ (front-context-string . "\n25.15 Editing T")
+ (rear-context-string . "Text,  Up: Text\n")
+ (position . 832389)
+ (filename . "/usr/local/share/info/emacs")
+ (info-node . "Text Based Tables")
+ (handler . Info-bookmark-jump))
+("display-line-numbers src"
+ (filename . "~/portless/emacs/src/xdisp.c")
+ (front-context-string . "or overlay prope")
+ (rear-context-string . "' text property\n")
+ (position . 1058289))
+("wrap-region.el"
+ (filename . "~/.emacs.d/forked-plugins/wrap-region/wrap-region.el")
+ (front-context-string . "\n(defun wrap-reg")
+ (rear-context-string . "g org-mode)))))\n")
+ (position . 11481))
+("(defun er/prepare-for-more-expansions-internal (repeat-key-str)"
  (filename . "~/.emacs.d/forked-plugins/expand-region-el/expand-region-core.el")
  (front-context-string . "-more-expansions")
  (rear-context-string . "n er/prepare-for")
@@ -113,13 +170,14 @@
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Completion in Buffers")
  (handler . Info-bookmark-jump))
-("If the value is \342\200\230no\342\200\231, then if the completion table fails to"
+("completion-at-point functions"
  (front-context-string . "          If the")
  (rear-context-string . "   \342\200\230:exclusive\342\200\231\n")
  (position . 1050552)
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Completion in Buffers")
- (handler . Info-bookmark-jump))
+ (handler . Info-bookmark-jump)
+ (annotation . ""))
 ("-- Function: quit-restore-window &optional window bury-or-kill"
  (front-context-string . "-window &optiona")
  (rear-context-string . "on: quit-restore")
@@ -208,7 +266,7 @@
  (front-context-string . "screen-frame-cha")
  (rear-context-string . "w))))\n\n(defun el")
  (position . 59877))
-("\342\200\230no-delete-other-windows\342\200\231"
+("-- Window Parameters"
  (front-context-string . "delete-other-win")
  (rear-context-string . "indows::).\n\n\342\200\230no-")
  (position . 1973359)

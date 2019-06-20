@@ -226,7 +226,12 @@ locale is set."
   (org-open-at-point))
 
 ;; (defalias 'org-reveal 'my-org-show-context)
+(require 'hydra)
 
+(defhydra hydra-org-jump ()
+  "jump"
+  ("<up>" my-org-show-previous-heading-tidily "prev")
+  ("<down>" my-org-show-next-heading-tidily "next"))
 
 (defun my-org-hook ()
   (require 'org)
@@ -236,6 +241,7 @@ locale is set."
   (require 'org-tempo)
   (require 'org-goto)
   (require 'my-org-babel)
+  (require 'my-org-custom-id)
 
   (define-key org-mode-map (kbd "<return>")     'org-return-indent)
   (define-key org-mode-map (kbd "C-j")          'org-return)
@@ -258,7 +264,6 @@ locale is set."
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
   (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
 
-  (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree)
   (define-key org-mode-map (kbd "<backtab>")    'my-org-fold-current)
 
   ;; (define-key org-mode-map (kbd "C-c M-<up>")   'my-org-clear-subtree)
@@ -278,15 +283,19 @@ locale is set."
   (define-key org-mode-map (kbd "C-c M-<up>")   'hydra-org-jump/my-org-show-prev-heading-tidily)
   (define-key org-mode-map (kbd "C-c M-<down>") 'hydra-org-jump/my-org-show-next-heading-tidily)
 
+  ;; KILL, CUT & COPY whole subtrees
+  (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree)
+  (define-key org-mode-map (kbd "C-c C-M-w")    'my-org-clear-subtree)
+  (define-key org-mode-map (kbd "C-c M-w")      (lambda ()
+                                                  (interactive)
+                                                  (read-only-mode 1)
+                                                  (ignore-errors
+                                                    (my-org-clear-subtree))
+                                                  (read-only-mode 0)
+                                                  (message "Subtree copied")))
+  )
 
-)
 
-(require 'hydra)
-
-(defhydra hydra-org-jump ()
-  "jump"
-  ("<up>" my-org-show-previous-heading-tidily "prev")
-  ("<down>" my-org-show-next-heading-tidily "next"))
 
 (defconst org-html-style-default
   "<style type=\"text/css\">

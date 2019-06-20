@@ -288,25 +288,21 @@
 
 
 (defun duplicate-line-or-region ()
-  "Duplicate current line. If there is a region active, duplicate
-all lines of the region. To duplicate the region itself just use
-M-w C-y ;-)"
+  "Duplicate current line. If there is a region selected,
+duplicate all lines of the region. To duplicate the region itself
+just use M-w C-y ;-)"
   (interactive)
   (destructuring-bind
-      (region-active beg end) (my-get-region-or-line-bounds)
-
+      (region-active? beg end) (my-get-region-or-line-bounds)
     (goto-char beg)
     (move-end-of-line 0)                ; to the end of previous line, to have \n
-    (push-mark)
+    (push-mark)                         ; start selection
     (goto-char end)
-    (move-end-of-line 1)                ; to the end of current line, no \n
-    (copy-region-as-kill (region-beginning)
-                         (region-end))
-    (yank)
-    ;; it conflicts with auto-mark-mode which is irritating
-    ;; (when region-active
-    ;;   (restore-region beg end))
-    ))
+    (move-end-of-line 1)                ; to the end of current line, without  \n
+    (copy-region-as-kill                ; copy and disables selection
+     (region-beginning)
+     (region-end))
+    (yank)))                           ; iow. paste
 
 (defun restore-region (beg end)
   (ensure-mark-active)

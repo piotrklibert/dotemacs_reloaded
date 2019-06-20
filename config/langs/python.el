@@ -49,10 +49,6 @@
                            ac-sources)))
 
   (define-key inferior-python-mode-map (kbd "C-c C-z") 'elpy-shell-switch-to-buffer)
-  (define-key elpy-mode-map (kbd "<M-right>") nil)
-  (define-key elpy-mode-map (kbd "<M-left>")  nil)
-  (define-key elpy-mode-map (kbd "<M-up>")    nil)
-  (define-key elpy-mode-map (kbd "<M-down>")  nil)
 
   (local-set-key (kbd "<M-,>")  'pop-tag-mark)
   (local-set-key (kbd "C-x C-e")  'python-shell-send-line-or-region)
@@ -62,11 +58,15 @@
   (local-set-key (kbd "C-M->") 'python-indent-shift-right)
   (local-set-key (kbd "C-M-<") 'python-indent-shift-left)
 
-  (local-set-key (kbd "M-{") 'python-nav-backward-block)
-  (local-set-key (kbd "M-}") 'python-nav-forward-block)
+  (define-key elpy-mode-map (kbd "<M-left>")  'backward-sexp) ;; 'python-nav-backward-sexp
+  (define-key elpy-mode-map (kbd "<M-right>") 'forward-sexp) ;; 'python-nav-forward-sexp
+
+  (local-set-key (kbd "<M-up>")    'backward-quarter-page)
+  (local-set-key (kbd "<M-down>")  'forward-quarter-page)
 
   (local-set-key (kbd "C-{") 'python-nav-backward-defun)
-  (local-set-key (kbd "C-}") 'python-nav-forward-defun))
+  (local-set-key (kbd "C-}") 'python-nav-forward-defun)
+  )
 
 
 

@@ -350,16 +350,21 @@ Otherwise, get the symbol at point.")
                                    (my-shell-here t)))
   (local-set-key (kbd "C-c M-s") 'shell)
   (local-set-key (kbd "C-c M-c") 'comint-kill-subjob)
+  (local-set-key (kbd "C-u") 'kill-whole-line)
+  ;; (local-set-key (kbd "C-a") ')
+  (local-set-key (kbd "<up>") 'comint-previous-input)
+  (local-set-key (kbd "<down>") 'comint-next-input)
+  (local-set-key (kbd "C-<up>") 'previous-line)
+  (local-set-key (kbd "C-<down>") 'next-line)
+
   (local-set-key (kbd "C-c C-l") 'comint-clear-buffer)
-  (local-set-key (kbd "C-l") 'recenter-top-bottom)
+  (local-set-key (kbd "C-l") 'comint-clear-buffer)
+
   )
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
-(defun my-elscreen-screen-update-hook ()
-  ;; (if (string-match-p (rx "*shell" (* anything) "*")
-  ;;                     (buffer-name (current-buffer)))
-  ;;     (message ">>>> %s" (buffer-name (current-buffer))))
-  )
-(add-hook 'elscreen-screen-update-hook 'my-elscreen-screen-update-hook)
+
+
+
 
 (defun my-term-mode-hook ()
   (define-key term-mode-map (kbd "C-w") my-wnd-keys)
@@ -368,6 +373,8 @@ Otherwise, get the symbol at point.")
 
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 (add-hook 'term-exec-hook 'my-term-mode-hook)
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; quickly opening buffers of some kind (for scribbling) with key bindings
@@ -397,21 +404,27 @@ Otherwise, get the symbol at point.")
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
 ;;                  type            key       file ext     default path
-(make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
 (make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon/")
-(make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
+(make-buffer-opener sh           (kbd "C-s")    ".sh"      "~/poligon/")
 (make-buffer-opener python       (kbd "C-p")    ".py"      "~/poligon/python/")
-(make-buffer-opener racket       (kbd "C-r")    ".rkt"     "~/poligon/rkt/")
 (make-buffer-opener livescript   (kbd "C-j")    ".ls"      "~/poligon/lscript/")
+(make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
+(make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
+(make-buffer-opener racket       (kbd "C-r")    ".rkt"     "~/poligon/rkt/")
 (make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/config/")
 (make-buffer-opener erlang       (kbd "C-o")    ".erl"     "~/poligon/")
 (make-buffer-opener elixir       (kbd "C-x")    ".ex"      "~/poligon/")
 (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
+;; (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
+;; (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
 
 
-(defvar my-new-buffer-helm-source `((name       . "Buffer types")
-                                    (candidates . ,my-openers)
-                                    (action     . (lambda (candidate) (funcall candidate)))))
+
+
+(defvar my-new-buffer-helm-source
+  `((name       . "Buffer types")
+    (candidates . ,my-openers)
+    (action     . (lambda (candidate) (funcall candidate)))))
 
 (defun my-new-buffer-helm ()
   (interactive)

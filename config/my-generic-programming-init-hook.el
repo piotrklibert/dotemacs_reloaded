@@ -22,8 +22,12 @@
   (undo-tree-mode 1)
   (delete-selection-mode 1)
   (flymake-mode 1)
-  ;; (linum-mode 1)
-  (setq display-line-numbers t)
+  ;; The new and shiny, native, fast, beautiful line numbering feature that came
+  ;; with Emacs 26 fucks up auto-complete popups! Bad feature! How could you!
+  ;; (setq display-line-numbers t)
+  (setq display-line-numbers nil)
+  (linum-mode 1)
+
   (turn-on-fuzzy-isearch)               ; complement: turn-off-fuzzy-isearch
   (show-paren-mode t)                   ; highlight matching parens
   (column-number-mode t)                ; show col num on modeline

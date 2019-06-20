@@ -72,6 +72,7 @@
         my-eval-last-sexp
         my-indent
         my-join-next-line
+        my-join-prev-line
         my-toggle-quotes
         nim-electric-backspace
         nim-indent-electric-colon
@@ -92,6 +93,7 @@
         org-shiftcontrolleft
         org-shiftright
         org-yank
+        orgtbl-hijacker-command-102
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
@@ -119,6 +121,8 @@
         python-indent-electric-colon
         python-indent-shift-left
         python-indent-shift-right
+        python-nav-backward-sexp
+        python-nav-forward-sexp
         racket-insert-lambda
         reposition-window
         scroll-other-window-down
@@ -171,6 +175,7 @@
         move-text-down
         next-buffer
         org-ctrl-c-ctrl-c
+        orgtbl-hijacker-command-109
         paredit-forward-barf-sexp
         picture-self-insert
         read-only-mode

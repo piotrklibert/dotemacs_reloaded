@@ -20,9 +20,12 @@
  '(auto-revert-mode-text " AR")
  '(auto-revert-verbose nil)
  '(auto-save-file-name-transforms '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)))
+ '(auto-save-no-message t)
  '(auto-save-visited-file-name nil)
  '(avy-highlight-first t)
  '(avy-timeout-seconds 0.35)
+ '(aw-ignored-buffers '("*Calc Trail*" "*LV*" "*elscreen-tabs*"))
+ '(aw-keys '(102 100 115 104 106 107 97 108))
  '(backup-by-copying t)
  '(backup-by-copying-when-linked nil)
  '(backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -41,6 +44,8 @@
  '(coffee-tab-width 4)
  '(column-highlight-mode nil)
  '(column-number-mode t)
+ '(comint-process-echoes t)
+ '(comint-prompt-read-only t)
  '(company-backends
    '(company-files
      (company-capf :with company-dabbrev company-dabbrev-code company-keywords company-yasnippet)))
@@ -49,9 +54,11 @@
  '(company-dabbrev-ignore-case nil)
  '(company-idle-delay t)
  '(company-minimum-prefix-length 2)
+ '(company-tooltip-align-annotations t)
  '(company-transformers '(company-sort-by-backend-importance))
  '(completion-ignored-extensions
    '(".o" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo"))
+ '(completion-styles '(basic partial-completion emacs22 flex substring))
  '(css-indent-offset 4)
  '(debug-on-error nil)
  '(debug-on-quit nil)
@@ -321,8 +328,8 @@
  '(org-html-postamble t)
  '(org-html-postamble-format
    '(("en" "<p class=\"author\">Author: %a (%e)</p>
-<p class=\"date\">Last updated: %C</p>
-<p class=\"copyright\">© Trust Stamp 2018</p>")))
+<p class=\"date\">Last updated: %T</p>
+<p class=\"copyright\">© Trust Stamp 2019</p>")))
  '(org-imenu-depth 4)
  '(org-keep-stored-link-after-insertion t)
  '(org-log-done 'note)
@@ -391,7 +398,7 @@
    '("~/.emacs.d/forked-plugins" "/usr/local/share/emacs/27.0.50/site-lisp/elpa" "/usr/local/share/emacs/site-lisp/elpa"))
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   '(orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
+   '(gitignore-mode ox-minutes ox-slimhtml ox-rst orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
  '(powerline-default-separator 'rounded)
  '(powerline-height nil)
  '(powerline-text-scale-factor 1.9)
@@ -407,6 +414,7 @@
  '(python-shell-interpreter "python3")
  '(quack-programs
    '("csi -:c" "mzscheme" "bigloo" "csi" "csi -hygienic" "gosh" "gracket" "gsi" "gsi ~~/syntax-case.scm -" "guile" "kawa" "mit-scheme" "racket" "racket -il typed/racket" "rs" "scheme" "scheme48" "scsh" "sisc" "stklos" "sxi"))
+ '(racket-program "/home/cji/portless/racket/racket/bin/racket")
  '(racket-racket-program "/home/cji/portless/racket/racket/bin/racket")
  '(racket-raco-program "/home/cji/portless/racket/racket/bin/raco")
  '(racket-use-company-mode nil)
@@ -464,7 +472,9 @@
  '(semanticdb-project-roots '("/home/cji/projects" "/home/cji/poligon"))
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 2)
- '(shell-file-name "/bin/bash")
+ '(shell-completion-execonly nil)
+ '(shell-file-name "/bin/zsh")
+ '(shell-input-autoexpand t)
  '(show-paren-mode t)
  '(show-paren-style 'expression)
  '(slime-enable-evaluate-in-emacs t)
@@ -521,8 +531,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-lead-face ((t (:foreground "white" :height 1.3))))
- '(aw-leading-char-face ((t (:foreground "red" :height 4.0))))
+ '(avy-lead-face ((t (:foreground "white"))))
+ '(aw-leading-char-face ((t (:foreground "red"))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(col-highlight ((t (:background "dark gray"))))
