@@ -1,0 +1,1590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-03-27 Wed 22:07 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LightCorn API ver. 1.2.2 reference</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Piotr Klibert" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-json:before { content: 'JSON'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="./htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="./bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="./hideshow.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">LightCorn API ver. 1.2.2 reference</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#introduction_to_lightcorn">1. Introduction to LightCorn</a></li>
+<li><a href="#quick_start_guide">2. Quick start guide</a>
+<ul>
+<li><a href="#quick_start_guide-account_credentials">2.1. Account credentials</a></li>
+<li><a href="#quick_start_guide-jwt-based_authentication">2.2. JWT-based Authentication</a></li>
+<li><a href="#quick_start_guide-synchronous_requests_and_receiving_results">2.3. Synchronous requests and receiving results</a></li>
+<li><a href="#quick_start_guide-simple_request-response_session_-_full_example">2.4. Simple request-response session - full example</a></li>
+</ul>
+</li>
+<li><a href="#lightcorn_api_details">3. LightCorn API details</a>
+<ul>
+<li><a href="#lightcorn_api_details-forward_and_backward_api_compatibility">3.1. Forward and backward API compatibility</a></li>
+<li><a href="#lightcorn_api_details-common_api_request_structure">3.2. Common API request structure</a></li>
+<li><a href="#lightcorn_api_details-common_api_result_structure">3.3. Common API result structure</a></li>
+<li><a href="#lightcorn_api_details-calling_services_in_the_right_order">3.4. Calling services in the right order</a></li>
+<li><a href="#lightcorn_api_details-synchronous_and_asynchronous_processing">3.5. Synchronous and asynchronous processing</a></li>
+<li><a href="#lightcorn_api_details-error_handling">3.6. Error handling</a></li>
+<li><a href="#lightcorn_api_details-account_management_and_admin_panel">3.7. Account Management and Admin Panel</a></li>
+</ul>
+</li>
+<li><a href="#services_reference">4. Services reference</a>
+<ul>
+<li><a href="#services_reference-sunflower_service">4.1. Sunflower service</a></li>
+<li><a href="#services_reference-rye_service">4.2. Rye service</a></li>
+<li><a href="#services_reference-wheat_service">4.3. Wheat service</a></li>
+<li><a href="#services_reference-id_display_attack_service">4.4. ID Display Attack service</a></li>
+<li><a href="#services_reference-poppy_service">4.5. Poppy service</a></li>
+<li><a href="#services_reference-graylist_service">4.6. Graylist service</a></li>
+<li><a href="#services_reference-farro_service">4.7. Farro service</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<style>
+    .info {
+      min-height: 42px;
+      padding: 10px 15px 10px 80px;
+      background-image: url(imgs/info.png);
+    }
+
+    .info .title {
+      margin: 0px 10px 5px 0px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .first {
+      margin-top: 0 !important;
+    }
+
+    div#table-of-contents {
+      margin: 0;
+      margin-top: 3rem;
+    }
+
+    @media print {
+      .intro .outline-2 { page-break-before: avoid; }
+      .outline-2 { page-break-before: always; }
+      .outline-3 { page-break-inside: avoid; }
+    }
+
+    h1, h2, h3, h4, h5,
+    .outline-text-1,
+    .outline-text-2,
+    .outline-text-3,
+    .outline-text-4,
+    #text-footnotes {
+      margin-left: 0;
+    }
+
+    .footpara a {
+      word-break: keep-all;
+      overflow-x: auto;
+      display: inline-block;
+      width: 90%;
+    }
+</style>
+
+
+<div class="intro">
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="introduction_to_lightcorn"><span class="section-number-2">1</span> Introduction to LightCorn</h2>
+<div class="outline-text-2" id="text-introduction_to_lightcorn">
+<p>
+<b>LightCorn</b> is a Web application, accessible via REST API only, which enables
+external entities to use and take advantage of TrustStamp internal biometrics
+and data extraction micro-services. It's designed as a relatively thin wrapper
+for the exposed micro-services: it fixes some idiosyncrasies in the APIs and
+prunes unneeded or redundant data from returned results, and also logs all the
+communication with services to the database. It implements a few minor
+features on top of that, but in essence it's just a gateway to (or proxy for)
+micro-services, which do the actual processing.
+</p>
+
+<p>
+Currently only 5 of <b>Trust Stamp</b> services are exposed via <b>LightCorn</b>. These
+services implement:
+</p>
+
+<ul class="org-ul">
+<li><b>Proof of Liveness (PoL)</b> - given a photo of a face it checks if it depicts
+a live human or not. It rejects images where the face is printed on paper or
+displayed on a smartphone or computer monitor.</li>
+
+<li><b>document OCR</b> - given a photo of a front of Driver's License or utility
+bill, it extracts and returns personal identification information of a
+person.</li>
+
+<li><b>barcode reading</b> - given a photo of an <code>AAMVA</code>-compatible barcode<sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup> on
+the back side of <b>USA Driver’s License</b>, it reads and returns personal
+identification information (so called PII) contained in it.</li>
+
+<li><b>face matching</b> - given two photos of faces, it checks if they belong to the
+same person.</li>
+
+<li><b>OCRed and barcode data comparison</b> - checks if the personal information
+extracted from front and back of a Driver's License match, while allowing
+for small differences due to OCR inaccuracy.</li>
+</ul>
+
+<p>
+The services have assigned codenames, which you need to pass as a service
+parameter in all the <b>LightCorn</b> API calls. The names are as follows:
+</p>
+
+
+<table id="1" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">function</th>
+<th scope="col" class="org-left">codename</th>
+<th scope="col" class="org-left">section</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">PoL</td>
+<td class="org-left">Sunflower</td>
+<td class="org-left"><a href="#services_reference-sunflower_service">4.1</a></td>
+</tr>
+
+<tr>
+<td class="org-left">PoL</td>
+<td class="org-left">Rye</td>
+<td class="org-left"><a href="#services_reference-rye_service">4.2</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Driver's License OCR</td>
+<td class="org-left">Wheat</td>
+<td class="org-left"><a href="#services_reference-wheat_service">4.3</a></td>
+</tr>
+
+<tr>
+<td class="org-left">ID/DL display attack</td>
+<td class="org-left">ID_Display_attack</td>
+<td class="org-left"><a href="#services_reference-id_display_attack_service">4.4</a></td>
+</tr>
+
+<tr>
+<td class="org-left">barcode reading</td>
+<td class="org-left">Poppy</td>
+<td class="org-left"><a href="#services_reference-poppy_service">4.5</a></td>
+</tr>
+
+<tr>
+<td class="org-left">face matching</td>
+<td class="org-left">Wheat</td>
+<td class="org-left"><a href="#services_reference-wheat_service">4.3</a></td>
+</tr>
+
+<tr>
+<td class="org-left">face matching</td>
+<td class="org-left">Graylist</td>
+<td class="org-left"><a href="#services_reference-graylist_service">4.6</a></td>
+</tr>
+
+<tr>
+<td class="org-left">utility bills OCR</td>
+<td class="org-left">Farro</td>
+<td class="org-left"><a href="#services_reference-farro_service">4.7</a></td>
+</tr>
+
+<tr>
+<td class="org-left">front and back DL compare</td>
+<td class="org-left">Poppy</td>
+<td class="org-left"><a href="#services_reference-poppy_service">4.5</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+See section <a href="#services_reference">4</a> for complete reference of each service.
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-14" class="outline-2">
+<h2 id="quick_start_guide"><span class="section-number-2">2</span> Quick start guide</h2>
+<div class="outline-text-2" id="text-quick_start_guide">
+<p>
+In case of any problems or additional questions, please contact on Slack or via
+email one of the following people:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left"><b>Jakub Zalewski</b></td>
+<td class="org-left"> <a href="mailto:jzalewski@truststamp.net">jzalewski@truststamp.net</a></td>
+<td class="org-left">developer (active)</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>Piotr Klibert</b></td>
+<td class="org-left"> <a href="mailto:pklibert@truststamp.net">pklibert@truststamp.net</a></td>
+<td class="org-left">developer (active)</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>Alexander Kononenko</b></td>
+<td class="org-left"> <a href="mailto:akononenko@truststamp.net">akononenko@truststamp.net</a></td>
+<td class="org-left">developer (support)</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>Scott Francis</b></td>
+<td class="org-left"> <a href="mailto:sfrancis@truststamp.net">sfrancis@truststamp.net</a></td>
+<td class="org-left">CTO</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>Jacek Suwalski</b></td>
+<td class="org-left"> <a href="mailto:jacek@truststamp.net">jacek@truststamp.net</a></td>
+<td class="org-left">Product Manager</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-3" class="outline-3">
+<h3 id="quick_start_guide-account_credentials"><span class="section-number-3">2.1</span> Account credentials</h3>
+<div class="outline-text-3" id="text-quick_start_guide-account_credentials">
+<p>
+To use <b>LightCorn</b>, you need to know a valid <code>username</code> and <code>password</code>. To make
+sure these credentials are not disclosed to unauthorised entities, they're
+being shared via a LastPass<sup><a id="fnr.2" class="footref" href="#fn.2">2</a></sup> application.
+</p>
+
+<p>
+People responsible for providing the credentials are:
+</p>
+
+<ul class="org-ul">
+<li><b>Jacek Suwalski</b></li>
+<li><b>Scott Francis</b></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-7" class="outline-3">
+<h3 id="quick_start_guide-jwt-based_authentication"><span class="section-number-3">2.2</span> JWT-based Authentication</h3>
+<div class="outline-text-3" id="text-quick_start_guide-jwt-based_authentication">
+<p>
+<b>LightCorn</b> uses JSON Web Token<sup><a id="fnr.3" class="footref" href="#fn.3">3</a></sup> for authentication. Each request to the
+API has to include the token in the <code>Authorization</code> HTTP header. See section
+<a href="#lightcorn_api_details-common_api_request_structure">3.2</a>
+</p>
+
+<p>
+To obtain a token, issue a POST request to <code>$INSTANCE/api-token-auth/</code> (eg.
+<a href="https://lightcorn-dev.truststamp.net//api-token-auth/">https://lightcorn-dev.truststamp.net//api-token-auth/</a>) endpoint, providing JSON-encoded credentials
+in the body of the request.
+</p>
+
+<p>
+In response you will get token string, which will be valid for <span class="underline">24 hours</span>.
+</p>
+</div>
+
+<div id="outline-container-4" class="outline-4">
+<h4 id="quick_start_guide-jwt-based_authentication-example_request"><span class="section-number-4">2.2.1</span> Example request</h4>
+<div class="outline-text-4" id="text-quick_start_guide-jwt-based_authentication-example_request">
+<div class="org-src-container">
+<pre class="src src-sh">curl -X POST <span style="color: #95e454;">'https://&lt;instance_url&gt;/api-token-auth/'</span> \
+     -H <span style="color: #95e454;">'Content-Type: application/json'</span> \
+     -d <span style="color: #95e454;">'{</span>
+<span style="color: #95e454;">         "username": "&lt;username&gt;",</span>
+<span style="color: #95e454;">         "password": "&lt;password&gt;"</span>
+<span style="color: #95e454;">     }'</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-5" class="outline-4">
+<h4 id="quick_start_guide-jwt-based_authentication-example_response_body"><span class="section-number-4">2.2.2</span> Example response body</h4>
+<div class="outline-text-4" id="text-quick_start_guide-jwt-based_authentication-example_response_body">
+<div class="org-src-container">
+<pre class="src src-json">{
+    <span style="color: #8ac6f2; font-weight: bold;">"token"</span>: <span style="color: #95e454;">"&lt;token&gt;"</span>
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-6" class="outline-4">
+<h4 id="quick_start_guide-jwt-based_authentication-jwt_refresh"><span class="section-number-4">2.2.3</span> JWT refresh</h4>
+<div class="outline-text-4" id="text-quick_start_guide-jwt-based_authentication-jwt_refresh">
+<p>
+It is possible to refresh the token - invalidate current and issue new
+one - by sending it to <code>$INSTANCE/api-token-refresh/</code> (eg.
+<a href="https://lightcorn-dev.truststamp.net//api-token-refresh/">https://lightcorn-dev.truststamp.net//api-token-refresh/</a>) endpoint.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-8" class="outline-3">
+<h3 id="quick_start_guide-synchronous_requests_and_receiving_results"><span class="section-number-3">2.3</span> Synchronous requests and receiving results</h3>
+<div class="outline-text-3" id="text-quick_start_guide-synchronous_requests_and_receiving_results">
+<p>
+There are three different ways getting the results from <b>LightCorn</b>, see
+section <a href="#lightcorn_api_details-synchronous_and_asynchronous_processing">3.5</a> for details of the other
+options, but the most straightforward way to do this is by using the
+immediate (synchronous) mode, which means that the results of processing are
+returned as a response for the API request.
+</p>
+
+<p>
+Currently this mode is the default one, but this may change in the future, so
+it's recommended to request it explicitly, by including the <code>return_now:
+   true</code> attribute in the JSON sent in the request.
+</p>
+</div>
+</div>
+
+<div id="outline-container-13" class="outline-3">
+<h3 id="quick_start_guide-simple_request-response_session_-_full_example"><span class="section-number-3">2.4</span> Simple request-response session - full example</h3>
+<div class="outline-text-3" id="text-quick_start_guide-simple_request-response_session_-_full_example">
+<p>
+Make sure you have <code>cURL</code><sup><a id="fnr.4" class="footref" href="#fn.4">4</a></sup> and <code>jq</code><sup><a id="fnr.5" class="footref" href="#fn.5">5</a></sup> installed locally, then issue the
+following commands on the command line (assuming <code>sh</code> compatible shell):
+</p>
+
+<ol class="org-ol">
+<li><p>
+Set some handy variables. Remember to replace <code>USER</code> and <code>PASS</code> values
+with valid ones.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #e5786d;">export</span> <span style="color: #cae682;">INSTANCE</span>=<span style="color: #95e454;">"https://lightcorn-dev.truststamp.net/"</span>
+<span style="color: #e5786d;">export</span> <span style="color: #cae682;">USER</span>=<span style="color: #95e454;">"******"</span>
+<span style="color: #e5786d;">export</span> <span style="color: #cae682;">PASS</span>=<span style="color: #95e454;">"******"</span>
+</pre>
+</div></li>
+
+<li><p>
+Obtain the JWT token
+</p>
+<div class="org-src-container">
+<pre class="src src-sh" id="9"><span style="color: #e5786d;">export</span> <span style="color: #cae682;">TOKEN</span>=$(
+  curl -s -X POST <span style="color: #95e454;">"$INSTANCE/api-token-auth/"</span> \
+       -H <span style="color: #95e454;">"Content-Type: application/json"</span> \
+       -d <span style="color: #95e454;">"{</span>
+<span style="color: #95e454;">           \"username\": \"$USER\",</span>
+<span style="color: #95e454;">           \"password\": \"$PASS\"</span>
+<span style="color: #95e454;">       }"</span> | jq -r .token
+  )
+</pre>
+</div></li>
+
+<li><p>
+Prepare the image to be analyzed and the request body. Save the body in an
+environment variable called <code>$BODY</code>, like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="10"><span style="color: #e5786d;">export</span> <span style="color: #cae682;">BODY</span>=<span style="color: #95e454;">'{</span>
+<span style="color: #95e454;">  "service": "Sunflower",</span>
+<span style="color: #95e454;">  "media_url": "https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/sunflower/13_src.jpg",</span>
+<span style="color: #95e454;">  "UUID": "3c171d18-bb2c-11e8-ab76-9cb6d0fc2569",</span>
+<span style="color: #95e454;">  "return_now": true</span>
+<span style="color: #95e454;">}'</span>
+</pre>
+</div>
+
+<p>
+For this example we use one of the images we use for automated testing of
+our services, available <a href="https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/sunflower/13_src.jpg">here</a>. As you can see, we select <b>Sunflower</b> as a
+service we want to use.
+</p></li>
+
+<li><p>
+Send the request and receive the results:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="11">curl -s -X POST <span style="color: #95e454;">"$INSTANCE/api/v1/single/"</span> \
+     -H <span style="color: #95e454;">"Content-Type: application/json"</span> \
+     -H <span style="color: #95e454;">"Authorization: JWT $TOKEN"</span> \
+     -d <span style="color: #95e454;">"$BODY"</span> | jq .
+</pre>
+</div></li>
+
+<li><p>
+This should print the response looking like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #95e454;">"fcab3d5a-4e9b-48bc-b1e4-cd44cced0fdf"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"fake_detected"</span>: <span style="color: #e5786d;">false</span>
+  }
+}
+</pre>
+</div></li>
+
+<li><p>
+You can use the same command to call other services; for example, to call
+<b>Farro</b>, which is a service for parsing address data in images, you'd only
+need to redefine the <code>$BODY</code> variable, like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="12"><span style="color: #e5786d;">export</span> <span style="color: #cae682;">BODY</span>=<span style="color: #95e454;">'{</span>
+<span style="color: #95e454;">  "service": "Farro",</span>
+<span style="color: #95e454;">  "media_url": "http://alexanderkononenko.com/farro/addr5.png",</span>
+<span style="color: #95e454;">  "UUID": "3c171d18-bb2c-11e8-ab76-9cb6d0fc2569",</span>
+<span style="color: #95e454;">  "return_now": true</span>
+<span style="color: #95e454;">}'</span>
+</pre>
+</div>
+
+<p>
+Then, issuing the same <code>curl</code> command as in step 4. would give you:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #95e454;">"c48d105c-bdee-4d4d-986b-c919b1f1388a"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"city"</span>: <span style="color: #95e454;">"bedford"</span>,
+    <span style="color: #8ac6f2; font-weight: bold;">"house_number"</span>: <span style="color: #95e454;">"69"</span>,
+    <span style="color: #8ac6f2; font-weight: bold;">"postcode"</span>: <span style="color: #95e454;">"mk42 9gh"</span>,
+    <span style="color: #8ac6f2; font-weight: bold;">"road"</span>: <span style="color: #95e454;">"croyland drive"</span>
+  }
+}
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-25" class="outline-2">
+<h2 id="lightcorn_api_details"><span class="section-number-2">3</span> LightCorn API details</h2>
+<div class="outline-text-2" id="text-lightcorn_api_details">
+<p>
+Except for authentication and JWT-related requests, <b>all</b> API calls have to
+be sent to a single endpoint, located at:
+</p>
+
+<div class="org-center">
+<p>
+<code>/api/v1/single/</code>
+</p>
+</div>
+
+<p>
+This endpoint path needs to be combined with host instance URL, to form a
+full URL. For example, API calls to devel instance would have the following
+URL:
+</p>
+
+<div class="org-center">
+<p>
+<a href="https://lightcorn-dev.truststamp.net//api/v1/single/">https://lightcorn-dev.truststamp.net//api/v1/single/</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-15" class="outline-3">
+<h3 id="lightcorn_api_details-forward_and_backward_api_compatibility"><span class="section-number-3">3.1</span> Forward and backward API compatibility</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-forward_and_backward_api_compatibility">
+<p>
+The API described in this document is <span class="underline">stable</span>, which means that if a
+particular set of parameters sent to the endpoint is valid, it will stay that
+way forever. In other words, <span class="underline">there won't be any backward incompatible
+changes</span> to the API. In case a breaking change is required, it will be
+exposed under a new version number, leaving the current API unchanged.
+</p>
+
+<p>
+The API <span class="underline">may still get support for new parameters and features</span>, as long as
+they are strictly backward compatible. In that case, this document will be
+revised.
+</p>
+
+<p>
+In addition, if a parameter is marked as <span class="underline">obsolete</span>, it just means that it
+won't be included in the next version of the API. It will continue working
+with the current version.
+</p>
+</div>
+</div>
+
+<div id="outline-container-16" class="outline-3">
+<h3 id="lightcorn_api_details-common_api_request_structure"><span class="section-number-3">3.2</span> Common API request structure</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-common_api_request_structure">
+<p>
+All requests must have <code>Authorization</code> and <code>Content-Type</code> headers set:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">Authorization: JWT &lt;token string&gt;
+Content-Type: application/json
+</pre>
+</div>
+
+<p>
+JSON sent in the body of the request must have at least these fields:
+</p>
+
+<ul class="org-ul">
+<li><p> <code>UUID</code> – unique identifier, used for grouping requests to
+different services and identifying them as belonging to a single user (or
+single flow). </p></li>
+
+<li><p> <code>return_now</code> – see sections <a href="#quick_start_guide-synchronous_requests_and_receiving_results">2.3</a> and <a href="#lightcorn_api_details-synchronous_and_asynchronous_processing">3.5</a> </p></li>
+
+<li><p> <code>media_url</code> – an URL to the image or video sent for processing.
+It has to be accessible via HTTP or HTTPS from the <b>LightCorn</b> instance.
+NOTE: <code>image_url</code> is a deprecated alias for <code>media_url</code>. </p></li>
+
+<li><p>
+<code>service</code> – name of the service to call. Can be one of:
+</p>
+<ul class="org-ul">
+<li><code>"Sunflower"</code></li>
+<li><code>"Rye"</code></li>
+<li><code>"Wheat"</code></li>
+<li><code>"Poppy"</code></li>
+<li><code>"Farro"</code></li>
+<li><code>"Graylist"</code></li>
+<li><code>"ID_display_attack"</code></li>
+</ul>
+<p>
+See section <a href="#services_reference">4</a> for details.
+</p></li>
+</ul>
+
+<p>
+Some services may require more parameters, see for example Wheat in section
+<a href="#services_reference-wheat_service">4.3</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-17" class="outline-3">
+<h3 id="lightcorn_api_details-common_api_result_structure"><span class="section-number-3">3.3</span> Common API result structure</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-common_api_result_structure">
+<p>
+Depending on the value of <code>return_now</code> parameter the result may be returned
+in the immediate response or sent to a callback URL, but it's structure is
+identical in both cases. The results are always JSON-encoded.
+</p>
+
+<p>
+The exact fields in the returned JSON differ between the services, but they
+all include at least the following keys:
+</p>
+
+<ul class="org-ul">
+<li><code>request_id</code> - a unique identifier (as a string) of the request. In
+asynchronous mode it is used for linking the results to the request. May be
+ignored in sync mode.</li>
+<li><code>status_message</code> - either <code>"success"</code> or <code>"fail"</code>. See section <a href="#lightcorn_api_details-error_handling">3.6</a></li>
+<li><code>error_code</code> - either null or a number. See section <a href="#lightcorn_api_details-error_handling">3.6</a>.</li>
+<li><code>data</code> - results of processing, as an object. The keys vary between services.</li>
+</ul>
+
+<p>
+Depending on the service, the response may have one or two additional fields.
+</p>
+</div>
+</div>
+
+<div id="outline-container-18" class="outline-3">
+<h3 id="lightcorn_api_details-calling_services_in_the_right_order"><span class="section-number-3">3.4</span> Calling services in the right order</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-calling_services_in_the_right_order">
+<p>
+It is important to call the services in the correct order, because some
+services need information from the previous API calls to function. The <code>UUID</code>
+parameter is used for finding that data, which is why it is important for
+clients to issue a new <code>UUID</code> for every customer and using the same <code>UUID</code> in
+all requests related to this customer.
+</p>
+
+<p>
+For example, you can't call <b>Wheat</b> without first calling <b>Sunflower</b>,
+because <b>Wheat</b> service performs face matching between the selfie and
+Driver's License front. Without first supplying the selfie image to
+<b>Sunflower</b> service, <b>Wheat</b> call will fail.
+</p>
+
+<p>
+Currently, the required order is as follows:
+</p>
+
+<ol class="org-ol">
+<li><b>Sunflower</b> or <b>Rye</b></li>
+<li><b>Wheat</b></li>
+<li><b>Poppy</b></li>
+</ol>
+
+<p>
+<b>Farro</b> and <b>Graylist</b> are services which don't depend on, and are not
+depended on by, any other service call, and so you can call them whenever you
+want. Technically, there is no need for the <code>UUID</code> in Farro request to be any
+specific value, but it's recommended to use the same <code>UUID</code> that was used in
+other service calls for the given user session.
+</p>
+</div>
+</div>
+
+<div id="outline-container-22" class="outline-3">
+<h3 id="lightcorn_api_details-synchronous_and_asynchronous_processing"><span class="section-number-3">3.5</span> Synchronous and asynchronous processing</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-synchronous_and_asynchronous_processing">
+</div>
+<div id="outline-container-19" class="outline-4">
+<h4 id="lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_as_http_response"><span class="section-number-4">3.5.1</span> Receiving results as HTTP response</h4>
+<div class="outline-text-4" id="text-lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_as_http_response">
+<p>
+This mode is selected by passing <code>return_now: true</code> parameter with the
+request. The HTTP connection is kept open in this case until the service
+processes the image and we want to wait for full response, if <code>false</code>,
+we want to get request ID immediatelly and use it later for retrieving
+full service response.
+</p>
+</div>
+</div>
+
+<div id="outline-container-20" class="outline-4">
+<h4 id="lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_via_a_callback_url"><span class="section-number-4">3.5.2</span> Receiving results via a callback URL</h4>
+<div class="outline-text-4" id="text-lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_via_a_callback_url">
+<p>
+This mode is used when <code>return_now</code> is set to <code>false</code>, and there is a
+<span class="underline">callback URL</span> provided for the user that the request authenticates as. You
+can set the callback URL using Admin panel, accessible at
+<code>$INSTANCE/admin/</code>, by navigating to <b>API</b> → <b>Clients</b> → <b>username</b> →
+<b>Callback URL</b>, putting the URL there and clicking <b>Save</b>. In case of
+multi-tenant instances, please ask your Administrator to do this.
+</p>
+
+<p>
+In this mode, the response to the POST request contains a <code>request_id</code>,
+which is then also included in the data sent to the given URL.
+</p>
+</div>
+</div>
+
+<div id="outline-container-21" class="outline-4">
+<h4 id="lightcorn_api_details-synchronous_and_asynchronous_processing-polling_an_endpoint_for_the_results"><span class="section-number-4">3.5.3</span> Polling an endpoint for the results</h4>
+<div class="outline-text-4" id="text-lightcorn_api_details-synchronous_and_asynchronous_processing-polling_an_endpoint_for_the_results">
+<p>
+If neither of the above is true, the only way of getting the results is to
+send GET requests to the endpoint, passing it the <code>request_id</code>. In response
+you will get either information that the request is still processing (status
+code 202), or the result if it already finished.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-23" class="outline-3">
+<h3 id="lightcorn_api_details-error_handling"><span class="section-number-3">3.6</span> Error handling</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-error_handling">
+<p>
+There are two fields in the returned results which say if the request was
+successful or not. These are:
+</p>
+
+<ul class="org-ul">
+<li><code>status_message</code> - a string, one of two possible values: <code>"success"</code> or
+<code>"fail"</code></li>
+<li><code>error_code</code> - either <code>null</code> or an integer, which exact meaning is
+dependent on which service was called. When used with <code>return_now: true</code>,
+this error code is also returned as a HTTP response status code.</li>
+</ul>
+
+<p>
+In general, if <code>status_message</code> is <code>"fail"</code>, it means that the processing of
+the given image failed - this makes the services following the current one
+inaccessible (see section <a href="#lightcorn_api_details-calling_services_in_the_right_order">3.4</a>). You can
+safely re-send the request to the service which failed with another image -
+if it succeeds, it will simply overwrite the failed request and will allow
+you to send requests to the following services normally, without changing the
+<code>UUID</code>.
+</p>
+
+<p>
+If you want to reset the whole process, starting again from <b>Sunflower</b>, you
+can do this by generating a fresh <code>UUID</code> and issuing requests normally.
+</p>
+
+<p>
+Other than errors specific for a given service, there are some general
+errors, which are used if the request cannot be processed at all, for
+example:
+</p>
+
+<ul class="org-ul">
+<li><b>400 BAD REQUEST</b> - invalid or missing parameters in the request</li>
+<li><b>403 FORBIDDEN</b> - no <code>Authorization</code> header provided or bad token provided</li>
+<li><b>404 NOT FOUND</b> - invalid endpoint URL used or invalid <code>image_url</code> passed</li>
+<li><b>500 INTERNAL SERVER ERROR</b> - the <b>LightCorn</b> itself encountered a problem
+and couldn't deal with it (shouldn't happen - <span class="underline">please report as a bug</span> if
+you see it)</li>
+</ul>
+
+<p>
+These are returned as an immediate response HTTP status code, no matter if
+the <code>return_now</code> is set or not.
+</p>
+</div>
+</div>
+
+<div id="outline-container-24" class="outline-3">
+<h3 id="lightcorn_api_details-account_management_and_admin_panel"><span class="section-number-3">3.7</span> Account Management and Admin Panel</h3>
+<div class="outline-text-3" id="text-lightcorn_api_details-account_management_and_admin_panel">
+<p>
+As described in section <a href="#quick_start_guide-jwt-based_authentication">2.2</a>, LightCorn uses JSON Web
+Token<sup><a id="fnr.3.100" class="footref" href="#fn.3">3</a></sup> for authenticating requests to its APIs. To obtain a token, you
+have to pass a valid set of credentials to the <code>$INSTANCE/api-token-auth/</code>
+(eg. <a href="https://lightcorn-dev.truststamp.net//api-token-auth/">https://lightcorn-dev.truststamp.net//api-token-auth/</a>) endpoint.
+</p>
+
+<p>
+These credentials are also valid for logging into an Admin Panel in
+single-tenant deployments, which is accessible at <code>$INSTANCE/admin/</code> path
+(eg. <a href="https://lightcorn-dev.truststamp.net//admin/">https://lightcorn-dev.truststamp.net//admin/</a>)
+</p>
+
+<p>
+Once logged in, you can create additional accounts with their own credentials
+and permissions. To do this, you need to create a new User object, where you
+set username and password, and a related <code>Client</code> object, where you can set
+the <code>Callback URL</code> (as explained in <a href="#quick_start_guide-synchronous_requests_and_receiving_results">2.3</a> and <a href="#lightcorn_api_details-synchronous_and_asynchronous_processing">3.5</a>). The <code>is_staff</code>
+attribute of the <code>User</code> objects controls whether that user is able to log
+into the Admin Panel.
+</p>
+
+<p>
+Other than account management, the Admin Panel allows viewing the details of
+all requests to the API, responses from the micro-services, and <b>LightCorn</b>
+own responses.
+</p>
+
+<p>
+<b>LightCorn</b> requests and responses are stored in the <code>CustomerResponse</code>
+objects. Navigate to <b>API → Customer</b> responses to see the list, click on any
+row to see the details.
+</p>
+
+<p>
+Communication between <b>LightCorn</b> and micro-services is logged in
+<code>ServiceResponse</code> objects. As with <code>CustomerResponse</code> objects, you can view a
+list of <b>LightCorn</b> requests to, and responses it got from, micro-services by
+navigating to <b>API → Service</b> responses. Clicking on any row will display the
+details.
+</p>
+
+<p>
+ <div class="info"><p class="title first">Don't rely on the shape of service responses!</p>
+<b>Service responses</b> are considered an <b>internal implementation
+detail</b> and as such it is not covered by compatibility guarantees.
+The format of the requests and responses between LightCorn and its backing
+services may change at any time without warning.
+ </div>
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-54" class="outline-2">
+<h2 id="services_reference"><span class="section-number-2">4</span> Services reference</h2>
+<div class="outline-text-2" id="text-services_reference">
+</div>
+<div id="outline-container-29" class="outline-3">
+<h3 id="services_reference-sunflower_service"><span class="section-number-3">4.1</span> Sunflower service</h3>
+<div class="outline-text-3" id="text-services_reference-sunflower_service">
+<p>
+Sunflower is a service which implements Proof of Liveness check. Given a
+photo of a face (selfie) it checks if it depicts a real human. It rejects
+photos of other photos (whether printed or displayed on a smarphone or
+laptop), photos of masks and sculptures, and so on.
+</p>
+
+<p>
+Getting <code>fake_detected: true</code> from Sunflower means that there's something
+suspicious in the given photo, and that it shouldn't be used to verify the
+user's identity. Getting <code>false</code> means that most likely it's a photo of a
+real person, and that it can be used for comparison with other photos to
+verify or find out the user's identity.
+</p>
+</div>
+
+<div id="outline-container-26" class="outline-4">
+<h4 id="services_reference-sunflower_service-request"><span class="section-number-4">4.1.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-sunflower_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Sunflower"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// url of a selfie image</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-27" class="outline-4">
+<h4 id="services_reference-sunflower_service-result"><span class="section-number-4">4.1.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-sunflower_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"fake_detected"</span>: <span style="color: #e5786d;">boolean</span>
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-28" class="outline-4">
+<h4 id="services_reference-sunflower_service-error_codes"><span class="section-number-4">4.1.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-sunflower_service-error_codes">
+<ul class="org-ul">
+<li><b>406 NOT ACCEPTABLE</b> - we were not able to detect a face in the picture</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-33" class="outline-3">
+<h3 id="services_reference-rye_service"><span class="section-number-3">4.2</span> Rye service</h3>
+<div class="outline-text-3" id="text-services_reference-rye_service">
+<p>
+Rye is a service which implements Proof of Liveness check. It differs from
+Sunflower in that it works on videos and not photos; the video should be
+about 3 seconds long and depict a user turning their head left and then
+right.
+</p>
+
+<p>
+As with sunflower, <code>fake_detected: true</code> means that the face on the video is
+likely recaptured from a flat display (ie. printed or shown on a smartphone
+screen). <code>fake_detected: false</code> means that the video most likely depicts a
+real person.
+</p>
+</div>
+
+<div id="outline-container-30" class="outline-4">
+<h4 id="services_reference-rye_service-request"><span class="section-number-4">4.2.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-rye_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Rye"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// url of a selfie image</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-31" class="outline-4">
+<h4 id="services_reference-rye_service-result"><span class="section-number-4">4.2.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-rye_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"fake_detected"</span>: <span style="color: #e5786d;">boolean</span>
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-32" class="outline-4">
+<h4 id="services_reference-rye_service-error_codes"><span class="section-number-4">4.2.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-rye_service-error_codes">
+<ul class="org-ul">
+<li><b>406 NOT ACCEPTABLE</b> - we were not able to detect a face in the picture</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-37" class="outline-3">
+<h3 id="services_reference-wheat_service"><span class="section-number-3">4.3</span> Wheat service</h3>
+<div class="outline-text-3" id="text-services_reference-wheat_service">
+<p>
+<b>Wheat</b> is a service which primary function is to scan and extract personal
+identification data from photos of documents (mainly Driver's Licenses, but
+also passports and others). If successful, it returns a JSON object with
+fields it managed to read.
+</p>
+
+<p>
+Wheat has a secondary function, which is to compare the face visible in the
+Driver's License with the one sent to Sunflower earlier. The result of the
+comparison is returned as a <code>face_match</code> field in the response.
+</p>
+
+<p>
+Wheat returns a <code>twosided</code> attribute along with whatever it managed to read
+from the document. If its value is true, it means that the document is a
+Driver's License, and it's possible to run Poppy on the back side of it. If
+it's <code>false</code>, it means that the document is not a DL, and it cannot be used
+with Poppy.
+</p>
+</div>
+
+<div id="outline-container-34" class="outline-4">
+<h4 id="services_reference-wheat_service-request"><span class="section-number-4">4.3.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-wheat_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Wheat"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,              <span style="color: #99968b;">// url of a Driver's License front</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"country_code"</span>: <span style="color: #e5786d;">string</span>,           <span style="color: #99968b;">// eg. "US", "GB", "EU"</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"state_code"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "TN", "GA", "NL"</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+
+<p>
+The <code>country_code</code> and <code>state_code</code> are both optional, but (if correct) they
+speed up the processing time greatly.
+</p>
+
+<p>
+<code>country_code</code> is a 2 letter code, for example: <code>"US"</code>, <code>"GB"</code>. If not
+provided, Wheat assumes <code>"US"</code>.
+</p>
+
+<p>
+<code>state_code</code> is a 2 letter code, for example: <code>"GA"</code>, <code>"TN"</code>. If not
+provided, Wheat tries to match all the kinds of Driver's Licenses it knows
+about until it finds a match. This makes the processing time much longer
+than it would be with the correct code provided.
+</p>
+
+<p>
+ <div class="info"><p class="title first">European Union countries</p>
+EU countries are a special case: you need to pass <code>"EU"</code> as the
+<code>country_code</code> and a specific country code (eg. <code>"DE"</code>, <code>"NL"</code>, <code>"FR"</code>) in
+the <code>state_code</code>.
+ </div>
+</p>
+</div>
+</div>
+
+<div id="outline-container-35" class="outline-4">
+<h4 id="services_reference-wheat_service-result"><span class="section-number-4">4.3.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-wheat_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"address"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// eg. "50 EXAMPLE RD"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"apartment_nr"</span>: <span style="color: #e5786d;">string</span>,     <span style="color: #99968b;">// eg. "13"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"city"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "Some City"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"dob"</span>: <span style="color: #e5786d;">string</span>,              <span style="color: #99968b;">// eg. "1990-03-02"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"exp"</span>: <span style="color: #e5786d;">string</span>,              <span style="color: #99968b;">// eg. "2019-03-02"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"first_name"</span>: <span style="color: #e5786d;">string</span>,       <span style="color: #99968b;">// eg. "JANE"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"iss"</span>: <span style="color: #e5786d;">string</span>,              <span style="color: #99968b;">// eg. "1999-04-02"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"last_name"</span>: <span style="color: #e5786d;">string</span>,        <span style="color: #99968b;">// eg. "SMITH"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"middle_initial"</span>: <span style="color: #e5786d;">string</span>,   <span style="color: #99968b;">// eg. "J"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"state"</span>: <span style="color: #e5786d;">string</span>,            <span style="color: #99968b;">// eg. "TN"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"zip_code"</span>: <span style="color: #e5786d;">string</span>          <span style="color: #99968b;">// eg. "30016-5217"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"twosided"</span>: <span style="color: #e5786d;">boolean</span>         <span style="color: #99968b;">// see description above</span>
+  },
+  <span style="color: #8ac6f2; font-weight: bold;">"face_match"</span>: <span style="color: #e5786d;">boolean</span>
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-36" class="outline-4">
+<h4 id="services_reference-wheat_service-error_codes"><span class="section-number-4">4.3.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-wheat_service-error_codes">
+<ul class="org-ul">
+<li><b>406 NOT ACCEPTABLE</b> - none of the Driver's Licenses templates matched</li>
+<li><b>422 UNPROCESSABLE ENTITY</b> - no face found in the image</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-41" class="outline-3">
+<h3 id="services_reference-id_display_attack_service"><span class="section-number-3">4.4</span> ID Display Attack service</h3>
+<div class="outline-text-3" id="text-services_reference-id_display_attack_service">
+<p>
+ID Display Attack is a service checking whether input image is not a photo of
+a display (f.ex. laptop screen, mobile) containing a photo of an ID. Given a
+photo of a document it checks if it depicts a real ID photo, it rejects
+photos of pictured displayed on screens.
+</p>
+
+<p>
+Getting <code>fake_detected: true</code> means that there's something
+suspicious in the given ID photo, and that it shouldn't be used to verify the
+user's identity. Getting <code>false</code> means that most likely it's a photo of a
+real ID, and that it can be used for comparison with other photos to
+verify or find out the user's identity.
+</p>
+</div>
+
+<div id="outline-container-38" class="outline-4">
+<h4 id="services_reference-id_display_attack_service-request"><span class="section-number-4">4.4.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-id_display_attack_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"ID_display_attack"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// url of a selfie image</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"country_code"</span>: <span style="color: #e5786d;">string</span>,           <span style="color: #99968b;">// eg. "US", "GB", "EU"</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"state_code"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "TN", "GA", "NL"</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-39" class="outline-4">
+<h4 id="services_reference-id_display_attack_service-result"><span class="section-number-4">4.4.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-id_display_attack_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"fake_detected"</span>: <span style="color: #e5786d;">boolean</span>
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-40" class="outline-4">
+<h4 id="services_reference-id_display_attack-error_codes"><span class="section-number-4">4.4.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-id_display_attack-error_codes">
+<ul class="org-ul">
+<li><b>406 NOT ACCEPTABLE</b> - we were not able to detect a face in the picture</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-45" class="outline-3">
+<h3 id="services_reference-poppy_service"><span class="section-number-3">4.5</span> Poppy service</h3>
+<div class="outline-text-3" id="text-services_reference-poppy_service">
+<p>
+Poppy is a service for reading the barcodes<sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup> found on the back sides of
+USA Driver's Licenses. In many jurisdictions, the barcode encodes personal
+identification information of a DL holder. Poppy reads such barcodes and
+returns the results in a format similar to <a href="#services_reference-wheat_service">4.3</a>.
+</p>
+
+<p>
+Poppy has a secondary function, which is to compare the data it read with the
+data OCRed in previous call. The result of the comparison, which is an int
+indicating how many fields are different, is returned in the
+<code>side_comparison</code> field in the response. The value of <code>0</code> means that there is
+a perfect match between data extracted from the front and read from the back
+of a Driver's License.
+</p>
+</div>
+
+<div id="outline-container-42" class="outline-4">
+<h4 id="services_reference-poppy_service-request"><span class="section-number-4">4.5.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-poppy_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Poppy"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// url of an image of Driver's License back</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-43" class="outline-4">
+<h4 id="services_reference-poppy_service-result"><span class="section-number-4">4.5.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-poppy_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {                     <span style="color: #99968b;">// eg. "710 EXAMPLE WIND CT"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"address"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// eg. "WOODSTOCK"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"city"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "2022-09-03"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"date_exp"</span>: <span style="color: #e5786d;">string</span>,         <span style="color: #99968b;">// eg. "1960-09-03"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"dob"</span>: <span style="color: #e5786d;">string</span>,              <span style="color: #99968b;">// eg. "JOHN"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"last_name"</span>: <span style="color: #e5786d;">string</span>,        <span style="color: #99968b;">// eg. "SMITH"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"middle_initial"</span>: <span style="color: #e5786d;">string</span>,   <span style="color: #99968b;">// eg. "P"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"state"</span>: <span style="color: #e5786d;">string</span>,            <span style="color: #99968b;">// eg. "GA"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"zip_code"</span>: <span style="color: #e5786d;">string</span>          <span style="color: #99968b;">// eg. "401698757"</span>
+  },
+  <span style="color: #8ac6f2; font-weight: bold;">"side_comparison"</span>: <span style="color: #e5786d;">int</span>
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-44" class="outline-4">
+<h4 id="services_reference-poppy_service-error_codes"><span class="section-number-4">4.5.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-poppy_service-error_codes">
+<ul class="org-ul">
+<li><b>400 BAD REQUEST</b> - barcode not found in the image</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-49" class="outline-3">
+<h3 id="services_reference-graylist_service"><span class="section-number-3">4.6</span> Graylist service</h3>
+<div class="outline-text-3" id="text-services_reference-graylist_service">
+<p>
+Graylist is a biometric hash (compact representation of face features)
+storage and search service. It accepts a photo of a face and answers the
+question if it's the first time the system seen this face or not. It
+automatically saves every encountered biometric hash into internal database.
+</p>
+
+<p>
+The results are returned as a list of biohash identifiers along with the
+<code>distance</code> (how different is one biohash from another). An empty list means
+that there was no match and the given person is encountered for the first
+time.
+</p>
+</div>
+
+<div id="outline-container-46" class="outline-4">
+<h4 id="services_reference-graylist_service-request"><span class="section-number-4">4.6.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-graylist_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Graylist"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,      <span style="color: #99968b;">// url of a selfie image</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"k"</span>: <span style="color: #e5786d;">int</span>,                 <span style="color: #99968b;">// (not required) how many results to fetch</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"custom_params"</span>: <span style="color: #e5786d;">string</span>   <span style="color: #99968b;">// (not required) json with additional data to store, f.ex.'{"a":1, "b":2}'</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-47" class="outline-4">
+<h4 id="services_reference-graylist_service-result"><span class="section-number-4">4.6.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-graylist_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: [
+    {<span style="color: #8ac6f2; font-weight: bold;">"person_number"</span>: <span style="color: #e5786d;">int</span> },
+    {<span style="color: #8ac6f2; font-weight: bold;">"person_number"</span>: <span style="color: #e5786d;">int</span>, <span style="color: #8ac6f2; font-weight: bold;">"custom_field_1"</span>: <span style="color: #95e454;">"stored data"</span>, <span style="color: #8ac6f2; font-weight: bold;">"custom_field_1"</span>: <span style="color: #95e454;">"stored data"</span>},
+    ...
+  ]
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-48" class="outline-4">
+<h4 id="services_reference-graylist_service-error_codes"><span class="section-number-4">4.6.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-graylist_service-error_codes">
+<ul class="org-ul">
+<li><b>400 BAD REQUEST</b> - validation error, or unique constraint when trying to add the same hash to a consumer for the second time</li>
+<li><b>406 NOT ACCEPTABLE</b> - we were not able to detect a face in the picture</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-53" class="outline-3">
+<h3 id="services_reference-farro_service"><span class="section-number-3">4.7</span> Farro service</h3>
+<div class="outline-text-3" id="text-services_reference-farro_service">
+<p>
+Farro is a service for extracting address information from various documents,
+mainly utility bills. It returns its results in a different format than Wheat
+and Poppy, because it uses completely different technology under the hood.
+This means that the results are not directly comparable with the data
+returned from other endpoints, except in the most general fields, like
+<code>country</code>, <code>state</code> or <code>city</code>.
+</p>
+
+
+<p>
+ <div class="info"><p class="title first">Note</p>
+The input image needs to be cropped so that only the address is visible in
+it.
+ </div>
+</p>
+</div>
+
+<div id="outline-container-50" class="outline-4">
+<h4 id="services_reference-farro_service-request"><span class="section-number-4">4.7.1</span> Request</h4>
+<div class="outline-text-4" id="text-services_reference-farro_service-request">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"service"</span>: <span style="color: #95e454;">"Farro"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"media_url"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// url of an image of a utility bill</span>
+  <span style="color: #8ac6f2; font-weight: bold;">"UUID"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"return_now"</span>: <span style="color: #e5786d;">boolean</span>,
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-51" class="outline-4">
+<h4 id="services_reference-farro_service-result"><span class="section-number-4">4.7.2</span> Result</h4>
+<div class="outline-text-4" id="text-services_reference-farro_service-result">
+<div class="org-src-container">
+<pre class="src src-json">{
+  <span style="color: #8ac6f2; font-weight: bold;">"request_id"</span>: <span style="color: #e5786d;">string</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"status_message"</span>: <span style="color: #95e454;">"fail"</span> | <span style="color: #95e454;">"success"</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"error_code"</span>: <span style="color: #e5786d;">null</span> | <span style="color: #e5786d;">int</span>,
+  <span style="color: #8ac6f2; font-weight: bold;">"data"</span>: {
+    <span style="color: #8ac6f2; font-weight: bold;">"house_number"</span>: <span style="color: #e5786d;">string</span>,     <span style="color: #99968b;">// eg. "39"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"road"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "Example Strasse"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"postcode"</span>: <span style="color: #e5786d;">string</span>,         <span style="color: #99968b;">// eg. "30016-5217"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"city"</span>: <span style="color: #e5786d;">string</span>,             <span style="color: #99968b;">// eg. "Berlin"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"state"</span>: <span style="color: #e5786d;">string</span>,            <span style="color: #99968b;">// eg. "Berlin"</span>
+    <span style="color: #8ac6f2; font-weight: bold;">"country"</span>: <span style="color: #e5786d;">string</span>,          <span style="color: #99968b;">// eg. "Germany"</span>
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-52" class="outline-4">
+<h4 id="services_reference-farro_service-error_codes"><span class="section-number-4">4.7.3</span> Error Codes</h4>
+<div class="outline-text-4" id="text-services_reference-farro_service-error_codes">
+<ul class="org-ul">
+<li><b>406 NOT ACCEPTABLE</b> - no adress data found in the image</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1">1</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://www.aamva.org/uploadedFiles/MainSite/Content/SolutionsBestPractices/BestPracticesModelLegislation(1)/BarCodeDataEncodingReqmtsBestPractice.pdf">https://www.aamva.org/uploadedFiles/MainSite/Content/SolutionsBestPractices/BestPracticesModelLegislation(1)/BarCodeDataEncodingReqmtsBestPractice.pdf</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2">2</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://www.lastpass.com/">https://www.lastpass.com/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3">3</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://jwt.io/">https://jwt.io/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4">4</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://curl.haxx.se/">https://curl.haxx.se/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5">5</a></sup> <div class="footpara"><p class="footpara">
+<a href="https://stedolan.github.io/jq/">https://stedolan.github.io/jq/</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<p class="author">Author: Piotr Klibert (<a href="mailto:pklibert@truststamp.net">pklibert@truststamp.net</a>)</p>
+            <p class="date">Last updated: 2019-03-27 Wed 22:07</p>
+            <p class="copyright">© Trust Stamp 2018</p>
+</div>
+</body>
+</html>

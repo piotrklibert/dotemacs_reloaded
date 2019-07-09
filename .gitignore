@@ -84,3 +84,4 @@ pkg-langs
 snippets
 .mypy_cache
 /forked-plugins
+creds.el

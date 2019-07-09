@@ -1,0 +1,1311 @@
+# -*- mode: org -*-
+#+OPTIONS: ^:nil toc:2
+#+STARTUP: content
+#+EXPORT_FILE_NAME: index.html
+#+TITLE: LightCorn API ver. 1.2.2 reference
+#+AUTHOR: Piotr Klibert
+#+EMAIL: pklibert@truststamp.net
+#+DATE: 2018-10-08
+#+LANGUAGE: en
+#+TAGS: noexport
+#+PROPERTY: header-args :noweb yes
+
+#+BEGIN_EXPORT html
+<style>
+    .info {
+      min-height: 42px;
+      padding: 10px 15px 10px 80px;
+      background-image: url(imgs/info.png);
+    }
+
+    .info .title {
+      margin: 0px 10px 5px 0px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .first {
+      margin-top: 0 !important;
+    }
+
+    div#table-of-contents {
+      margin: 0;
+      margin-top: 3rem;
+    }
+
+    @media print {
+      .intro .outline-2 { page-break-before: avoid; }
+      .outline-2 { page-break-before: always; }
+      .outline-3 { page-break-inside: avoid; }
+    }
+
+    h1, h2, h3, h4, h5,
+    .outline-text-1,
+    .outline-text-2,
+    .outline-text-3,
+    .outline-text-4,
+    #text-footnotes {
+      margin-left: 0;
+    }
+
+    .footpara a {
+      word-break: keep-all;
+      overflow-x: auto;
+      display: inline-block;
+      width: 90%;
+    }
+</style>
+#+END_EXPORT
+
+
+#+BEGIN_EXPORT html
+<div class="intro">
+#+END_EXPORT
+
+* Macros and definitions                                                        :noexport:
+  :PROPERTIES:
+  :CUSTOM_ID: macros_and_definitions
+  :END:
+
+  Points tagged with :noexport: are not included in the exported HTML.
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./bigblow.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./hideshow.css"/>
+
+#+MACRO: note @@html: <div class="info"><p class="title first">$1</p>@@
+#+MACRO: note_end @@html: </div>@@
+
+#+MACRO: p_beg @@html: <p>@@
+#+MACRO: p_end @@html: </p>@@
+
+#+MACRO: prod N/A
+#+MACRO: staging N/A
+#+MACRO: dev https://lightcorn-dev.truststamp.net/
+
+#+MACRO: mail_pk @@html: <a href="mailto:pklibert@truststamp.net">pklibert@truststamp.net</a>@@
+#+MACRO: mail_jz @@html: <a href="mailto:jzalewski@truststamp.net">jzalewski@truststamp.net</a>@@
+#+MACRO: mail_js @@html: <a href="mailto:jacek@truststamp.net">jacek@truststamp.net</a>@@
+#+MACRO: mail_ak @@html: <a href="mailto:akononenko@truststamp.net">akononenko@truststamp.net</a>@@
+#+MACRO: mail_sf @@html: <a href="mailto:sfrancis@truststamp.net">sfrancis@truststamp.net</a>@@
+
+
+
+* Introduction to LightCorn
+  :PROPERTIES:
+  :CUSTOM_ID: introduction_to_lightcorn
+  :END:
+
+  *LightCorn* is a Web application, accessible via REST API only, which enables
+  external entities to use and take advantage of TrustStamp internal biometrics
+  and data extraction micro-services. It's designed as a relatively thin wrapper
+  for the exposed micro-services: it fixes some idiosyncrasies in the APIs and
+  prunes unneeded or redundant data from returned results, and also logs all the
+  communication with services to the database. It implements a few minor
+  features on top of that, but in essence it's just a gateway to (or proxy for)
+  micro-services, which do the actual processing.
+
+  Currently only 5 of *Trust Stamp* services are exposed via *LightCorn*. These
+  services implement:
+
+  - *Proof of Liveness (PoL)* - given a photo of a face it checks if it depicts
+    a live human or not. It rejects images where the face is printed on paper or
+    displayed on a smartphone or computer monitor.
+
+  - *document OCR* - given a photo of a front of Driver's License or utility
+    bill, it extracts and returns personal identification information of a
+    person.
+
+  - *barcode reading* - given a photo of an =AAMVA=-compatible barcode[fn:3] on
+    the back side of *USA Driver’s License*, it reads and returns personal
+    identification information (so called PII) contained in it.
+
+  - *face matching* - given two photos of faces, it checks if they belong to the
+    same person.
+
+  - *OCRed and barcode data comparison* - checks if the personal information
+    extracted from front and back of a Driver's License match, while allowing
+    for small differences due to OCR inaccuracy.
+
+  The services have assigned codenames, which you need to pass as a service
+  parameter in all the *LightCorn* API calls. The names are as follows:
+
+
+  #+NAME: functionality-to-codename-table
+  | function                  | codename          | section                   |
+  |---------------------------+-------------------+---------------------------|
+  | PoL                       | Sunflower         | [[Sunflower service]]         |
+  | PoL                       | Rye               | [[Rye service]]               |
+  | Driver's License OCR      | Wheat             | [[Wheat service]]             |
+  | ID/DL display attack      | ID_Display_attack | [[ID Display Attack service]] |
+  | barcode reading           | Poppy             | [[Poppy service]]             |
+  | face matching             | Wheat             | [[Wheat service]]             |
+  | face matching             | Graylist          | [[Graylist service]]          |
+  | utility bills OCR         | Farro             | [[Farro service]]             |
+  | front and back DL compare | Poppy             | [[Poppy service]]             |
+
+  See section [[Services reference]] for complete reference of each service.
+
+#+BEGIN_EXPORT html
+</div>
+#+END_EXPORT
+
+* Quick start guide
+  :PROPERTIES:
+  :CUSTOM_ID: quick_start_guide
+  :END:
+
+  In case of any problems or additional questions, please contact on Slack or via
+  email one of the following people:
+
+  | *Jakub Zalewski*      | {{{mail_jz}}} | developer (active)  |
+  | *Piotr Klibert*       | {{{mail_pk}}} | developer (active)  |
+  | *Alexander Kononenko* | {{{mail_ak}}} | developer (support) |
+  | *Scott Francis*       | {{{mail_sf}}} | CTO                 |
+  | *Jacek Suwalski*      | {{{mail_js}}} | Product Manager     |
+
+** Available LightCorn instances                                                :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-available_lightcorn_instances
+   :END:
+
+   This is the state of instances for *{{{date}}}*.
+
+   | type       | instance url  |
+   |------------+---------------|
+   | production | {{{prod}}}    |
+   | staging    | {{{staging}}} |
+   | devel      | {{{dev}}}     |
+
+   The staging instance should be used for development. We will update the list
+   with a production instance once it's set up, which should then be used for
+   integration with customer-facing systems.
+
+** Account credentials
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-account_credentials
+   :END:
+
+   To use *LightCorn*, you need to know a valid ~username~ and ~password~. To make
+   sure these credentials are not disclosed to unauthorised entities, they're
+   being shared via a LastPass[fn:5] application.
+
+   People responsible for providing the credentials are:
+
+   - *Jacek Suwalski*
+   - *Scott Francis*
+
+** JWT-based Authentication
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-jwt-based_authentication
+   :END:
+
+   *LightCorn* uses JSON Web Token[fn:4] for authentication. Each request to the
+   API has to include the token in the ~Authorization~ HTTP header. See section
+   [[Common API request structure]]
+
+   To obtain a token, issue a POST request to ~$INSTANCE/api-token-auth/~ (eg.
+   {{{dev}}}/api-token-auth/) endpoint, providing JSON-encoded credentials
+   in the body of the request.
+
+   In response you will get token string, which will be valid for _24 hours_.
+
+*** Example request
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-jwt-based_authentication-example_request
+    :END:
+
+    #+BEGIN_SRC sh
+      curl -X POST 'https://<instance_url>/api-token-auth/' \
+           -H 'Content-Type: application/json' \
+           -d '{
+               "username": "<username>",
+               "password": "<password>"
+           }'
+    #+END_SRC
+
+*** Example response body
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-jwt-based_authentication-example_response_body
+    :END:
+
+    #+BEGIN_SRC json
+      {
+          "token": "<token>"
+      }
+    #+END_SRC
+
+*** JWT refresh
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-jwt-based_authentication-jwt_refresh
+    :END:
+
+    It is possible to refresh the token - invalidate current and issue new
+    one - by sending it to ~$INSTANCE/api-token-refresh/~ (eg.
+    {{{dev}}}/api-token-refresh/) endpoint.
+
+** Synchronous requests and receiving results
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-synchronous_requests_and_receiving_results
+   :END:
+
+   There are three different ways getting the results from *LightCorn*, see
+   section [[Synchronous and asynchronous processing]] for details of the other
+   options, but the most straightforward way to do this is by using the
+   immediate (synchronous) mode, which means that the results of processing are
+   returned as a response for the API request.
+
+   Currently this mode is the default one, but this may change in the future, so
+   it's recommended to request it explicitly, by including the ~return_now:
+   true~ attribute in the JSON sent in the request.
+
+** Simple request-response session - full example
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-simple_request-response_session_-_full_example
+   :END:
+
+   Make sure you have ~cURL~[fn:1] and ~jq~[fn:2] installed locally, then issue the
+   following commands on the command line (assuming ~sh~ compatible shell):
+
+   1. Set some handy variables. Remember to replace ~USER~ and ~PASS~ values
+      with valid ones.
+
+      #+BEGIN_SRC sh
+        export INSTANCE="{{{dev}}}"
+        export USER="******"
+        export PASS="******"
+      #+END_SRC
+
+      #+NAME: ex-test-config
+      #+BEGIN_SRC sh :exports none
+        set -eu
+
+        export INSTANCE="{{{test_instance}}}"
+        export USER="{{{test_username}}}"
+        export PASS="{{{test_password}}}"
+      #+END_SRC
+
+   2. Obtain the JWT token
+      #+NAME: ex-get-token
+      #+BEGIN_SRC sh
+        export TOKEN=$(
+          curl -s -X POST "$INSTANCE/api-token-auth/" \
+               -H "Content-Type: application/json" \
+               -d "{
+                   \"username\": \"$USER\",
+                   \"password\": \"$PASS\"
+               }" | jq -r .token
+          )
+      #+END_SRC
+
+   3. Prepare the image to be analyzed and the request body. Save the body in an
+      environment variable called ~$BODY~, like this:
+
+      #+NAME: ex-sunflower-body-def
+      #+BEGIN_SRC sh
+        export BODY='{
+          =<ex-sunflower-data>=
+          =<ex-req-common-data>=
+        }'
+      #+END_SRC
+
+      For this example we use one of the images we use for automated testing of
+      our services, available [[https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/sunflower/13_src.jpg][here]]. As you can see, we select *Sunflower* as a
+      service we want to use.
+
+   4. Send the request and receive the results:
+
+      #+NAME: ex-curl-request
+      #+BEGIN_SRC sh
+        curl -s -X POST "$INSTANCE/api/v1/single/" \
+             -H "Content-Type: application/json" \
+             -H "Authorization: JWT $TOKEN" \
+             -d "$BODY" | jq .
+      #+END_SRC
+
+   5. This should print the response looking like this:
+
+      #+NAME: ex-sunflower-script
+      #+BEGIN_SRC sh :tangle scripts/run_sunflower.sh :exports results :results code json
+        =<ex-test-config>=
+        =<ex-get-token>=
+        =<ex-check-token>=
+        =<ex-sunflower-body-def>=
+        =<ex-curl-request>=
+      #+END_SRC
+
+      #+RESULTS: ex-sunflower-script
+      #+begin_src json
+        {
+          "request_id": "fcab3d5a-4e9b-48bc-b1e4-cd44cced0fdf",
+          "status_message": "success",
+          "error_code": null,
+          "data": {
+            "fake_detected": false
+          }
+        }
+      #+end_src
+
+   6. You can use the same command to call other services; for example, to call
+      *Farro*, which is a service for parsing address data in images, you'd only
+      need to redefine the ~$BODY~ variable, like this:
+
+      #+NAME: ex-farro-body-def
+      #+BEGIN_SRC sh
+        export BODY='{
+          =<ex-farro-data>=
+          =<ex-req-common-data>=
+        }'
+      #+END_SRC
+
+      Then, issuing the same ~curl~ command as in step 4. would give you:
+
+      #+NAME: ex-farro-script
+      #+BEGIN_SRC sh :tangle scripts/run_farro.sh :exports results :results code json
+        =<ex-test-config>=
+        =<ex-get-token>=
+        =<ex-check-token>=
+        =<ex-farro-body-def>=
+        =<ex-curl-request>=
+      #+END_SRC
+
+      #+RESULTS: ex-farro-script
+      #+begin_src json
+      {
+        "request_id": "c48d105c-bdee-4d4d-986b-c919b1f1388a",
+        "status_message": "success",
+        "error_code": null,
+        "data": {
+          "city": "bedford",
+          "house_number": "69",
+          "postcode": "mk42 9gh",
+          "road": "croyland drive"
+        }
+      }
+      #+end_src
+
+** Further services                                                             :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-further_services
+   :END:
+
+   Also tangled into [[./scripts/]]
+
+*** Wheat
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-further_services-wheat
+    :END:
+    #+NAME: ex-wheat-script
+    #+HEADER: :tangle scripts/run_wheat.sh
+    #+BEGIN_SRC sh :exports none :results code json
+      =<ex-sunflower-script>=
+      export BODY='{
+          =<ex-wheat-data>=
+          =<ex-req-common-data>=
+      }'
+      =<ex-curl-request>=
+    #+END_SRC
+**** results
+     :PROPERTIES:
+     :CUSTOM_ID: quick_start_guide-further_services-wheat-results
+     :END:
+     #+RESULTS: ex-wheat-script
+     #+begin_src json
+       {
+         "request_id": "30343648-7a53-4656-ad7b-a60accb15e88",
+         "status_message": "success",
+         "error_code": null,
+         "data": {
+           "fake_detected": false
+         }
+       }
+       {
+         "request_id": "fd981151-5132-4ae3-812d-1f353c1e2ecd",
+         "status_message": "success",
+         "error_code": null,
+         "data": {
+           "mapped": {
+             "first_name": "MELVIN",
+             "last_name": "JOHNSON",
+             "middle_initial": "",
+             "address": "1900 WEST 7",
+             "apartment_nr": "",
+             "city": "TH LITTLE ROCK",
+             "state": "AR",
+             "zip_code": "72203",
+             "dob": "1972-05-24",
+             "iss": "2011-05-19",
+             "exp": "2015-05-19",
+             "twosided": true,
+             "state_template_name": "AR_id_2016_all"
+           }
+         },
+         "face_match": 0.7922677105375378
+       }
+     #+end_src
+
+*** Poppy
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-further_services-poppy
+    :END:
+    #+NAME: ex-poppy-script
+    #+HEADER: :tangle scripts/run_poppy.sh
+    #+BEGIN_SRC sh :exports none :results code json
+      =<ex-wheat-script>=
+      export BODY='{
+          =<ex-poppy-data>=
+          =<ex-req-common-data>=
+      }'
+      =<ex-curl-request>=
+    #+END_SRC
+**** results
+     :PROPERTIES:
+     :CUSTOM_ID: quick_start_guide-further_services-poppy-results
+     :END:
+     #+RESULTS: ex-poppy-script
+     #+begin_src json
+       {
+         "request_id": "86aa7840-1430-4241-9bdf-d410613ff447",
+         "status_message": "success",
+         "error_code": null,
+         "data": {
+           "fake_detected": false
+         }
+       }
+       {
+         "request_id": "1c8f1e8e-70b1-4c2f-b6ab-59066efec222",
+         "status_message": "success",
+         "error_code": null,
+         "data": {
+           "mapped": {
+             "first_name": "MELVIN",
+             "last_name": "JOHNSON",
+             "middle_initial": "",
+             "address": "1900 WEST 7",
+             "apartment_nr": "",
+             "city": "TH LITTLE ROCK",
+             "state": "AR",
+             "zip_code": "72203",
+             "dob": "1972-05-24",
+             "iss": "2011-05-19",
+             "exp": "2015-05-19",
+             "twosided": true,
+             "state_template_name": "AR_id_2016_all"
+           }
+         },
+         "face_match": 0.7922677105375378
+       }
+       {
+         "request_id": "07de1425-18fe-42a1-a387-01b6038bb544",
+         "status_message": "success",
+         "error_code": null,
+         "data": {
+           "address": "710 WHISPER WIND CT",
+           "city": "WOODSTOCK",
+           "date_exp": "2022-09-03",
+           "dob": "1960-09-03",
+           "first_name": "TIMOTHY",
+           "last_name": "FORBES",
+           "middle_initial": "P",
+           "state": "GA",
+           "zip_code": "301898157"
+         },
+         "side_comparison": 0
+       }
+     #+end_src
+** Request data definitions                                                     :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-request_data_definitions
+   :END:
+*** Common fields + UUID generation
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-request_data_definitions-common_fields_+_uuid_generation
+    :END:
+    #+NAME: ex-req-common-data
+    #+begin_src json
+       "UUID": "3c171d18-bb2c-11e8-ab76-9cb6d0fc2569",
+       "return_now": true
+    #+end_src
+
+**** UUID generation
+     :PROPERTIES:
+     :CUSTOM_ID: quick_start_guide-request_data_definitions-common_fields_+_uuid_generation-uuid_generation
+     :END:
+     #+NAME: ex-uuid
+     #+begin_src sh :cache yes :eval no-export
+       uuid                            # TODO: make sure it's installed?
+     #+end_src
+
+     #+RESULTS[ecda70f0c884e0e9a8232ffd9532b9bb60ccb252]: ex-uuid
+     : 3c171d18-bb2c-11e8-ab76-9cb6d0fc2569
+*** Poppy
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-request_data_definitions-poppy
+    :END:
+    #+NAME: ex-poppy-data
+    #+BEGIN_SRC json
+      "service": "Poppy",
+      "media_url": "https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/poppy/5V29MSvHTL3xGLy9_back.jpeg",
+    #+END_SRC
+
+*** Farro
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-request_data_definitions-farro
+    :END:
+    #+NAME: ex-farro-data
+    #+BEGIN_SRC json
+      "service": "Farro",
+      "media_url": "http://alexanderkononenko.com/farro/addr5.png",
+    #+END_SRC
+
+*** Wheat
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-request_data_definitions-wheat
+    :END:
+    #+NAME: ex-wheat-data
+    #+BEGIN_SRC json
+      "service": "Wheat",
+      "media_url": "https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/wheat/1_series2011_driverslicense_front.png",
+      "state_code": "AR",
+      "country_code": "US",
+    #+END_SRC
+
+*** Sunflower
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-request_data_definitions-sunflower
+    :END:
+    #+NAME: ex-sunflower-data
+    #+BEGIN_SRC json
+      "service": "Sunflower",
+      "media_url": "https://s3-us-west-2.amazonaws.com/truststamp-serv-e2e-tests/sunflower/13_src.jpg",
+    #+END_SRC
+
+** Tests & asserts                                                              :noexport:
+   :PROPERTIES:
+   :CUSTOM_ID: quick_start_guide-tests_&_asserts
+   :END:
+
+*** Check token - see if authentication succeeded, error out if not
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-tests_&_asserts-check_token_-_see_if_authentication_succeeded,_error_out_if_not
+    :END:
+
+    Used in all service scripts, although not displayed when exporting (to make
+    the doc shorter).
+
+    #+NAME: ex-check-token
+    #+BEGIN_SRC sh :exports none
+      if [[ "$TOKEN" == "null" || "$TOKEN" == "" ]]; then
+          >&2 echo "Bad username or password, aborting."
+          exit 1
+      fi
+    #+END_SRC
+
+*** Make sure all #+MACROs are correctly resolved on export
+    :PROPERTIES:
+    :CUSTOM_ID: quick_start_guide-tests_&_asserts-make_sure_all_#+macros_are_correctly_resolved_on_export
+    :END:
+
+    There was a bug - broken regex, basically - which caused exporters to
+    replace only the last occurence of a macro on a given line. This snippet
+    shows that this is no longer the case.
+
+    #+BEGIN_SRC elisp
+      (s-trim
+       (my-org-macro-replace-all-in-string "
+
+         {{{author}}} {{{dev}}} {{{AUTHOR}}}
+
+       "))
+    #+END_SRC
+    #+RESULTS:
+    : Piotr Klibert https://lightcorn-dev.truststamp.net/ Piotr Klibert
+
+
+* LightCorn API details
+  :PROPERTIES:
+  :CUSTOM_ID: lightcorn_api_details
+  :END:
+
+   Except for authentication and JWT-related requests, *all* API calls have to
+   be sent to a single endpoint, located at:
+
+   #+BEGIN_CENTER
+   ~/api/v1/single/~
+   #+END_CENTER
+
+   This endpoint path needs to be combined with host instance URL, to form a
+   full URL. For example, API calls to devel instance would have the following
+   URL:
+
+   #+BEGIN_CENTER
+   {{{dev}}}/api/v1/single/
+   #+END_CENTER
+
+** Forward and backward API compatibility
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-forward_and_backward_api_compatibility
+   :END:
+
+   The API described in this document is _stable_, which means that if a
+   particular set of parameters sent to the endpoint is valid, it will stay that
+   way forever. In other words, _there won't be any backward incompatible
+   changes_ to the API. In case a breaking change is required, it will be
+   exposed under a new version number, leaving the current API unchanged.
+
+   The API _may still get support for new parameters and features_, as long as
+   they are strictly backward compatible. In that case, this document will be
+   revised.
+
+   In addition, if a parameter is marked as _obsolete_, it just means that it
+   won't be included in the next version of the API. It will continue working
+   with the current version.
+
+** Common API request structure
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-common_api_request_structure
+   :END:
+
+   All requests must have ~Authorization~ and ~Content-Type~ headers set:
+
+   #+BEGIN_SRC text
+     Authorization: JWT <token string>
+     Content-Type: application/json
+   #+END_SRC
+
+   JSON sent in the body of the request must have at least these fields:
+
+   - {{{p_beg}}} ~UUID~ – unique identifier, used for grouping requests to
+     different services and identifying them as belonging to a single user (or
+     single flow).{{{p_end}}}
+
+   - {{{p_beg}}} ~return_now~ – see sections [[Synchronous requests and receiving
+     results]] and [[Synchronous and asynchronous processing]]{{{p_end}}}
+
+   - {{{p_beg}}} ~media_url~ – an URL to the image or video sent for processing.
+     It has to be accessible via HTTP or HTTPS from the *LightCorn* instance.
+     NOTE: ~image_url~ is a deprecated alias for ~media_url~.{{{p_end}}}
+
+   - ~service~ – name of the service to call. Can be one of:
+     - ~"Sunflower"~
+     - ~"Rye"~
+     - ~"Wheat"~
+     - ~"Poppy"~
+     - ~"Farro"~
+     - ~"Graylist"~
+     - ~"ID_display_attack"~
+     See section [[Services reference]] for details.
+
+   Some services may require more parameters, see for example Wheat in section
+   [[Wheat service]]
+
+   #+NAME: common-req-fields
+   #+BEGIN_SRC json :exports none
+     "UUID": string,
+     "return_now": boolean,
+   #+END_SRC
+
+** Common API result structure
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-common_api_result_structure
+   :END:
+
+   Depending on the value of ~return_now~ parameter the result may be returned
+   in the immediate response or sent to a callback URL, but it's structure is
+   identical in both cases. The results are always JSON-encoded.
+
+   The exact fields in the returned JSON differ between the services, but they
+   all include at least the following keys:
+
+   - ~request_id~ - a unique identifier (as a string) of the request. In
+     asynchronous mode it is used for linking the results to the request. May be
+     ignored in sync mode.
+   - ~status_message~ - either ~"success"~ or ~"fail"~. See section [[Error handling]]
+   - ~error_code~ - either null or a number. See section [[Error handling]].
+   - ~data~ - results of processing, as an object. The keys vary between services.
+
+   Depending on the service, the response may have one or two additional fields.
+
+   #+NAME: common-resp-fields
+   #+BEGIN_SRC text :exports none
+     "request_id": string,
+     "status_message": "fail" | "success",
+     "error_code": null | int,
+   #+END_SRC
+
+** Calling services in the right order
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-calling_services_in_the_right_order
+   :END:
+
+   It is important to call the services in the correct order, because some
+   services need information from the previous API calls to function. The ~UUID~
+   parameter is used for finding that data, which is why it is important for
+   clients to issue a new ~UUID~ for every customer and using the same ~UUID~ in
+   all requests related to this customer.
+
+   For example, you can't call *Wheat* without first calling *Sunflower*,
+   because *Wheat* service performs face matching between the selfie and
+   Driver's License front. Without first supplying the selfie image to
+   *Sunflower* service, *Wheat* call will fail.
+
+   Currently, the required order is as follows:
+
+   1. *Sunflower* or *Rye*
+   2. *Wheat*
+   3. *Poppy*
+
+   *Farro* and *Graylist* are services which don't depend on, and are not
+   depended on by, any other service call, and so you can call them whenever you
+   want. Technically, there is no need for the ~UUID~ in Farro request to be any
+   specific value, but it's recommended to use the same ~UUID~ that was used in
+   other service calls for the given user session.
+
+** Synchronous and asynchronous processing
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-synchronous_and_asynchronous_processing
+   :END:
+*** Receiving results as HTTP response
+    :PROPERTIES:
+    :CUSTOM_ID: lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_as_http_response
+    :END:
+
+    This mode is selected by passing ~return_now: true~ parameter with the
+    request. The HTTP connection is kept open in this case until the service
+    processes the image and we want to wait for full response, if ~false~,
+    we want to get request ID immediatelly and use it later for retrieving
+    full service response.
+
+*** Receiving results via a callback URL
+    :PROPERTIES:
+    :CUSTOM_ID: lightcorn_api_details-synchronous_and_asynchronous_processing-receiving_results_via_a_callback_url
+    :END:
+
+    This mode is used when ~return_now~ is set to ~false~, and there is a
+    _callback URL_ provided for the user that the request authenticates as. You
+    can set the callback URL using Admin panel, accessible at
+    ~$INSTANCE/admin/~, by navigating to *API* → *Clients* → *username* →
+    *Callback URL*, putting the URL there and clicking *Save*. In case of
+    multi-tenant instances, please ask your Administrator to do this.
+
+    In this mode, the response to the POST request contains a ~request_id~,
+    which is then also included in the data sent to the given URL.
+
+*** Polling an endpoint for the results
+    :PROPERTIES:
+    :CUSTOM_ID: lightcorn_api_details-synchronous_and_asynchronous_processing-polling_an_endpoint_for_the_results
+    :END:
+
+    If neither of the above is true, the only way of getting the results is to
+    send GET requests to the endpoint, passing it the ~request_id~. In response
+    you will get either information that the request is still processing (status
+    code 202), or the result if it already finished.
+
+** Error handling
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-error_handling
+   :END:
+
+   There are two fields in the returned results which say if the request was
+   successful or not. These are:
+
+   - ~status_message~ - a string, one of two possible values: ~"success"~ or
+     ~"fail"~
+   - ~error_code~ - either ~null~ or an integer, which exact meaning is
+     dependent on which service was called. When used with ~return_now: true~,
+     this error code is also returned as a HTTP response status code.
+
+   In general, if ~status_message~ is ~"fail"~, it means that the processing of
+   the given image failed - this makes the services following the current one
+   inaccessible (see section [[Calling services in the right order]]). You can
+   safely re-send the request to the service which failed with another image -
+   if it succeeds, it will simply overwrite the failed request and will allow
+   you to send requests to the following services normally, without changing the
+   ~UUID~.
+
+   If you want to reset the whole process, starting again from *Sunflower*, you
+   can do this by generating a fresh ~UUID~ and issuing requests normally.
+
+   Other than errors specific for a given service, there are some general
+   errors, which are used if the request cannot be processed at all, for
+   example:
+
+   - *400 BAD REQUEST* - invalid or missing parameters in the request
+   - *403 FORBIDDEN* - no ~Authorization~ header provided or bad token provided
+   - *404 NOT FOUND* - invalid endpoint URL used or invalid ~image_url~ passed
+   - *500 INTERNAL SERVER ERROR* - the *LightCorn* itself encountered a problem
+     and couldn't deal with it (shouldn't happen - _please report as a bug_ if
+     you see it)
+
+   These are returned as an immediate response HTTP status code, no matter if
+   the ~return_now~ is set or not.
+
+** Account Management and Admin Panel
+   :PROPERTIES:
+   :CUSTOM_ID: lightcorn_api_details-account_management_and_admin_panel
+   :END:
+
+   As described in section [[JWT-based Authentication]], LightCorn uses JSON Web
+   Token[fn:4] for authenticating requests to its APIs. To obtain a token, you
+   have to pass a valid set of credentials to the ~$INSTANCE/api-token-auth/~
+   (eg. {{{dev}}}/api-token-auth/) endpoint.
+
+   These credentials are also valid for logging into an Admin Panel in
+   single-tenant deployments, which is accessible at ~$INSTANCE/admin/~ path
+   (eg. {{{dev}}}/admin/)
+
+   Once logged in, you can create additional accounts with their own credentials
+   and permissions. To do this, you need to create a new User object, where you
+   set username and password, and a related ~Client~ object, where you can set
+   the ~Callback URL~ (as explained in [[Synchronous requests and receiving
+   results]] and [[Synchronous and asynchronous processing]]). The ~is_staff~
+   attribute of the ~User~ objects controls whether that user is able to log
+   into the Admin Panel.
+
+   Other than account management, the Admin Panel allows viewing the details of
+   all requests to the API, responses from the micro-services, and *LightCorn*
+   own responses.
+
+   *LightCorn* requests and responses are stored in the ~CustomerResponse~
+   objects. Navigate to *API → Customer* responses to see the list, click on any
+   row to see the details.
+
+   Communication between *LightCorn* and micro-services is logged in
+   ~ServiceResponse~ objects. As with ~CustomerResponse~ objects, you can view a
+   list of *LightCorn* requests to, and responses it got from, micro-services by
+   navigating to *API → Service* responses. Clicking on any row will display the
+   details.
+
+   {{{note(Don't rely on the shape of service responses!)}}}
+   *Service responses* are considered an *internal implementation
+   detail* and as such it is not covered by compatibility guarantees.
+   The format of the requests and responses between LightCorn and its backing
+   services may change at any time without warning.
+   {{{note_end}}}
+
+
+* Services reference
+  :PROPERTIES:
+  :CUSTOM_ID: services_reference
+  :END:
+** Sunflower service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-sunflower_service
+   :END:
+
+   Sunflower is a service which implements Proof of Liveness check. Given a
+   photo of a face (selfie) it checks if it depicts a real human. It rejects
+   photos of other photos (whether printed or displayed on a smarphone or
+   laptop), photos of masks and sculptures, and so on.
+
+   Getting ~fake_detected: true~ from Sunflower means that there's something
+   suspicious in the given photo, and that it shouldn't be used to verify the
+   user's identity. Getting ~false~ means that most likely it's a photo of a
+   real person, and that it can be used for comparison with other photos to
+   verify or find out the user's identity.
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-sunflower_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Sunflower",
+        "media_url": string,          // url of a selfie image
+        =<common-req-fields>=
+      }
+    #+END_SRC
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-sunflower_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": {
+          "fake_detected": boolean
+        }
+      }
+    #+END_SRC
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-sunflower_service-error_codes
+    :END:
+
+    - *406 NOT ACCEPTABLE* - we were not able to detect a face in the picture
+** Rye service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-rye_service
+   :END:
+
+
+   Rye is a service which implements Proof of Liveness check. It differs from
+   Sunflower in that it works on videos and not photos; the video should be
+   about 3 seconds long and depict a user turning their head left and then
+   right.
+
+   As with sunflower, ~fake_detected: true~ means that the face on the video is
+   likely recaptured from a flat display (ie. printed or shown on a smartphone
+   screen). ~fake_detected: false~ means that the video most likely depicts a
+   real person.
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-rye_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Rye",
+        "media_url": string,          // url of a selfie image
+        =<common-req-fields>=
+      }
+    #+END_SRC
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-rye_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": {
+          "fake_detected": boolean
+        }
+      }
+    #+END_SRC
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-rye_service-error_codes
+    :END:
+
+    - *406 NOT ACCEPTABLE* - we were not able to detect a face in the picture
+** Wheat service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-wheat_service
+   :END:
+
+   *Wheat* is a service which primary function is to scan and extract personal
+   identification data from photos of documents (mainly Driver's Licenses, but
+   also passports and others). If successful, it returns a JSON object with
+   fields it managed to read.
+
+   Wheat has a secondary function, which is to compare the face visible in the
+   Driver's License with the one sent to Sunflower earlier. The result of the
+   comparison is returned as a ~face_match~ field in the response.
+
+   Wheat returns a ~twosided~ attribute along with whatever it managed to read
+   from the document. If its value is true, it means that the document is a
+   Driver's License, and it's possible to run Poppy on the back side of it. If
+   it's ~false~, it means that the document is not a DL, and it cannot be used
+   with Poppy.
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-wheat_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Wheat",
+        "media_url": string,              // url of a Driver's License front
+        "country_code": string,           // eg. "US", "GB", "EU"
+        "state_code": string,             // eg. "TN", "GA", "NL"
+        =<common-req-fields>=
+      }
+    #+END_SRC
+
+    The ~country_code~ and ~state_code~ are both optional, but (if correct) they
+    speed up the processing time greatly.
+
+    ~country_code~ is a 2 letter code, for example: ~"US"~, ~"GB"~. If not
+    provided, Wheat assumes ~"US"~.
+
+    ~state_code~ is a 2 letter code, for example: ~"GA"~, ~"TN"~. If not
+    provided, Wheat tries to match all the kinds of Driver's Licenses it knows
+    about until it finds a match. This makes the processing time much longer
+    than it would be with the correct code provided.
+
+    {{{note(European Union countries)}}}
+    EU countries are a special case: you need to pass ~"EU"~ as the
+    ~country_code~ and a specific country code (eg. ~"DE"~, ~"NL"~, ~"FR"~) in
+    the ~state_code~.
+    {{{note_end}}}
+
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-wheat_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": {
+          "address": string,          // eg. "50 EXAMPLE RD"
+          "apartment_nr": string,     // eg. "13"
+          "city": string,             // eg. "Some City"
+          "dob": string,              // eg. "1990-03-02"
+          "exp": string,              // eg. "2019-03-02"
+          "first_name": string,       // eg. "JANE"
+          "iss": string,              // eg. "1999-04-02"
+          "last_name": string,        // eg. "SMITH"
+          "middle_initial": string,   // eg. "J"
+          "state": string,            // eg. "TN"
+          "zip_code": string          // eg. "30016-5217"
+          "twosided": boolean         // see description above
+        },
+        "face_match": boolean
+      }
+    #+END_SRC
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-wheat_service-error_codes
+    :END:
+
+    - *406 NOT ACCEPTABLE* - none of the Driver's Licenses templates matched
+    - *422 UNPROCESSABLE ENTITY* - no face found in the image
+
+** ID Display Attack service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-id_display_attack_service
+   :END:
+
+   ID Display Attack is a service checking whether input image is not a photo of
+   a display (f.ex. laptop screen, mobile) containing a photo of an ID. Given a
+   photo of a document it checks if it depicts a real ID photo, it rejects
+   photos of pictured displayed on screens.
+
+   Getting ~fake_detected: true~ means that there's something
+   suspicious in the given ID photo, and that it shouldn't be used to verify the
+   user's identity. Getting ~false~ means that most likely it's a photo of a
+   real ID, and that it can be used for comparison with other photos to
+   verify or find out the user's identity.
+
+*** Request
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-id_display_attack_service-request
+   :END:
+   #+BEGIN_SRC json
+     {
+       "service": "ID_display_attack",
+       "media_url": string,          // url of a selfie image
+       "country_code": string,           // eg. "US", "GB", "EU"
+       "state_code": string,             // eg. "TN", "GA", "NL"
+       =<common-req-fields>=
+     }
+   #+END_SRC
+*** Result
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-id_display_attack_service-result
+   :END:
+   #+BEGIN_SRC json
+     {
+       =<common-resp-fields>=
+       "data": {
+         "fake_detected": boolean
+       }
+     }
+   #+END_SRC
+*** Error Codes
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-id_display_attack-error_codes
+   :END:
+
+   - *406 NOT ACCEPTABLE* - we were not able to detect a face in the picture
+
+** Poppy service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-poppy_service
+   :END:
+
+   Poppy is a service for reading the barcodes[fn:3] found on the back sides of
+   USA Driver's Licenses. In many jurisdictions, the barcode encodes personal
+   identification information of a DL holder. Poppy reads such barcodes and
+   returns the results in a format similar to [[Wheat service]].
+
+   Poppy has a secondary function, which is to compare the data it read with the
+   data OCRed in previous call. The result of the comparison, which is an int
+   indicating how many fields are different, is returned in the
+   ~side_comparison~ field in the response. The value of ~0~ means that there is
+   a perfect match between data extracted from the front and read from the back
+   of a Driver's License.
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-poppy_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Poppy",
+        "media_url": string,          // url of an image of Driver's License back
+        =<common-req-fields>=
+      }
+    #+END_SRC
+
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-poppy_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": {                     // eg. "710 EXAMPLE WIND CT"
+          "address": string,          // eg. "WOODSTOCK"
+          "city": string,             // eg. "2022-09-03"
+          "date_exp": string,         // eg. "1960-09-03"
+          "dob": string,              // eg. "JOHN"
+          "last_name": string,        // eg. "SMITH"
+          "middle_initial": string,   // eg. "P"
+          "state": string,            // eg. "GA"
+          "zip_code": string          // eg. "401698757"
+        },
+        "side_comparison": int
+      }
+    #+END_SRC
+
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-poppy_service-error_codes
+    :END:
+
+    - *400 BAD REQUEST* - barcode not found in the image
+
+** Graylist service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-graylist_service
+   :END:
+
+   Graylist is a biometric hash (compact representation of face features)
+   storage and search service. It accepts a photo of a face and answers the
+   question if it's the first time the system seen this face or not. It
+   automatically saves every encountered biometric hash into internal database.
+
+   The results are returned as a list of biohash identifiers along with the
+   ~distance~ (how different is one biohash from another). An empty list means
+   that there was no match and the given person is encountered for the first
+   time.
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-graylist_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Graylist",
+        "media_url": string,      // url of a selfie image
+        "k": int,                 // (not required) how many results to fetch
+        "custom_params": string   // (not required) json with additional data to store, f.ex.'{"a":1, "b":2}'
+        =<common-req-fields>=
+      }
+    #+END_SRC
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-graylist_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": [
+          {"person_number": int },
+          {"person_number": int, "custom_field_1": "stored data", "custom_field_1": "stored data"},
+          ...
+        ]
+      }
+    #+END_SRC
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-graylist_service-error_codes
+    :END:
+
+    - *400 BAD REQUEST* - validation error, or unique constraint when trying to add the same hash to a consumer for the second time
+    - *406 NOT ACCEPTABLE* - we were not able to detect a face in the picture
+
+** Farro service
+   :PROPERTIES:
+   :CUSTOM_ID: services_reference-farro_service
+   :END:
+
+   Farro is a service for extracting address information from various documents,
+   mainly utility bills. It returns its results in a different format than Wheat
+   and Poppy, because it uses completely different technology under the hood.
+   This means that the results are not directly comparable with the data
+   returned from other endpoints, except in the most general fields, like
+   ~country~, ~state~ or ~city~.
+
+
+   {{{note(Note)}}}
+   The input image needs to be cropped so that only the address is visible in
+   it.
+   {{{note_end}}}
+
+*** Request
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-farro_service-request
+    :END:
+    #+BEGIN_SRC json
+      {
+        "service": "Farro",
+        "media_url": string,          // url of an image of a utility bill
+        =<common-req-fields>=
+      }
+    #+END_SRC
+
+*** Result
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-farro_service-result
+    :END:
+    #+BEGIN_SRC json
+      {
+        =<common-resp-fields>=
+        "data": {
+          "house_number": string,     // eg. "39"
+          "road": string,             // eg. "Example Strasse"
+          "postcode": string,         // eg. "30016-5217"
+          "city": string,             // eg. "Berlin"
+          "state": string,            // eg. "Berlin"
+          "country": string,          // eg. "Germany"
+        }
+      }
+    #+END_SRC
+
+*** Error Codes
+    :PROPERTIES:
+    :CUSTOM_ID: services_reference-farro_service-error_codes
+    :END:
+
+    - *406 NOT ACCEPTABLE* - no adress data found in the image
+
+
+* Footnotes
+  :PROPERTIES:
+  :CUSTOM_ID: footnotes
+  :END:
+
+[fn:1] https://curl.haxx.se/
+
+[fn:2] https://stedolan.github.io/jq/
+
+[fn:3] [[https://www.aamva.org/uploadedFiles/MainSite/Content/SolutionsBestPractices/BestPracticesModelLegislation(1)/BarCodeDataEncodingReqmtsBestPractice.pdf]]
+
+[fn:4] [[https://jwt.io/]]
+
+[fn:5] https://www.lastpass.com/
+
+
+
+
+* COMMENT Settings as file-local variables
+  :PROPERTIES:
+  :CUSTOM_ID: settings_as_file-local_variables
+  :END:
+
+  #+begin_src elisp
+    (setq-default be-secrets-file-name "creds.el")
+    (add-to-list 'load-path (expand-file-name "lisp/"))
+    (require 'be-config)
+    (append-creds-to-macro-templates)
+  #+end_src
+
+
+# Local Variables:                                          #
+# be-secrets-file-name: "creds.el"                          #
+# eval: (add-to-list 'load-path (expand-file-name "lisp/")) #
+# eval: (require 'batch-export)                             #
+# eval: (append-creds-to-macro-templates)                   #
+# End:                                                      #
