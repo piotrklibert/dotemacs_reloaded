@@ -21,6 +21,7 @@
 
 (require 'flymake)
 
+;; ## TODO: find all `stubs' subdirs and add them to MYPYPATH!!!
 
 (defun flymake-mypy-init ()
   "Init mypy."

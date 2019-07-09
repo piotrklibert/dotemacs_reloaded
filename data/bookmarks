@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("* Org Table cheatsheet"
+(("`(if (memq major-mode '(python-mode nim-mode livescript-mode)) comment-start (concat comment-start comment-start))` NOTE`(my-get-today)`(pk):"
+ (filename . "~/.emacs.d/snippets/prog-mode/NOTE")
+ (front-context-string . "`(if (memq major")
+ (rear-context-string . "TE comment\n# --\n")
+ (position . 95))
+("(provide 'flymake-mypy)"
+ (filename . "~/.emacs.d/plugins2/flymake-mypy.el")
+ (front-context-string . "(provide 'flymak")
+ (rear-context-string . "mypy-init))\n  )\n")
+ (position . 1046))
+("* Org Table cheatsheet"
  (filename . "~/poligon/modts/python_contracts.org")
  (front-context-string . "et\n\n| C-c TAB   ")
  (rear-context-string . "g Table cheatshe")
@@ -136,9 +146,9 @@
  (position . 9))
 ("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO Githubow")
- (rear-context-string . "0the%20compiler\n")
- (position . 14510))
+ (front-context-string . "** TODO peanut_s")
+ (rear-context-string . "- of deployment\n")
+ (position . 5264))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")

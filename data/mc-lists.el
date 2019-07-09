@@ -46,6 +46,7 @@
         goto-line
         helm-M-x
         indent-for-tab-command
+        insert-register
         iy-go-to-char--command
         iy-go-to-char-quit
         jedi:dot-complete

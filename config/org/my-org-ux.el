@@ -94,14 +94,23 @@ locale is set."
   (let ((system-time-locale "en_GB.utf8"))
     (insert (format-time-string "<%Y-%m-%d %a %H:%M>"))))
 
+
+(defvar my-dt-delims '("<" . ">")
+  "Date or datetime will be wrapped in these when inserted")
+
+(defun my-get-today ()
+  (let ((date (format-time-string "%Y-%m-%d") )
+        (my-dt-delims '("[" . "]")))
+    (concat (car my-dt-delims) date (cdr my-dt-delims))))
+
 (defun my-insert-today ()
   (interactive)
-  (let ((date (format-time-string "%Y-%m-%d") ))
-    (insert (concat "[" date "]"))))
+  (insert (my-get-today)))
 
 
 (defvar my-toggle-keys)
 (define-key my-toggle-keys (kbd "C-t") 'my-insert-datetime)
+(define-key my-toggle-keys (kbd "M-t") 'my-insert-today)
 (define-key my-toggle-keys (kbd "t") 'my-insert-now)
 
 (declare-function my-split-window-below "my-windows-config")
@@ -191,7 +200,10 @@ locale is set."
 ;;                "* NEXT %?\\n%U\\n%a\\nSCHEDULED: %(format-time-string \\"<%Y-%m-%d %a .+1d/3d>\\")\\n:PROPERTIES:\\n:STYLE: habit\\n:REPEAT_TO_STATE: NEXT\\n:END:\\n"))))
 
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
-;; (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
+(defvar alchemist-mode-map)
+(eval-after-load "alchemist"
+  '(define-key alchemist-mode-map (kbd "C-c c") 'org-capture))
 ;; (require 'remember)
 ;; org-goto-interface
 ;; org-goto-auto-isearch
