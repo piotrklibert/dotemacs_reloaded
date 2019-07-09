@@ -85,3 +85,6 @@ snippets
 .mypy_cache
 /forked-plugins
 creds.el
+var
+.cask
+/network-security.data
