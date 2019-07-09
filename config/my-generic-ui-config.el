@@ -59,6 +59,7 @@
 (eval-after-load 'helm
   '(progn
      (require 'helm-config)
+     (require 'helm-command)
      (setq helm-M-x-fuzzy-match t)
      (define-key helm-map (kbd "DEL") 'helm-backspace)))
 
@@ -201,7 +202,7 @@ Otherwise, get the symbol at point.")
  ido-use-virtual-buffers                 t
  ido-enable-flex-matching                t
  ido-use-filename-at-point               'guess
- ido-handle-duplicate-virtual-buffers    2
+ ;; ido-handle-duplicate-virtual-buffers    2
  ido-auto-merge-work-directories-length  nil
  ido-vertical-define-keys                'C-n-C-p-up-down-left-right)
 
@@ -238,7 +239,7 @@ Otherwise, get the symbol at point.")
 (defun my-ibuffer-mode-hook ()
   "Customized/added in ibuffer-mode-hook custom option."
   ;; see also ibuffer-formats for columns config
-  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer)
+  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer) ; TODO: use HELM here!!
   (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
 
@@ -246,10 +247,10 @@ Otherwise, get the symbol at point.")
   (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
 
   (wrap-region-mode 0)                 ; made ibuffer filtering keys unavailable
-  (hl-line-mode)                       ; TODO: change to more contract color
+  (hl-line-mode)                       ; TODO: change to more contrasting color
   )
 
-;; TODO: HYYYYDRAAAA!!!!
+;; TODO: HYYYYDRAAAA!!!! (for filtering, marking and searching)
 
 
 ;;

@@ -23,8 +23,7 @@
         (setf idx (1+ idx)))
       (my-join-path p))))
 
-;; (my-shorten-path/shorten-segments
-;;  "Users/piotrklibert/projects/bunsen/api/resources/blog/migrations/20160414113000-file-object.up.sql" 35)
+;; (my-shorten-path/shorten-segments "Users/piotrklibert/projects/bunsen/api/resources/blog/migrations/20160414113000-file-object.up.sql" 35)
 ;; => "Users/pi..rt/pr..ts/bunsen/api/re..es/blog/mi..ns/20..ql"
 
 
@@ -38,8 +37,7 @@
         (setf p (cdr p)))
       (my-join-path p))))
 
-;; (my-shorten-path/drop-segments
-;;  "Users/piotrklibert/projects/bunsen/api/resources/blog/migrations/20160414113000-file-object.up.sql" 35)
+;; (my-shorten-path/drop-segments "Users/piotrklibert/projects/bunsen/api/resources/blog/migrations/20160414113000-file-object.up.sql" 35)
 ;; => "migrations/20160414113000-file-object.up.sql"
 
 
