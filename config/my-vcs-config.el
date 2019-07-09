@@ -1,4 +1,15 @@
+(require 's)
 (require 'magit-autoloads)
+
+
+(use-package git-gutter-fringe+
+  :if window-system
+  :ensure t
+  :config
+  (global-git-gutter+-mode t))
+
+(use-package gitignore-mode
+  :ensure t)
 
 (use-package git-commit
   :commands git-commit-setup

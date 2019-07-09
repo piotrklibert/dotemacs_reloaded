@@ -6,6 +6,7 @@
   (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
   (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
   (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
+  (define-key neotree-mode-map (kbd "C-o")       'neotree-hidden-file-toggle)
   (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node))
 
 (eval-after-load "neotree"
@@ -120,7 +121,7 @@
 
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-;; (global-set-key (kbd "C-c C-=")     'mc/mark-all-like-this)
+(global-set-key (kbd "C-z")         'mc/mark-all-like-this) ; TODO: needs better bindings
 ;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
 (global-set-key (kbd "C-x C-d")    'dired-at-point)

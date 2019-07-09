@@ -9,23 +9,26 @@
 (require 'hydra)
 (require 'linum)
 
-(defhydra hydra-zoom (global-map "C-c =")
+(defun text-scale-zero ()
+  (interactive)
+  (text-scale-set 0)
+  (when linum-mode
+    (linum-mode -1)
+    (linum-mode t)))
+
+(defhydra hydra-zoom ()
   "zoom"
+  ("q" nil) ("<esc>" nil)               ; quit/cancel
   ("+" text-scale-increase "in")
   ("=" text-scale-increase "in")
   ("-" text-scale-decrease "out")
   ("_" text-scale-decrease "out")
-  ("0"
-   (lambda ()
-     (interactive)
-     (text-scale-set 0)
-     (when linum-mode
-       (linum-mode -1)
-       (linum-mode t)))
-   "zero"))
+  ("0" text-scale-zero "zero"))
 
 (define-key mode-specific-map (kbd "+") 'hydra-zoom/text-scale-increase)
 (define-key mode-specific-map (kbd "-") 'hydra-zoom/text-scale-decrease)
+(define-key mode-specific-map (kbd "=") 'hydra-zoom/body) ; display menu but
+                                                          ; don't do anything
 
 ;; shell mode has its own ideas about `mode-specific-map', apparently, so we
 ;; need to bind the keys explicitly in its map, the `sh-mode-map'
@@ -91,14 +94,18 @@ without selecting."
 (require 'my-powerline-config)
 
 
+;; TODO: port to new advices
 (defadvice pop-to-mark-command (after recenter-after-pop activate)
-  (recenter))
+  (recenter)
+  (progn (blink-cursor-mode 1)
+         (blink-cursor-mode 0))
+  )
 
 
 
 ;; Frame TITLE (displayed on StumpWM mode-line (or on the title bar))
 (setf frame-title-format
-      '("Emacs - "
+      '(;"Emacs -"
         (:eval (condition-case nil
                    (car (reverse (s-split "/" buffer-file-name)))
                  (error (buffer-name))))
@@ -214,6 +221,7 @@ Otherwise, get the symbol at point.")
 ;;                      |___|_.__/ \__,_|_| |_|  \___|_|
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'ibuffer)
 
 (defun ibuffer-end ()
   (interactive)
@@ -226,6 +234,7 @@ Otherwise, get the symbol at point.")
   (goto-char (point-min))
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
 
+
 (defun my-ibuffer-mode-hook ()
   "Customized/added in ibuffer-mode-hook custom option."
   ;; see also ibuffer-formats for columns config
@@ -235,7 +244,33 @@ Otherwise, get the symbol at point.")
 
   (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
   (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
-  (hl-line-mode))
+
+  (wrap-region-mode 0)                 ; made ibuffer filtering keys unavailable
+  (hl-line-mode)                       ; TODO: change to more contract color
+  )
+
+;; TODO: HYYYYDRAAAA!!!!
+
+
+;;
+;; (defvar my-last-buffer-list nil)
+
+;; (defun my-buffer-list-update-hook ()
+;;   (condition-case e
+;;       (if-let ((ibuffer-buf (get-buffer "*Ibuffer*"))
+;;                ((not (eq ibuffer-buf (current-buffer))))
+;;                (buffers (buffer-list))
+;;                ((not (eq (length my-last-buffer-list) (length buffers)))))
+;;           (with-current-buffer ibuffer-buf
+;;             (ibuffer-update nil t)
+;;             (setq my-last-buffer-list buffers)))
+;;     (error (message "error! %s" e))))
+
+;; (defun my-buffer-list-update-hook ())
+;; (add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
+
+
+
 
 
 
@@ -351,6 +386,7 @@ Otherwise, get the symbol at point.")
   (local-set-key (kbd "C-c M-s") 'shell)
   (local-set-key (kbd "C-c M-c") 'comint-kill-subjob)
   (local-set-key (kbd "C-u") 'kill-whole-line)
+
   ;; (local-set-key (kbd "C-a") ')
   (local-set-key (kbd "<up>") 'comint-previous-input)
   (local-set-key (kbd "<down>") 'comint-next-input)

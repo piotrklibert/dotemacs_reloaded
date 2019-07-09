@@ -11,6 +11,7 @@
 (require 'eshell)
 (require 'paredit)
 
+
 (indent/tag-for-modes
     '(lisp-indent-function)
   '((font-lock-add-keywords . 1)
@@ -23,11 +24,16 @@
 
 
 (font-lock-add-keywords 'emacs-lisp-mode
-  '(("eval-after-load" . font-lock-keyword-face)
-    ("defstruct"       . font-lock-keyword-face)
-    ("\bfunctionp?"    . font-lock-keyword-face)
-    ("\bit\b"          . font-lock-keyword-face)))
+  `(("eval-after-load"           . font-lock-keyword-face)
+    ("defstruct"                 . font-lock-keyword-face)
+    ("\bfunctionp?"              . font-lock-keyword-face)
+    ;(,(rx (or " ") "it" (or eow ")"))          . font-lock-builtin-face)
+    ))
 
+;; (font-lock-remove-keywords
+;;  'emacs-lisp-mode
+;;  '(("it" . font-lock-builtin-face)
+;;    ("\bit[\b)]"          . font-lock-keyword-face)))
 
 (define-key emacs-lisp-mode-map (kbd "C-c <left>") 'hs-toggle-hiding)
 
