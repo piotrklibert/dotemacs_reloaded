@@ -2,7 +2,42 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("`(if (memq major-mode '(python-mode nim-mode livescript-mode)) comment-start (concat comment-start comment-start))` NOTE`(my-get-today)`(pk):"
+(("(defun my-ibuffer-mode-hook ()"
+ (filename . "~/.emacs.d/config/my-generic-ui-config.el")
+ (front-context-string . "defun my-ibuffer")
+ (rear-context-string . "up-name) 1))\n\n\n(")
+ (position . 7209))
+("(defvar neotree-mode-map"
+ (filename . "~/.emacs.d/forked-plugins/emacs-neotree/neotree.el")
+ (front-context-string . "\n  (let ((map (m")
+ (rear-context-string . "neotree-mode-map")
+ (position . 16854))
+("def write_chunks(self, response, f):"
+ (filename . "~/projects/truststamp/peanuts/imagetoolbox/peanut_imagetoolbox/file.py")
+ (front-context-string . "    def write_ch")
+ (rear-context-string . "mat(extension)\n\n")
+ (position . 2352))
+("org-capture-last-stored-marker"
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** TODO make a f")
+ (rear-context-string . "2019-07-10 śro]\n")
+ (position . 12031))
+("(global-set-key (kbd \"C-z\")         'mc/mark-all-like-this) ; TODO: needs better bindings"
+ (filename . "~/.emacs.d/config/my-generic-editing-config.el")
+ (front-context-string . "(global-set-key ")
+ (rear-context-string . "ious-like-this)\n")
+ (position . 4570))
+("(read-event))))"
+ (filename . "~/.emacs.d/plugins2/help+.el")
+ (front-context-string . "vent))))\n       ")
+ (rear-context-string . "         (read-e")
+ (position . 8140))
+("(defn       (key-binding key t))"
+ (filename . "~/.emacs.d/plugins2/help+.el")
+ (front-context-string . "ing key t))\n    ")
+ (rear-context-string . "       (key-bind")
+ (position . 8924))
+("`(if (memq major-mode '(python-mode nim-mode livescript-mode)) comment-start (concat comment-start comment-start))` NOTE`(my-get-today)`(pk):"
  (filename . "~/.emacs.d/snippets/prog-mode/NOTE")
  (front-context-string . "`(if (memq major")
  (rear-context-string . "TE comment\n# --\n")
@@ -141,14 +176,14 @@
  (position . 3106))
 ("org-capture-last-stored"
  (filename . "~/todo/notes")
- (front-context-string . "** TODO 3\n   [20")
+ (front-context-string . "** TODO make a f")
  (rear-context-string)
  (position . 9))
 ("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO peanut_s")
- (rear-context-string . "- of deployment\n")
- (position . 5264))
+ (front-context-string . "** TODO make a f")
+ (rear-context-string . "po ~z~ w shellu\n")
+ (position . 16523))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")

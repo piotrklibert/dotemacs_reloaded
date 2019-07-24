@@ -2,6 +2,10 @@
 (require 'ox-html)
 (require 'ob-tangle)
 
+;; (setq org-html-htmlize-output-type 'inline-css)
+;; (setq org-html-htmlize-font-prefix "")
+
+
 
 (setq org-babel-load-languages
       (cl-loop for lang in '(emacs-lisp python js shell scheme io)
@@ -40,31 +44,25 @@
 
 (require 'org)
 
-(setf org-link-parameters (assq-delete-all "elisp-symbol" org-link-parameters))
-
+;; TODO: naprawic to, zeby dzialalo i nie pytalo za kazdym razem
+;; (setf org-link-parameters (assoc-delete-all "elisp-symbol" org-link-parameters))
 ;; (pp org-link-parameters)
-(org-link-set-parameters "defun"
- :store 'org-defun-store-link
- :follow 'org-defun-open)
+;; (org-link-set-parameters "defun"
+;;  :store 'org-defun-store-link
+;;  :follow 'org-defun-open)
+;; (defun org-defun-open (link)
+;;   (find-function-other-window  (intern link)))
+;; (defun org-defun-store-link ()
+;;   (when (eq major-mode 'emacs-lisp-mode)
+;;     (let ((fname (save-excursion
+;;                    (forward-line 1)
+;;                    (re-search-backward "^ *\(defun +\\\(.*?\\\) ")
+;;                    (match-string-no-properties 1))))
+;;       (org-store-link-props
+;;        :type "defun"
+;;        :link (concat "defun:" fname)
+;;        :description fname)))
+;; )
 
-(defun org-defun-open (link)
-  (find-function-other-window  (intern link)))
-
-(defun org-defun-store-link ()
-  (when (eq major-mode 'emacs-lisp-mode)
-    (let ((fname (save-excursion
-                   (forward-line 1)
-                   (re-search-backward "^ *\(defun +\\\(.*?\\\) ")
-                   (match-string-no-properties 1))))
-
-      (org-store-link-props
-       :type "defun"
-       :link (concat "defun:" fname)
-       :description fname)))
-)
-
-
-;; (setq org-html-htmlize-output-type 'inline-css)
-;; (setq org-html-htmlize-font-prefix "")
 
 (provide 'my-org-babel)

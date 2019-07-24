@@ -170,34 +170,62 @@ locale is set."
 ;; Compact the block agenda view
 (setq org-agenda-compact-blocks t)
 
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "google-chrome")
-(setq org-treat-S-cursor-todo-selection-as-state-change nil)
-(setq org-directory "~/todo/")
-(setq org-agenda-files (list "~/todo/"))
-(setq org-default-notes-file "~/todo/notes")
-;; (org-clock-persistence-insinuate)
 
-;; TODO: the format of quick templates changed in recent Org versions
-;; (setq org-capture-templates
-;;       (quote (("t" "todo" entry (file+headline "~/todo/work.org" "TASKS")
-;;                "* TODO %?\\n  Added: %U\\n  Origin: %a\\n")
-;;               ("T" "todo" entry (file+headline "~/todo/todo.org" "TASKS")
-;;                "* TODO %?\\n  Added: %U\\n  Origin: %a\\n")
-;;               ("n" "note" entry (file "~/todo/notes.org")
-;;                "* %? :NOTE:\\n  Added: %U\\n  Origin: %a\\n  %i")
-;;               ("r" "respond" entry (file "~/todo/refile.org")
-;;                "* NEXT Respond to %:from on %:subject\\nSCHEDULED: %t\\n%U\\n%a\\n" :clock-in t :clock-resume t :immediate-finish t)
-;;               ("j" "Journal" entry (file+datetree "~/todo/notes.org")
-;;                "* %?\\n%U\\n" :clock-in t :clock-resume t)
-;;               ("w" "org-protocol" entry (file "~/todo/refile.org")
-;;                "* TODO Review %c\\n%U\\n" :immediate-finish t)
-;;               ("m" "Meeting" entry (file "~/todo/refile.org")
-;;                "* MEETING with %? :MEETING:\\n%U" :clock-in t :clock-resume t)
-;;               ("p" "Phone call" entry (file "~/todo/refile.org")
-;;                "* PHONE %? :PHONE:\\n%U" :clock-in t :clock-resume t)
-;;               ("h" "Habit" entry (file "~/todo/refile.org")
-;;                "* NEXT %?\\n%U\\n%a\\nSCHEDULED: %(format-time-string \\"<%Y-%m-%d %a .+1d/3d>\\")\\n:PROPERTIES:\\n:STYLE: habit\\n:REPEAT_TO_STATE: NEXT\\n:END:\\n"))))
+;; (org-clock-persistence-insinuate)
+;; (require 'ol-elisp-symbol)
+;; (ol-elisp-symbol)
+
+;; (setq org-capture-templates nil)
+
+(when nil
+  (cl-flet
+      ((jl (&rest args) (s-join "\n" args))
+       (tmpl (key desc dest tmpl &rest plist)
+             (let ((dest (cons 'file+headline (s-split "::" dest))))
+               `(,key ,desc entry ,dest ,tmpl :empty-lines 1 ,@plist))))
+    (let ((todo-tmpl (jl "* TODO %?"
+                         "  Added: %U"
+                         "  Origin: %a"
+                         ""
+                         "  %i"))
+          (event-tmpl (jl "* TODO %? :EVENT:"
+                          "  Added: %U"
+                          "  SCHEDULED: %^T"
+                          "  Origin: %a"))
+          (note-tmpl (jl "* %? :NOTE:"
+                         "  Added: %U"
+                         "  Origin: %a"
+                         ""
+                         "  %i")))
+      (customize-save-variable
+       'org-capture-templates
+       (list (tmpl "c" "task" "::INCOMING" todo-tmpl)
+             (tmpl "C" "work task" "praca.org::CURRENT" todo-tmpl :prepend t)
+             (tmpl "s" "scheduled event" "::EVENTS" event-tmpl)
+             (tmpl "S" "scheduled work event" "praca.org::EVENTS" event-tmpl)
+             (tmpl "n" "note" "::Notes" note-tmpl :prepend t)))    )))
+
+
+
+;; More example capture templates:
+;; ("r" "respond" entry (file "~/todo/refile.org")
+;;  "* NEXT Respond to %:from on %:subject SCHEDULED: %t %U %a "
+;;  :clock-in t :clock-resume t :immediate-finish t)
+;; ("j" "Journal" entry (file+datetree "~/todo/notes.org")
+;;  (jl "* %?" "  %U" "") :clock-in t :clock-resume t)
+;; ("m" "Meeting" entry (file "~/todo/refile.org")
+;;  "* MEETING with %? :MEETING: %U" :clock-in t :clock-resume t)
+;; ("p" "Phone call" entry (file "~/todo/refile.org")
+;;  "* PHONE %? :PHONE: %U" :clock-in t :clock-resume t)
+;; ("h" "habit" entry (file "~/todo/refile.org")
+;;  (jl "* NEXT %?"
+;;      "  :PROPERTIES:"
+;;      "  :STYLE: habit"
+;;      "  :REPEAT_TO_STATE: NEXT"
+;;      "  :END:"
+;;      "  SCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")"
+;;      "  %U"
+;;      "  %a"))
 
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)

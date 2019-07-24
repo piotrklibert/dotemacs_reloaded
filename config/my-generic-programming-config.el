@@ -143,6 +143,7 @@
 ;; (global-set-key (kbd "C-c C-l") 'pygmentize)
 (global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
+(global-set-key (kbd "C-M-.")   'xref-find-definitions-other-window)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<f9>")    'my-make)
@@ -173,6 +174,10 @@
 (define-key my-find-keys (kbd "C-i")      'helm-imenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
+
+(define-key my-find-keys (kbd "c") 'iy-go-to-char)
+(define-key my-find-keys (kbd "<space>") 'iy-go-to-char)
+(define-key my-find-keys (kbd "C-<space>") 'iy-go-to-char)
 
 (autoload 'helm-do-ag-project-root "helm-ag" "" t)
 (define-key my-find-keys (kbd "C-a")      'my-helm-do-ag-current-dir)

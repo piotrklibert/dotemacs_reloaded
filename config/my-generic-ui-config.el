@@ -1,34 +1,12 @@
 (require 'generic-x)
 (require 'avy-autoloads)
 (require 'helm-autoloads)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Text scaling using Hydra; activated by C-c =
-;;
-(require 'hydra)
 (require 'linum)
 
-(defun text-scale-zero ()
-  (interactive)
-  (text-scale-set 0)
-  (when linum-mode
-    (linum-mode -1)
-    (linum-mode t)))
 
-(defhydra hydra-zoom ()
-  "zoom"
-  ("q" nil) ("<esc>" nil)               ; quit/cancel
-  ("+" text-scale-increase "in")
-  ("=" text-scale-increase "in")
-  ("-" text-scale-decrease "out")
-  ("_" text-scale-decrease "out")
-  ("0" text-scale-zero "zero"))
+(require 'my-powerline-config)
 
-(define-key mode-specific-map (kbd "+") 'hydra-zoom/text-scale-increase)
-(define-key mode-specific-map (kbd "-") 'hydra-zoom/text-scale-decrease)
-(define-key mode-specific-map (kbd "=") 'hydra-zoom/body) ; display menu but
-                                                          ; don't do anything
+
 
 ;; shell mode has its own ideas about `mode-specific-map', apparently, so we
 ;; need to bind the keys explicitly in its map, the `sh-mode-map'
@@ -92,15 +70,20 @@ without selecting."
 
 
 
-(require 'my-powerline-config)
 
-
+(defvar my-blinking-p nil)
 ;; TODO: port to new advices
 (defadvice pop-to-mark-command (after recenter-after-pop activate)
   (recenter)
-  (progn (blink-cursor-mode 1)
-         (blink-cursor-mode 0))
-  )
+  (unless my-blinking-p
+    (blink-cursor-mode 1)
+    (set-cursor-color "red")
+    (setf my-blinking-p t)
+    (run-at-time 2.2 nil
+      (lambda ()
+        (setf my-blinking-p nil)
+        (set-cursor-color "white")
+        (blink-cursor-mode 0)))))
 
 
 
@@ -236,6 +219,8 @@ Otherwise, get the symbol at point.")
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
 
 
+
+
 (defun my-ibuffer-mode-hook ()
   "Customized/added in ibuffer-mode-hook custom option."
   ;; see also ibuffer-formats for columns config
@@ -243,35 +228,20 @@ Otherwise, get the symbol at point.")
   (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
 
+  ;; (define-key ibuffer-mode-map (kbd "C-/")    nil)
+  (define-key ibuffer-mode-map (kbd "/")      'hydra-ibuffer-filters/body)
+  (define-key ibuffer-mode-map (kbd "m")      'hydra-ibuffer-marking/ibuffer-mark-forward)
+  (define-key ibuffer-mode-map (kbd ".")      'hydra-ibuffer-marking/body)
+  (define-key ibuffer-mode-map (kbd "*")      'hydra-ibuffer-marking/body)
+
+  (define-key ibuffer-mode-map (kbd "<insert>") 'ibuffer-mark-forward)
+
   (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
   (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
 
   (wrap-region-mode 0)                 ; made ibuffer filtering keys unavailable
   (hl-line-mode)                       ; TODO: change to more contrasting color
   )
-
-;; TODO: HYYYYDRAAAA!!!! (for filtering, marking and searching)
-
-
-;;
-;; (defvar my-last-buffer-list nil)
-
-;; (defun my-buffer-list-update-hook ()
-;;   (condition-case e
-;;       (if-let ((ibuffer-buf (get-buffer "*Ibuffer*"))
-;;                ((not (eq ibuffer-buf (current-buffer))))
-;;                (buffers (buffer-list))
-;;                ((not (eq (length my-last-buffer-list) (length buffers)))))
-;;           (with-current-buffer ibuffer-buf
-;;             (ibuffer-update nil t)
-;;             (setq my-last-buffer-list buffers)))
-;;     (error (message "error! %s" e))))
-
-;; (defun my-buffer-list-update-hook ())
-;; (add-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)
-
-
-
 
 
 
@@ -317,7 +287,8 @@ Otherwise, get the symbol at point.")
   (elscreen-create)
   (call-interactively 'helm-find-files))
 
-(define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
+;; (define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
+(define-key ctl-x-map (kbd "C-M-b")   'ibuffer-other-window)
 
 ;; (define-key ctl-x-map (kbd "C-M-f")   'my-find-file-other-elscreen)
 (define-key ctl-x-map (kbd "C-M-f")   'ido-find-file-other-window)
@@ -389,10 +360,10 @@ Otherwise, get the symbol at point.")
   (local-set-key (kbd "C-u") 'kill-whole-line)
 
   ;; (local-set-key (kbd "C-a") ')
-  (local-set-key (kbd "<up>") 'comint-previous-input)
-  (local-set-key (kbd "<down>") 'comint-next-input)
-  (local-set-key (kbd "C-<up>") 'previous-line)
-  (local-set-key (kbd "C-<down>") 'next-line)
+  (local-set-key (kbd "<up>") 'previous-line)
+  (local-set-key (kbd "<down>") 'next-line)
+  (local-set-key (kbd "C-<up>") 'comint-previous-input)
+  (local-set-key (kbd "C-<down>") 'comint-next-input)
 
   (local-set-key (kbd "C-c C-l") 'comint-clear-buffer)
   (local-set-key (kbd "C-l") 'comint-clear-buffer)
@@ -411,6 +382,15 @@ Otherwise, get the symbol at point.")
 (add-hook 'term-mode-hook 'my-term-mode-hook)
 (add-hook 'term-exec-hook 'my-term-mode-hook)
 
+(require 'calc-mode)
+
+(defun my-calc-hook ()
+  (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys))
+
+(eval-after-load 'calc
+  '(progn
+     (add-hook 'calc-mode-hook 'my-calc-hook)
+     (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

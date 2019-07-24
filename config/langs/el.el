@@ -81,6 +81,7 @@
 ;;
 ;; Eshell hook
 ;;
+(require 'esh-mode)
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 (defun my-eshell-hook ()
   (define-key eshell-mode-map (kbd "C-v") 'eshell-kill-input)

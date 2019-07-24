@@ -40,6 +40,7 @@
   (diminish 'paredit-mode)
   (diminish 'auto-complete-mode)
   (diminish 'undo-tree-mode)
+  (diminish 'git-gutter+-mode)
 
   ;; (global-linum-mode 1) ; disabled: made pdf viewing (Doc Mode) unusable
   ;; (fci-mode 1) ; fill column indicator - broke Org exports among other things

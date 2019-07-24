@@ -107,6 +107,7 @@
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        paredit-join-sexps
         paredit-kill
         paredit-meta-doublequote
         paredit-newline

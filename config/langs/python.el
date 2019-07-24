@@ -61,6 +61,9 @@
   (define-key elpy-mode-map (kbd "<M-left>")  'backward-sexp) ;; 'python-nav-backward-sexp
   (define-key elpy-mode-map (kbd "<M-right>") 'forward-sexp) ;; 'python-nav-forward-sexp
 
+  (define-key mode-specific-map (kbd "<prior>") 'python-nav-backward-up-list)
+  (define-key mode-specific-map (kbd "C-<up>") 'python-nav-backward-up-list)
+
   (local-set-key (kbd "<M-up>")    'backward-quarter-page)
   (local-set-key (kbd "<M-down>")  'forward-quarter-page)
 

@@ -22,8 +22,9 @@
  '(auto-save-file-name-transforms '(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)))
  '(auto-save-no-message t)
  '(auto-save-visited-file-name nil)
+ '(avy-background t)
  '(avy-highlight-first t)
- '(avy-timeout-seconds 0.35)
+ '(avy-timeout-seconds 1.35)
  '(aw-ignored-buffers '("*Calc Trail*" "*LV*" "*elscreen-tabs*"))
  '(aw-keys '(102 100 115 104 106 107 97 108))
  '(backup-by-copying t)
@@ -181,6 +182,46 @@
  '(ibuffer-load-hook nil)
  '(ibuffer-mode-hook '(my-ibuffer-mode-hook))
  '(ibuffer-old-time 2)
+ '(ibuffer-saved-filter-groups nil)
+ '(ibuffer-saved-filters
+   '(("modified"
+      (not starred-name)
+      (modified))
+     ("asdasd"
+      (name . "org"))
+     ("programming"
+      (or
+       (derived-mode . prog-mode)
+       (mode . ess-mode)
+       (mode . compilation-mode)))
+     ("text document"
+      (and
+       (derived-mode . text-mode)
+       (not
+        (starred-name))))
+     ("TeX"
+      (or
+       (derived-mode . tex-mode)
+       (mode . latex-mode)
+       (mode . context-mode)
+       (mode . ams-tex-mode)
+       (mode . bibtex-mode)))
+     ("web"
+      (or
+       (derived-mode . sgml-mode)
+       (derived-mode . css-mode)
+       (mode . javascript-mode)
+       (mode . js2-mode)
+       (mode . scss-mode)
+       (derived-mode . haml-mode)
+       (mode . sass-mode)))
+     ("gnus"
+      (or
+       (mode . message-mode)
+       (mode . mail-mode)
+       (mode . gnus-group-mode)
+       (mode . gnus-summary-mode)
+       (mode . gnus-article-mode)))))
  '(ibuffer-view-ibuffer t)
  '(icicle-Completions-max-columns 1)
  '(icicle-Completions-text-scale-decrease 0.0)
@@ -255,7 +296,8 @@
  '(nxhtml-menu-mode t)
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
- '(org-agenda-files '("~/todo/"))
+ '(org-agenda-dim-blocked-tasks t)
+ '(org-agenda-files '("nowe.org" "praca.org"))
  '(org-archive-location "todo.archive::datetree/* From %s")
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
@@ -271,6 +313,40 @@
  '(org-babel-process-comment-text 'org-remove-indentation nil nil "smc")
  '(org-babel-shell-names '("sh" "bash" "csh" "ash" "dash" "ksh" "mksh" "posh" "zsh"))
  '(org-babel-tangle-uncomment-comments nil)
+ '(org-capture-templates
+   '(("c" "task" entry
+      (file+headline "" "INCOMING")
+      "* TODO %?
+  Added: %U
+  Origin: %a
+
+  %i" :empty-lines 1)
+     ("C" "work task" entry
+      (file+headline "praca.org" "CURRENT")
+      "* TODO %?
+  Added: %U
+  Origin: %a
+
+  %i" :empty-lines 1 :prepend t)
+     ("s" "scheduled event" entry
+      (file+headline "" "EVENTS")
+      "* TODO %? :EVENT:
+  Added: %U
+  SCHEDULED: %^T
+  Origin: %a" :empty-lines 1)
+     ("S" "scheduled work event" entry
+      (file+headline "praca.org" "EVENTS")
+      "* TODO %? :EVENT:
+  Added: %U
+  SCHEDULED: %^T
+  Origin: %a" :empty-lines 1)
+     ("n" "note" entry
+      (file+headline "" "Notes")
+      "* %? :NOTE:
+  Added: %U
+  Origin: %a
+
+  %i" :empty-lines 1 :prepend t)))
  '(org-catch-invisible-edits 'smart)
  '(org-clock-into-drawer t)
  '(org-clock-persist 'clock)
@@ -279,7 +355,7 @@
  '(org-confirm-babel-evaluate nil)
  '(org-confirm-elisp-link-function nil)
  '(org-confirm-shell-link-function nil)
- '(org-default-notes-file "~/todo/notes")
+ '(org-default-notes-file "~/todo/nowe.org")
  '(org-directory "~/todo/")
  '(org-drawers '("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES"))
  '(org-edit-src-auto-save-idle-delay 5)
@@ -343,6 +419,7 @@
  '(org-priority-start-cycle-with-default nil)
  '(org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))
  '(org-return-follows-link nil)
+ '(org-reverse-note-order t)
  '(org-show-siblings '((default . t) (isearch t)))
  '(org-special-ctrl-a/e t)
  '(org-special-ctrl-k t)
@@ -387,6 +464,7 @@
  '(org-tags-sort-function 'org-string-collate-lessp)
  '(org-todo-keywords
    '((sequence "TODO(t!)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")))
+ '(org-treat-S-cursor-todo-selection-as-state-change t)
  '(org-use-sub-superscripts nil)
  '(package-archives
    '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -530,7 +608,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-lead-face ((t (:foreground "white"))))
+ '(avy-goto-char-timer-face ((t (:inherit highlight :background "black"))))
+ '(avy-lead-face ((t (:foreground "violet" :underline t :weight bold))))
+ '(avy-lead-face-0 ((t (:foreground "purple" :underline t :weight bold))))
+ '(avy-lead-face-1 ((t (:background "red" :foreground "green"))))
  '(aw-leading-char-face ((t (:foreground "red"))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))

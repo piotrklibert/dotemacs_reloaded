@@ -124,6 +124,7 @@
 
 ;; Additional interfaces and functionalities activation and config
 (load-safe "my-generic-ui-config")
+(load-safe "my-hydra-stables")
 
 ;; Python, JavaScript, YAML, Rust, Racket and so on (and on, and on... 🙂) config
 (load-safe "langs/base.el")

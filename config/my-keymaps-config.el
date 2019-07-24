@@ -21,24 +21,10 @@
 ;; Mainly used for toggling things, invoking commands that used twice on
 ;; the same thing do nothing.
 (define-prefix-command 'my-toggle-keys)
-(global-set-key (kbd "C-t") 'my-toggle-keys)
+(global-set-key (kbd "C-z") 'my-toggle-keys)
 ;; (find-my-bindings-for 'my-toggle-keys)
 ;; (find-my-bindings-for 'my-find-keys)
 ;; (find-my-bindings-for 'my-bookmarks-keys)
 
-
-;; Keys related to moving, rearrangind and killing buffers and windows.
-(define-prefix-command 'my-wnd-keys)
-(global-set-key (kbd "C-w") 'my-wnd-keys)
-(require 'calc-mode)
-
-(defun my-calc-hook ()
-  (message "calc hook")
-  (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys))
-(eval-after-load 'calc
-  '(progn
-     (add-hook 'calc-mode-hook 'my-calc-hook)
-     (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
-;; (find-my-bindings-for 'my-wnd-keys)
 
 (provide 'my-keymaps-config)

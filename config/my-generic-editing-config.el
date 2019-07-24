@@ -78,11 +78,10 @@
   (my-join-next-line))
 
 
-(define-key mode-specific-map (kbd "C-<down>") 'my-join-next-line) ; C-c C-<down>
-(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c <down>
-
-(define-key mode-specific-map (kbd "C-<up>") 'my-join-prev-line) ; C-c C-<up>
+;; (define-key mode-specific-map (kbd "C-<up>") 'my-join-prev-line) ; C-c C-<up>
+;; (define-key mode-specific-map (kbd "C-<down>") 'my-join-next-line) ; C-c C-<down>
 (define-key mode-specific-map (kbd "<up>") 'my-join-prev-line) ; C-c <up>
+(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c <down>
 
 
 (require 'iy-go-to-char)
@@ -121,7 +120,7 @@
 
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-z")         'mc/mark-all-like-this) ; TODO: needs better bindings
+(define-key my-toggle-keys (kbd "C-z") 'mc/mark-all-like-this)
 ;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
 (global-set-key (kbd "C-x C-d")    'dired-at-point)
@@ -152,6 +151,7 @@
 
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
 (define-key my-toggle-keys (kbd "ł")   'toggle-truncate-lines)
+(define-key my-toggle-keys (kbd "l")   'toggle-truncate-lines)
 
 
 ;; Use remap because setting a C-a key would potentially conflict with other
