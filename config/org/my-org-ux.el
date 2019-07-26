@@ -227,8 +227,9 @@ locale is set."
 ;;      "  %U"
 ;;      "  %a"))
 
-;; (global-set-key (kbd "C-c a") 'org-agenda)
+
 (global-set-key (kbd "C-c c") 'org-capture)
+
 (defvar alchemist-mode-map)
 (eval-after-load "alchemist"
   '(define-key alchemist-mode-map (kbd "C-c c") 'org-capture))
@@ -273,6 +274,11 @@ locale is set."
   ("<up>" my-org-show-previous-heading-tidily "prev")
   ("<down>" my-org-show-next-heading-tidily "next"))
 
+(defun my-org-ring-goto ()
+  (interactive)
+  (org-mark-ring-goto)
+  (recenter))
+
 (defun my-org-hook ()
   (require 'org)
   (require 'ox-md)
@@ -286,16 +292,13 @@ locale is set."
   (define-key org-mode-map (kbd "<return>")     'org-return-indent)
   (define-key org-mode-map (kbd "C-j")          'org-return)
 
-  (define-key org-mode-map (kbd "M-,") (lambda ()
-                                         (interactive)
-                                         (org-mark-ring-goto)
-                                         (recenter)))
-  (define-key org-mode-map (kbd "M-.") 'my-org-goto-def)
+  (define-key org-mode-map (kbd "M-,")          'my-org-ring-goto)
+  (define-key org-mode-map (kbd "M-.")          'my-org-goto-def)
 
   (define-key org-mode-map (kbd "C-c <up>")     'org-previous-visible-heading)
   (define-key org-mode-map (kbd "C-c <down>")   'org-next-visible-heading)
 
-  ;; Commented out because I don't have keypad on the keayboard anymore... ☻
+  ;; Commented out because I don't have keypad on the keyboard anymore... ☻
   ;; (define-key org-mode-map (kbd "<kp-up>")      'org-previous-visible-heading)
   ;; (define-key org-mode-map (kbd "<kp-down>")    'org-next-visible-heading)
   ;; (define-key org-mode-map (kbd "C-<kp-up>")    'org-previous-block)
@@ -306,14 +309,14 @@ locale is set."
 
   (define-key org-mode-map (kbd "<backtab>")    'my-org-fold-current)
 
-  ;; (define-key org-mode-map (kbd "C-c M-<up>")   'my-org-clear-subtree)
-  ;; (define-key org-mode-map (kbd "C-c C-h")      'my-org-jump-to-heading)
-  ;; (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
+  (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
 
   (define-key org-mode-map (kbd "C-c C-j")      'my-org-occur-headers)
+
+  (define-key org-mode-map (kbd "C-c a")        'org-agenda)
   (define-key org-mode-map (kbd "C-c l")        'org-store-link)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c C-l") 'org-insert-link)
+  (global-set-key (kbd "C-c l")                 'org-store-link)
+  (global-set-key (kbd "C-c C-l")               'org-insert-link)
 
   (define-key org-mode-map (kbd "C-c +")        'hydra-zoom/text-scale-increase)
   (define-key org-mode-map (kbd "C-c -")        'hydra-zoom/text-scale-decrease)
@@ -322,18 +325,18 @@ locale is set."
   (define-key org-mode-map (kbd "C-c M-=")      'my-org-show-current-heading-tidily)
   (define-key org-mode-map (kbd "C-c M-<up>")   'hydra-org-jump/my-org-show-prev-heading-tidily)
   (define-key org-mode-map (kbd "C-c M-<down>") 'hydra-org-jump/my-org-show-next-heading-tidily)
-
   ;; KILL, CUT & COPY whole subtrees
   (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree)
   (define-key org-mode-map (kbd "C-c C-M-w")    'my-org-clear-subtree)
+
   (define-key org-mode-map (kbd "C-c M-w")      (lambda ()
                                                   (interactive)
                                                   (read-only-mode 1)
                                                   (ignore-errors
                                                     (my-org-clear-subtree))
                                                   (read-only-mode 0)
-                                                  (message "Subtree copied")))
-  )
+                                                  (message "Subtree copied"))))
+
 
 
 

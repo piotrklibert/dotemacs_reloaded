@@ -612,7 +612,7 @@
  '(avy-lead-face ((t (:foreground "violet" :underline t :weight bold))))
  '(avy-lead-face-0 ((t (:foreground "purple" :underline t :weight bold))))
  '(avy-lead-face-1 ((t (:background "red" :foreground "green"))))
- '(aw-leading-char-face ((t (:foreground "red"))))
+ '(aw-leading-char-face ((t (:foreground "red" :height 3.0))))
  '(bmkp-local-directory ((t (:foreground "dark orange"))))
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(col-highlight ((t (:background "dark gray"))))

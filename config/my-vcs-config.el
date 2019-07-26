@@ -24,7 +24,12 @@
     (define-key magit-mode-map    (kbd "C-w")    my-wnd-keys)))
 
 
-(define-key mode-specific-map (kbd "C-g")   'magit-status) ; C-c C-g
+(defun my-show-magit-status ()
+  (interactive)
+  (neotree-hide)
+  (magit-status))
+
+(define-key mode-specific-map (kbd "C-g")   'my-show-magit-status) ; C-c C-g
 (define-key mode-specific-map (kbd "C-M-g") 'magit-blame)  ; C-c C-M-g
 
 

@@ -40,6 +40,8 @@
   (diminish 'paredit-mode)
   (diminish 'auto-complete-mode)
   (diminish 'undo-tree-mode)
+  (diminish 'elpy-mode)
+  ;; (diminish 'flycheck-mode)
   (diminish 'git-gutter+-mode)
 
   ;; (global-linum-mode 1) ; disabled: made pdf viewing (Doc Mode) unusable

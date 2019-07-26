@@ -72,9 +72,9 @@ without selecting."
 
 
 (defvar my-blinking-p nil)
-;; TODO: port to new advices
-(defadvice pop-to-mark-command (after recenter-after-pop activate)
-  (recenter)
+
+(defun my-blink-a-bit ()
+  (interactive)
   (unless my-blinking-p
     (blink-cursor-mode 1)
     (set-cursor-color "red")
@@ -83,9 +83,22 @@ without selecting."
       (lambda ()
         (setf my-blinking-p nil)
         (set-cursor-color "white")
-        (blink-cursor-mode 0)))))
+        (blink-cursor-mode 0)))
+    nil))
 
+(defun my-recenter-and-blink ()
+  (recenter)
+  (my-blink-a-bit))
 
+(advice-add 'pop-to-mark-command :after #'my-recenter-and-blink)
+(advice-add 'xref-pop-marker-stack :after #'my-recenter-and-blink)
+
+(advice-add 'recenter-top-bottom :after #'my-blink-a-bit)
+
+;; Advice on advice(s):
+;; (advice-mapc (lambda (a b) (message "%s :: %s" a b)) 'pop-to-mark-command)
+;; (advice-mapc (lambda (a b) (message "%s :: %s" a b)) 'recenter-top-bottom)
+;; (advice-remove 'pop-to-mark-command 'ad-Advice-pop-to-mark-command)
 
 ;; Frame TITLE (displayed on StumpWM mode-line (or on the title bar))
 (setf frame-title-format
@@ -219,6 +232,13 @@ Otherwise, get the symbol at point.")
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
 
 
+;; (defun ad-ibuffer+find-file-noselect (&rest args)
+;;   (message "ad-ibuffer+find-file-noselect: %s" args)
+;;   (with-current-buffer "*Ibuffer*"
+;;     (ibuffer-update nil)))
+
+;; (advice-add 'find-file :after 'ad-ibuffer+find-file-noselect)
+;; (advice-remove 'find-file 'ad-ibuffer+find-file-noselect)
 
 
 (defun my-ibuffer-mode-hook ()

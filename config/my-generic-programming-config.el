@@ -20,7 +20,6 @@
 
 (require 'fuzzy)                        ; fuzzy isearch support
 ;; (require 'eassist)
-;; (require 'flymake-checkers)
 
 
 (require 'ag-autoloads)                 ; ack replacement in C

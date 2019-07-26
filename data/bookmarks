@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(defun my-ibuffer-mode-hook ()"
+((";; TODO: the format of quick templates changed in recent Org versions"
+ (filename . "~/.emacs.d/config/org/my-org-ux.el")
+ (front-context-string . ";; TODO: the for")
+ (rear-context-string . "repend t :))))\n\n")
+ (position . 5244))
+("(defun my-ibuffer-mode-hook ()"
  (filename . "~/.emacs.d/config/my-generic-ui-config.el")
  (front-context-string . "defun my-ibuffer")
  (rear-context-string . "up-name) 1))\n\n\n(")
@@ -19,9 +24,9 @@
  (position . 2352))
 ("org-capture-last-stored-marker"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO make a f")
- (rear-context-string . "2019-07-10 śro]\n")
- (position . 12031))
+ (front-context-string . "** TODO zoom a'l")
+ (rear-context-string . "  :END:\n* EMACS\n")
+ (position . 1367))
 ("(global-set-key (kbd \"C-z\")         'mc/mark-all-like-this) ; TODO: needs better bindings"
  (filename . "~/.emacs.d/config/my-generic-editing-config.el")
  (front-context-string . "(global-set-key ")
@@ -175,15 +180,15 @@
  (rear-context-string . "htcorn-docs ())\n")
  (position . 3106))
 ("org-capture-last-stored"
- (filename . "~/todo/notes")
- (front-context-string . "** TODO make a f")
- (rear-context-string)
- (position . 9))
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** TODO nie wysw")
+ (rear-context-string . "02]\n   Origin:\n\n")
+ (position . 3074))
 ("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO make a f")
- (rear-context-string . "po ~z~ w shellu\n")
- (position . 16523))
+ (front-context-string . "** TODO zoom a'l")
+ (rear-context-string . "  :END:\n* EMACS\n")
+ (position . 1367))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")

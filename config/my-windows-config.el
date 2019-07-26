@@ -5,13 +5,28 @@
 (require 'buffer-move)
 (require 'my-reorder-buffer-list)
 
-
+;; ==============================================================================
 (require 'elscreen)
 (elscreen-start)
+
 (global-set-key (kbd "C-<next>")          'elscreen-next)
 (global-set-key (kbd "C-<XF86AudioNext>") 'elscreen-next)
 (global-set-key (kbd "C-<prior>")         'elscreen-previous)
 (global-set-key (kbd "C-<XF86AudioPlay>") 'elscreen-previous)
+
+(defmacro refresh-tab-bar-after (&rest funcs)
+  `(progn
+     ,@(loop for f in funcs
+             collect (let ()
+                       `(defadvice ,f (after my-elscreen-refresh-tab-bar activate)
+                          (elscreen-e21-tab-update t))))))
+
+(refresh-tab-bar-after
+ windmove-up
+ windmove-down
+ windmove-left
+ windmove-right)
+;; ==============================================================================
 
 
 ;; (require 'minimap)
@@ -20,7 +35,7 @@
 ;; (golden-ratio-mode t)
 
 
-;; C-w ... - keys related to moving, rearrangind and killing buffers and
+;; C-w ... - keys related to moving, rearranging and killing buffers and
 ;; windows.
 (define-prefix-command 'my-wnd-keys)
 (global-set-key (kbd "C-w") 'my-wnd-keys)
@@ -33,18 +48,16 @@
 (define-key my-wnd-keys (kbd "C-w")                 'kill-region)
 
 
-(defmacro refresh-tab-bar-after (&rest funcs)
-  `(progn ,@(loop for f in funcs
-                collect (let ()
-                          `(defadvice ,f (after my-elscreen-refresh-tab-bar activate)
-                             (elscreen-e21-tab-update t))))))
+(defvar my-zoom nil)
 
-(refresh-tab-bar-after
- windmove-up
- windmove-down
- windmove-left
- windmove-right)
-
+(defun my-zoom-windows ()
+  (interactive)
+  (if (not my-zoom)
+      (progn
+        (setq my-zoom (current-window-configuration))
+        (delete-other-windows))
+    (set-window-configuration my-zoom)
+    (setq my-zoom nil)))
 
 (defun my-split-window-right ()
   (interactive)
@@ -84,6 +97,7 @@
 (define-key my-wnd-keys (kbd "%")            'my-split-window-right)
 
 (define-key my-wnd-keys (kbd "C-z")          'delete-window)
+(define-key my-wnd-keys (kbd "z")            'my-zoom-windows)
 ;; (define-key my-wnd-keys (kbd "C-k")          'kill-buffer-and-window)
 (define-key my-wnd-keys (kbd "C-d")          'force-kill-buffer)
 (define-key my-wnd-keys (kbd "C-M-d")        'kill-buffer-and-window)
@@ -107,6 +121,44 @@
 ;; (global-set-key (kbd "C-<f4>")                'server-edit)
 
 
+(defun my-switch-to-column (column)
+  (interactive)
+  (ignore-errors
+    (while t (windmove-left)))
+  ;; (message "buffer: %s col: %s" (current-buffer) column)
+  (when (and column (> column 0))
+    (loop repeat (1- column)
+          do (windmove-right)))
+  ;; (message "buffer: %s col: %s" (current-buffer) column)
+  )
+
+(defun my-switch-to-column-1 ()
+  (interactive)
+  (my-switch-to-column 1))
+
+(defun my-switch-to-column-2 ()
+  (interactive)
+  (my-switch-to-column 2))
+
+(defun my-switch-to-column-3 ()
+  (interactive)
+  (my-switch-to-column 3))
+
+(global-set-key (kbd "M-1") #'my-switch-to-neotree)
+(global-set-key (kbd "M-2") #'my-switch-to-column-2)
+(global-set-key (kbd "M-3") #'my-switch-to-column-3)
+
+(defun scroll-left-a-bit ()
+  (interactive)
+  (scroll-left (max 15 (round (* (window-width) 0.2)) )))
+
+(defun scroll-rigth-a-bit ()
+  (interactive)
+  (scroll-right (max 15 (round (* (window-width) 0.2)))))
+
+(define-key ctl-x-map (kbd ">") 'scroll-left-a-bit)
+(define-key ctl-x-map (kbd "<") 'scroll-rigth-a-bit)
+
 ;;
 ;; Custom functions
 ;;
@@ -124,7 +176,7 @@
   (let ((windows (cdr (window-list nil nil (selected-window)))))
     (loop for win in windows
           for buf = (window-buffer win)
-          do (progn
+          do (ignore-errors
                (kill-buffer buf)
                (delete-window win)))))
 
@@ -140,6 +192,5 @@ remapped or something)."
   (kill-buffer))
 
 
-;; auto-hscroll-mode
 ;; byte-compile-warnings
 ;; (remove-hook 'buffer-list-update-hook 'my-buffer-list-update-hook)

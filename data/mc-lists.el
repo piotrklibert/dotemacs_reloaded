@@ -128,6 +128,7 @@
         racket-insert-lambda
         reposition-window
         scroll-other-window-down
+        scroll-rigth-a-bit
         sgml-close-tag
         sgml-slash
         slime-autodoc-space
@@ -162,6 +163,8 @@
         helm-find-files
         helm-occur
         hydra-splitter/hydra-move-splitter-left
+        hydra-splitter/hydra-move-splitter-right
+        hydra-splitter/nil
         ibuffer
         ido-find-file
         iedit-mode

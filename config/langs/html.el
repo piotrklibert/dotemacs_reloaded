@@ -14,7 +14,7 @@
   (add-hook 'sgml-mode-hook 'my-sgml-mode-hook)
   ;; somehow flymake doesn't want to work
   (delete '("\\.html?\\'" flymake-xml-init) flymake-allowed-file-name-masks))
-
+;; (require 'nxml-mode)
 
 (defun my-html-mode-hook () "Customize my html-helper-mode."
   (tidy-build-menu html-helper-mode-map)

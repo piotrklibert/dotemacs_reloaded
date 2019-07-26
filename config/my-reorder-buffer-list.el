@@ -93,12 +93,14 @@ If its `pos' is somehow out of range, wrap it before returning."
           (define-key map [t]                 #'tfb-done)
           map)))
 
-(defun tfb--hidden-buf? (it)
-  (and (s-contains? "*" it)
-       (not (s-contains? "shell"   (s-downcase it)))
-       (not (s-contains? "ibuffer" (s-downcase it)))
-       (not (s-contains? "repl"    (s-downcase it)))
-       (not (s-contains? "scratch" (s-downcase it)))))
+
+(defconst tfb-special-buffers-whitelist '("shell" "ibuffer" "repl" "scratch" "info" "help"))
+
+(defun tfb--hidden-buf? (buffer-name)
+  (setq buffer-name (s-downcase buffer-name))
+  (and (s-contains? "*" buffer-name)
+       (not (-any 'identity (--map (s-contains? it buffer-name)
+                                   tfb-special-buffers-whitelist)))))
 
 (defun tfb--buf-names ()
   (let ((names (-map 'buffer-name (buffer-list))))

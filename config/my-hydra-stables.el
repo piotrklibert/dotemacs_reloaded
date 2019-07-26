@@ -39,14 +39,31 @@
 
 
 (defalias 'config-toggles 'hydra-toggle-simple/body)
-(defhydra hydra-toggle-simple (:color red :columns 3)
-  "toggle"
-  ("a" abbrev-mode "toggle abbrev-mode")
-  ("d" toggle-debug-on-error "toggle-debug-on-error")
-  ("f" auto-fill-mode "toggle auto-fill-mode")
-  ("t" toggle-truncate-lines "toggle-truncate-lines")
-  ("w" whitespace-mode "whitespace-mode")
-  ("q" nil "cancel"))
+(defhydra hydra-toggle-simple (:color red :hint nil)
+  "
+_d_: debug-on-error - display traceback on error (%-3`debug-on-error)     ^^|    _f_: auto-fill-mode - (%-3`auto-fill-function)
+_D_: debug-on-quit - display traceback on C-g (%-3`debug-on-quit) ^       ^^|    _W_: whitespace-mode (%-3`whitespace-mode)
+                                                    ^    ^^^^^^^^^^^^^^^ ^^^|
+_v_: visual-line - use wrapped lines for movement (%-3`visual-line-mode)    |    _\"_: my-toggle-quotes
+_w_: word-wrap - wrap wrap whole words only (%-3`word-wrap)    ^^^^^^^      |    _b_: my-toggle-true-false-none
+_l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |    _o_: overwrite-mode (%-3`overwrite-mode)
+"
+  ;; TODO: add picture-mode
+  ("q" nil) ("<esc>" nil)
+  ("d" toggle-debug-on-error)
+  ("D" toggle-debug-on-quit)
+
+  ("v" visual-line-mode)
+  ("l" toggle-truncate-lines)
+  ("w" toggle-word-wrap)
+
+  ("f" auto-fill-mode)
+  ("W" whitespace-mode)
+
+  ("\"" my-toggle-quotes)
+  ("b" my-toggle-true-false-none)
+  ("o" overwrite-mode)
+  )
 
 (assert (functionp (symbol-function 'hydra-toggle-simple/body)))
 (define-key my-toggle-keys (kbd "C-s") 'config-toggles)
@@ -217,7 +234,7 @@ _u_: major mode      _E_: has process                  ^^|                  ^^|
   ("<down>" hydra-move-splitter-down)
   ("<up>" hydra-move-splitter-up)
   ("<right>" hydra-move-splitter-right)
-
+  ("=" balance-windows :color blue)
   ("q" nil) ("<esc>" nil))
 
 
@@ -252,29 +269,6 @@ _u_: major mode      _E_: has process                  ^^|                  ^^|
         (windmove-find-other-window 'up))
       (shrink-window 5)
     (enlarge-window 5)))
-
-
-
-
-
-
-
-;; TODO:
-;;
-;; 1. hydra dla info viewera i help viewera
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

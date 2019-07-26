@@ -13,9 +13,12 @@
 ;; :commands ac-start auto-complete-mode global-auto-complete-mode
 ;; :config
 
+(require 'company)
 (require 'auto-complete)
 (require 'auto-complete-config)
-(require 'ac-company)
+(require 'hippie-exp)
+;(require 'readline-complete)
+
 (ac-config-default)
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
@@ -37,18 +40,16 @@
   (define-key ac-completing-map (kbd "C-<return>") 'ac-complete))
 
 
-;(require 'readline-complete)
 (require 'yasnippet)
 ;; most snippets for YAS are here:
 ;; " ~/.emacs.d/forked-plugins/yasnippet/snippets"
 (yas-global-mode 1)
 
 
-(require 'hippie-exp)
-
 ;; Keys bound here:
 ;; (global-set-key (kbd "C-c /") 'yas-expand)
-(define-key global-map (kbd "C-c .")   'hippie-expand)
+;; (define-key global-map (kbd "C-c .")   'hippie-exp)
+
 (define-key global-map (kbd "C-<tab>") 'ac-start)
 (define-key global-map (kbd "C-M-/")   'helm-dabbrev)
 
@@ -56,13 +57,40 @@
 ;; (global-set-key (kbd "M-/") 'dabbrev-expand)
 ;; also auto-complete binds to <tab>
 
+
+(eval-after-load "make-mode"
+  '(progn
+     (add-hook 'makefile-mode-hook 'auto-complete-mode)))
+
+
 (eval-after-load "slime"
   '(progn
      (require 'ac-slime)
      (add-hook 'slime-mode-hook 'set-up-slime-ac)
      (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
      (eval-after-load "auto-complete"
-       '(add-to-list 'ac-modes 'slime-repl-mode)))  )
+       '(add-to-list 'ac-modes 'slime-repl-mode))))
+
+;; TODO: find which modes include company backend instead of auto-complete and
+;; create bridges for them.
+;;
+;; Example:
+;;
+;; (require 'ac-company)
+;; (require 'company-dabbrev)
+;; (ac-company-define-source ac-source-company-elisp company-elisp)
+;; (add-hook 'emacs-lisp-mode-hook
+;;           (lambda ()
+;;             (pri)
+;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
+;;
+;; You can overrides attributes. For example, if you want to add
+;; symbol to ac-source-company-elisp, put following:
+;;
+;; (ac-company-define-source ac-source-company-elisp company-elisp
+;;                           (symbol . "s"))
+
+
 
 ;;
 ;; YASnippet completions config
@@ -78,11 +106,6 @@
 
 
 
-;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
-;;      |  _ \    / \  / ___| |/ / ____|_   _| |  \/  |/ _ \|  _ \| ____|
-;;      | |_) |  / _ \| |   | ' /|  _|   | |   | |\/| | | | | | | |  _|
-;;      |  _ <  / ___ \ |___| . \| |___  | |   | |  | | |_| | |_| | |___
-;;      |_| \_\/_/   \_\____|_|\_\_____| |_|   |_|  |_|\___/|____/|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (require 'ac-geiser)
 ;; (add-hook 'geiser-mode-hook 'ac-geiser-setup)
@@ -91,24 +114,8 @@
 
 
 
-;;          _    ____ __   __   ____ ___  __  __ ____   _    _   ___   __
-;;         / \  / ___/ /   \ \ / ___/ _ \|  \/  |  _ \ / \  | \ | \ \ / /
-;;        / _ \| |  / /_____\ \ |  | | | | |\/| | |_) / _ \ |  \| |\ V /
-;;       / ___ \ |__\ \_____/ / |__| |_| | |  | |  __/ ___ \| |\  | | |
-;;      /_/   \_\____\_\   /_/ \____\___/|_|  |_|_| /_/   \_\_| \_| |_|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-;; (ac-company-define-source ac-source-company-elisp company-elisp)
-;; (add-hook 'emacs-lisp-mode-hook
-;;        (lambda ()
-;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
-;;
-;; You can overrides attributes. For example, if you want to add
-;; symbol to ac-source-company-elisp, put following:
-;;
-;; (ac-company-define-source ac-source-company-elisp company-elisp
-;;                           (symbol . "s"))
 
 
 ;;                       _   _ ___ ____  ____ ___ _____

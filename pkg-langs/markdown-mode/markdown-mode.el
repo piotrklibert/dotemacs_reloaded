@@ -1196,7 +1196,7 @@ Group 5 matches the reference label.")
   "Regular expression for matching Markdown horizontal rules.")
 
 (defconst markdown-regex-code
-  "\\(\\`\\|[^\\]\\)\\(\\(`+\\)\\(\\(.\\|\n[^\n]\\)*?[^`]\\)\\3\\)\\([^`]\\|\\'\\)"
+  "\\(\\`\\|[^\\]\\)\\(\\(`+\\)\\(\\(.\\|\n\\)*?[^`]\\)\\3\\)\\([^`]\\|\\'\\)"
   "Regular expression for matching inline code fragments.
 
 The first group ensures that the leading backquote character
