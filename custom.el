@@ -24,7 +24,7 @@
  '(auto-save-visited-file-name nil)
  '(avy-background t)
  '(avy-highlight-first t)
- '(avy-timeout-seconds 1.35)
+ '(avy-timeout-seconds 0.3)
  '(aw-ignored-buffers '("*Calc Trail*" "*LV*" "*elscreen-tabs*"))
  '(aw-keys '(102 100 115 104 106 107 97 108))
  '(backup-by-copying t)
@@ -353,8 +353,6 @@
  '(org-columns-default-format
    "%38ITEM(Details) %6TAGS(Context) %7TODO(To Do) %5Effort(Time){:} %6CLOCKSUM(Total) %16SCHEDULED(Scheduled)")
  '(org-confirm-babel-evaluate nil)
- '(org-confirm-elisp-link-function nil)
- '(org-confirm-shell-link-function nil)
  '(org-default-notes-file "~/todo/nowe.org")
  '(org-directory "~/todo/")
  '(org-drawers '("PROPERTIES" "CLOCK" "LOGBOOK" "RESULTS" "NOTES"))
@@ -406,7 +404,9 @@
 <p class=\"date\">Last updated: %T</p>
 <p class=\"copyright\">© Trust Stamp 2019</p>")))
  '(org-imenu-depth 4)
- '(org-keep-stored-link-after-insertion t)
+ '(org-link-elisp-confirm-function nil)
+ '(org-link-keep-stored-after-insertion t)
+ '(org-link-shell-confirm-function nil)
  '(org-log-done 'note)
  '(org-log-into-drawer t)
  '(org-log-repeat 'note)

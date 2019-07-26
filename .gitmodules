@@ -115,3 +115,6 @@
 [submodule "forked-plugins/hydra"]
 	path = forked-plugins/hydra
 	url = git@github.com:abo-abo/hydra.git
+[submodule "flycheck-pycheckers"]
+	path = flycheck-pycheckers
+	url = git@github.com:msherry/flycheck-pycheckers.git
