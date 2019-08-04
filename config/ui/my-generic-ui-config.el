@@ -5,16 +5,21 @@
 
 (require 'my-powerline-config)
 (require 'my-reorder-buffer-list)
+(require 'my-ibuffer)
+(require 'my-new-buffers)
 
-(define-key ctl-x-map (kbd "b")     'helm-buffers-list)
+(global-set-key (kbd "C-n") my-new-buffer-map)
+
+(define-key ctl-x-map (kbd "b")     'helm-for-files)
 (define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
 
 ;; (define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
 ;; (define-key ctl-x-map (kbd "C-M-f")   'my-find-file-other-elscreen)
 ;; previously: (define-key ctl-x-map (kbd "f")   'ido-find-file)
+
 (define-key ctl-x-map (kbd "C-M-b")   'ibuffer-other-window)
 (define-key ctl-x-map (kbd "C-M-f")   'ido-find-file-other-window)
-(define-key ctl-x-map (kbd "f")   'helm-find-files)
+(define-key ctl-x-map (kbd "f")       'helm-find-files)
 
 ;; Use ibuffer rather than whatever Emacs uses by default...
 (define-key ctl-x-map (kbd "C-b")   'ibuffer)
@@ -119,28 +124,25 @@ without selecting."
 ;; schedule imports to be done after some modules are imported
 
 
-(eval-after-load "info"
-  '(require 'info+))
+(use-package info+ :after info)
 
-(eval-after-load "help"
-  '(progn
-     (require 'help-macro+)
-     (require 'help-fns+)
-     (require 'help+)
-     (require 'help-mode+)))
+(use-package help+
+  :after help
+  :config
+  (require 'help+)
+  (require 'help-macro+)
+  (require 'help-fns+)
+  (require 'help-mode+))
 
-(autoload 'ag/dwim-at-point "ag"
-  "If there's an active selection, return that.
-Otherwise, get the symbol at point.")
 
 (defun my-info-apropos (str)
-  (interactive (list (read-from-minibuffer "Search manuals for: " (ag/dwim-at-point))))
+  (interactive (list (read-from-minibuffer "Search manuals for: " (symbol-name (symbol-at-point)))))
   (Info-index-entries-across-manuals str nil '("Elisp")))
 
 (define-key help-map (kbd "I") 'my-info-apropos)
 
-(eval-after-load "thingatpt"
-  '(require 'thingatpt+))
+(use-package thingatpt+
+  :after thingatpt)
 
 
 (defun my-dired-back-to-top ()
@@ -201,86 +203,6 @@ Otherwise, get the symbol at point.")
 (setq ido-file-extensions-order
       '(".org" ".py" ".el" ".coffee" ".ls" ".less" ".txt"))
 
-
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                       ___ _            __  __
-;;                      |_ _| |__  _   _ / _|/ _| ___ _ __
-;;                       | || '_ \| | | | |_| |_ / _ \ '__|
-;;                       | || |_) | |_| |  _|  _|  __/ |
-;;                      |___|_.__/ \__,_|_| |_|  \___|_|
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ibuffer)
-
-(defun ibuffer-end ()
-  (interactive)
-  (goto-char (point-max))
-  (forward-line -1)
-  (ibuffer-skip-properties '(ibuffer-summary ibuffer-filter-group-name) -1))
-
-(defun ibuffer-beginning ()
-  (interactive)
-  (goto-char (point-min))
-  (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
-
-;; Override - there was no simple way of changing the behavior to display diff
-;; in another window.
-(defun ibuffer-diff-with-file ()
-  "View the differences between marked buffers and their associated files.
-If no buffers are marked, use buffer at point.
-This requires the external program \"diff\" to be in your `exec-path'."
-  (interactive)
-  (require 'diff)
-  (let ((marked-bufs (ibuffer-get-marked-buffers)))
-    (when (null marked-bufs)
-      (setq marked-bufs (list (ibuffer-current-buffer t))))
-    (with-current-buffer (get-buffer-create "*Ibuffer Diff*")
-      (setq buffer-read-only nil)
-      (buffer-disable-undo (current-buffer))
-      (erase-buffer)
-      (buffer-enable-undo (current-buffer))
-      (diff-mode)
-      (dolist (buf marked-bufs)
-	(unless (buffer-live-p buf)
-	  (error "Buffer %s has been killed" buf))
-	(ibuffer-diff-buffer-with-file-1 buf))
-      (setq buffer-read-only t)))
-  (switch-to-buffer-other-window "*Ibuffer Diff*"))
-
-
-;; (advice-add 'ibuffer-diff-with-file :before 'my-ibuffer-diff-with-file-advice)
-;; (defun ad-ibuffer+find-file-noselect (&rest args)
-;;   (message "ad-ibuffer+find-file-noselect: %s" args)
-;;   (with-current-buffer "*Ibuffer*"
-;;     (ibuffer-update nil)))
-
-;; (advice-add 'find-file :after 'ad-ibuffer+find-file-noselect)
-;; (advice-remove 'find-file 'ad-ibuffer+find-file-noselect)
-
-
-(defun my-ibuffer-mode-hook ()
-  "Customized/added in ibuffer-mode-hook custom option."
-  ;; see also ibuffer-formats for columns config
-  (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer) ; TODO: use HELM here!!
-  (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
-  (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
-
-  ;; (define-key ibuffer-mode-map (kbd "C-/")    nil)
-  (define-key ibuffer-mode-map (kbd "/")      'hydra-ibuffer-filters/body)
-  (define-key ibuffer-mode-map (kbd "m")      'hydra-ibuffer-marking/ibuffer-mark-forward)
-  (define-key ibuffer-mode-map (kbd ".")      'hydra-ibuffer-marking/body)
-  (define-key ibuffer-mode-map (kbd "*")      'hydra-ibuffer-marking/body)
-
-  (define-key ibuffer-mode-map (kbd "<insert>") 'ibuffer-mark-forward)
-
-  (define-key ibuffer-mode-map [remap beginning-of-buffer] 'ibuffer-beginning)
-  (define-key ibuffer-mode-map [remap end-of-buffer] 'ibuffer-end)
-
-  (wrap-region-mode 0)                 ; made ibuffer filtering keys unavailable
-  (hl-line-mode)                       ; TODO: change to more contrasting color
-  )
 
 
 
@@ -405,56 +327,6 @@ This requires the external program \"diff\" to be in your `exec-path'."
   '(progn
      (add-hook 'calc-mode-hook 'my-calc-hook)
      (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; quickly opening buffers of some kind (for scribbling) with key bindings
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defvar my-openers (list))
-(defvar my-new-buffer-map (make-sparse-keymap))
-
-(defmacro make-buffer-opener (name key ext path)
-  (let*
-      ((name (symbol-name name))
-       (defun-name (intern (concat "my-new-" name "-buffer")))
-       (mode-name (intern (concat name "-mode"))))
-    `(progn
-       (defun ,defun-name (&optional arg)
-         (interactive "P")
-         (let
-             ((switcher (if (not arg) 'switch-to-buffer-other-window)))
-           (funcall switcher ,(concat name "1" ext))
-           (,mode-name)
-           (cd ,path)))
-       (define-key my-new-buffer-map ,key ',defun-name)
-       (push '(,name .  ,defun-name) my-openers)
-       nil)))
-
-;;                  type            key       file ext     default path
-(make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon/")
-(make-buffer-opener sh           (kbd "C-s")    ".sh"      "~/poligon/")
-(make-buffer-opener python       (kbd "C-p")    ".py"      "~/poligon/python/")
-(make-buffer-opener livescript   (kbd "C-j")    ".ls"      "~/poligon/lscript/")
-(make-buffer-opener org          (kbd "C-o")    ".org"     "~/todo/")
-(make-buffer-opener artist       (kbd "C-a")    ".txt"     "~/poligon/")
-(make-buffer-opener racket       (kbd "C-r")    ".rkt"     "~/poligon/rkt/")
-(make-buffer-opener emacs-lisp   (kbd "C-l")    ".el"      "~/.emacs.d/config/")
-(make-buffer-opener erlang       (kbd "C-o")    ".erl"     "~/poligon/")
-(make-buffer-opener elixir       (kbd "C-x")    ".ex"      "~/poligon/")
-(make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
-;; (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
-
-(defvar my-new-buffer-helm-source
-  `((name       . "Buffer types")
-    (candidates . ,my-openers)
-    (action     . (lambda (candidate) (funcall candidate)))))
-
-(defun my-new-buffer-helm ()
-  (interactive)
-  (helm :sources '(my-new-buffer-helm-source)))
-(global-set-key (kbd "C-n") my-new-buffer-map)
 
 
 (provide 'my-generic-ui-config)

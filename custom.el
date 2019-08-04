@@ -120,6 +120,7 @@
  '(flycheck-clang-include-path '("/usr/local/include/cjson"))
  '(flycheck-clang-language-standard nil)
  '(flycheck-display-errors-delay 0.5)
+ '(flycheck-emacs-lisp-load-path 'inherit)
  '(flycheck-pycheckers-checkers '(flake8 mypy3))
  '(flycheck-pycheckers-ignore-codes
    '("C0411" "C0413" "C0103" "C0111" "W0142" "W0201" "W0232" "W0403" "W0511" "E1002" "E1101" "E1103" "R0201" "R0801" "R0903" "R0904" "R0914" "E241"))

@@ -1,6 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
-
-
+(require 'windmove)
+(defvar my-toggle-keys)
 (define-key my-toggle-keys (kbd "<right>") 'my-copy-line-other-window-right)
 (define-key my-toggle-keys (kbd "<left>") 'my-copy-line-other-window-left)
 

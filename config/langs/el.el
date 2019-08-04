@@ -141,6 +141,7 @@ current buffer state and calls REPORT-FN when done."
                          "~/.emacs.d/forked-plugins/"
                          "~/.emacs.d/plugins2/"
                          "~/.emacs.d/pkg-langs/"
+                         "~/.emacs.d/config/"
                          "~/.emacs.d/elpa/")
                        (require 'use-package))))
          (cmd (list (expand-file-name invocation-name invocation-directory)
