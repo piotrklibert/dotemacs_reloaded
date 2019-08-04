@@ -1,18 +1,14 @@
-(require 'hydra)
 (require 'tiling)
 (require 'golden-ratio)
 (require 'uniquify)
 (require 'buffer-move)
-(require 'my-reorder-buffer-list)
-
-;; ==============================================================================
 (require 'elscreen)
+
+
 (elscreen-start)
 
 (global-set-key (kbd "C-<next>")          'elscreen-next)
-(global-set-key (kbd "C-<XF86AudioNext>") 'elscreen-next)
 (global-set-key (kbd "C-<prior>")         'elscreen-previous)
-(global-set-key (kbd "C-<XF86AudioPlay>") 'elscreen-previous)
 
 (defmacro refresh-tab-bar-after (&rest funcs)
   `(progn
@@ -22,12 +18,8 @@
                           (elscreen-e21-tab-update t))))))
 
 (refresh-tab-bar-after
- windmove-up
- windmove-down
- windmove-left
- windmove-right)
+ windmove-up windmove-down windmove-left windmove-right)
 ;; ==============================================================================
-
 
 ;; (require 'minimap)
 ;; (global-set-key (kbd "M-<f2>") 'minimap-mode)

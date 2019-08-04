@@ -69,4 +69,4 @@
         (move-text-internal 'up))
     (move-text-internal 'up)))
 
-(provide 'my-move-lines)
+(provide 'vertmove-lines)

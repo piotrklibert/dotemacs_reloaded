@@ -207,7 +207,7 @@
 ;;   |_|  |_| |_|        |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'my-move-lines)
+(require 'vertmove-lines)
 (require 'my-indent-config)
 (require 'my-garble-word)
 

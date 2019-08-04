@@ -268,11 +268,11 @@ locale is set."
 
 ;; (defalias 'org-reveal 'my-org-show-context)
 (require 'hydra)
-
 (defhydra hydra-org-jump ()
   "jump"
   ("<up>" my-org-show-previous-heading-tidily "prev")
   ("<down>" my-org-show-next-heading-tidily "next"))
+
 
 (defun my-org-ring-goto ()
   (interactive)
