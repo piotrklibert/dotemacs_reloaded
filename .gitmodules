@@ -115,3 +115,6 @@
 [submodule "flycheck-pycheckers"]
 	path = flycheck-pycheckers
 	url = git@github.com:msherry/flycheck-pycheckers.git
+[submodule "forked-plugins/powerline"]
+	path = forked-plugins/powerline
+	url = https://github.com/milkypostman/powerline.git
