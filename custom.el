@@ -601,7 +601,9 @@
  '(web-mode-script-padding 4)
  '(web-mode-style-padding 4)
  '(web-mode-tag-auto-close-style 2)
- '(x-gtk-use-system-tooltips nil))
+ '(x-gtk-use-system-tooltips nil)
+ '(yas-snippet-dirs
+   '("/home/cji/.emacs.d/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/")))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
