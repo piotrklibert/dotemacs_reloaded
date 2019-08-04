@@ -153,7 +153,7 @@
   :type 'integer
   :group 'livescript)
 
-(defcustom livescript-command "livescript"
+(defcustom livescript-command "lsc"
   "The LiveScript command used for evaluating code."
   :type 'string
   :group 'livescript)

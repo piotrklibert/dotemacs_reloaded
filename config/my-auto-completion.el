@@ -9,59 +9,87 @@
 ;; 2* integrate hippie with auto-complete - it's a very nice completion engine
 ;; 4* carefully check where which completion is active (config of auto-complete)
 ;;
-(require 'fill-column-indicator)
+;; use-package auto-complete
+;; :commands ac-start auto-complete-mode global-auto-complete-mode
+;; :config
+
+(require 'company)
 (require 'auto-complete)
 (require 'auto-complete-config)
-(ac-config-default)
-
-;(require 'readline-complete)
 (require 'hippie-exp)
-(require 'yasnippet)
-(require 'jedi)
-
-;; most snippets for YAS are here:
-;; "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets"
-(yas-global-mode 1)
-
-(setq my-ac-fci-was-enabled? nil)
-;; FCI-mode is problematic and makes ac popups become tangled sometimes, so
-;; it's safer to turn it off while completion is taking place
-(defadvice ac-menu-create (before ac-menu-create-adv activate)
-  (setq my-ac-fci-was-enabled? fci-mode)
-  (fci-mode -1)
-  )
-(defadvice ac-menu-delete (after ac-menu-delete-adv activate)
-  (when my-ac-fci-was-enabled? (fci-mode 1))
-  )
-
-;; Keys bound here:
-;; (global-set-key (kbd "C-c /") 'yas-expand)
-(global-set-key (kbd "C-c .") 'hippie-expand)
-(global-set-key (kbd "C-<tab>") 'ac-start)
-
-
-(when (boundp 'ac-completing-map)
-  ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
-  ;; but this makes ac-complete unavailable, so here it is remapped
-  (define-key ac-completing-map (kbd "C-<return>") 'ac-complete)
-
-  ;; no idea why I did this...
-  (define-key ac-completing-map (kbd "<insert>") 'ac-expand))
-
-;; by default:
-;; (global-set-key (kbd "M-/") 'dabbrev-expand)
-;; also auto-complete binds to <tab>
-
+;; (require 'readline-complete)
 
 (ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")
+(add-to-list 'ac-modes 'io-mode)
+
 (let*
     ((last-sources '(ac-source-semantic ac-source-yasnippet))
      (start-sources '(ac-source-filename))
      (default-sources (-distinct (append start-sources
                                          ac-sources
                                          last-sources))))
-  (setq-default ac-sources default-sources ))
+  (setq-default ac-sources default-sources))
+
+(define-key popup-menu-keymap (kbd "<return>") 'popup-select)
+
+(when (boundp 'ac-completing-map)
+  ;; elpy modifies (rightly) ac-completing-map so that <return> inserts newline;
+  ;; but this makes ac-complete unavailable, so here it is remapped
+  (define-key ac-completing-map (kbd "C-<return>") 'ac-complete))
+
+
+(require 'yasnippet)
+;; most snippets for YAS are here:
+;; " ~/.emacs.d/forked-plugins/yasnippet/snippets"
+(yas-global-mode 1)
+
+
+;; Keys bound here:
+;; (global-set-key (kbd "C-c /") 'yas-expand)
+;; (define-key global-map (kbd "C-c .")   'hippie-exp)
+
+(define-key global-map (kbd "C-<tab>") 'ac-start)
+(define-key global-map (kbd "C-M-/")   'helm-dabbrev)
+
+;; by default:
+;; (global-set-key (kbd "M-/") 'dabbrev-expand)
+;; also auto-complete binds to <tab>
+
+
+(eval-after-load "make-mode"
+  '(progn
+     (add-hook 'makefile-mode-hook 'auto-complete-mode)))
+
+
+(eval-after-load "slime"
+  '(progn
+     (require 'ac-slime)
+     (add-hook 'slime-mode-hook 'set-up-slime-ac)
+     (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
+     (eval-after-load "auto-complete"
+       '(add-to-list 'ac-modes 'slime-repl-mode))))
+
+;; TODO: find which modes include company backend instead of auto-complete and
+;; create bridges for them.
+;;
+;; Example:
+;;
+;; (require 'ac-company)
+;; (require 'company-dabbrev)
+;; (ac-company-define-source ac-source-company-elisp company-elisp)
+;; (add-hook 'emacs-lisp-mode-hook
+;;           (lambda ()
+;;             (pri)
+;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
+;;
+;; You can overrides attributes. For example, if you want to add
+;; symbol to ac-source-company-elisp, put following:
+;;
+;; (ac-company-define-source ac-source-company-elisp company-elisp
+;;                           (symbol . "s"))
+
 
 
 ;;
@@ -78,11 +106,6 @@
 
 
 
-;;       ____      _    ____ _  _______ _____   __  __  ___  ____  _____
-;;      |  _ \    / \  / ___| |/ / ____|_   _| |  \/  |/ _ \|  _ \| ____|
-;;      | |_) |  / _ \| |   | ' /|  _|   | |   | |\/| | | | | | | |  _|
-;;      |  _ <  / ___ \ |___| . \| |___  | |   | |  | | |_| | |_| | |___
-;;      |_| \_\/_/   \_\____|_|\_\_____| |_|   |_|  |_|\___/|____/|_____|
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; (require 'ac-geiser)
 ;; (add-hook 'geiser-mode-hook 'ac-geiser-setup)
@@ -91,24 +114,8 @@
 
 
 
-;;          _    ____ __   __   ____ ___  __  __ ____   _    _   ___   __
-;;         / \  / ___/ /   \ \ / ___/ _ \|  \/  |  _ \ / \  | \ | \ \ / /
-;;        / _ \| |  / /_____\ \ |  | | | | |\/| | |_) / _ \ |  \| |\ V /
-;;       / ___ \ |__\ \_____/ / |__| |_| | |  | |  __/ ___ \| |\  | | |
-;;      /_/   \_\____\_\   /_/ \____\___/|_|  |_|_| /_/   \_\_| \_| |_|
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'ac-company)
-;; (ac-company-define-source ac-source-company-elisp company-elisp)
-;; (add-hook 'emacs-lisp-mode-hook
-;;        (lambda ()
-;;          (add-to-list 'ac-sources 'ac-source-company-elisp)))
-;;
-;; You can overrides attributes. For example, if you want to add
-;; symbol to ac-source-company-elisp, put following:
-;;
-;; (ac-company-define-source ac-source-company-elisp company-elisp
-;;                           (symbol . "s"))
+
 
 
 ;;                       _   _ ___ ____  ____ ___ _____

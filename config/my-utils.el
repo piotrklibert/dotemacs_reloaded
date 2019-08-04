@@ -1,26 +1,81 @@
-(require 'cl)
+(require 'cl-lib)
+(require 'pcase)
+(require 'dash)
 (require 's)
 (require 'f)
 
-(setq example-path  "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:\
-/bin:/usr/sbin:/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:\
-./:/root/node_modules/.bin:/usr/local/kde4/bin:/root/portless/racket/racket/bin/")
 
-(cl-defun only-existing-paths (&optional path)
-  (s-join
-   ":"
-   (--filter (f-exists? (f-expand it))
-                        (s-split ":" (or path example-path)))))
+(defun my-ivy-format (cands)
+  "Transform CANDS into a string for minibuffer."
+  (if (bound-and-true-p truncate-lines)
+      (mapconcat (lambda (x) (concat "                    " x) )
+                 cands "\n")
+    (let ((ww (- (window-width)
+                 (if (and (boundp 'fringe-mode) (eq fringe-mode 0)) 1 0))))
+      (mapconcat
+       (lambda (s)
+         (if (> (length s) ww)
+             (concat (substring s 0 (- ww 3)) "...")
+           s))
+       cands "\n"))))
 
+
+(defmacro -> (&rest args)
+  (declare (indent 1)
+           (debug (form &rest [&or symbolp (sexp &rest form)])))
+  `(with-no-warnings (thread-first ,@args)))
+
+(defmacro ->> (&rest args)
+  (declare (indent 1)
+           (debug (form &rest [&or symbolp (sexp &rest form)])))
+  `(with-no-warnings (thread-last ,@args)))
+
+;; See: https://en.wikipedia.org/wiki/SKI_combinator_calculus/Informal_description
+(defmacro K (prev expr)
+  (let ((pnam (gensym)))
+    `(let ((,pnam ,prev))
+       (-> ,pnam ,expr)
+       ,pnam)))
+
+
+(defconst example-path
+  (concat "~/fasd/:/usr/local/openjdk6/bin:~/portless/dictpl:/sbin:/bin:/usr/sbin:"
+          "/usr/bin:/usr/games:/usr/local/sbin:/usr/local/bin:~/bin:"
+          "/usr/local/kde4/bin"))
+
+;; (my-only-existing-paths)
+(cl-defun my-only-existing-paths (&optional path)
+  (let*
+      ((paths-string (or path (getenv "PATH") example-path))
+       (paths (s-split ":" paths-string))
+       (existing-paths (--filter (-> it f-expand f-exists?) paths)))
+    (s-join ":" existing-paths)))
 
 (defvar my-debug-flag t)
 
-(defun my-log (&rest things)
-  (when my-debug-flag
-    (with-current-buffer (get-buffer "*Messages*")
-      (loop for thing in things
-            do (insert (format "%s\n" thing))))))
+;; (my-log (propertize "some thing %s another" 'face 'error) "or")
+(defun my-log (fmt &rest things)
+  (with-current-buffer (get-buffer "*Messages*")
+    (let ((inhibit-read-only t))
+      (goto-char (point-max))
+      (unless (zerop (current-column))
+        (insert "\n"))
+      (let ((val (apply 'format fmt things)))
+        (insert val)
+        (insert "\n")
+        ;; makes message only display in echo area, but not write to log,
+        ;; avoiding duplication
+        (let (message-log-max nil)
+          (message val))))))
 
+(defun my-log-info (fmt &rest things)
+  (apply 'my-log (propertize fmt 'face 'org-document-info) things))
+
+(defun my-log-error (fmt &rest things)
+  (apply 'my-log (propertize fmt 'face 'error) things))
+
+(defun buffer-text-content (buf)
+   (buffer-substring-no-properties (point-min) (point-max)))
 
 (defun buffer-line (&optional lineno)
   "Get a line in which point is as a string."
@@ -54,7 +109,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun magic-dir-p (dir) (member (file-name-nondirectory dir) (list "." "..")))
+(defun magic-dir-p (dir)
+  (member (file-name-nondirectory dir)
+          '("." "..")))
 
 (defun directory-subdirs (root)
   (loop for filename in (directory-files root t)
@@ -119,6 +176,7 @@ defined in."
       (goto-char 1)
       (while (setq form (safe-read-sexp))
         (setq forms (cons form forms))))
+
     (setq funs (--keep (when (eq 'defun (car it))
                          (cadr it))
                        (reverse forms)))
@@ -130,21 +188,24 @@ defined in."
                (newline)
                (insert toc-string)))
       (newline)
-      (delete-region (line-beginning-position) (point-max))
+      ;; (delete-region (line-beginning-position) (point-max))
       (--each funs (insert (format ";; %s\n" it))))))
 
 
+(defun my-remove-files (target-dir files)
+  (let ((current-dir default-directory))
+    (cd target-dir)
+    (dolist (file files) (delete-file file))
+    (cd current-dir)))
+
 
 (defun my-timer (msg &optional label)
-  (lexical-let
-      ((msg msg)
-       (label label))
+  (lexical-let ((msg msg)
+                (label label))
     (lambda ()
       (interactive "P")
-      (x-popup-dialog (get-window-with-predicate
-                       (lambda (x) t))
-                      (list msg
-                            (cons (or label "ok!") t))) )))
+      (x-popup-dialog (get-window-with-predicate (lambda (x) t))
+                      (list msg (cons (or label "ok!") t))) )))
 
 
 
@@ -197,15 +258,6 @@ return a new alist whose car is the new pair and cdr is ALIST."
         (cons (cons key value) alist)
       (setcdr elm value)
       alist)))
-
-
-(defun my-remove-files (target-dir files)
-  (let ((current-dir default-directory))
-    (cd target-dir)
-    (dolist (file files) (delete-file file))
-    (cd current-dir)))
-
-
 
 
 (provide 'my-utils)

@@ -113,7 +113,7 @@
 ;;
 
 ;; Special? Self and call objects are :)
-(defvar io-special-re "\\<self\\|thisContext\\|call\\>")
+(defvar io-special-re (regexp-opt '("self" "thisContext" "call") 'symbols))
 
 ;; Operators (not all of them are present in the Io core,
 ;; but you can still define them, if you need it)
@@ -153,23 +153,70 @@
      "shallowCopy" "slotNames" "super" "system"
      "then" "thisBlock" "thisMessage" "try" "type"
      "uniqueId" "updateSlot" "wait" "while" "write"
+     "whenTrue" "whenNil" "whenFalse" "whenNotNil"
      "writeln" "yield")
-   'words))
+   'symbols))
 
 ;; Comments
 (defvar io-comments-re "\\(\\(#\\|//\\).*$\\|/\\*\\(.\\|[\r\n]\\)*?\\*/\\)")
+
+;; Methods
+(defvar io-method-declaration-name-re "\\(\\sw+\\)\s*:=\s*\\(method\\)")
+
+;; Variables
+(defvar io-variable-declaration-name-re "\\(\\sw+\\)\s*:=\s*\\(\\sw+\\)")
 
 ;; Create the list for font-lock. Each class of keyword is given a
 ;; particular face.
 (defvar io-font-lock-keywords
   ;; Note: order here matters!
   `((,io-special-re . font-lock-variable-name-face)
+    (,io-method-declaration-name-re (1 font-lock-function-name-face))
+    (,io-variable-declaration-name-re (1 font-lock-variable-name-face))
     (,io-operators-re . font-lock-builtin-face)
     (,io-operators-special-re . font-lock-warning-face)
     (,io-boolean-re . font-lock-constant-face)
     (,io-prototypes-re . font-lock-type-face)
     (,io-messages-re . font-lock-keyword-face)
     (,io-comments-re . font-lock-comment-face)))
+
+(eval-and-compile
+  (defvar io-string-delimiter-re
+    (rx (group (or  "\"" "\"\"\"")))))
+
+(defun io-syntax-count-quotes (quote-char point limit)
+  (let ((i 0))
+    (while (and (< i 3)
+                (or (not limit) (< (+ point i) limit))
+                (eq (char-after (+ point i)) quote-char))
+      (setq i (1+ i)))
+    i))
+
+(defun io-syntax-stringify ()
+  "Put `syntax-table' property correctly on single/triple quotes."
+  (let* ((num-quotes (length (match-string-no-properties 1)))
+         (ppss (prog2
+                   (backward-char num-quotes)
+                   (syntax-ppss)
+                 (forward-char num-quotes)))
+         (string-start (and (not (nth 4 ppss)) (nth 8 ppss)))
+         (quote-starting-pos (- (point) num-quotes))
+         (quote-ending-pos (point))
+         (num-closing-quotes
+          (and string-start
+               (io-syntax-count-quotes
+                (char-before) string-start quote-starting-pos))))
+    (cond ((and string-start (= num-closing-quotes 0))
+           nil)
+          ((not string-start)
+           (put-text-property quote-starting-pos (1+ quote-starting-pos)
+                              'syntax-table (string-to-syntax "|")))
+          ((= num-quotes num-closing-quotes)
+           (put-text-property (1- quote-ending-pos) quote-ending-pos
+                              'syntax-table (string-to-syntax "|")))
+          ((> num-quotes num-closing-quotes)
+           (put-text-property quote-starting-pos quote-ending-pos
+                              'syntax-table (string-to-syntax "|"))))))
 
 ;;
 ;; REPL
@@ -235,7 +282,8 @@
 ;;
 
 (defun io-before-save ()
-  "Hook run before file is saved. Deletes whitespace if `io-cleanup-whitespace' is non-nil."
+  "Hook run before file is saved. Deletes whitespace if
+`io-cleanup-whitespace' is non-nil."
   (when io-cleanup-whitespace
     (delete-trailing-whitespace)))
 
@@ -328,11 +376,11 @@
 ;;
 
 ;;;###autoload
-(define-derived-mode io-mode fundamental-mode
-  "Io"
+(define-derived-mode io-mode prog-mode "Io"
   "Major mode for editing Io language..."
 
-  (define-key io-mode-map (kbd "C-m") 'io-newline-and-indent)
+  ;; (define-key io-mode-map (kbd "C-m") 'io-newline-and-indent)
+  (define-key io-mode-map (kbd "<return>") 'io-newline-and-indent)
   (define-key io-mode-map (kbd "C-c <SPC>") 'io-repl)
   (define-key io-mode-map (kbd "C-c C-c") 'io-repl-sbuffer)
   (define-key io-mode-map (kbd "C-c C-r") 'io-repl-sregion)
@@ -351,6 +399,11 @@
   (modify-syntax-entry ?* ". 23" io-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" io-mode-syntax-table)
 
+  (set (make-local-variable 'syntax-propertize-function)
+       (syntax-propertize-rules
+        (io-string-delimiter-re
+         (0 (ignore (io-syntax-stringify))))))
+
   (setq comment-start "# "
         comment-start-skip "# *"
         comment-end ""
@@ -362,8 +415,8 @@
   (modify-syntax-entry ?\" "\"" io-mode-syntax-table)
 
   ;; indentation
-  (make-local-variable 'indent-line-function)
-  (setq indent-line-function 'io-indent-line
+  ;; (make-local-variable 'indent-line-function)
+  (setq ;;indent-line-function 'io-indent-line
         io-tab-width tab-width ;; just in case...
         indent-tabs-mode nil)  ;; tabs are evil..
 

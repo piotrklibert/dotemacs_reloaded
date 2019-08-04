@@ -1838,43 +1838,47 @@ Uses the `derived-mode-parent' property of the symbol to trace backwards."
 
 ;; REPLACE ORIGINAL in `dired.el'.
 ;;
+;; ---- this broke in newer Emacs, they added new argument to the original function,
+;; ---- and I don't use this extension anyway, so I just disabled it.
+;;
 ;; 1. Pass non-nil second arg to `dired-get-filename' so we can include `.' and `..'.
 ;; 2. Doc string is updated to reflect the new ARG behavior.
 ;;
-(defun dired-get-marked-files (&optional localp arg filter distinguish-one-marked)
-  "Return names of the marked files and directories as a list of strings.
-The list is in the same order as the buffer, that is, the car is the
-  first marked file.
-Values returned are normally absolute file names.
-Optional arg LOCALP as in `dired-get-filename'.
-Optional second argument ARG specifies files to use instead of marked.
- Usually ARG comes from the command's prefix arg.
- If ARG is an integer, use the next ARG files (previous -ARG, if < 0).
- If ARG is a cons with element 16, 64, or 256, corresponding to
-  `C-u C-u', `C-u C-u C-u', or `C-u C-u C-u C-u', then use all files
-  in the Dired buffer, where:
-    16 includes NO directories (including `.' and `..')
-    64 includes directories EXCEPT `.' and `..'
-   256 includes ALL directories (including `.' and `..')
- If ARG is otherwise non-nil, use the current file.
-Optional third argument FILTER, if non-nil, is a function to select
- some of the files: those for which (funcall FILTER FILENAME) is
- non-nil.
-If DISTINGUISH-ONE-MARKED is non-nil, then return (t FILENAME) instead
- of (FILENAME), if only one file is marked.  Do not use non-nil
- DISTINGUISH-ONE-MARKED together with FILTER."
-  (let ((all-of-them  (delq nil
-                            (save-excursion
-                              (dired-map-over-marks
-                               (dired-get-filename localp 'NO-ERROR-IF-NOT-FILEP)
-                               arg nil distinguish-one-marked))))
-        result)
-    (if (not filter)
-        (if (and distinguish-one-marked  (eq (car all-of-them) t))
-            all-of-them
-          (nreverse all-of-them))
-      (dolist (file  all-of-them) (when (funcall filter file) (push file result)))
-      result)))
+;; (defun dired-get-marked-files (&optional localp arg filter distinguish-one-marked)
+;;   "Return names of the marked files and directories as a list of strings.
+;; The list is in the same order as the buffer, that is, the car is the
+;;   first marked file.
+;; Values returned are normally absolute file names.
+;; Optional arg LOCALP as in `dired-get-filename'.
+;; Optional second argument ARG specifies files to use instead of marked.
+;;  Usually ARG comes from the command's prefix arg.
+;;  If ARG is an integer, use the next ARG files (previous -ARG, if < 0).
+;;  If ARG is a cons with element 16, 64, or 256, corresponding to
+;;   `C-u C-u', `C-u C-u C-u', or `C-u C-u C-u C-u', then use all files
+;;   in the Dired buffer, where:
+;;     16 includes NO directories (including `.' and `..')
+;;     64 includes directories EXCEPT `.' and `..'
+;;    256 includes ALL directories (including `.' and `..')
+;;  If ARG is otherwise non-nil, use the current file.
+;; Optional third argument FILTER, if non-nil, is a function to select
+;;  some of the files: those for which (funcall FILTER FILENAME) is
+;;  non-nil.
+;; If DISTINGUISH-ONE-MARKED is non-nil, then return (t FILENAME) instead
+;;  of (FILENAME), if only one file is marked.  Do not use non-nil
+;;  DISTINGUISH-ONE-MARKED together with FILTER."
+;;   (let ((all-of-them
+;;          (delq nil (save-excursion
+;;                      (dired-map-over-marks
+;;                       (dired-get-filename localp 'no-error-if-not-filep)
+;;                       arg nil distinguish-one-marked))))
+;;         result)
+;;     (if (not filter)
+;;         (if (and distinguish-one-marked  (eq (car all-of-them) t))
+;;             all-of-them
+;;           (nreverse all-of-them))
+;;       (dolist (file all-of-them)
+;;         (when (funcall filter file) (push file result)))
+;;       result)))
 
 
 ;; REPLACE ORIGINAL in `dired-aux.el'.

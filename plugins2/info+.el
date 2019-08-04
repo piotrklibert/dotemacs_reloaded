@@ -620,8 +620,9 @@
   ;; Mouse back and forward buttons
   (define-key Info-mode-map [S-down-mouse-2]  'Info-mouse-follow-nearest-node-new-window)
   (define-key Info-mode-map [S-return]        'Info-follow-nearest-node-new-window)
-  (define-key Info-mode-map [mouse-4]         'Info-history-back)
-  (define-key Info-mode-map [mouse-5]         'Info-history-forward))
+  ;; (define-key Info-mode-map [mouse-4]         'Info-history-back)
+  ;; (define-key Info-mode-map [mouse-5]         'Info-history-forward)
+  )
 
 
 

@@ -1,42 +1,71 @@
-(require 'recentf)
-(recentf-mode 1)
+(require 'neotree-autoloads)
 
-(require 'delim-col)                    ; formats columnar text, needs config
+(defvar neotree-mode-map)
 
-(require 'register-list)                ; M-x register-list
+(defun my-neotree-hook ()
+  (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
+  (define-key neotree-mode-map (kbd "C-o")       'neotree-hidden-file-toggle)
+  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "r")         'neotree-rename-node)
+  )
 
-(require 'auto-mark)
-(global-auto-mark-mode 1)
+(eval-after-load "neotree"
+ '(add-hook 'neotree-mode-hook 'my-neotree-hook))
 
-(require 'mark-lines)                   ; mark whole line no matter where pt is
-(require 'visible-mark)                 ; recompile after Emacs update!
-(global-visible-mark-mode 1)
-
-(require 'wrap-region)                  ; select region and press " to wrap it
-                                        ; with quotes
-
-(require 'fill-column-indicator)        ; vertical line on the 'fill' col
-(require 'undo-tree)                    ; visualisation of undo/redo
-
-(require 'browse-kill-ring)             ; visualisation of kill-ring (M-y)
-(browse-kill-ring-default-keybindings)
+(defalias 'my-switch-to-neotree 'my-switch-to-column-1)
 
 
+;; (defun my-delete-file-advice (fname &rest args)
+;;   (when (equal (buffer-file-name (current-buffer)) fname)
+;;     (backup-buffer)
+;;     (kill-buffer)
+;;     (message "delete-file: killed buffer visiting %s" fname)))
+
+;; (advice-add 'delete-file :after #'my-delete-file-advice)
+
+
+(require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
 (require 'rect)                         ; C-x <space> to activate
 (require 'iedit)                        ; edit many ocurrences of string at once
                                         ; (in the same buffer)
-(require 'iedit-rect)                   ; C-<return>
+(require 'iedit-rect)                   ; mark region & C-<return>
+(require 'register-list)                ; M-x register-list
+(require 'mark-lines)                   ; mark whole line no matter where pt is
 
+(require 'recentf)
+(recentf-mode 1)
+
+(require 'auto-mark)
+(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
+
+(require 'visible-mark)
+(global-visible-mark-mode 1)
+
+(require 'wrap-region)                  ; select region and press " or ( or {,
+(wrap-region-global-mode t)             ; etc. to wrap it
+
+
+(require 'browse-kill-ring)     ; visualisation of kill-ring (M-y)
+
+(defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
+  (interactive "p")
+  (if (not (eq last-command 'yank))
+      (progn
+        (helm-show-kill-ring))
+    (barf-if-buffer-read-only)
+    ad-do-it))
+
+(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
+
+
+(require 'textobjects)                  ; eg. C-x w { or C-x w "
+(global-textobject-mark-mode 1)
 
 (require 'saveplace)                    ; Save point position between sessions
-(setq-default save-place t)
-(setq save-place-file (expand-file-name "h.places" user-emacs-directory))
-
-;; edit all occurances of a regexp in a separate buffer (disabled becaus I
-;; learned that occur-mode has this feature already - under 'e')
-;; (require 'all)
-;; (require 'all-ext)
-
+(setq save-place-file (f-expand "point_position_history" user-emacs-directory))
+(save-place-mode t)
 
 (setq mc/list-file "~/.emacs.d/data/mc-lists.el")
 (require 'multiple-cursors)
@@ -44,22 +73,39 @@
 
 (require 'expand-region)
 (define-key mode-specific-map (kbd "C-=") 'er/expand-region) ; C-c C-=
-(define-key mode-specific-map (kbd "=")   'er/expand-region) ; C-c =
 
-(require 'textobjects)
-(global-textobject-mark-mode 1)
+
+(defun my-join-next-line ()
+  (interactive)
+  ;; NOTE: join-line is an alias for delete-indentation
+  (join-line 1))
+
+
+(defun my-join-prev-line ()
+  (interactive)
+  (forward-line -1)
+  (my-join-next-line))
+
+
+;; (define-key mode-specific-map (kbd "C-<up>") 'my-join-prev-line) ; C-c C-<up>
+;; (define-key mode-specific-map (kbd "C-<down>") 'my-join-next-line) ; C-c C-<down>
+(define-key mode-specific-map (kbd "<up>") 'my-join-prev-line) ; C-c <up>
+(define-key mode-specific-map (kbd "<down>") 'my-join-next-line) ; C-c <down>
+
 
 (require 'iy-go-to-char)
 (add-to-list 'mc/cursor-specific-vars 'iy-go-to-char-start-pos)
-;; (global-set-key (kbd "C-c ;") 'iy-go-to-or-up-to-continue)
-;; (global-set-key (kbd "C-c ,") 'iy-go-to-or-up-to-continue-backward)
 
-;; make artist-mode leave mouse pointer shape alone (it changes it otherwise)
-(eval-after-load "artist"
-  (setq artist-pointer-shape x-pointer-left-ptr))
+(setq line-number-display-limit-width 2000000)
 
-;; make sure we're using english dictionary even if the locale says otherwise
-;; (ispell-change-dictionary "english")
+(defun move-to-word-beginning ()
+  (unless (looking-back "\\b" nil)
+    (backward-word)))
+
+(defadvice upcase-word     (before my-upcase-word-advice     activate) (move-to-word-beginning))
+(defadvice downcase-word   (before my-downcase-word-advice   activate) (move-to-word-beginning))
+(defadvice capitalize-word (before my-capitalize-word-advice activate) (move-to-word-beginning))
+
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -68,46 +114,63 @@
 ;;                          |_|\_\_____| |_| |____/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; (global-set-key (kbd "C-c +") 'text-scale-increase)
+;; (global-set-key (kbd "C-c -") 'text-scale-decrease)
+;; (global-set-key (kbd "C-c 0") (lambda () (interactive) (text-scale-set 0)))
+
+(global-set-key (kbd "C-c >") 'iy-go-to-or-up-to-continue)
+(global-set-key (kbd "C-c <") 'iy-go-to-or-up-to-continue-backward)
+(global-set-key (kbd "C-c f") 'iy-go-to-char)
+(global-set-key (kbd "C-c F") 'iy-go-to-char-backward)
+
+;; TODO BUG: doesn't work, WM eats s-<up/down> key presses
+(define-key global-map (kbd "s-<up>")   'my-delete-indentation)
+(define-key global-map (kbd "s-<down>") 'my-delete-indentation-down)
+
 (global-set-key (kbd "C->")         'mc/mark-next-like-this)
 (global-set-key (kbd "C-<")         'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(define-key my-toggle-keys (kbd "C-z") 'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
-(global-set-key (kbd "C-x C-d")    'ido-dired)
+(global-set-key (kbd "C-x C-d")    'dired-at-point)
+(global-set-key (kbd "C-x M-d")    'sr-dired)
 
-(global-set-key (kbd "C-x C-k")    'kill-region)
-(global-set-key (kbd "C-x b")      'helm-buffers-list)
-(global-set-key (kbd "C-c C-k")    'kill-region)
+;; (global-set-key (kbd "s-<SPC>")    'just-one-space)
+
+;; (global-set-key (kbd "C-x C-k")    'kill-region)
+;; (global-set-key (kbd "C-c C-k")    'kill-region)
 (global-set-key (kbd "M-<right>")  'forward-sexp)
 (global-set-key (kbd "M-<left>")   'backward-sexp)
 (global-set-key (kbd "<insert>")   'read-only-mode)
 (global-set-key (kbd "M-V")        'mark-lines-next-line)
-(global-set-key (kbd "C-M-<SPC>")  'just-one-space)
 (global-set-key (kbd "C-{")        'backward-paragraph)
 (global-set-key (kbd "C-}")        'forward-paragraph)
-(global-set-key (kbd "C-c f")      'iy-go-to-char)
-(global-set-key (kbd "C-c F")      'iy-go-to-char-backward)
 
 (global-set-key (kbd "C-<kp-multiply>")    'forward-quarter-page)
 (global-set-key (kbd "C-<kp-divide>")      'backward-quarter-page)
 
-
-;; My little ponies (I mean defuns):
+;;
 (global-set-key (kbd "C-M-d")          'duplicate-line-or-region)
 (global-set-key (kbd "M-S-<down>")     'move-text-down)
 (global-set-key (kbd "M-S-<up>")       'move-text-up)
 (global-set-key (kbd "C-v")            'kill-whole-line)
 (global-set-key (kbd "M-j")            'join-region)
 (global-set-key (kbd "C-x r C-y")      'yank-rectangle-as-text)
-
+(global-set-key (kbd "C-c C-o")        'browse-url-at-point)
 
 (define-key my-toggle-keys (kbd "C-c") 'unix-line-endings)
+(define-key my-toggle-keys (kbd "ł")   'toggle-truncate-lines)
+(define-key my-toggle-keys (kbd "l")   'toggle-truncate-lines)
 
 
 ;; Use remap because setting a C-a key would potentially conflict with other
 ;; enhancements to beginning-of-line (like in Org mode).
-(global-set-key [remap move-beginning-of-line]
-                'back-to-indentation-or-beginning)
+(global-set-key [remap move-beginning-of-line] 'back-to-indentation-or-beginning)
+(global-set-key                    (kbd "C-a") 'back-to-indentation-or-beginning)
+
+
+;; no idea where or why I overriden default <return> function in isearch...
+(define-key isearch-mode-map (kbd "<return>") 'isearch-exit)
 
 
 ;;                        _   _  ___   ___  _  ______
@@ -127,10 +190,11 @@
   (delete-selection-mode 1)
   (undo-tree-mode 1)
   (turn-on-auto-fill)
-
+  (linum-mode 1)
+  ;; (wrap-region 1)
   ;; This fucks up empty lines display in text modes, so
   ;; it's disabled
-  (fci-mode -1))
+)
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -144,6 +208,63 @@
 
 (require 'my-move-lines)
 (require 'my-indent-config)
+(require 'my-garble-word)
+
+(defconst my-word-list (s-lines (f-read "/usr/share/dict/linux.words")))
+(defun my-check-dict-format-column (str))
+
+(defun my-check-dict (&optional input)
+  (interactive (list (substring-no-properties
+                      (completing-read "Word? " my-word-list))))
+  (save-selected-window
+    (let
+        ((buf (switch-to-buffer-other-window "*MyDict*"))
+         (word input))
+      (erase-buffer)
+      (call-process-shell-command (concat "/usr/local/bin/dict " word) nil buf)
+      (let
+          ((lines (s-lines (buffer-text-content buf))) tmp)
+        (erase-buffer)
+        (let*
+            ((format-column (lambda (%1)
+                              (->> %1
+                                s-trim
+                                (s-left 25)
+                                (s-pad-left 25 " "))))
+             (formatted (-map (lambda (%1)
+                                (-map format-column (s-split "--" %1))) lines)))
+          (loop for (col-pl col-en) in formatted
+                do (insert (format "%s -- %s\n" col-pl col-en))))))))
+
+
+(defun yank-quote ()
+  (with-current-buffer (find-file-noselect "~/quotes.txt")
+    (goto-char (point-max))
+    (insert "\n=========================================\n")
+    (my-insert-now)
+    (insert "\n\n")
+    (yank)
+    (insert "\n\n=========================================\n")
+    (save-buffer)))
+
+(defun add-to-quotes ()
+  (interactive)
+  (if (region-active-p)
+      (let*
+          ((beg (region-beginning))
+           (end (region-end)))
+        (kill-ring-save beg end)
+        (yank-quote))
+    (find-file-other-window "~/quotes.txt")
+    (goto-char (point-max))
+    (insert "\n=========================================\n")
+    (my-insert-now)
+    (insert "\n\n")
+    (save-excursion
+      (insert "\n\n=========================================\n"))))
+
+(define-key mode-specific-map (kbd "q") 'add-to-quotes)
+(define-key mode-specific-map (kbd "C-q") 'add-to-quotes)
 
 
 (defun forward-quarter-page (&optional arg)
@@ -177,25 +298,21 @@
 
 
 (defun duplicate-line-or-region ()
-  "Duplicate current line. If there is a region active, duplicate
-all lines of the region. To duplicate the region itself just use
-M-w C-y ;-)"
+  "Duplicate current line. If there is a region selected,
+duplicate all lines of the region. To duplicate the region itself
+just use M-w C-y ;-)"
   (interactive)
   (destructuring-bind
-      (region-active beg end) (my-get-region-or-line-bounds)
-
+      (region-active? beg end) (my-get-region-or-line-bounds)
     (goto-char beg)
     (move-end-of-line 0)                ; to the end of previous line, to have \n
-    (push-mark)
+    (push-mark)                         ; start selection
     (goto-char end)
-    (move-end-of-line 1)                ; to the end of current line, no \n
-    (copy-region-as-kill (region-beginning)
-                         (region-end))
-    (yank)
-    ;; it conflicts with auto-mark-mode which is irritating
-    ;; (when region-active
-    ;;   (restore-region beg end))
-    ))
+    (move-end-of-line 1)                ; to the end of current line, without  \n
+    (copy-region-as-kill                ; copy and disables selection
+     (region-beginning)
+     (region-end))
+    (yank)))                           ; iow. paste
 
 (defun restore-region (beg end)
   (ensure-mark-active)
@@ -215,8 +332,9 @@ M-w C-y ;-)"
 (defalias 'join-region 'my-join-region)
 
 
-;; TODO: make it work with rect.el too, maybe?
-(defalias 'paste-rectangle-as-text 'yank-rectangle-as-text)
+(defalias 'paste-rectangle-as-text      ; PASTE-... is the correct name!
+  'yank-rectangle-as-text)
+
 (defun yank-rectangle-as-text ()
   "Insert killed rectange as if it was normal text, ie. push
 lines down to make space for it instead of pushing line contents
@@ -227,7 +345,6 @@ to the right."
     (kill-region (point-min) (point-max)))
   (yank)
   (newline))
-
 
 
 (defun my-unix-line-endings (&optional save)
@@ -270,17 +387,21 @@ which case move it to the first non-whitespace char in line.
 Handles prefix arg like `move-beginning-of-line' does."
   (interactive "^p")
   (setq arg (or arg 1))
+  (if (and (cl-equalp major-mode 'org-mode)
+           (save-excursion
+             (move-beginning-of-line 1)
+             (looking-at (rx (1+ "*")))))
+      (org-beginning-of-line arg)
 
-  ;; Move lines first, with visual-line honored (never used).
-  (when (not (= arg 1))
-    (let ((line-move-visual nil))
-      (forward-line (1- arg))))
+    ;; Move lines first, with visual-line honored (never used).
+    (when (not (= arg 1))
+      (let ((line-move-visual nil))
+        (forward-line (1- arg))))
 
-  (let ((orig-point (point)))
-    (move-beginning-of-line 1)
-    (when (= orig-point (point))
-      (back-to-indentation))))
-
+    (let ((orig-point (point)))
+      (move-beginning-of-line 1)
+      (when (= orig-point (point))
+        (back-to-indentation)))))
 
 
 (defmacro like-this-maker (name dir)
@@ -292,12 +413,13 @@ Handles prefix arg like `move-beginning-of-line' does."
     `(defun ,defun-name ()
        (interactive)
        (let
-           ((,wname (thing-at-point 'word t)))
+           ((,wname (thing-at-point 'sexp t)))
+         (when (eq ',dir 'forward)
+           (ignore-errors (forward-sexp)))
          (when ,wname
            (,search-name (concat "\\b" ,wname "\\b")))
-         (if (eq dir 'backward)
-	     t
-	   (backward-char (length ,wname))) ))))
+         (unless (eq ',dir 'backward)
+	       (backward-char (length ,wname))) ))))
 
 (like-this-maker next forward)
 (like-this-maker prev backward)
@@ -307,6 +429,7 @@ Handles prefix arg like `move-beginning-of-line' does."
 
 
 (defun align-comment-end ()
+  "FIXME: docs"
   (interactive)
   (let* ((target 60)
         (line (buffer-line))

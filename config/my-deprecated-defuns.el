@@ -1,3 +1,17 @@
+;; (put 'font-lock-add-keywords 'lisp-indent-function 1)
+
+
+;; (defun my-make-txt-font-locks ()
+;;   (let ((my-lst-line-re (rx (and line-start
+;;                                  (0+ (in blank))
+;;                                  "-"
+;;                                  (opt blank)
+;;                                  (group (0+ not-newline))
+;;                                  line-end))))
+;;     (font-lock-add-keywords nil
+;;       `(("`.*?'" . font-lock-warning-face)
+;;         (,my-lst-line-re 1 font-lock-warning-face)))))
+
 ;;; Some things I wrote but am not using anymore.
 ;;
 
@@ -149,3 +163,166 @@ they will be removed on save anyway."
 ;; (when (boundp 'icomplete-minibuffer-map)
 ;;   (define-key icomplete-minibuffer-map (kbd "<left>") 'icomplete-forward-completions)
 ;;   (define-key icomplete-minibuffer-map (kbd "<right>") 'icomplete-backward-completions))
+
+
+
+
+;;  ___  ____   ____       ____  _   _ ____  _   _    ______  _   _ _     _
+;; / _ \\|  _ \\ / ___|     |  _ \\| | | / ___|| | | |  / /  _ \\| | | | |   | |
+;;| | | | |_) | |  _ _____| |_) | | | \\___ \\| |_| | / /| |_) | | | | |   | |
+;;| |_| |  _ <| |_| |_____|  __/| |_| |___) |  _  |/ / |  __/| |_| | |___| |___
+;; \\___/|_| \\_\\\\____|     |_|    \\___/|____/|_| |_/_/  |_|    \\___/|_____|_____|
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'deferred)
+
+;; ;;
+;; ;; INTERFACE
+;; ;;
+
+;; ;;;###autoload
+;; (defun my-org-export ()
+;;   (interactive)
+;;   (my-bzr-commit-and-push)
+;;   ;; (deferred:$
+;;   ;;   (deferred:call 'org-mobile-push)
+;;   ;;   (deferred:next (lambda (ignored)   (my-start-rsync "orgmobile ec2:")))
+;;   ;;   (deferred:nextc it (lambda (p)         (my-bzr-commit-and-push)))
+;;   ;;   (deferred:error it (lambda (er)        (message "err: %s" er)))
+;;   ;;   (deferred:nextc it (lambda (&rest arg) (message "export finished"))))
+;;   )
+
+;; ;;;###autoload
+;; (defun my-org-import ()
+;;   (interactive)
+;;   (deferred:$
+;;     (my-start-rsync "ec2:orgmobile/ orgmobile")
+;;     (deferred:nextc it
+;;       (lambda (out)
+;;         (org-mobile-pull)
+;;         (message "import finished")))))
+
+
+;; ;;
+;; ;; IMPLEMENTATION
+;; ;;
+
+;; (defun my-bzr-commit-and-push ()
+;;   (message "bzr commit & push being called")
+;;   (deferred:$
+;;     (deferred:process-shell "cd ~/todo/ && bzr ci -m \\"commit\\"")
+;;     (deferred:nextc it (lambda (output)
+;;                          (deferred:process-shell "cd ~/todo/ && bzr push")))
+;;     (deferred:nextc it (lambda (output)
+;;                          (message "bzr finished")))))
+
+
+;; (defun my-start-rsync (spec)
+;;   (message "start-rsync being called")
+;;   (let ((cmd (concat "cd ~/ && rsync --rsh=\\"ssh\\" -avc " spec)))
+;;     (deferred:$
+;;       (deferred:process-shell cmd)
+;;       (deferred:nextc it (lambda (out)
+;;                            (message "rsync finished" out)
+;;                            (deferred:succeed out))))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(defun org-dblock-write:rangereport (params)
+  "Display day-by-day time reports. Insert comething like this:
+
+#+BEGIN: rangereport :maxlevel 4 :scope tree3 :tstart \"<2013-11-12 wto>\" :tend \"<2013-11-28 czw>\"
+#+END:
+
+and press C-c C-x C-u (org-dblock-update) while on it to generate the report.
+"
+  (let* ((ts (plist-get params :tstart))
+         (te (plist-get params :tend))
+         (start (time-to-seconds
+                 (apply 'encode-time (org-parse-time-string ts))))
+         (end (time-to-seconds
+               (apply 'encode-time (org-parse-time-string te))))
+         day-numbers startendday)
+    (setq params (plist-put params :tstart nil))
+    (setq params (plist-put params :end nil))
+    (while (<= start end)
+      (save-excursion
+        (setq startendday (+ 86400 start))
+        (insert "\n\n"
+                (format-time-string (car org-time-stamp-formats)
+                                    (seconds-to-time start))
+                "----------------\n")
+        (org-dblock-write:clocktable
+         (plist-put
+          (plist-put
+           params
+           :tstart
+           (format-time-string (car org-time-stamp-formats)
+                               (seconds-to-time start)))
+          :tend
+          (format-time-string (car org-time-stamp-formats)
+                              (seconds-to-time startendday))))
+        (setq start (+ 86400 start))))))
+
+
+;;   ____ _   _ ____ _____ ___  __  __      _    ____ _____ _   _ ____    _
+;;  / ___| | | / ___|_   _/ _ \\|  \\/  |    / \\  / ___| ____| \\ | |  _ \\  / \\
+;; | |   | | | \\___ \\ | || | | | |\\/| |   / _ \\| |  _|  _| |  \\| | | | |/ _ \\
+;; | |___| |_| |___) || || |_| | |  | |  / ___ \\ |_| | |___| |\\  | |_| / ___ \\
+;;  \\____|\\___/|____/ |_| \\___/|_|  |_| /_/   \\_\\____|_____|_| \\_|____/_/   \\_\\
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;; (setq org-agenda-custom-commands
+;;       '(("m" "Notes"
+;;          ((tags "/!NEXT|ACTIVE"
+;;                 ((org-agenda-overriding-header "Next tasks")))
+;;           (tags "/SUSPENDED|WAITING"
+;;                 ((org-agenda-overriding-header "Suspended tasks")))
+;;           (tags "NOTE"
+;;                 ((org-agenda-overriding-header "Notes")
+;;                  (org-tags-match-list-sublevels nil)))))))
+
+
+
+
+
+;; (setq org-structure-template-alist
+;;  '(("s" "#+NAME:\\n#+BEGIN_SRC ?\\n\\n#+END_SRC")
+;;    ("e" "#+BEGIN_EXAMPLE\\n?\\n#+END_EXAMPLE")
+;;    ("q" "#+BEGIN_QUOTE\\n?\\n#+END_QUOTE")
+;;    ("v" "#+BEGIN_VERSE\\n?\\n#+END_VERSE")
+;;    ("V" "#+BEGIN_VERBATIM\\n?\\n#+END_VERBATIM")
+;;    ("c" "#+BEGIN_CENTER\\n?\\n#+END_CENTER")
+;;    ("l" "#+BEGIN_LaTeX\\n?\\n#+END_LaTeX")
+;;    ("L" "#+LaTeX: ")
+;;    ("h" "#+BEGIN_HTML\\n?\\n#+END_HTML")
+;;    ("H" "#+HTML: ")
+;;    ("a" "#+BEGIN_ASCII\\n?\\n#+END_ASCII")
+;;    ("A" "#+ASCII: ")
+;;    ("i" "#+INDEX: ?")
+;;    ("I" "#+INCLUDE: %file ?")))
+
+;; Faces
+;; '(org-block-begin-line ((t (:foreground "#9ED5D5"))))
+;; '(org-block-end-line ((t (:foreground "#9ED5D5"))))
+
+
+
+;; This is the default, but it didn't work for me for some reason. It then
+;; started working suddenly...
+;; (setq org-src-fontify-natively t)
+
+;; (setq org-remember-templates
+;;      '(("Todo" ?t "* TODO %? %^g\\nAdded: %U\\n%i" "~/todo/todo.org" "TASKS")
+;;        ("Post" ?p "* %T %^{topic}\\n %?" "~/todo/posty.org")
+;;        ("Journal" ?j "* %T\\n\\t%?" "~/todo/journal.org")
+;;        ("Browsing" ?j "* %T\\n\\t%?" "~/todo/journal.org")))

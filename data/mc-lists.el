@@ -3,14 +3,26 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        Custom-save
         ace-jump-done
         ace-jump-mode
+        artist-backward-char
+        artist-next-line
+        artist-previous-line
+        asm-comment
         back-to-indentation-or-beginning
         backward-sexp
         beginning-of-buffer
         c-electric-colon
         c-electric-delete-forward
+        c-electric-lt-gt
+        c-electric-paren
+        c-electric-semi&comma
+        c-electric-slash
+        c-electric-star
+        c-indent-line-or-region
         coffee-dedent-line-backspace
+        comment-dwim
         comment-or-uncomment-region-or-line
         company-abort
         delete-indentation
@@ -18,83 +30,166 @@
         electric-newline-and-maybe-indent
         electric-pair-backward-delete-char
         electric-pair-delete-pair
+        elpy-nav-backward-indent
+        elpy-nav-forward-indent
         elscreen-create
         end-of-buffer
+        end-of-visual-line
         erlang-electric-comma
+        eshell-bol
         eval-last-sexp
+        fill-paragraph
         forward-sexp
+        fsharp-ac/electric-dot
+        fsharp-electric-backspace
         fuzzy-find-choose-root-set
+        goto-line
+        helm-M-x
         indent-for-tab-command
+        insert-register
         iy-go-to-char--command
         iy-go-to-char-quit
         jedi:dot-complete
         join-region
         keyboard-escape-quit
+        keyboard-quit
         kill-region
         kill-sexp
+        kill-visual-line
+        kmacro-start-macro-or-insert-counter
         livescript-dedent-line-backspace
+        magit-copy-buffer-revision
+        magit-status
         mark-lines-next-line
         mark-word
+        markdown-cycle
+        markdown-demote
+        markdown-exdent-or-delete
+        move-text-up
         my-dedent
+        my-delete-indentation
+        my-delete-indentation-down
+        my-enlarge-window-horizontally
         my-eval-last-sexp
+        my-indent
+        my-join-next-line
+        my-join-prev-line
         my-toggle-quotes
+        nim-electric-backspace
         nim-indent-electric-colon
+        nxml-electric-slash
+        occur-x-undo-filter
+        org-add-note
         org-beginning-of-line
+        org-comment-dwim
         org-cycle
+        org-delete-char
         org-end-of-line
+        org-fill-paragraph
         org-force-self-insert
+        org-kill-line
+        org-metaleft
+        org-metaright
         org-self-insert-command
         org-shiftcontrolleft
+        org-shiftright
         org-yank
+        orgtbl-hijacker-command-102
         orgtbl-hijacker-command-3
         orgtbl-self-insert-command
         overwrite-mode
+        paredit-backslash
         paredit-backward-kill-word
         paredit-backward-slurp-sexp
+        paredit-close-round
+        paredit-comment-dwim
         paredit-doublequote
         paredit-forward-delete
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
+        paredit-join-sexps
         paredit-kill
         paredit-meta-doublequote
         paredit-newline
         paredit-open-round
+        paredit-reindent-defun
         paredit-semicolon
         paredit-splice-sexp
         paredit-split-sexp
         paredit-wrap-round
+        paredit-wrap-square
         prolog-electric-dot
         python-indent-dedent-line-backspace
         python-indent-electric-colon
         python-indent-shift-left
         python-indent-shift-right
+        python-nav-backward-sexp
+        python-nav-forward-sexp
+        racket-insert-lambda
+        reposition-window
+        scroll-other-window-down
+        scroll-rigth-a-bit
+        sgml-close-tag
         sgml-slash
         slime-autodoc-space
         suspend-frame
         transpose-sexps
+        transpose-words
         wdired-capitalize-word
         wdired-next-line
         wdired-previous-line
         wdired-upcase-word
+        widget-kill-line
+        yaml-electric-backspace
+        yaml-electric-dash-and-dot
         yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        align-by-current-symbol
         artist-down-mouse-1
         artist-down-mouse-3
+        cider-eval-defun-at-point
+        describe-key
         dired-next-line
         dired-previous-line
+        elpy-shell-send-region-or-buffer
         elscreen-next
         elscreen-previous
+        eval-defun
+        fuzzy-find-in-project
+        global-occur
+        helm-find-files
+        helm-occur
+        hydra-splitter/hydra-move-splitter-left
+        hydra-splitter/hydra-move-splitter-right
+        hydra-splitter/nil
         ibuffer
         ido-find-file
         iedit-mode
+        iedit-rectangle-mode
+        isearch-repeat-forward
+        kill-rectangle
+        magit-blame
+        magit-blame-quit
         mouse-drag-vertical-line
         mouse-select-window
         mouse-set-region
         mouse-yank-primary
-        org-delete-char
+        move-text-down
+        next-buffer
+        org-ctrl-c-ctrl-c
+        orgtbl-hijacker-command-109
+        paredit-forward-barf-sexp
         picture-self-insert
+        read-only-mode
+        repeat
+        slime-eval-defun
         smex
+        tfb-down
+        tfb-up
+        undo-tree-visualize
+        xref-find-definitions
+        xref-pop-marker-stack
         ))

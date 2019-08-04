@@ -1,3 +1,5 @@
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 (defun y-or-n-p (prompt)
   "Ask user a \"y or n\" question.  Return t if answer is \"y\".
   PROMPT is the string to display to ask the question.  It should
@@ -100,10 +102,27 @@
         (discard-input))))
     (let ((ret (eq answer 'act)))
       (unless noninteractive
-        ;; FIXME this prints one too many spaces, since prompt
-        ;; already ends in a space.  Eg "... (y or n)  y".
-        (message "%s %s" prompt (if ret "y" "n")))
+        (message "%s%s" prompt (if ret "y" "n")))
       ret)))
 
 
-(defalias 'yes-or-no-p 'y-or-n-p)
+(eval-after-load 'sunrise-commander
+  '(defun sr-y-n-or-a-p (prompt)
+     "Ask the user with PROMPT for an answer y/n/a ('a' stands for 'always').
+Returns t if the answer is y/Y, nil if the answer is n/N or the
+symbol `ALWAYS' if the answer is a/A."
+     (setq prompt (concat prompt "([y]es/<return>, [n]o or [a]lways)"))
+     (let ((resp -1))
+       (while (not (memq resp '(?y ?Y ?n ?N ?a ?A 10 return)))
+         (setq resp (read-event prompt))
+         (setq prompt "Please answer [y]es/<return>, [n]o or [a]lways "))
+       (if (and (numberp resp) (>= resp 97))
+           (setq resp (- resp 32)))
+       (case resp
+         (?Y t)
+         (10 t)
+         ('return t)
+         (?A 'ALWAYS)
+         (t nil)))))
+
+(provide 'my-minibuf-prompt)

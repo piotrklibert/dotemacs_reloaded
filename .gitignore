@@ -78,3 +78,14 @@ pkg-langs
 /image-dired/.image-dired_db
 /image-dired
 /helm-adaptive-history
+/data/slime-history.eld
+/jabber-avatar-cache
+/jabber-history
+snippets
+.mypy_cache
+/forked-plugins
+creds.el
+var
+.cask
+/network-security.data
+/something-strange-init.el

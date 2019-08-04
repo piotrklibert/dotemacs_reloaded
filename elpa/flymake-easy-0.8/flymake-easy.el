@@ -58,7 +58,7 @@ Argument PREFIX temp file prefix, supplied by flymake."
 (defun flymake-easy--flymake-init ()
   "A catch-all flymake init function for use in `flymake-allowed-file-name-masks'."
   (let* ((tempfile
-          (flymake-init-create-temp-buffer-copy
+          (flymake-proc-init-create-temp-buffer-copy
            (cond
             ((eq 'tempdir flymake-easy--location)
              'flymake-easy--tempfile-in-temp-dir)
@@ -92,10 +92,10 @@ by the flymake fork at https://github.com/illusori/emacs-flymake)."
                 flymake-easy--location (or location 'tempdir)
                 flymake-easy--extension extension
                 flymake-easy--active t)
-          (set (make-local-variable 'flymake-allowed-file-name-masks)
+          (set (make-local-variable 'flymake-proc-allowed-file-name-masks)
                '(("." flymake-easy--flymake-init)))
           (when err-line-patterns
-            (set (make-local-variable 'flymake-err-line-patterns) err-line-patterns))
+            (set (make-local-variable 'flymake-proc-err-line-patterns) err-line-patterns))
           (dolist (var '(flymake-warning-re flymake-warn-line-regexp))
             (set (make-local-variable var) (or warning-re "^[wW]arn")))
           (when (boundp 'flymake-info-line-regexp)
@@ -114,7 +114,7 @@ by the advice below, which allows for matching multi-line
 patterns."
   (let (matches
         (last-match-end-pos 0))
-    (dolist (pattern flymake-err-line-patterns)
+    (dolist (pattern flymake-proc-err-line-patterns)
       (let ((regex (car pattern))
             (pos 0))
         (while (string-match regex str pos)

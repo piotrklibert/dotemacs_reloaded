@@ -95,7 +95,7 @@ Project root is determined with `ffip-project-root', if available."
       (goto-char (point-max))
       (when (not (string= (shell-here-stripslash
                            (expand-file-name default-directory)) target))
-        (flet ((kill-region (start end)
+        (cl-flet ((kill-region (start end)
                  (prog1
                      (buffer-substring start end) (delete-region start end))))
           (insert (prog1 (or (when (not new) (comint-kill-input)) "")

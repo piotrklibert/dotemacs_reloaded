@@ -2,9 +2,9 @@
 
 ;; Copyright (C) 2011-2013 Josh Johnston
 
-;; Author: Josh Johnston
-;; URL: https://github.com/joshwnj/json-mode
-;; Version: 20131016.1653
+;; Author: Josh Johnston Piotr Klibert
+;; URL: https://github.com/piotrklibert/json-mode
+;; Version: 20180910.1
 ;; X-Original-Version: 1.1.0
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 ;;; Commentary:
 
 ;; extend the builtin js-mode's syntax highlighting
+;; PK: support some additional keywords and highlight comments properly
 
 ;;; Code:
 
@@ -36,6 +37,7 @@
                                (seq ?\\ (not (any ?\" ?\\)))
                                (not (any ?\" ?\\))))
              (char ?\"))))
+
 (defconst json-mode-quoted-key-re
   (rx (group (char ?\")
              (zero-or-more (or (seq ?\\ ?\\)
@@ -45,36 +47,78 @@
              (char ?\"))
       (zero-or-more blank)
       ?\:))
-(defconst json-mode-number-re (rx (group (one-or-more digit)
-                                         (optional ?\. (one-or-more digit)))))
-(defconst json-mode-keyword-re  (rx (group (or "true" "false" "null"))))
+
+(defconst json-mode-number-re
+  (rx (group (one-or-more digit)
+             (optional ?\. (one-or-more digit)))))
+
+(defconst json-mode-keyword-re
+  (rx (group (or "true" "false" "null" "void" "undefined"))))
+
+(defconst json-mode-type-re
+  (rx (group (or "boolean" "string" "int" "array"))))
+
+(defconst json-mode-comment-re
+  (rx (group "//"
+             (*? any)
+             eol)))
+
+
+(defun json-mode--find-next-comment (limit)
+  (search-forward "//" limit 'mv))
+
+(defun json-mode--count-quotes ()
+  "Check if point is inside a string literal"
+  (let
+      ((line (buffer-substring-no-properties (line-beginning-position)
+                                             (point))))
+    (cl-evenp (cl-count ?\" line))))
+
+(defun json-mode--comment-func (limit)
+  (when (json-mode--find-next-comment limit)
+    (if (json-mode--count-quotes)
+        (progn
+          (goto-char (- (point) 2))
+          (re-search-forward json-mode-comment-re))
+      (json-mode--comment-func limit))))
 
 (defconst json-font-lock-keywords-1
   (list
-   (list json-mode-quoted-key-re 1 font-lock-keyword-face)
+   (list 'json-mode--comment-func   0 font-lock-comment-face)
+   (list json-mode-quoted-key-re    1 font-lock-keyword-face)
    (list json-mode-quoted-string-re 1 font-lock-string-face)
-   (list json-mode-keyword-re 1 font-lock-constant-face)
-   (list json-mode-number-re 1 font-lock-constant-face)
-   )
+   (list json-mode-keyword-re       1 font-lock-constant-face)
+   (list json-mode-type-re          1 font-lock-constant-face)
+   (list json-mode-number-re        1 font-lock-constant-face))
   "Level one font lock.")
 
 (defconst json-mode-beautify-command-python2
-  "python2 -c \"import sys,json,collections; data=json.loads(sys.stdin.read(),object_pairs_hook=collections.OrderedDict); print json.dumps(data,sort_keys=%s,indent=4,separators=(',',': ')).decode('unicode_escape').encode('utf8','replace')\"")
+  (concat
+   "python2 -c \"import sys,json,collections; data=json.loads(sys.stdin.read(),"
+   "object_pairs_hook=collections.OrderedDict); print json.dumps(data,"
+   "sort_keys=%s,indent=4,separators=(',',': ')).decode('unicode_escape')"
+   ".encode('utf8','replace')\""))
+
 (defconst json-mode-beautify-command-python3
-  "python3 -c \"import sys,json,codecs,collections; data=json.loads(sys.stdin.read(),object_pairs_hook=collections.OrderedDict); print((codecs.getdecoder('unicode_escape')(json.dumps(data,sort_keys=%s,indent=4,separators=(',',': '))))[0])\"")
+  (concat
+   "python3 -c \"import sys,json,codecs,collections; data=json.loads(sys.stdin.read(),"
+   "object_pairs_hook=collections.OrderedDict); print((codecs.getdecoder('unicode_escape')"
+   "(json.dumps(data,sort_keys=%s,indent=4,separators=(',',': '))))[0])\""))
 
 ;;;###autoload
 (defun json-mode-beautify (beg end &optional preserve-key-order)
   "Beautify / pretty-print from BEG to END, and optionally PRESERVE-KEY-ORDER."
   (interactive "r\nP")
-  (shell-command-on-region (if mark-active beg (point-min))
-                           (if mark-active end (point-max))
-                           (concat (if (executable-find "env") "env " "")
-                                   (format (if (executable-find "python2")
-                                               json-mode-beautify-command-python2
-                                             json-mode-beautify-command-python3)
-                                           (if preserve-key-order "False" "True")))
-                           (current-buffer) t))
+  (shell-command-on-region
+   (if mark-active beg (point-min))
+   (if mark-active end (point-max))
+   (concat (if (executable-find "env") "env " "")
+           (format (if (executable-find "python3")
+                       json-mode-beautify-command-python3
+                     json-mode-beautify-command-python2)
+                   (if preserve-key-order "False" "True")))
+   (current-buffer)
+   t))
 
 ;;;###autoload
 (defun json-mode-beautify-ordered (beg end)

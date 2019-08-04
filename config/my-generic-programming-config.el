@@ -1,72 +1,108 @@
-(require 'cl)
+(require 'use-package)
+(require 'f)
+(require 'my-keymaps-config)
+
+(require 'isearch)
+(eval-when-compile
+  (require 'cl))
+(require 'cl-lib)
 (require 'pp)
+(require 'pp+)
+(require 'ffap)                         ; find file at point
 (require 'electric)
 (require 'thingatpt)
-(require 'powerline)
-(require 'rainbow-mode)
-(require 'fic-ext-mode)
-(require 'rainbow-delimiters)
-
-(require 'ggtags)
-
 (require 'flymake)
-;; (require 'eassist)
-;; (require 'flymake-checkers)
-
-
-(require 'columnize)
-
-(require 'align-string)
-(require 'align-regexp)
-(require 'align-by-current-symbol)      ; use with C-u for "strange" symbols,
-                                        ; like ' ( ; and so on
-
-(require 'ag)                           ; ack replacement in C
-(require 'ffap)                         ; find file at point
-(require 'fuzzy)                        ; fuzzy isearch support
-
 (require 'jka-compr)                    ; searches tags in gzipped sources too
+
 (require 'ls-lisp)                      ; elisp ls replacement
+(setf ls-lisp-use-insert-directory-program t)
+(setf insert-directory-program             "~/.emacs.d/ls.sh")
 
-(require 'electric)
+(require 'fuzzy)                        ; fuzzy isearch support
+;; (require 'eassist)
 
+
+(require 'ag-autoloads)                 ; ack replacement in C
+(require 'ggtags-autoloads)
+(require 'rainbow-mode-autoloads)
+(require 'fic-ext-mode-autoloads)
+(require 'rainbow-delimiters-autoloads)
+
+
+(use-package tail       :commands tail-file)
+(use-package tags-tree  :commands tags-tree)
+(use-package imenu-tree :commands imenu-tree)
+(use-package helm-ag    :commands helm-do-ag
+                                  helm-do-ag-project-root)
+(use-package swiper     :commands swiper)
+(use-package columnize  :commands columnize-text
+                                  columnize-strings)
+(use-package ace-window :commands ace-window)
+
+(use-package ztree
+  :commands ztree-dir
+  :config (setq ztree-draw-unicode-lines t))
+
+
+(require 'my-hideshow)
+
+;; use with C-u to align by char instead of word
+(use-package align-by-current-symbol :commands align-by-current-symbol)
+
+(defun my-occur-mode-hook ()
+  (turn-on-occur-x-mode)
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
 (eval-after-load "replace"
   '(progn
      (require 'occur-x)
      (require 'occur-default-current-word)
-     (add-hook 'occur-mode-hook 'turn-on-occur-x-mode)
-     (message "occur-x activated")))
+     (add-hook 'occur-mode-hook 'my-occur-mode-hook)))
+
+(defun my-msg-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(add-hook 'message-mode-hook 'my-msg-mode-hook)
 
 
+(defun my-info-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp))
+  (define-key 'Info-mode-map (kbd "<mouse-5>") (lambda () (scroll-down 4)))
+  (define-key 'Info-mode-map (kbd "<mouse-4>") (lambda () (scroll-up 4))))
 
-;; Needs to be configured before require because. Just because.
-(setq ace-jump-mode-submode-list
-      '(ace-jump-word-mode
-        ace-jump-line-mode              ; make C-u C-c spc jump to lines
-        ace-jump-char-mode))
-(require 'ace-jump-mode)                ; quickly jump to char
+;; (add-hook 'Info-mode-hook 'my-info-mode-hook)
+;; (remove-hook 'Info-mode-hook 'my-info-mode-hook)
+
+(define-key help-map (kbd "C-a") 'helm-apropos)
+(define-key help-map (kbd "a") 'apropos)
+
+(defun my-help-mode-hook ()
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(add-hook 'help-mode-hook 'my-help-mode-hook)
+
+
+(autoload 'helm-def-source--emacs-functions "helm-elisp")
+(defun helm-apropos-functions (default)
+  "Preconfigured helm to describe functions."
+  (interactive (list (thing-at-point 'symbol)))
+  (helm :sources (list (helm-def-source--emacs-functions))
+        :history 'helm-apropos-history
+        :buffer "*helm apropos*"
+        :input default
+        :preselect default))
+
+(define-key help-map (kbd "C-f") 'helm-apropos-functions)
+
+(eval-after-load "pcase"
+  '(put 'pcase 'function-documentation '()))
+
 
 (require 'my-highlight-word)            ; somewhat like * in Vim
 (require 'my-ffap-wrapper)
-
 (require 'my-pygmentize)
+(require 'my-toggle-true-false)         ; it's silly, but it's my first "real"
+                                        ; Elisp, so I keep it around :)
 
-;; that's silly, but it's my first "serious" Elisp, so I keep it around :)
-(require 'my-toggle-true-false)
-
-;; (eval-after-load "ace-jump-mode"
-;;   '(ace-jump-mode-enable-mark-sync))
-;; (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
-
-
-;; (require 'etags-update)
-;; It's not used right now because it's muuuch too slow for my Python projects,
-;; and on the other hand it's unwieldy to reindex tags by hand everytime I
-;; change something.
-;; TODO: etags-update - look into it once more before discarding
-;; (etags-update-mode 1)
-;; default tag table file
-;; (visit-tags-table "~/.emacs.d/TAGS")
 
 
 ;;              ____  _____ _____ _____ ___ _   _  ____ ____
@@ -74,33 +110,23 @@
 ;;             \___ \|  _|   | |   | |  | ||  \| | |  _\___ \
 ;;              ___) | |___  | |   | |  | || |\  | |_| |___) |
 ;;             |____/|_____| |_|   |_| |___|_| \_|\____|____/
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
+;;
+;;================================================================================
 
 (add-to-list 'semantic-default-submodes 'global-semanticdb-minor-mode)                     ; Maintain tag database.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-scheduler-mode)              ; Reparse buffer when idle.
 (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)                ; Show summary of tag at point.
 (add-to-list 'semantic-default-submodes 'global-semantic-highlight-func-mode)              ; Highlight the current tag.
-(add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
 (add-to-list 'semantic-default-submodes 'global-semantic-mru-bookmark-mode)                ; Provide `switch-to-buffer'-like keybinding for tag names.
-(add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
-(add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
+
+;; (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)                  ; Show current fun in header line.
+;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode)                       ; A mouse 3 context menu.
+;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-local-symbol-highlight-mode) ; Highlight references of the symbol under point.
+
 (semantic-mode 1)
 
-
-(turn-on-fuzzy-isearch)                 ; complement: turn-off-fuzzy-isearch
-(global-auto-mark-mode 1)               ; configured in my-indent-config.el (?)
-(wrap-region-global-mode t)             ; select region and press ( to wrap it
-(electric-pair-mode 1)
-
-(column-number-mode t)                  ; show col num on modeline
-(show-paren-mode t)                     ; highlight matching parens
-
-
-(setq ls-lisp-use-insert-directory-program t)
-(setq insert-directory-program "~/.emacs.d/ls.sh")
-
+(require 'ivy)
+(setf ivy-format-function 'my-ivy-format)
 
 ;;                           _  _________   ______
 ;;                          | |/ / ____\ \ / / ___|
@@ -108,95 +134,72 @@
 ;;                          | . \| |___  | |  ___) |
 ;;                          |_|\_\_____| |_| |____/
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;================================================================================
 
-(define-key my-toggle-keys (kbd "C-t") 'my-toggle-true-false-none)
+(define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
+(define-key mode-specific-map (kbd "\"") 'my-toggle-quotes)
 
-(global-set-key (kbd "C-c C-l") 'pygmentize)
+;; (global-set-key (kbd "C-c C-l") 'pygmentize)
 (global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
-(global-set-key (kbd "C-M-\"")  'my-toggle-quotes)
+(global-set-key (kbd "C-M-.")   'xref-find-definitions-other-window)
 (global-set-key (kbd "C-!")     'highlight-or-unhighlight-at-point)
 (global-set-key (kbd "C-\"")    'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "<f9>")    'my-make)
 
-(defun my-make ()
-  (interactive)
-  (let
-      ;; TODO: make this search for Makefile in directories above current file
-      ((default-directory "/home/cji/projects/klibert_pl/"))
-    (compile "make")))
 
-;;
-;; Utilities for navigating around the codebase: searching, greping, jumping...
-;;
-(define-key mode-specific-map (kbd "SPC")   'ace-jump-mode)
-(define-key mode-specific-map (kbd "C-SPC") 'ace-jump-mode)
+(define-key mode-specific-map (kbd "e") 'flymake-show-diagnostics-buffer)
+(define-key mode-specific-map (kbd "w w") 'flymake-show-diagnostics-buffer)
+(define-key mode-specific-map (kbd "w <down>") 'flymake-goto-next-error)
+(define-key mode-specific-map (kbd "w <up>") 'flymake-goto-prev-error)
+(define-key mode-specific-map (kbd "M-.") 'xref-find-definitions-other-window)
 
-(define-key my-find-keys (kbd "C-o")      'occur)
+;; functions related to searching paths, files and everything else.
+(defvar my-find-keys)
+(define-prefix-command 'my-find-keys)
+(global-set-key (kbd "C-f") 'my-find-keys)
+
+(define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
+
+(define-key my-find-keys (kbd "o")        'occur)
+(define-key my-find-keys (kbd "l")        'avy-goto-line)
+(define-key my-find-keys (kbd "C-l")      'find-library-other-window)
+(define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
+
+
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
-(define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
+;; (define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
+
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
-(define-key my-find-keys (kbd "C-i")      'idomenu)
+(define-key my-find-keys (kbd "C-i")      'helm-imenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
-(define-key my-find-keys (kbd "C-a")      'ag)
-(define-key my-find-keys (kbd "C-M-a")    'ack)
+
+(define-key my-find-keys (kbd "C-c")     'iy-go-to-char)
+(define-key my-find-keys (kbd "c")       'iy-go-to-char)
+(define-key my-find-keys (kbd "<SPC>")   'iy-go-to-char)
+(define-key my-find-keys (kbd "C-<SPC>") 'iy-go-to-char)
+
+(autoload 'helm-do-ag-project-root "helm-ag" "" t)
+(define-key my-find-keys (kbd "C-a")      'my-helm-do-ag-current-dir)
+(define-key my-find-keys (kbd "a")        'helm-do-ag-project-root)
+(define-key my-find-keys (kbd "M-a")      'ag)
+
 (define-key my-find-keys (kbd "C-p")      'my-project-ffap)
 (define-key my-find-keys (kbd "C-M-p")    'ffap-other-window)
 
 
-
-
-
-;; XXX: This proved to be slower and to have much worse interface than fuzzy-find.
-;; As such it's not needed anymore, but I left it here to remind me to look
-;; into the plugin use of minibuffer, which I might use someday.
-;; XXX: (require 'find-file-in-project-autoloads)
-;; (define-key my-find-keys (kbd "C-M-f") 'find-file-in-project)
-
-
+;;                        _   _  ___   ___  _  ______
+;;                       | | | |/ _ \ / _ \| |/ / ___|
+;;                       | |_| | | | | | | | ' /\___ \
+;;                       |  _  | |_| | |_| | . \ ___) |
+;;                       |_| |_|\___/ \___/|_|\_\____/
 ;;
-;;              ____  ____   ___   ____   _   _  ___   ___  _  __
-;;             |  _ \|  _ \ / _ \ / ___| | | | |/ _ \ / _ \| |/ /
-;;             | |_) | |_) | | | | |  _  | |_| | | | | | | | ' /
-;;             |  __/|  _ <| |_| | |_| | |  _  | |_| | |_| | . \
-;;             |_|   |_| \_\\___/ \____| |_| |_|\___/ \___/|_|\_\
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;================================================================================
 
-
-(add-hook 'prog-mode-hook 'my-init-prog-mode)
-
-(defun my-init-prog-mode ()
-  ;; modes which should be enabled by default:
-  (electric-pair-mode 1)
-  (fic-ext-mode 1)
-  (rainbow-delimiters-mode 1)
-  (rainbow-mode 1)
-  (hl-line-mode 1)
-  (fci-mode 1)
-  (undo-tree-mode 1)
-  (delete-selection-mode 1)
-  (flymake-mode 1)
-  ;; (global-linum-mode 1) made pdf viewing (Doc Mode) unusable, and it offered
-  ;; no way of excluding just some modes, so I had to enable it locally for
-  ;; prog-mode buffers only
-  (linum-mode 1)
-
-  ;; in Python it doesn't work well - folds whole classes, but not methods
-  (when (not (memq major-mode
-                   '(python-mode sh-mode web-mode sql-mode)))
-    (hs-minor-mode)
-    (local-set-key (kbd "C-c C-c C-h") 'hs-hide-all)
-    (local-set-key (kbd "C-c C-c C-s") 'hs-show-all)
-    (local-set-key (kbd "C-c C-c C-t") 'hs-toggle-hiding))
-
-  (local-set-key (kbd "C-x C-x") 'exchange-point-and-mark)
-  (local-set-key (kbd "<return>") 'newline-and-indent))
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(require 'my-generic-programming-init-hook)
 
 
 (defun my-kill-scratch-buffer-hook ()
@@ -215,7 +218,7 @@ don't need to worry about saving scratch buffer contents anymore
                                                     (point-min)
                                                     (point-max)))))
     (goto-char (point-min))
-    (insert "================================================================================\n")
+    (insert "\n\n================================================================================\n")
     (insert (format-time-string "%A, %B %e, %Y %D -- %-I:%M %p\n"))
     (insert "================================================================================\n\n")
     (append-to-file (point-min) (point-max) "~/scratch")))
@@ -227,22 +230,40 @@ don't need to worry about saving scratch buffer contents anymore
     (when scratch
       (with-current-buffer scratch
         (my-kill-scratch-buffer-hook)))))
+
 (add-hook 'kill-emacs-hook 'my-kill-emacs-scratch-hook)
 
-;;  __  ____   __       _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
-;; |  \/  \ \ / /      |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
-;; | |\/| |\ V /       | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
-;; | |  | | | |        |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
-;; |_|  |_| |_|        |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;              _____ _   _ _   _  ____ _____ ___ ___  _   _ ____
+;;             |  ___| | | | \ | |/ ___|_   _|_ _/ _ \| \ | / ___|
+;;             | |_  | | | |  \| | |     | |  | | | | |  \| \___ \
+;;             |  _| | |_| | |\  | |___  | |  | | |_| | |\  |___) |
+;;             |_|    \___/|_| \_|\____| |_| |___\___/|_| \_|____/
+;;
+;;================================================================================
+
+(defun my-make ()
+  (interactive)
+  (let
+      ((default-directory "/home/cji/projects/klibert_pl/"))
+    (compile "make")))
 
 
+(defun my-helm-do-ag-current-dir ()
+  (interactive)
+  (let*
+      ((fname (buffer-file-name (current-buffer)))
+       (dir (if fname (f-dirname fname) default-directory)))
+    (helm-do-ag dir "*.*")))
+
+(require 'helm-imenu)
 
 (defun my-imenu-show-popup ()
   "Somehow I didn't find any setting for making this the
 default."
   (interactive)
   (helm-imenu))
+
 
 (defun my-toggle-quotes ()
   "If point is inside quoted string, replace single quates with
@@ -279,40 +300,30 @@ there's no active region."
     (comment-or-uncomment-region beg end)))
 
 
-
 (defun global-occur (arg)
   "Find occurences of arg in all but temporary opened buffers."
   (interactive "sSearch string: ")
   (let*
       ((search-buffer-p (lambda (buf)
                           (not (string-match "*" (buffer-name buf)))))
-       (buffers (remove-if-not search-buffer-p (buffer-list))))
+       (buffers (cl-remove-if-not search-buffer-p (buffer-list))))
     (multi-occur buffers arg)))
 
-(defun global-occur-choices ()
+
+(defun my-isearch-current-word ()
+  "Reset current isearch to a word-mode search of the word under point."
   (interactive)
-  (global-occur "pdb"))
+  (setq isearch-word t
+        isearch-string ""
+        isearch-message "")
+  (isearch-yank-string
+   (if (not (region-active-p))
+       (word-at-point)
+     (prog1 (buffer-substring-no-properties (region-beginning) (region-end))
+       (deactivate-mark)))))
 
-
-
-;; I-search like in VIM * and # - actually it's easy. C-w pastes
-;; current word to minibuffer when I-search is active. So
-;; C-s C-w and C-r C-w does the trick.
-;;
-;; There's a little snippet to bind it to C-* (don't know if I want it):
-;;
-;; (require "thingatpt")
-;; (require "isearch")
-;; (define-key isearch-mode-map (kbd "C-*")
-;;   (lambda ()
-;;     "Reset current isearch to a word-mode search of the word under point."
-;;     (interactive)
-;;     (setq isearch-word t
-;;           isearch-string ""
-;;           isearch-message "")
-;;     (isearch-yank-string (word-at-point))))
-;;
-;;
+(define-key isearch-mode-map (kbd "C-2") 'my-isearch-current-word)
+(define-key isearch-mode-map (kbd "C-@") 'my-isearch-current-word)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               Camelize name
@@ -361,20 +372,3 @@ if sexp is malformed."
   (condition-case ex
      (let ((r (read buf))) (if (listp r) r (list r)))
    ('end-of-file nil)))
-
-
-(defun my-tangle-and-run ()
-  (interactive)
-  (load-theme 'whiteboard)
-  (org-html-export-to-html)
-  (org-babel-tangle)
-  (load-theme 'wombat)
-  (shell-command "time nim c -o=nom -r -d:release --opt:speed nom.nim >/dev/null"))
-
-(global-set-key (kbd "s-c") 'my-tangle-and-run)
-
-(global-set-key (kbd "<kp-up>") 'org-previous-visible-heading)
-(global-set-key (kbd "<kp-down>") 'org-next-visible-heading)
-
-(global-set-key (kbd "C-<kp-up>") 'org-previous-block)
-(global-set-key (kbd "C-<kp-down>") 'org-next-block)

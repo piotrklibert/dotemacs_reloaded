@@ -1,0 +1,75 @@
+77 matches in 74 lines for "stack" in buffer: *ag*
+lisp.h:4203:19:#ifdef HAVE_STACK_OVERFLOW_HANDLING
+lisp.h:4604:49:   larger than MAX_ALLOCA, use xmalloc to avoid overflowing the stack.  */
+globals.h:922:24:  bool f_attempt_stack_overflow_recovery;
+globals.h:923:23:#define attempt_stack_overflow_recovery globals.f_attempt_stack_overflow_recovery
+search.c:99:17:  error ("Stack overflow in regexp matcher");
+thread.h:72:30:     address indicates stack overflow, as opposed to some internal
+print.c:48:23:/* Avoid actual stack overflow in print.  */
+config.h:1031:27:/* Define to 1 if C stack overflow can be handled in some cases. */
+config.h:1032:20:#define HAVE_STACK_OVERFLOW_HANDLING 1
+keyboard.c:136:19:#ifdef HAVE_STACK_OVERFLOW_HANDLING
+keyboard.c:138:40:/* For longjmp to recover from C stack overflow.  */
+keyboard.c:141:65:/* Message displayed by Vtop_level when recovering from C stack overflow.  */
+keyboard.c:144:22:#endif /* HAVE_STACK_OVERFLOW_HANDLING */
+keyboard.c:1064:19:#ifdef HAVE_STACK_OVERFLOW_HANDLING
+keyboard.c:1069:9:	 stack_overflow_handler (see w32fns.c).  */
+keyboard.c:1071:23:      w32_reset_stack_overflow_guard ();
+keyboard.c:1078:22:#endif /* HAVE_STACK_OVERFLOW_HANDLING */
+keyboard.c:11061:19:#ifdef HAVE_STACK_OVERFLOW_HANDLING
+keyboard.c:11063:65:    = build_pure_c_string ("Re-entering top level after C stack overflow");
+keyboard.c:11871:31:  DEFVAR_BOOL ("attempt-stack-overflow-recovery",
+keyboard.c:11872:30:               attempt_stack_overflow_recovery,
+keyboard.c:11876:52:that would otherwise be lost.  If nil, treat stack overflow like any
+keyboard.c:11878:17:  attempt_stack_overflow_recovery = true;
+ChangeLog.6:4656:53:	* editfns.c (Fformat): Limit minlen to avoid stack overflow.
+eval.c:2113:29:   Signal an error on stack overflow.
+eval.c:3985:14:actual stack overflow in C, which would be fatal for Emacs.
+eval.c:3988:13:Emacs could overflow the real C stack, and crash.  */);
+fns.c:2236:16:	error ("Stack overflow in equal");
+ChangeLog.13:2904:37:	(PUSH_BPA_STACK): If the BPA stack overflows, don't bail out, but
+ChangeLog.13:3569:17:	Remove.  Stack overflow checking makes them too slow.
+ChangeLog.13:4705:17:	Handle C stack overflow caused by too nested Lisp evaluation.
+ChangeLog.13:4706:34:	* lisp.h (toplevel) [HAVE_STACK_OVERFLOW_HANDLING]: Declare
+ChangeLog.13:4709:14:	[HAVE_STACK_OVERFLOW_HANDLING]: New variables.
+ChangeLog.13:4711:29:	(command_loop) [HAVE_STACK_OVERFLOW_HANDLING]: Handle non-local
+ChangeLog.13:4718:14:	[HAVE_STACK_OVERFLOW_HANDLING]: New variables and function.
+ChangeLog.13:15298:39:	* sysdep.c (init_system_name): Don't overflow stack on huge hostname.
+sysdep.c:1791:24:#if defined HAVE_STACK_OVERFLOW_HANDLING && !defined WINDOWSNT
+sysdep.c:1798:45:/* Return true if SIGINFO indicates a stack overflow.  */
+sysdep.c:1801:7:stack_overflow (siginfo_t *siginfo)
+sysdep.c:1803:22:  if (!attempt_stack_overflow_recovery)
+sysdep.c:1835:31:     considered to be a stack overflow if it occurs within
+sysdep.c:1848:54:/* Attempt to recover from SIGSEGV caused by C stack overflow.  */
+sysdep.c:1853:38:  /* Hard GC error may lead to stack overflow caused by
+sysdep.c:1862:23:  if (!fatal && stack_overflow (siginfo))
+sysdep.c:1890:25:#else /* not HAVE_STACK_OVERFLOW_HANDLING or WINDOWSNT */
+sysdep.c:1898:22:#endif /* HAVE_STACK_OVERFLOW_HANDLING && !WINDOWSNT */
+ChangeLog.12:16185:15:	stack buffer overflows.  It uses only the features of vsnprintf
+ChangeLog.12:16832:37:	(pure_size, pure_bytes_used_before_overflow, stack_copy_size)
+w32fns.c:10548:10:/* Stack overflow recovery.  */
+w32fns.c:10557:17:   when a stack overflow is detected, Windows removes the guard bit
+w32fns.c:10559:19:   the next stack overflow will cause a crash.  */
+w32fns.c:10561:17:w32_reset_stack_overflow_guard (void)
+w32fns.c:10568:12:     stack overflow will crash the program.  */
+w32fns.c:10574:7:stack_overflow_handler (void)
+w32fns.c:10576:38:  /* Hard GC error may lead to stack overflow caused by
+w32fns.c:10593:41:   crashed.  We also recover from stack overflow, by calling our stack
+w32fns.c:10601:25:  /* If this is a stack overflow exception, attempt to recover.  */
+w32fns.c:10602:73:  if (exception_data->ExceptionRecord->ExceptionCode == EXCEPTION_STACK_OVERFLOW
+w32fns.c:10607:21:      /* Call stack_overflow_handler ().  */
+w32fns.c:10609:63:      exception_data->ContextRecord->Rip = (DWORD_PTR) &stack_overflow_handler;
+w32fns.c:10611:63:      exception_data->ContextRecord->Eip = (DWORD_PTR) &stack_overflow_handler;
+w32fns.c:10613:59:      /* Zero this out, so the stale address of the stack overflow
+regex.c:1499:59:/* How many items can still be added to the stack without overflowing it.  */
+regex.c:4208:10:   stack overflow).  */
+regex.c:4900:18:   failure stack overflowing).  Otherwise, we return the length of the
+w32heap.c:188:18:     http://stackoverflow.com/questions/307060/what-is-the-purpose-of-allocating-pages-in-the-pagefile-with-createfilemapping  */
+ChangeLog.11:7736:16:	prevent stack overflow if number of arguments is too large
+config.in:1030:27:/* Define to 1 if C stack overflow can be handled in some cases. */
+config.in:1031:19:#undef HAVE_STACK_OVERFLOW_HANDLING
+emacs-module.c:156:41:   does not support recovery from stack overflow, see sysdep.c.  */
+emacs-module.c:947:40:   Exits non-locally only if the stack overflows.  */
+xdisp.c:20790:18:	 iterator stack overflows.  So, don't wrap the prefix.  */
+ChangeLog.3:16267:42:	Also turn off the error check for stack overflow/underflow.
+ChangeLog.3:16493:23:	Report matcher stack overflow as error, not just failure to match.

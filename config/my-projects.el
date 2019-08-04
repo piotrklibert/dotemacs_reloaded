@@ -5,14 +5,16 @@
 ;; explicitly
 
 
-(ffip-defroots 'my-projects ("~/secure/" "~/todo/"
-                             "~/.stumpwm.d/"
-                             "~/.emacs.d/config/")
-  (lanchat     . ("~/poligon/lanchat/"))
-  (klibertpl   . ("~/projects/klibert_pl/"))
+(ffip-defroots 'my-projects
+  ("~/secure/" "~/todo/" "~/.stumpwm.d/" "~/.emacs.d/config/" "~/mgmnt/")
 
-  (my-projects . ("~/mgmnt/"
-                  "~/.emacs.d/pkg-langs/elpy/"
+  (lanchat     . ("~/poligon/lanchat/"))
+  (klibertpl   . ("~/priv/klibert_pl/"))
+  (mtr         . ("~/poligon/mtr/io/"))
+  (em          . ("~/.emacs.d/forked-plugins/"
+                  "~/.emacs.d/plugins/"
+                  "~/.emacs.d/plugins2/"))
+  (my-projects . ("~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"
 
@@ -21,22 +23,32 @@
                   ;; "~/projects/open-resty/"
                   ;; "~/projects/images/my-base/"
                   ;; "~/projects/reqplayer/dpath/"
-                  ;; "~/poligon/luzem/"
+                  ;; "~/poligon/rozcode/"
+                  ;; "~/poligon/bookm/"
+                  "~/poligon/slock/"
+                  "~/poligon/mangi/"
+                  "~/poligon/adnoter/"
                   ;; "~/poligon/lscript/"
                   ))
 
-  (rq          . ("~/projects/reqviewer/"
-                  "~/projects/reqplayer/"))
 
+  ;; (rq          . ("~/projects/reqviewer/"
+  ;;                 "~/projects/reqplayer/"))
+  ;; (pl          . ("~/poligon/planties/"))
+  (ts          . ("~/projects/lightcorn/"))
   ;; WORK RELATED
-  (ion         . ("~/projects/ion/"))
-
-  (sp          . ("~/projects/sp/"))
-  (eb          . ("~/projects/ebundler/code/"))
-  (dn          . ("~/projects/donorship/backend/"
-                  "~/projects/donorship/frontend/"))
-
-  (10c         . ("~/projects/images/repo/")))
+  ;; (nlu         . ("~/projects/nlu"))
+  ;; (bu          . ("~/projects/bunsen"))
+  ;; (sn          . ("~/projects/snowboy"))
+  ;; (ion         . ("~/projects/ion/"))
+  ;; (an          . ("~/projects/tenclouds-analytics/"))
+  ;; (sp          . ("~/projects/sp/"))
+  ;; (eb          . ("~/projects/ebundler/backend/" "~/projects/ebundler/frontend/" "~/projects/ebundler/ansible_deploy/"))
+  ;; (dn          . ("~/projects/donorship/backend/"
+  ;;                 "~/projects/donorship/frontend/"))
+  (na          . ("~/projects/truststamp/naea/"))
+  (lg          . ("~/projects/anthill/" "~/projects/lightcorn/"))
+)
 
 
 

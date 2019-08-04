@@ -621,8 +621,8 @@ This advice can make `other-window' skip `sr-speedbar' window."
 (provide 'sr-speedbar)
 
 ;;;###autoload
-(provide 'sr-speedbar)
-(require 'sr-speedbar)
+;; (provide 'sr-speedbar)
+;; (require 'sr-speedbar)
 
 ;;; sr-speedbar.el ends here
 

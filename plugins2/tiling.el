@@ -82,7 +82,8 @@
                              'tiling-master-top
                              'tiling-even-horizontal
                              'tiling-even-vertical
-                             'tiling-tile-4)
+                             ;; 'tiling-tile-4
+                             )
   "List of supported layout. Maybe ring is better")
 
 (defvar tiling-current-layout (car tiling-layouts)
@@ -174,7 +175,10 @@
   "cycling the among the preset layouts"
   (interactive "p")
 
-  (let ((bufs (mapcar 'window-buffer (window-list nil -1 nil)))
+  (let ((bufs (-filter (lambda (w)
+                         (and (not (equal (buffer-name w) "*elscreen-tabs*"))
+                              (not (equal (buffer-name w) "*NeoTree*"))))
+                       (mapcar 'window-buffer (window-list nil -1 nil))))
         (found nil) (new-layout nil))
 
     (when (> numOfWins 1)                   ; with number prefix
@@ -182,7 +186,7 @@
       ;; default, re-arrange current windows
       (when (< (length bufs) numOfWins)
         ;;also show some recently viewed buffers except mini-buffer etc.
-        (mapcar (lambda (x)
+        (mapc (lambda (x)
                   (unless
                       (and (string= " " (substring (buffer-name x) 0 1))
                            (null (buffer-file-name x)))
