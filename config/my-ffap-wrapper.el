@@ -10,10 +10,7 @@
 (defconst my-ffap-roots '("/home/cji/projects/bmw-ecard/"
                           "/home/cji/projects/cars/resources/"
                           "/home/cji/projects/donorship/backend/"
-                          "/home/cji/projects/ebundler/code/backend/"
-                          "/Users/piotrklibert/projects/bunsen/"
-                          "/Users/piotrklibert/projects/bunsen/api/resources/"
-                          "/Users/piotrklibert/projects/bunsen/api/"))
+                          "/home/cji/projects/ebundler/code/backend/"))
 
 (defun my-goto-thing-at-pt ()
   (interactive)
@@ -75,7 +72,7 @@ complicated than this."
 
 (defun convert-python-dotted-to-path (fname)
   (when (string-match "\\w+\\.\\w+.*" fname)
-    (-> (replace-in-string fname "\\." "/")
+    (-> (s-replace "." "/" fname)
       (concat ".py"))))
 
 

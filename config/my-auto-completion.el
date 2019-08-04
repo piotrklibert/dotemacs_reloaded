@@ -17,7 +17,7 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (require 'hippie-exp)
-;(require 'readline-complete)
+;; (require 'readline-complete)
 
 (ac-config-default)
 

@@ -64,7 +64,7 @@ _l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |   
   ("b" my-toggle-true-false-none)
   ("o" overwrite-mode)
   )
-
+(require 'whitespace)
 (assert (functionp (symbol-function 'hydra-toggle-simple/body)))
 (define-key my-toggle-keys (kbd "C-s") 'config-toggles)
 
@@ -142,14 +142,14 @@ _c_: content         _u_: unsaved       _<_: size-lt     |  _|_: logical OR   | 
 _n_: buffer name     _s_: special       _>_: size-gt     |  _&_: logical AND  |  _S_: save filters
 _f_: filename        _M_: derived       _e_: expression  |  _!_: negate       |  _R_: use saved
 _._: extension       _v_: has file      _b_: basename    |                  ^^|  _p_: pop filter
-_u_: major mode      _E_: has process                  ^^|                  ^^|
+_o_: major mode      _E_: has process                  ^^|                  ^^|
 ^^^^^^---------------------------------------------------+------------------^^+---------------------
 "
   ("c" ibuffer-filter-by-content)          ("u" my-ibuffer-filter-by-modified)        (">" ibuffer-filter-by-size-gt)
   ("n" ibuffer-filter-by-name)             ("s" ibuffer-filter-by-starred-name)    ("<" ibuffer-filter-by-size-lt)
   ("f" ibuffer-filter-by-filename)         ("M" ibuffer-filter-by-derived-mode)    ("e" ibuffer-filter-by-predicate)
   ("." ibuffer-filter-by-file-extension)   ("v" ibuffer-filter-by-visiting-file)   ("b" ibuffer-filter-by-basename)
-  ("u" ibuffer-filter-by-used-mode)        ("E" ibuffer-filter-by-process)
+  ("o" ibuffer-filter-by-used-mode)        ("E" ibuffer-filter-by-process)
 
   ("|" ibuffer-or-filter)
   ("&" ibuffer-and-filter)
@@ -168,7 +168,7 @@ _u_: major mode      _E_: has process                  ^^|                  ^^|
   ("D" ibuffer-decompose-filter-group)
   ("X" ibuffer-delete-saved-filter-groups)
   ("x" ibuffer-delete-saved-filters)
-  ("t" ibuffer-exchange-filters)
+  ;; ("t" ibuffer-exchange-filters)
   ("g" ibuffer-filters-to-filter-group)
   ("p" ibuffer-pop-filter)
   ;; ("a" ibuffer-add-saved-filters)

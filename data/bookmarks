@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((";; TODO: the format of quick templates changed in recent Org versions"
+((";; (define-key Info-mode-map [mouse-4]         'Info-history-back)"
+ (filename . "~/.emacs.d/plugins2/info+.el")
+ (front-context-string . "  ;; (define-key")
+ (rear-context-string . "ode-new-window)\n")
+ (position . 28417))
+(";; TODO: the format of quick templates changed in recent Org versions"
  (filename . "~/.emacs.d/config/org/my-org-ux.el")
  (front-context-string . ";; TODO: the for")
  (rear-context-string . "repend t :))))\n\n")
@@ -181,9 +186,9 @@
  (position . 3106))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO nie wysw")
- (rear-context-string . "02]\n   Origin:\n\n")
- (position . 3074))
+ (front-context-string . "** TODO ivy zami")
+ (rear-context-string . " Compilation]]\n\n")
+ (position . 6600))
 ("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
  (front-context-string . "** TODO zoom a'l")

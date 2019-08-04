@@ -7,10 +7,14 @@
   (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
   (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
   (define-key neotree-mode-map (kbd "C-o")       'neotree-hidden-file-toggle)
-  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node))
+  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
+  (define-key neotree-mode-map (kbd "r")         'neotree-rename-node)
+  )
 
 (eval-after-load "neotree"
  '(add-hook 'neotree-mode-hook 'my-neotree-hook))
+
+(defalias 'my-switch-to-neotree 'my-switch-to-column-1)
 
 
 ;; (defun my-delete-file-advice (fname &rest args)
@@ -42,14 +46,19 @@
 (require 'wrap-region)                  ; select region and press " or ( or {,
 (wrap-region-global-mode t)             ; etc. to wrap it
 
+
+(require 'browse-kill-ring)     ; visualisation of kill-ring (M-y)
+
 (defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
   (interactive "p")
   (if (not (eq last-command 'yank))
       (progn
-        (require 'browse-kill-ring)     ; visualisation of kill-ring (M-y)
-        (browse-kill-ring))
+        (helm-show-kill-ring))
     (barf-if-buffer-read-only)
     ad-do-it))
+
+(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
+
 
 (require 'textobjects)                  ; eg. C-x w { or C-x w "
 (global-textobject-mark-mode 1)

@@ -324,6 +324,8 @@ Otherwise, get the symbol at point.")
 ;; (global-set-key (kbd "s-x")      'smex)
 ;; (global-set-key (kbd "M-X")      'smex-major-mode-commands)
 
+
+
 (defun my-dirtree ()
   (interactive)
   (dirtree (f-dirname (buffer-file-name (current-buffer))) t))

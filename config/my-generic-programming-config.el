@@ -166,17 +166,21 @@
 (define-key my-find-keys (kbd "C-l")      'find-library-other-window)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
+
+
 (define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
-(define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
+;; (define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
+
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
 (define-key my-find-keys (kbd "C-i")      'helm-imenu)
 (define-key my-find-keys (kbd "C-m")      'my-imenu-show-popup)
 (define-key my-find-keys (kbd "C-d")      'find-name-dired)
 
-(define-key my-find-keys (kbd "c") 'iy-go-to-char)
-(define-key my-find-keys (kbd "<space>") 'iy-go-to-char)
-(define-key my-find-keys (kbd "C-<space>") 'iy-go-to-char)
+(define-key my-find-keys (kbd "C-c")     'iy-go-to-char)
+(define-key my-find-keys (kbd "c")       'iy-go-to-char)
+(define-key my-find-keys (kbd "<SPC>")   'iy-go-to-char)
+(define-key my-find-keys (kbd "C-<SPC>") 'iy-go-to-char)
 
 (autoload 'helm-do-ag-project-root "helm-ag" "" t)
 (define-key my-find-keys (kbd "C-a")      'my-helm-do-ag-current-dir)
