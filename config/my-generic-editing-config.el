@@ -208,6 +208,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'vertmove-lines)
+(require 'windmove-lines)
 (require 'my-indent-config)
 (require 'my-garble-word)
 

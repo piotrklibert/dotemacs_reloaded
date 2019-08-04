@@ -5,21 +5,6 @@
 (require 'f)
 
 
-(defun my-ivy-format (cands)
-  "Transform CANDS into a string for minibuffer."
-  (if (bound-and-true-p truncate-lines)
-      (mapconcat (lambda (x) (concat "                    " x) )
-                 cands "\n")
-    (let ((ww (- (window-width)
-                 (if (and (boundp 'fringe-mode) (eq fringe-mode 0)) 1 0))))
-      (mapconcat
-       (lambda (s)
-         (if (> (length s) ww)
-             (concat (substring s 0 (- ww 3)) "...")
-           s))
-       cands "\n"))))
-
-
 (defmacro -> (&rest args)
   (declare (indent 1)
            (debug (form &rest [&or symbolp (sexp &rest form)])))
@@ -99,14 +84,6 @@
               (line-beginning-position))
           (or (and active? (region-end))
               (line-end-position)))))
-
-
-;;             __        ___    _     _  __     ____ ___ ____
-;;             \ \      / / \  | |   | |/ /    |  _ \_ _|  _ \
-;;              \ \ /\ / / _ \ | |   | ' /     | | | | || |_) |
-;;               \ V  V / ___ \| |___| . \     | |_| | ||  _ <
-;;                \_/\_/_/   \_\_____|_|\_\    |____/___|_| \_\
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (defun magic-dir-p (dir)

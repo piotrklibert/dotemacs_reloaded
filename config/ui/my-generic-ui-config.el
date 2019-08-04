@@ -1,11 +1,39 @@
 (require 'generic-x)
 (require 'avy-autoloads)
-(require 'helm-autoloads)
 (require 'linum)
 (require 'counsel)
 
 (require 'my-powerline-config)
+(require 'my-reorder-buffer-list)
 
+(define-key ctl-x-map (kbd "b")     'helm-buffers-list)
+(define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
+
+;; (define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
+;; (define-key ctl-x-map (kbd "C-M-f")   'my-find-file-other-elscreen)
+;; previously: (define-key ctl-x-map (kbd "f")   'ido-find-file)
+(define-key ctl-x-map (kbd "C-M-b")   'ibuffer-other-window)
+(define-key ctl-x-map (kbd "C-M-f")   'ido-find-file-other-window)
+(define-key ctl-x-map (kbd "f")   'helm-find-files)
+
+;; Use ibuffer rather than whatever Emacs uses by default...
+(define-key ctl-x-map (kbd "C-b")   'ibuffer)
+
+
+(global-set-key (kbd "M-x")      'helm-M-x)
+
+(global-set-key (kbd "C-<f1>")   'neotree-toggle)
+(global-set-key (kbd "C-M-<f1>") 'my-dirtree)
+(global-set-key (kbd "C-<f2>")   'helm-recentf)
+
+(global-set-key (kbd "<escape>")   'keyboard-quit)
+
+(global-set-key (kbd "M-n") 'my-new-buffer-helm)
+
+
+(advice-add 'pop-to-mark-command :after #'my-recenter-and-blink)
+(advice-add 'xref-pop-marker-stack :after #'my-recenter-and-blink)
+(advice-add 'recenter-top-bottom :after #'my-blink-a-bit)
 
 
 ;; shell mode has its own ideas about `mode-specific-map', apparently, so we
@@ -22,24 +50,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar rectangle-mark-mode)
 
-(defun hydra-ex-point-mark ()
-  "Exchange point and mark."
-  (interactive)
-  (if rectangle-mark-mode
-      (rectangle-exchange-point-and-mark)
-    (let ((mk (mark)))
-      (rectangle-mark-mode 1)
-      (goto-char mk))))
+(defvar helm-M-x-fuzzy-match)
+(use-package helm
+  :config
+  (require 'helm-config)
+  (require 'helm-command)
+  (require 'helm-projectile)
+  (setq helm-M-x-fuzzy-match t)
+  (define-key helm-map (kbd "DEL") 'helm-backspace)
+  (setq helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-files-in-current-dir)))
 
-
-(eval-after-load 'helm
-  '(progn
-     (require 'helm-config)
-     (require 'helm-command)
-     (setq helm-M-x-fuzzy-match t)
-     (define-key helm-map (kbd "DEL") 'helm-backspace)))
 
 (defun helm-backspace ()
   "Forward to `backward-delete-char'. On error (read-only), quit
@@ -50,12 +71,8 @@ without selecting."
     (error (helm-keyboard-quit))))
 
 
-(use-package dirtree
-  :commands dirtree)
-
-
-(use-package unbound
-  :commands describe-unbound-keys)
+(use-package dirtree :commands dirtree)
+(use-package unbound :commands describe-unbound-keys)
 
 
 (use-package sunrise-commander
@@ -68,32 +85,6 @@ without selecting."
   (require 'sunrise-x-tree)
   (require 'sunrise-x-modeline))
 
-
-
-
-(defvar my-blinking-p nil)
-
-(defun my-blink-a-bit ()
-  (interactive)
-  (unless my-blinking-p
-    (blink-cursor-mode 1)
-    (set-cursor-color "red")
-    (setf my-blinking-p t)
-    (run-at-time 2.2 nil
-      (lambda ()
-        (setf my-blinking-p nil)
-        (set-cursor-color "white")
-        (blink-cursor-mode 0)))
-    nil))
-
-(defun my-recenter-and-blink ()
-  (recenter)
-  (my-blink-a-bit))
-
-(advice-add 'pop-to-mark-command :after #'my-recenter-and-blink)
-(advice-add 'xref-pop-marker-stack :after #'my-recenter-and-blink)
-
-(advice-add 'recenter-top-bottom :after #'my-blink-a-bit)
 
 ;; Advice on advice(s):
 ;; (advice-mapc (lambda (a b) (message "%s :: %s" a b)) 'pop-to-mark-command)
@@ -166,11 +157,12 @@ Otherwise, get the symbol at point.")
 
 (eval-after-load "dired"
   '(progn
+     (require 'dired-x)
+     (require 'dired+)
      (define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
      (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
      (define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
-     (require 'dired-x)
-     (require 'dired+)))
+     (define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)))
 
 
 
@@ -321,8 +313,6 @@ This requires the external program \"diff\" to be in your `exec-path'."
 (define-key my-bookmarks-keys (kbd "M-l") 'edit-bookmarks)
 
 
-(define-key ctl-x-map (kbd "b")     'helm-buffers-list)
-(define-key ctl-x-map (kbd "M-b")   'ido-switch-buffer-other-window)
 
 (defun my-switch-buffer-other-elscreen ()
   (interactive)
@@ -334,36 +324,11 @@ This requires the external program \"diff\" to be in your `exec-path'."
   (elscreen-create)
   (call-interactively 'helm-find-files))
 
-;; (define-key ctl-x-map (kbd "C-M-b")   'my-switch-buffer-other-elscreen)
-(define-key ctl-x-map (kbd "C-M-b")   'ibuffer-other-window)
-
-;; (define-key ctl-x-map (kbd "C-M-f")   'my-find-file-other-elscreen)
-(define-key ctl-x-map (kbd "C-M-f")   'ido-find-file-other-window)
-
-(define-key ctl-x-map (kbd "f")   'helm-find-files)
-;; previously: (define-key ctl-x-map (kbd "f")   'ido-find-file)
-
-;; Use ibuffer rather than whatever Emacs uses by default...
-(define-key ctl-x-map (kbd "C-b")   'ibuffer)
-
-
-(global-set-key (kbd "M-x")      'helm-M-x)
-;; (global-set-key (kbd "s-x")      'smex)
-;; (global-set-key (kbd "M-X")      'smex-major-mode-commands)
-
 
 
 (defun my-dirtree ()
   (interactive)
   (dirtree (f-dirname (buffer-file-name (current-buffer))) t))
-
-(global-set-key (kbd "C-<f1>")   'neotree-toggle)
-(global-set-key (kbd "C-M-<f1>") 'my-dirtree)
-(global-set-key (kbd "C-<f2>")   'helm-recentf)
-
-
-
-(global-set-key (kbd "<escape>")   'keyboard-quit)
 
 
 (defun my-eshell-other-window (args)
@@ -448,6 +413,7 @@ This requires the external program \"diff\" to be in your `exec-path'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar my-openers (list))
+(defvar my-new-buffer-map (make-sparse-keymap))
 
 (defmacro make-buffer-opener (name key ext path)
   (let*
@@ -466,9 +432,6 @@ This requires the external program \"diff\" to be in your `exec-path'."
        (push '(,name .  ,defun-name) my-openers)
        nil)))
 
-(defvar my-new-buffer-map (make-sparse-keymap))
-(global-set-key (kbd "C-n") my-new-buffer-map)
-
 ;;                  type            key       file ext     default path
 (make-buffer-opener text         (kbd "C-n")    ".txt"     "~/poligon/")
 (make-buffer-opener sh           (kbd "C-s")    ".sh"      "~/poligon/")
@@ -482,10 +445,6 @@ This requires the external program \"diff\" to be in your `exec-path'."
 (make-buffer-opener elixir       (kbd "C-x")    ".ex"      "~/poligon/")
 (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
 ;; (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
-;; (make-buffer-opener ocaml        (kbd "C-m")    ".ml"      "~/poligon/")
-
-
-
 
 (defvar my-new-buffer-helm-source
   `((name       . "Buffer types")
@@ -495,7 +454,7 @@ This requires the external program \"diff\" to be in your `exec-path'."
 (defun my-new-buffer-helm ()
   (interactive)
   (helm :sources '(my-new-buffer-helm-source)))
+(global-set-key (kbd "C-n") my-new-buffer-map)
 
-(global-set-key (kbd "M-n") 'my-new-buffer-helm)
 
 (provide 'my-generic-ui-config)

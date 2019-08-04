@@ -2,9 +2,6 @@
 (require 'hideshow)
 
 
-(define-key prog-mode-map (kbd "C-c <left>") 'hs-toggle-hiding)
-
-
 (defvar-local my-hs-global-toggle-hiding-state t
   "t means show all, nil hide all")
 

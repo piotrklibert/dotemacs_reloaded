@@ -65,7 +65,6 @@
 (require 'macrostep-autoloads)
 (require 'nose-autoloads)
 
-(require 'project-autoloads)
 (require 'pyflakes-autoloads)
 (require 'python-pylint-autoloads)
 (require 'pylint-autoloads)

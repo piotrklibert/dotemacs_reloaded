@@ -271,6 +271,16 @@ _o_: major mode      _E_: has process                  ^^|                  ^^|
     (enlarge-window 5)))
 
 
+;; TODO: unused?
+(defvar rectangle-mark-mode)
+(defun hydra-ex-point-mark ()
+  "Exchange point and mark."
+  (interactive)
+  (if rectangle-mark-mode
+      (rectangle-exchange-point-and-mark)
+    (let ((mk (mark)))
+      (rectangle-mark-mode 1)
+      (goto-char mk))))
 
 
 (provide 'my-hydra-stables)

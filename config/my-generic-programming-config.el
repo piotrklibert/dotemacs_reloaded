@@ -139,6 +139,8 @@
 (define-key my-toggle-keys (kbd "\"") 'my-toggle-quotes)
 (define-key mode-specific-map (kbd "\"") 'my-toggle-quotes)
 
+(define-key prog-mode-map (kbd "C-c <left>") 'hs-toggle-hiding)
+
 ;; (global-set-key (kbd "C-c C-l") 'pygmentize)
 (global-set-key (kbd "C-=")     'indent-for-tab-command)
 (global-set-key (kbd "C-M-=")   'align-by-current-symbol)
