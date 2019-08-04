@@ -13,6 +13,7 @@
 (defun my-init-prog-mode ()
   ;; Show FIXME TODO in special font
   (fic-ext-mode 1)
+  (epoch-view-mode 1)
   ;; bg color for eg #0000ff,  white, blue background.
   (rainbow-mode 1)
   (rainbow-delimiters-mode 1)
@@ -33,6 +34,7 @@
   (column-number-mode t)                ; show col num on modeline
 
   (diminish 'rainbow-mode)
+  (diminish 'epoch-view-mode)
   (diminish 'fic-ext-mode)
   (diminish 'hs-minor-mode)
   (diminish 'eldoc-mode)

@@ -160,10 +160,11 @@
 (global-set-key (kbd "C-f") 'my-find-keys)
 
 (define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
+(define-key my-find-keys (kbd "C-e") 'avy-goto-char-timer)
 
 (define-key my-find-keys (kbd "o")        'occur)
-(define-key my-find-keys (kbd "l")        'avy-goto-line)
-(define-key my-find-keys (kbd "C-l")      'find-library-other-window)
+(define-key my-find-keys (kbd "l")        'find-library-other-window)
+(define-key my-find-keys (kbd "C-l")      'avy-goto-line)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 

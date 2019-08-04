@@ -1,11 +1,57 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/cji/.emacs.d/config/my-auto-completion.el" . 641)
+(("/home/cji/"
+  (dired-filename . "/home/cji/Pharo"))
+ ("/home/"
+  (dired-filename . "/home/cji"))
+ ("/home/cji/.emacs.d/config/org/my-org-ux.el" . 8088)
+ ("/home/cji/portless/org-mode/lisp/org.el" . 334327)
+ ("/home/cji/.emacs.d/config/my-ffap-wrapper.el" . 2978)
+ ("/home/cji/.emacs.d/config/my-generic-ui-config.el" . 11886)
+ ("/home/cji/.emacs.d/config/my-generic-programming-config.el" . 7297)
+ ("/home/cji/.emacs.d/forked-plugins/pyvenv/pyvenv.el" . 1517)
+ ("/home/cji/.emacs.d/forked-plugins/elpy/elpy.el" . 147505)
+ ("/home/cji/.emacs.d/elpa/find-file-in-project-20120716.1655/find-file-in-project.el" . 1613)
+ ("/home/cji/.emacs.d/config/my-auto-completion.el" . 192)
+ ("/home/cji/todo/nowe.org" . 9405)
+ ("/home/cji/.emacs.d/.gitmodules" . 3492)
+ ("/usr/local/share/emacs/27.0.50/lisp/ffap.el.gz" . 1760)
+ ("/usr/local/share/emacs/27.0.50/lisp/progmodes/flymake-proc.el.gz" . 2888)
+ ("/home/cji/.emacs.d/plugins/"
+  (dired-filename . "/home/cji/.emacs.d/plugins/powerline"))
+ ("/home/cji/.emacs.d/snippets/"
+  (dired-filename . "/home/cji/.emacs.d/snippets/org-mode"))
+ ("/home/cji/portless/emacs/src/window.c" . 200565)
+ ("/home/cji/.emacs.d/snippets/prog-mode/"
+  (dired-filename . "/home/cji/.emacs.d/snippets/prog-mode/.."))
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/yasnippet.el" . 5597)
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/README.md"))
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/README.md" . 2312)
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/python-mode/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/python-mode/.."))
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/prog-mode/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/prog-mode/.."))
+ ("/home/cji/.emacs.d/"
+  (dired-filename . "/home/cji/.emacs.d/plugins"))
+ ("/home/cji/.emacs.d/forked-plugins/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/.."))
+ ("/home/cji/.emacs.d/forked-plugins/powerline/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/powerline/.."))
+ ("/home/cji/.emacs.d/forked-plugins/pony-mode/README.rst" . 71)
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/.."))
+ ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets/"
+  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets/.."))
+ ("/home/cji/.emacs.d/.gitignore" . 11)
+ ("/home/cji/.emacs.d/forked-plugins/hydra/lv.el" . 2150)
+ ("/home/cji/.emacs.d/forked-plugins/helm/helm-font.el" . 7444)
+ ("/home/cji/.emacs.d/plugins2/flymake-mypy.el" . 1100)
+ ("/home/cji/.emacs.d/plugins2/browse-kill-ring.el" . 42561)
+ ("/home/cji/.emacs.d/plugins2/ace-window.el" . 1502)
  ("/home/cji/.emacs.d/config/"
   (dired-filename . "/home/cji/.emacs.d/config/.#my-ffap-wrapper.el"))
  ("/home/cji/.emacs.d/plugins2/ido-vertical-mode.el" . 3043)
  ("/usr/include/bits/timex.h" . 788)
- ("/home/cji/.emacs.d/config/my-generic-programming-config.el" . 9951)
- ("/home/cji/.emacs.d/config/my-generic-editing-config.el" . 2058)
  ("/usr/local/share/emacs/27.0.50/lisp/isearch.el.gz" . 97962)
  ("/home/cji/.emacs.d/config/my-hydra-stables.el" . 6771)
  ("/home/cji/.emacs.d/plugins2/dirtree.el" . 3250)
@@ -16,17 +62,12 @@
  ("/home/cji/.emacs.d/plugins2/auto-mark.el" . 1357)
  ("/usr/local/share/emacs/27.0.50/lisp/whitespace.el.gz" . 26604)
  ("/home/cji/.emacs.d/plugins/fuzzy-find-in-project/fuzzy-find-in-project.el" . 8022)
- ("/home/cji/.emacs.d/config/my-packages.el" . 2975)
  ("/home/cji/.emacs.d/plugins2/info+.el" . 28825)
- ("/home/cji/.emacs.d/config/my-generic-ui-config.el" . 5531)
  ("/home/cji/.emacs.d/config/init.el" . 1308)
  ("/home/cji/.emacs.d/forked-plugins/swiper/ivy.el" . 145014)
- ("/home/cji/todo/nowe.org" . 6782)
- ("/home/cji/.emacs.d/config/#my-ffap-wrapper.el#" . 83)
  ("/usr/local/share/emacs/27.0.50/lisp/ido.el.gz" . 13503)
  ("/usr/local/share/emacs/27.0.50/lisp/mwheel.el.gz" . 11860)
  ("/usr/local/share/emacs/27.0.50/lisp/info.el.gz" . 158597)
- ("/home/cji/portless/emacs/src/window.c" . 200565)
  ("/usr/local/share/emacs/27.0.50/lisp/emacs-lisp/rx.el.gz" . 32092)
  ("/usr/local/share/emacs/27.0.50/lisp/progmodes/python.el.gz" . 82947)
  ("/home/cji/projects/s3downloader/tests/test_download.py" . 12)
@@ -69,7 +110,6 @@
  ("/home/cji/projects/s3downloader/Jenkinsfile" . 409)
  ("/home/cji/projects/s3downloader/.dockerignore" . 103)
  ("/home/cji/projects/s3downloader/.isort.cfg" . 113)
- ("/home/cji/.emacs.d/plugins2/flymake-mypy.el" . 1042)
  ("/home/cji/.emacs.d/config/langs/python.el" . 896)
  ("/home/cji/.emacs.d/config/my-windows-config.el" . 3551)
  ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/site-packages/requests/exceptions.py" . 2068)
@@ -93,8 +133,6 @@
  ("/home/cji/.emacs.d/elpa/company-20140627.2014/company.el" . 2845)
  ("/home/cji/.emacs.d/forked-plugins/ac-slime/ac-slime.el" . 4147)
  ("/home/cji/.emacs.d/elpa/company-20140627.2014/company-dabbrev.el" . 5977)
- ("/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/"
-  (dired-filename . "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/rename_add_contr.py"))
  ("/home/cji/mgmnt/commands.sh" . 1532)
  ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/subprocess.py" . 1038)
  ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/jedi/third_party/typeshed/stdlib/2and3/builtins.pyi" . 4571)
@@ -105,8 +143,6 @@
  ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/jedi/third_party/typeshed/stdlib/3/typing.pyi" . 616)
  ("/home/cji/projects/truststamp/healthz/.venv/lib/python3.7/site-packages/jedi/third_party/typeshed/stdlib/3/typing.pyi" . 1215)
  ("/home/cji/projects/s3downloader/tests/.env" . 46)
- ("/home/cji/"
-  (dired-filename . "/home/cji/Documents"))
  ("/home/cji/portless/org-mode/"
   (dired-filename . "/home/cji/portless/org-mode/.dir-locals.el"))
  ("/home/cji/.emacs.d/forked-plugins/hydra/hydra-examples.el" . 6103)
@@ -117,7 +153,6 @@
  ("/home/cji/.emacs.d/config/my-semantic-search.el" . 4060)
  ("/home/cji/portless/org-mode/contrib/lisp/ol-elisp-symbol.el" . 4471)
  ("/home/cji/portless/org-mode/lisp/org-clock.el" . 1742)
- ("/home/cji/portless/org-mode/lisp/org.el" . 547153)
  ("/home/cji/.emacs.d/config/my-reorder-buffer-list.el" . 2458)
  ("/home/cji/.emacs.d/elpa/project-1.0/project.el" . 1450)
  ("/usr/local/share/emacs/27.0.50/lisp/time.el.gz" . 20684)
@@ -130,7 +165,6 @@
  ("/usr/local/share/emacs/27.0.50/lisp/calendar/cal-move.el.gz" . 14623)
  ("/usr/local/share/emacs/27.0.50/lisp/calendar/cal-menu.el.gz" . 10532)
  ("/usr/local/share/emacs/27.0.50/lisp/calendar/cal-iso.el.gz" . 5113)
- ("/home/cji/.emacs.d/old-docs/lisp/org-mode/contrib/lisp/org-elisp-symbol.el" . 2463)
  ("/home/cji/.emacs.d/forked-plugins/avy/avy-autoloads.el" . 63)
  ("/home/cji/portless/emacs/lisp/simple.el" . 238270)
  ("/home/cji/portless/Python-3.7.2/Modules/_io/bufferedio.c" . 54960)
@@ -237,8 +271,6 @@
  ("/home/cji/projects/peanut_template/{{cookiecutter.repo_name}}/.gitignore" . 75)
  ("/home/cji/projects/peanut_template/"
   (dired-filename . "/home/cji/projects/peanut_template/{{cookiecutter.repo_name}}"))
- ("/home/cji/.emacs.d/"
-  (dired-filename . "/home/cji/.emacs.d/stack-overflow-in-emacs.txt"))
  ("/home/cji/.emacs.d/plugins2/"
   (dired-filename . "/home/cji/.emacs.d/plugins2/flymake-mypy.el"))
  ("/home/cji/.emacs.d/plugins2/git.el" . 1435)
@@ -276,7 +308,6 @@
  ("/home/cji/projects/lightcorn/"
   (dired-filename . "/home/cji/projects/lightcorn/coverage.sh"))
  ("/home/cji/projects/lightcorn/docker/backend.dockerfile" . 671)
- ("/home/cji/.emacs.d/old-docs/lisp/batch-export.el" . 1006)
  ("/home/cji/projects/wubs/Makefile" . 2263)
  ("/home/cji/priv/klibert_pl/Makefile" . 1698)
  ("/home/cji/projects/s3downloader/.github/"
@@ -295,7 +326,6 @@
   (dired-filename . "/home/cji/poligon/manga_downloader/mix.exs"))
  ("/home/cji/poligon/manga_downloader/data/"
   (dired-filename . "/home/cji/poligon/manga_downloader/data/07_ghost"))
- ("/home/cji/.emacs.d/forked-plugins/elpy/elpy.el" . 14499)
  ("/home/cji/.emacs.d/forked-plugins/s/s.el" . 8007)
  ("/home/cji/poligon/manga_downloader/t.html" . 11978)
  ("/home/cji/poligon/manga_downloader/README.org" . 555)
@@ -422,24 +452,4 @@
  ("/home/cji/projects/lightcorn/apps/api/tests/utils.py" . 28)
  ("/home/cji/poligon/wubs_notes.txt" . 1905)
  ("/home/cji/projects/wubs/tests/image_pipeline/test_documents_pipeline.py" . 12836)
- ("/home/cji/.emacs.d/snippets/python-mode/fmt-toggle" . 54)
- ("/home/cji/projects/wubs/.venv/lib/python3.7/site-packages/flask/app.py" . 1461)
- ("/home/cji/projects/wubs/.venv/lib/python3.7/site-packages/flask/cli.py" . 25724)
- ("/home/cji/projects/wubs/image_pipeline/utils.py" . 74)
- ("/home/cji/projects/wubs/stubs/pyparsing.pyi" . 5867)
- ("/home/cji/projects/wubs/requirements/base.txt" . 155)
- ("/home/cji/projects/lightcorn/lightcorn/settings/test.py" . 320)
- ("/home/cji/projects/wubs/.venv/lib/python3.7/site-packages/mypy_extensions.py" . 2664)
- ("/home/cji/projects/wubs/.flake8" . 151)
- ("/home/cji/projects/wubs/requirements/matching.txt" . 194)
- ("/home/cji/projects/wubs/.venv/lib/python3.7/site-packages/flask/helpers.py" . 1785)
- ("/home/cji/.emacs.d/forked-plugins/elpy/README.rst" . 712)
- ("/home/cji/01-mouse.conf" . 3)
- ("/home/cji/projects/wubs/tests/e2e/"
-  (dired-filename . "/home/cji/projects/wubs/tests/e2e/tools"))
- ("/home/cji/projects/wubs/tests/image_pipeline/test_image_rotation.py" . 823)
- ("/home/cji/projects/wubs/stubs/flask/_compat.pyi" . 406)
- ("/home/cji/projects/wubs/stubs/flask/ctx.pyi" . 525)
- ("/home/cji/projects/wubs/stubs/flask/__init__.pyi" . 50)
- ("/home/cji/projects/wubs/tests/e2e/build_urls.py" . 1055)
- ("/home/cji/projects/wubs/.venv/lib/python3.7/site-packages/werkzeug/routing.py" . 5104))
+ ("/home/cji/.emacs.d/snippets/python-mode/fmt-toggle" . 54))

@@ -89,3 +89,5 @@ var
 .cask
 /network-security.data
 /something-strange-init.el
+point_position_history
+data/bookmarks

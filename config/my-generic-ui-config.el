@@ -2,7 +2,7 @@
 (require 'avy-autoloads)
 (require 'helm-autoloads)
 (require 'linum)
-
+(require 'counsel)
 
 (require 'my-powerline-config)
 
@@ -162,6 +162,8 @@ Otherwise, get the symbol at point.")
   (end-of-buffer)
   (dired-next-line -1))
 
+(autoload 'sr-dired-prev-subdir "sunrise-commander" "" t)
+
 (eval-after-load "dired"
   '(progn
      (define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
@@ -231,7 +233,32 @@ Otherwise, get the symbol at point.")
   (goto-char (point-min))
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
 
+;; Override - there was no simple way of changing the behavior to display diff
+;; in another window.
+(defun ibuffer-diff-with-file ()
+  "View the differences between marked buffers and their associated files.
+If no buffers are marked, use buffer at point.
+This requires the external program \"diff\" to be in your `exec-path'."
+  (interactive)
+  (require 'diff)
+  (let ((marked-bufs (ibuffer-get-marked-buffers)))
+    (when (null marked-bufs)
+      (setq marked-bufs (list (ibuffer-current-buffer t))))
+    (with-current-buffer (get-buffer-create "*Ibuffer Diff*")
+      (setq buffer-read-only nil)
+      (buffer-disable-undo (current-buffer))
+      (erase-buffer)
+      (buffer-enable-undo (current-buffer))
+      (diff-mode)
+      (dolist (buf marked-bufs)
+	(unless (buffer-live-p buf)
+	  (error "Buffer %s has been killed" buf))
+	(ibuffer-diff-buffer-with-file-1 buf))
+      (setq buffer-read-only t)))
+  (switch-to-buffer-other-window "*Ibuffer Diff*"))
 
+
+;; (advice-add 'ibuffer-diff-with-file :before 'my-ibuffer-diff-with-file-advice)
 ;; (defun ad-ibuffer+find-file-noselect (&rest args)
 ;;   (message "ad-ibuffer+find-file-noselect: %s" args)
 ;;   (with-current-buffer "*Ibuffer*"

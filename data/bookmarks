@@ -186,9 +186,9 @@
  (position . 3106))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO ivy zami")
- (rear-context-string . " Compilation]]\n\n")
- (position . 6600))
+ (front-context-string . "** TODO hydra dl")
+ (rear-context-string . "1> info<2> etc\n\n")
+ (position . 7690))
 ("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
  (front-context-string . "** TODO zoom a'l")
