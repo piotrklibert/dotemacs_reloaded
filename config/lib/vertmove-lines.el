@@ -1,9 +1,9 @@
+;; -*- mode: emacs-lisp -*- lexical-binding: t
 
 (defun move-text-internal (direction)
   (cond
    ;; if we deal with region
-   ((and mark-active
-         transient-mark-mode)
+   ((and mark-active transient-mark-mode)
 
     ;; make it so that point is always at the beginning-of-region
     (when (> (point) (mark))

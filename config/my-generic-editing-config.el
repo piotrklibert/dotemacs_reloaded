@@ -132,6 +132,7 @@
 (define-key my-toggle-keys (kbd "C-z") 'mc/mark-all-like-this)
 ;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
+;; (global-set-key (kbd "C-x C-d")    'counsel-dired)
 (global-set-key (kbd "C-x C-d")    'dired-at-point)
 (global-set-key (kbd "C-x M-d")    'sr-dired)
 

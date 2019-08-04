@@ -16,6 +16,7 @@
 
 ;; Add the paths of plugins to load-path.
 (add-to-list 'load-path "~/.emacs.d/config")
+(add-to-list 'load-path "~/.emacs.d/config/lib")
 (add-to-list 'load-path "~/.emacs.d/config/org")
 
 (add-to-list 'load-path "~/portless/org-mode/lisp")
