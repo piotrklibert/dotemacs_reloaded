@@ -501,7 +501,8 @@
  '(recentf-menu-action 'find-file)
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
-   '((eval add-hook 'after-save-hook 'org-babel-tangle nil t)
+   '((checkdoc-symbol-words "top-level" "major-mode" "macroexpand-all" "print-level" "print-length")
+     (eval add-hook 'after-save-hook 'org-babel-tangle nil t)
      (eval append-creds-to-macro-templates)
      (eval require 'batch-export)
      (eval add-to-list 'load-path

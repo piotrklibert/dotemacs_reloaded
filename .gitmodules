@@ -121,3 +121,6 @@
 [submodule "forked-plugins/projectile"]
 	path = forked-plugins/projectile
 	url = git@github.com:bbatsov/projectile.git
+[submodule "forked-plugins/helm-projectile"]
+	path = forked-plugins/helm-projectile
+	url = git@github.com:bbatsov/helm-projectile.git
