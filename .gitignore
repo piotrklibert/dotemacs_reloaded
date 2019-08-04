@@ -88,3 +88,4 @@ creds.el
 var
 .cask
 /network-security.data
+/something-strange-init.el
