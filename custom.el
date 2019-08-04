@@ -290,7 +290,7 @@
  '(mouse-avoidance-threshold 10)
  '(mumamo-background-colors nil)
  '(neo-auto-indent-point t)
- '(neo-autorefresh t)
+ '(neo-autorefresh nil)
  '(neo-create-file-auto-open t)
  '(neo-cwd-line-style 'text)
  '(neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "_build"))

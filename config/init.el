@@ -18,6 +18,7 @@
 (add-to-list 'load-path "~/.emacs.d/config")
 (add-to-list 'load-path "~/.emacs.d/config/lib")
 (add-to-list 'load-path "~/.emacs.d/config/org")
+(add-to-list 'load-path "~/.emacs.d/config/ui")
 
 (add-to-list 'load-path "~/portless/org-mode/lisp")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp")

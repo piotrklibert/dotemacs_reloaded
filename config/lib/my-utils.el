@@ -5,6 +5,9 @@
 (require 'f)
 
 
+
+
+
 (defmacro -> (&rest args)
   (declare (indent 1)
            (debug (form &rest [&or symbolp (sexp &rest form)])))
@@ -136,6 +139,13 @@ after point."
 ;; find . -not -iname "*.elc" -not -ipath "*.git*" -not -path "*semanticdb*" -type f -exec ls -l \{\} \; | column -t | awk '{print $5}' | sum
 
 
+(defun safe-read-sexp (&optional buf)
+  "Like normal read, but return `nil' instead of raising an error
+if sexp is malformed."
+  (setq buf (or buf (current-buffer)))
+  (condition-case ex
+      (let ((r (read buf))) (if (listp r) r (list r)))
+    ('end-of-file nil)))
 
 
 (defun get-defuns-from-file ()

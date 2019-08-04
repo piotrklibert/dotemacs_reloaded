@@ -366,12 +366,3 @@ ediff. I wrote this before I knew magit."
     (shell-command (format "git show %s:./%s" rev fname) buf)
     (let ((ediff-split-window-function 'split-window-horizontally))
       (ediff-buffers buf (current-buffer)))))
-
-
-(defun safe-read-sexp (&optional buf)
-  "Like normal read, but return `nil' instead of raising an error
-if sexp is malformed."
-  (setq buf (or buf (current-buffer)))
-  (condition-case ex
-     (let ((r (read buf))) (if (listp r) r (list r)))
-   ('end-of-file nil)))
