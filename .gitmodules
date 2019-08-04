@@ -118,3 +118,6 @@
 [submodule "forked-plugins/powerline"]
 	path = forked-plugins/powerline
 	url = https://github.com/milkypostman/powerline.git
+[submodule "forked-plugins/projectile"]
+	path = forked-plugins/projectile
+	url = git@github.com:bbatsov/projectile.git
