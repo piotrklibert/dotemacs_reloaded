@@ -508,7 +508,8 @@
  '(recentf-menu-action 'find-file)
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
-   '((org-src-preserve-indentation)
+   '((git-commit-major-mode . git-commit-elisp-text-mode)
+     (org-src-preserve-indentation)
      (eval and
            (featurep 'ox-extra)
            (ox-extras-activate

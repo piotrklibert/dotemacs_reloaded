@@ -23,6 +23,7 @@
   (require 'magit-patch)
   (require 'magit-diff)
   (require 'magit-subtree)
+  (require 'magit-gitignore)
   (define-key magit-mode-map (kbd "C-w") my-wnd-keys))
 
 (defun my-show-magit-status ()
