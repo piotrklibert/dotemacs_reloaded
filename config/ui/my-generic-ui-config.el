@@ -3,6 +3,7 @@
 (require 'linum)
 (require 'counsel)
 
+(require 'blink-a-bit)
 (require 'my-powerline-config)
 (require 'my-reorder-buffer-list)
 (require 'my-ibuffer)

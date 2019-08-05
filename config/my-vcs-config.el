@@ -1,6 +1,4 @@
 (require 's)
-(require 'magit-autoloads)
-
 
 (use-package git-gutter-fringe+
   :if window-system
@@ -19,11 +17,13 @@
 (use-package magit-blame
   :commands magit-blame)
 
-(eval-after-load "magit"
-  '(progn
-    (define-key magit-mode-map (kbd "C-w") my-wnd-keys)))
-
-
+(use-package magit
+  :commands magit-status
+  :config
+  (require 'magit-patch)
+  (require 'magit-diff)
+  (require 'magit-subtree)
+  (define-key magit-mode-map (kbd "C-w") my-wnd-keys))
 
 (defun my-show-magit-status ()
   (interactive)

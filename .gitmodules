@@ -124,3 +124,9 @@
 [submodule "forked-plugins/helm-projectile"]
 	path = forked-plugins/helm-projectile
 	url = git@github.com:bbatsov/helm-projectile.git
+[submodule "forked-plugins/yaml-mode"]
+	path = forked-plugins/yaml-mode
+	url = git@github.com:yoshiki/yaml-mode.git
+[submodule "forked-plugins/transient"]
+	path = forked-plugins/transient
+	url = git@github.com:magit/transient.git

@@ -91,3 +91,4 @@ var
 /something-strange-init.el
 point_position_history
 data/bookmarks
+/transient/history.el

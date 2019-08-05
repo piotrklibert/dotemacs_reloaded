@@ -1,37 +1,5 @@
 (require 'use-package)
 
-(use-package tidy
-  :commands (tidy-buffer))
-
-;; (rx (0+ any) (group (or "yml" "yaml")) "'")
-(use-package yaml-mode
-  :mode ("\\(\\(?:y\\(?:a?ml\\)\\)\\)'" . yaml-mode))
-
-(use-package rust-mode
-  :mode ("\\.rs\\'" . rust-mode))
-
-(use-package gitconfig-mode
-  :mode ("\\.gitconfig\\'" . gitconfig-mode))
-
-(use-package crontab-mode
-  :mode ("\\.pl\\'" . crontab-mode))
-
-(use-package clips-mode
-  :mode ("\\.clp\\'" . clips-mode))
-
-(use-package js2-mode
-  :commands (js2-mode js2-minor-mode))
-
-(use-package less-css-mode
-  :mode ("\\.less\\'" . less-css-mode))
-
-(use-package paredit
-  :commands (paredit-mode))
-
-(use-package paredit-menu
-  :after (paredit))
-
-
 (require 'ack-autoloads)
 (require 'auto-indent-mode-autoloads)
 (require 'buffer-stack-autoloads)
@@ -168,6 +136,8 @@
         'winring)
   "Modules which have their autoloads in plugins2-autoloads")
 
+;; Forks with their git repos urls:
+;;
 ;; ac-slime origin  git@github.com:purcell/ac-slime.git
 ;; alchemist-mode origin  https://github.com/tonini/alchemist.el.git
 ;; auto-complete origin  https://github.com/auto-complete/auto-complete.git
@@ -203,4 +173,5 @@
 ;; web-mode origin git@github.com:fxbois/web-mode.git
 ;; wrap-region origin https://github.com/rejeep/wrap-region.el.git
 ;; yasnippet origin https://github.com/capitaomorte/yasnippet.git
+
 (provide 'my-packages)

@@ -508,7 +508,17 @@
  '(recentf-menu-action 'find-file)
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
-   '((checkdoc-symbol-words "top-level" "major-mode" "macroexpand-all" "print-level" "print-length")
+   '((org-src-preserve-indentation)
+     (eval and
+           (featurep 'ox-extra)
+           (ox-extras-activate
+            '(ignore-headlines)))
+     (eval require 'ox-texinfo+ nil t)
+     (eval require 'ox-extra nil t)
+     (eval require 'ol-man nil t)
+     (eval require 'org-man nil t)
+     (eval require 'magit-utils nil t)
+     (checkdoc-symbol-words "top-level" "major-mode" "macroexpand-all" "print-level" "print-length")
      (eval add-hook 'after-save-hook 'org-babel-tangle nil t)
      (eval append-creds-to-macro-templates)
      (eval require 'batch-export)
