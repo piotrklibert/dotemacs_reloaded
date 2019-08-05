@@ -7,8 +7,9 @@
 
 (elscreen-start)
 
-(global-set-key (kbd "C-<next>")          'elscreen-next)
-(global-set-key (kbd "C-<prior>")         'elscreen-previous)
+(global-set-key (kbd "C-<next>")    'elscreen-next)
+(global-set-key (kbd "C-<prior>")   'elscreen-previous)
+(define-key elscreen-map (kbd "T")  'elscreen-toggle-display-tab)
 
 (defmacro refresh-tab-bar-after (&rest funcs)
   `(progn

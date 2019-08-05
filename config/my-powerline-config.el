@@ -65,15 +65,31 @@
   '((t (:inherit mode-line
         :background "dark slate blue"
         :underline nil)))
-  "A font used for displaying current buffer's file name.")
+  "A font used for displaying current buffer's file name."
+  :group 'powerline)
 
-(defpowerline powerline-buffer-id
-  (let ((buffer-ident (powerline-trim
-                       (format-mode-line
-                        mode-line-buffer-identification))))
-    (concat
-     (propertize (my-pl-buffer-dir) 'face 'lazy-highlight)
-     (propertize buffer-ident       'face 'my-file-name-face))))
+(defun powerline-buffer-id (&optional face pad)
+  (powerline-raw
+   (format-mode-line
+    (concat " "
+            (propertize (my-pl-buffer-dir) 'face 'lazy-highlight)
+            (propertize (format-mode-line mode-line-buffer-identification)
+              'face 'my-file-name-face
+              'mouse-face 'mode-line-highlight
+              'help-echo "Buffer name\n\ mouse-1: Previous buffer\n\ mouse-3: Next buffer"
+              'local-map (let ((map (make-sparse-keymap)))
+                           (define-key map [mode-line mouse-1] 'mode-line-previous-buffer)
+                           (define-key map [mode-line mouse-3] 'mode-line-next-buffer)
+                           map))))
+   face pad))
+
+;; (defpowerline powerline-buffer-id
+;;   (let ((buffer-ident (powerline-trim
+;;                        (format-mode-line
+;;                         mode-line-buffer-identification))))
+;;     (concat
+;;      (propertize (my-pl-buffer-dir) 'face 'lazy-highlight)
+;;      (propertize buffer-ident       'face 'my-file-name-face))))
 
 
 (provide 'my-powerline-config)

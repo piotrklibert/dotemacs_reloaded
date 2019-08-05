@@ -106,7 +106,9 @@
 ;; *should* be enough for startup :))
 (defun my-start-server ()
   (condition-case nil
-      (progn
+      (cl-letf
+          ;; TODO: use warning levels for this, see warnings.el
+          (((symbol-function 'display-warning) #'identity))
         (server-start)
         (message "Server started!"))
     (t (message "Couldn't start the server!"))))
