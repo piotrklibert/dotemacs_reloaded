@@ -19,21 +19,26 @@
     (linum-mode t)))
 
 
-(defhydra hydra-zoom ()
+(defhydra hydra-zoom (:color red)
   "zoom"
   ("q" nil) ("<esc>" nil)               ; quit/cancel
   ("+" text-scale-increase "in")
   ("=" text-scale-increase "in")
   ("-" text-scale-decrease "out")
   ("_" text-scale-decrease "out")
-  ("0" text-scale-zero "zero"))
+  ("0" text-scale-zero :color blue))
 
 (assert (functionp (symbol-function 'hydra-zoom/body)))
 
 
 (define-key mode-specific-map (kbd "-") 'hydra-zoom/text-scale-decrease)
-(define-key mode-specific-map (kbd "=") 'hydra-zoom/text-scale-increase)
+(define-key mode-specific-map (kbd "_") 'hydra-zoom/text-scale-decrease)
 
+(define-key mode-specific-map (kbd "=") 'hydra-zoom/text-scale-increase)
+(define-key mode-specific-map (kbd "+") 'hydra-zoom/text-scale-increase)
+
+(define-key mode-specific-map (kbd "0") #'text-scale-zero)
+(define-key mode-specific-map (kbd ")") #'text-scale-zero)
 
 ;; ==============================================================================
 
@@ -234,7 +239,7 @@ _o_: major mode      _E_: has process                  ^^|                  ^^|
   ("<down>" hydra-move-splitter-down)
   ("<up>" hydra-move-splitter-up)
   ("<right>" hydra-move-splitter-right)
-  ("=" balance-windows :color blue)
+  ("=" golden-ratio  :color blue)
   ("q" nil) ("<esc>" nil))
 
 

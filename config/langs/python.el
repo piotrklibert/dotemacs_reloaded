@@ -1,6 +1,7 @@
 ;; Emacs IPython Notebook
 ;; (require 'ein)
 ;; (setq ein:use-auto-complete t)
+(require 'use-package)
 
 (require 'jedi-autoloads)
 (require 'python-django-autoloads)
@@ -31,10 +32,16 @@
     (python-shell-send-region (line-beginning-position)
                               (line-end-position))))
 
-(require 'flycheck-pycheckers)
-(global-flycheck-mode 1)
-(with-eval-after-load 'flycheck
+
+(use-package flycheck-pycheckers
+  :after flycheck)
+
+(use-package flycheck
+  :config
   (add-hook 'flycheck-mode-hook #'flycheck-pycheckers-setup))
+
+;; (global-flycheck-mode 1)
+
 
 (defun my-elpy-mode-setup ()
   "Setting up Python things."
@@ -63,6 +70,8 @@
 
   (define-key mode-specific-map (kbd "<prior>") 'python-nav-backward-up-list)
   (define-key mode-specific-map (kbd "C-<up>") 'python-nav-backward-up-list)
+  ;; (define-key mode-specific-map (kbd "C-<up>") 'python-nav-backward-up-list)
+  (define-key mode-specific-map (kbd "C-g") 'magit-status)
 
   (local-set-key (kbd "<M-up>")    'backward-quarter-page)
   (local-set-key (kbd "<M-down>")  'forward-quarter-page)

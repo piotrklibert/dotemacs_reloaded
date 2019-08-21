@@ -71,7 +71,7 @@
 (defun powerline-buffer-id (&optional face pad)
   (powerline-raw
    (format-mode-line
-    (concat " "
+    (concat ""
             (propertize (my-pl-buffer-dir) 'face 'lazy-highlight)
             (propertize (format-mode-line mode-line-buffer-identification)
               'face 'my-file-name-face

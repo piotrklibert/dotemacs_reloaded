@@ -171,9 +171,10 @@
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 
 
-(define-key my-find-keys (kbd "C-f")      'fuzzy-find-in-project)
-(define-key my-find-keys (kbd "C-M-f")    'fuzzy-find-change-root)
-;; (define-key my-find-keys (kbd "C-c")      'fuzzy-find-choose-root-set)
+(define-key my-find-keys (kbd "C-f")    'helm-projectile-find-file)
+(define-key my-find-keys (kbd "f")      'fuzzy-find-in-project)
+(define-key my-find-keys (kbd "C-M-f")  'fuzzy-find-change-root)
+;; (define-key my-find-keys (kbd "C-c") 'fuzzy-find-choose-root-set)
 
 (define-key my-find-keys (kbd "C-r")      'find-grep-dired)
 (define-key my-find-keys (kbd "C-i")      'helm-imenu)
@@ -265,7 +266,12 @@ don't need to worry about saving scratch buffer contents anymore
   "Somehow I didn't find any setting for making this the
 default."
   (interactive)
-  (helm-imenu))
+  (setq helm-source-occur
+        (car (helm-occur-build-sources (list (current-buffer)) "Helm occur")))
+  (helm-set-local-variable 'helm-occur--buffer-list (list (current-buffer))
+                           'helm-occur--buffer-tick
+                           (list (buffer-chars-modified-tick (current-buffer))))
+  (helm :sources '(helm-source-imenu helm-source-occur)))
 
 
 (defun my-toggle-quotes ()

@@ -8,6 +8,7 @@
 (require 'my-reorder-buffer-list)
 (require 'my-ibuffer)
 (require 'my-new-buffers)
+(require 'my-messages-buffer)
 
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
@@ -309,8 +310,6 @@ without selecting."
 (add-hook 'shell-mode-hook 'my-shell-mode-hook)
 
 
-
-
 (defun my-term-mode-hook ()
   (define-key term-mode-map (kbd "C-w") my-wnd-keys)
   (define-key term-raw-map (kbd "C-w") my-wnd-keys)
@@ -328,6 +327,5 @@ without selecting."
   '(progn
      (add-hook 'calc-mode-hook 'my-calc-hook)
      (define-key calc-mode-map (kbd "C-w") 'my-wnd-keys)))
-
 
 (provide 'my-generic-ui-config)

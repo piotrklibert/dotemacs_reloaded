@@ -14,7 +14,7 @@
 (require 's)
 (require 'dash)
 
-(defstruct file-buffers-list
+(cl-defstruct file-buffers-list
   list pos)
 
 
