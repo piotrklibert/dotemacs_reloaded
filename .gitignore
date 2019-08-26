@@ -92,3 +92,6 @@ var
 point_position_history
 data/bookmarks
 /transient/history.el
+eaf
+session.*
+.cache
