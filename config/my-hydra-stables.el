@@ -277,6 +277,8 @@ _o_: major mode      _E_: has process                  ^^|                  ^^|
 
 
 ;; TODO: unused?
+;; TODO: could be useful, there are some interesting, but very rarely used,
+;; commands so a hydra would be helpful.
 (defvar rectangle-mark-mode)
 (defun hydra-ex-point-mark ()
   "Exchange point and mark."
@@ -287,5 +289,35 @@ _o_: major mode      _E_: has process                  ^^|                  ^^|
       (rectangle-mark-mode 1)
       (goto-char mk))))
 
+;; Global Bindings Starting With C-x r:
+;; key             binding
+;; ---             -------
+;; C-x r C-@       point-to-register
+;; C-x r C-y       yank-rectangle-as-text
+;; C-x r ESC       Prefix Command
+;; C-x r SPC       point-to-register
+;; C-x r +         increment-register
+;; C-x r M         bookmark-set-no-overwrite
+;; C-x r N         rectangle-number-lines
+;; C-x r b         bookmark-jump
+;; C-x r c         clear-rectangle
+;; C-x r d         delete-rectangle
+;; C-x r f         frameset-to-register
+;; C-x r g         insert-register
+;; C-x r i         insert-register
+;; C-x r j         jump-to-register
+;; C-x r k         kill-rectangle
+;; C-x r l         bookmark-bmenu-list
+;; C-x r m         bookmark-set
+;; C-x r n         number-to-register
+;; C-x r o         open-rectangle
+;; C-x r r         copy-rectangle-to-register
+;; C-x r s         copy-to-register
+;; C-x r t         string-rectangle
+;; C-x r w         window-configuration-to-register
+;; C-x r x         copy-to-register
+;; C-x r y         yank-rectangle
+;; C-x r C-SPC     point-to-register
+;; C-x r M-w       copy-rectangle-as-kill
 
 (provide 'my-hydra-stables)

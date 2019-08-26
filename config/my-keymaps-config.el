@@ -26,5 +26,8 @@
 ;; (find-my-bindings-for 'my-find-keys)
 ;; (find-my-bindings-for 'my-bookmarks-keys)
 
+(global-set-key (kbd "<f10>")  (lambda ()  (delete-window (frame-selected-window))))
+
+
 
 (provide 'my-keymaps-config)

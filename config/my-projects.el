@@ -14,6 +14,7 @@
   (em          . ("~/.emacs.d/forked-plugins/"
                   "~/.emacs.d/plugins/"
                   "~/.emacs.d/plugins2/"))
+
   (my-projects . ("~/.emacs.d/pkg-langs/elpy/"
                   "~/.emacs.d/plugins2/"
                   "~/.emacs.d/pkg-langs/"
@@ -35,7 +36,10 @@
   ;; (rq          . ("~/projects/reqviewer/"
   ;;                 "~/projects/reqplayer/"))
   ;; (pl          . ("~/poligon/planties/"))
-  (ts          . ("~/projects/lightcorn/"))
+  (lc          . ("~/projects/lightcorn/"
+                  "~/projects/harvester/"
+                  "~/projects/truststamp/healthz/"
+                  "~/projects/s3downloader/peanut_s3downloader/"))
   ;; WORK RELATED
   ;; (nlu         . ("~/projects/nlu"))
   ;; (bu          . ("~/projects/bunsen"))
@@ -76,3 +80,4 @@
 ;;   (util-put-alist 'my-projects new-ffip-dirs fuzzy-find-roots)
 ;;   ;; make FFIP notice the change in in dirs
 ;;   (fuzzy-find-choose-root-set "my-projects"))
+;; (fuzzy-find-choose-root-set "em")

@@ -23,9 +23,6 @@
 (add-to-list 'load-path "~/portless/org-mode/lisp")
 (add-to-list 'load-path "~/portless/org-mode/contrib/lisp")
 
-;; Load CEDET. Turns out the built-in version is more up-to-date than the one
-;; from GIT repo...
-(require 'cedet)
 
 ;; For semantic submodules, see doc-string of `semantic-default-submodes'
 (require 'semantic)

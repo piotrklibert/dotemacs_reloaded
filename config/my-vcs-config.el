@@ -15,7 +15,10 @@
   (define-key git-commit-mode-map (kbd "C-c C-s") 'my-set-ticket))
 
 (use-package magit-blame
-  :commands magit-blame)
+  :commands magit-blame magit-blame-addition
+  :after magit
+  :config
+  (define-key magit-blame-mode-map (kbd "q") 'magit-blame-quit))
 
 (use-package magit
   :commands magit-status
@@ -27,13 +30,15 @@
   (define-key magit-mode-map (kbd "C-w") my-wnd-keys))
 
 
+
 (defun my-show-magit-status ()
   (interactive)
-  (neotree-hide)
+  (when (fboundp 'neotree-hide)
+    (neotree-hide))
   (call-interactively #'magit-status))
 
 (define-key mode-specific-map (kbd "C-g")   'my-show-magit-status) ; C-c C-g
-(define-key mode-specific-map (kbd "C-M-g") 'magit-blame)  ; C-c C-M-g
+(define-key mode-specific-map (kbd "C-M-g") 'magit-blame-addition)  ; C-c C-M-g
 
 
 (defadvice magit-section-show (after my-magit-selection-show-hook activate)
@@ -85,3 +90,15 @@
   )
 
 (add-hook 'git-commit-mode-hook #'my-magit-commit-hook)
+
+
+(defun ediff-with-revision (rev)
+  "Compare a file with itself, but from a specific revision. Uses
+ediff. I wrote this before I knew magit."
+  (interactive "s")
+  (let
+      ((fname (file-name-nondirectory (buffer-file-name)))
+       (buf (get-buffer-create (format "*Git revision %s*" rev))))
+    (shell-command (format "git show %s:./%s" rev fname) buf)
+    (let ((ediff-split-window-function 'split-window-horizontally))
+      (ediff-buffers buf (current-buffer)))))

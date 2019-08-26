@@ -90,6 +90,7 @@
         org-kill-line
         org-metaleft
         org-metaright
+        org-mouse-down-mouse
         org-self-insert-command
         org-shiftcontrolleft
         org-shiftright

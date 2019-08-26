@@ -20,7 +20,8 @@
          ("S-<tab>" . speedbar-expand-line-descendants)))
 
 (use-package treemacs
-  :commands treemacs)
+  :commands treemacs
+  :bind (("<f1>" . treemacs)))
 
 (use-package neotree
   :bind (("C-<f1>" . neotree-toggle)

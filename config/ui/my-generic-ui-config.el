@@ -3,12 +3,31 @@
 (require 'linum)
 (require 'counsel)
 
+
 (require 'blink-a-bit)
 (require 'my-powerline-config)
 (require 'my-reorder-buffer-list)
 (require 'my-ibuffer)
 (require 'my-new-buffers)
 (require 'my-messages-buffer)
+(require 'my-sidebars)
+
+
+(use-package ov :ensure)
+(use-package frame-local :ensure)
+(use-package font-lock+)
+
+(use-package eaf
+  :commands eaf-open eaf-open-url)
+
+(use-package kubernetes
+  :commands kubernetes-overview)
+
+(use-package workgroups2
+  :bind (("<pause>" .     wg-reload-session)
+         ("C-S-<pause>" . wg-save-session)
+         ("s-z" .         wg-switch-to-workgroup)
+         ("s-/" .         wg-switch-to-previous-workgroup)))
 
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
@@ -25,17 +44,10 @@
 
 ;; Use ibuffer rather than whatever Emacs uses by default...
 (define-key ctl-x-map (kbd "C-b")   'ibuffer)
-
-
-(global-set-key (kbd "M-x")      'helm-M-x)
-
-(global-set-key (kbd "C-<f1>")   'neotree-toggle)
-(global-set-key (kbd "C-M-<f1>") 'my-dirtree)
-(global-set-key (kbd "C-<f2>")   'helm-recentf)
-
+(global-set-key (kbd "M-x")        'helm-M-x)
+(global-set-key (kbd "C-<f2>")     'helm-recentf)
 (global-set-key (kbd "<escape>")   'keyboard-quit)
-
-(global-set-key (kbd "M-n") 'my-new-buffer-helm)
+(global-set-key (kbd "M-n")        'my-new-buffer-helm)
 
 
 (advice-add 'pop-to-mark-command :after #'my-recenter-and-blink)
@@ -78,7 +90,6 @@ without selecting."
     (error (helm-keyboard-quit))))
 
 
-(use-package dirtree :commands dirtree)
 (use-package unbound :commands describe-unbound-keys)
 
 
@@ -135,6 +146,10 @@ without selecting."
   (require 'help-macro+)
   (require 'help-fns+)
   (require 'help-mode+))
+
+
+(use-package helpful
+  :bind (("C-h f" . helpful-function)))
 
 
 (defun my-info-apropos (str)
@@ -247,13 +262,6 @@ without selecting."
   (interactive)
   (elscreen-create)
   (call-interactively 'helm-find-files))
-
-
-
-(defun my-dirtree ()
-  (interactive)
-  (dirtree (f-dirname (buffer-file-name (current-buffer))) t))
-
 
 (defun my-eshell-other-window (args)
   (interactive "P")

@@ -42,10 +42,11 @@
 (defvar my-new-buffer-helm-source
   `((name       . "Buffer types")
     (candidates . ,my-openers)
-    (action     . (lambda (candidate) (funcall candidate)))))
+    (action     . funcall)))
 
 (defun my-new-buffer-helm ()
   (interactive)
   (helm :sources '(my-new-buffer-helm-source)))
+
 
 (provide 'my-new-buffers)

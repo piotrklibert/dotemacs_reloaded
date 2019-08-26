@@ -1,29 +1,3 @@
-(require 'neotree-autoloads)
-
-(defvar neotree-mode-map)
-
-(defun my-neotree-hook ()
-  (define-key neotree-mode-map (kbd "C-d")       'neotree-delete-node)
-  (define-key neotree-mode-map (kbd "D")         'neotree-delete-node)
-  (define-key neotree-mode-map (kbd "C-<up>")    'neotree-select-up-node)
-  (define-key neotree-mode-map (kbd "C-o")       'neotree-hidden-file-toggle)
-  (define-key neotree-mode-map (kbd "<delete>")  'neotree-delete-node)
-  (define-key neotree-mode-map (kbd "r")         'neotree-rename-node)
-  )
-
-(eval-after-load "neotree"
- '(add-hook 'neotree-mode-hook 'my-neotree-hook))
-
-(defalias 'my-switch-to-neotree 'my-switch-to-column-1)
-
-
-;; (defun my-delete-file-advice (fname &rest args)
-;;   (when (equal (buffer-file-name (current-buffer)) fname)
-;;     (backup-buffer)
-;;     (kill-buffer)
-;;     (message "delete-file: killed buffer visiting %s" fname)))
-
-;; (advice-add 'delete-file :after #'my-delete-file-advice)
 
 
 (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
@@ -334,8 +308,7 @@ just use M-w C-y ;-)"
 (defalias 'join-region 'my-join-region)
 
 
-(defalias 'paste-rectangle-as-text      ; PASTE-... is the correct name!
-  'yank-rectangle-as-text)
+(defalias 'paste-rectangle-as-text 'yank-rectangle-as-text)
 
 (defun yank-rectangle-as-text ()
   "Insert killed rectange as if it was normal text, ie. push
