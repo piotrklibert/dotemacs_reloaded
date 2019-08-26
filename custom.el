@@ -87,7 +87,7 @@
  '(ecb-windows-width 0.13)
  '(ede-project-directories '("~/.emacs.d/config"))
  '(ediff-keep-variants nil)
- '(ediff-make-buffers-readonly-at-startup nil)
+ '(ediff-make-buffers-readonly-at-startup t)
  '(ediff-merge-split-window-function 'split-window-horizontally)
  '(ediff-no-emacs-help-in-control-buffer t)
  '(ediff-split-window-function 'split-window-horizontally)
@@ -144,7 +144,7 @@
  '(gnus-group-mode-hook '(gnus-agent-mode gnus-topic-mode))
  '(gnus-summary-same-subject "(same)")
  '(gnus-thread-sort-functions '(gnus-thread-sort-by-most-recent-date))
- '(golden-ratio-exclude-buffer-names '(" *MINIMAP*"))
+ '(golden-ratio-exclude-buffer-names '(" *MINIMAP*" "*elscreen-tabs*"))
  '(golden-ratio-mode nil)
  '(helm-M-x-always-save-history t)
  '(helm-adaptive-mode t nil (helm-adaptive))
@@ -240,7 +240,7 @@
  '(imenu-use-popup-menu nil)
  '(indicate-buffer-boundaries nil)
  '(indicate-empty-lines t)
- '(inferior-lisp-program "/bin/sbcl" t)
+ '(inferior-lisp-program "/bin/sbcl")
  '(initial-scratch-message ";; **SCRATCH BUFFER **
 
 ")
@@ -328,13 +328,13 @@
   Origin: %a
 
   %i" :empty-lines 1)
-     ("C" "work task" entry
+     ("w" "work task" entry
       (file+headline "praca.org" "CURRENT")
       "* TODO %?
   Added: %U
   Origin: %a
 
-  %i" :empty-lines 1 :prepend t)
+  %i" :prepend t :empty-lines 1)
      ("s" "scheduled event" entry
       (file+headline "" "EVENTS")
       "* TODO %? :EVENT:
@@ -348,12 +348,12 @@
   SCHEDULED: %^T
   Origin: %a" :empty-lines 1)
      ("n" "note" entry
-      (file+headline "" "Notes")
+      (file+headline "nowe.org" "Notes")
       "* %? :NOTE:
   Added: %U
   Origin: %a
 
-  %i" :empty-lines 1 :prepend t)))
+  %i" :prepend t :empty-lines 1)))
  '(org-catch-invisible-edits 'smart)
  '(org-clock-into-drawer t)
  '(org-clock-persist 'clock)
@@ -463,14 +463,18 @@
      ("n" . "note")))
  '(org-tag-alist
    '(("note" . 110)
-     ("link" . 108)
-     ("project" . 112)
-     ("maybe" . 109)))
+     ("maybe" . 109)
+     ("LightCorn" . 108)
+     ("TS-Mail" . 116)
+     ("Peanuts" . 112)
+     ("Harvester" . 104)
+     ("Jenkins" . 106)
+     ("Services" . 115)))
  '(org-tag-persistent-alist nil)
  '(org-tags-column -90)
  '(org-tags-sort-function 'org-string-collate-lessp)
  '(org-todo-keywords
-   '((sequence "TODO(t!)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d@)" "CANCELED(c@)")))
+   '((sequence "TODO(t!)" "INPROGRESS(i!)" "PAUSED(p!)" "BLOCKED(b@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
  '(org-treat-S-cursor-todo-selection-as-state-change t)
  '(org-use-sub-superscripts nil)
  '(package-archives
@@ -488,6 +492,8 @@
  '(powerline-text-scale-factor 1.9)
  '(proced-auto-update-flag t)
  '(proced-auto-update-interval 1)
+ '(projectile-globally-unignored-files '("docker/backend.env" "docker/backend.env.*"))
+ '(projectile-indexing-method 'hybrid)
  '(prolog-electric-colon-flag t)
  '(prolog-electric-dot-flag t)
  '(prolog-indent-width 4)
@@ -508,7 +514,12 @@
  '(recentf-menu-action 'find-file)
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
-   '((git-commit-major-mode . git-commit-elisp-text-mode)
+   '((Package ITERATE :use "COMMON-LISP" :colon-mode :external)
+     (syntax . COMMON-LISP)
+     (whitespace-style quote
+                       (face trailing empty tabs))
+     (whitespace-action)
+     (git-commit-major-mode . git-commit-elisp-text-mode)
      (org-src-preserve-indentation)
      (eval and
            (featurep 'ox-extra)
@@ -596,7 +607,7 @@
  '(tool-bar-mode nil)
  '(tramp-backup-directory-alist '(("." . "~/.saves")))
  '(tramp-syntax 'default nil (tramp))
- '(tramp-verbose 5 nil (tramp))
+ '(tramp-verbose 5)
  '(truncate-lines t)
  '(truncate-partial-width-windows nil)
  '(undo-tree-auto-save-history t)
@@ -638,9 +649,18 @@
  '(bmkp-local-file-without-region ((t (:foreground "cyan"))))
  '(col-highlight ((t (:background "dark gray"))))
  '(css-selector ((t (:inherit font-lock-function-name-face :foreground "deep sky blue"))))
+ '(ediff-current-diff-A ((t (:background "#4e175e" :foreground "#d1c4e9"))))
+ '(ediff-current-diff-Ancestor ((t (:inherit ediff-current-diff-A))))
+ '(ediff-current-diff-B ((t (:background "#0084af"))))
+ '(ediff-even-diff-A ((t (:inherit ediff-odd-diff-A))))
+ '(ediff-even-diff-Ancestor ((t (:inherit ediff-even-diff-A))))
  '(ediff-even-diff-B ((t (:background "CadetBlue4"))))
  '(ediff-even-diff-C ((t (:background "dark slate blue"))))
+ '(ediff-fine-diff-Ancestor ((t (:inherit ediff-fine-diff-A))))
+ '(ediff-odd-diff-A ((t (:background "#9e65b4"))))
+ '(ediff-odd-diff-Ancestor ((t (:inherit ediff-odd-diff-A))))
  '(ediff-odd-diff-B ((t (:background "royal blue"))))
+ '(ediff-odd-diff-C ((t (:inherit ediff-even-diff-C))))
  '(elscreen-tab-current-screen-face ((t (:background "wheat2" :foreground "black"))))
  '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))

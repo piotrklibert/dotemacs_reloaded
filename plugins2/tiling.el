@@ -162,7 +162,8 @@
          (set-window-buffer nil buf))
        (cdr bufs))
     (error nil))
-  (balance-windows)
+  ;; TODO: breaks my elscreen-tab for some reason
+  ;; (balance-windows)
   (other-window 1)) ; back to the first window
 
 
@@ -177,7 +178,7 @@
 
   (let ((bufs (-filter (lambda (w)
                          (and (not (equal (buffer-name w) "*elscreen-tabs*"))
-                              (not (equal (buffer-name w) "*NeoTree*"))))
+                              (not (equal (buffer-name w) " *NeoTree*"))))
                        (mapcar 'window-buffer (window-list nil -1 nil))))
         (found nil) (new-layout nil))
 

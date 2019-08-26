@@ -143,7 +143,7 @@ will not cause the window to be resized to the golden ratio."
           (golden-ratio-mode nil))
       ;; Always disable `golden-ratio-mode' to avoid
       ;; infinite loop in `balance-windows'.
-      (balance-windows)
+      ;; (balance-windows)
       (golden-ratio--resize-window dims)
       (when golden-ratio-recenter
         (scroll-right) (recenter)))))

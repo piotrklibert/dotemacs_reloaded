@@ -1,4 +1,3 @@
-
 ;;; ediff-trees.el --- Recursively ediff two directory trees
 ;;;----------------------------------------------------------------------
 ;; Author: Joao Cachopo <joao.cachopo@inesc-id.pt>

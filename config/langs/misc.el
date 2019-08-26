@@ -1,3 +1,4 @@
+;; -*- mode: emacs-lisp -*-
 (require 'js2-mode-autoloads)
 (require 'rust-mode-autoloads)
 
@@ -32,7 +33,13 @@
 (use-package crontab-mode    :mode ("\\.pl\\'" . crontab-mode))
 (use-package fsharp-mode     :mode "\\.\\(fs\\|fsi\\|fsx\\)\\'")
 (use-package gitconfig-mode  :mode ("\\.gitconfig\\'" . gitconfig-mode))
-(use-package groovy-mode     :mode "\\.groovy\\'")
+
+
+(use-package groovy-mode
+  :mode (("\\.groovy\\'" . groovy-mode)
+         ("Jenkinsfile\\'" . groovy-mode)))
+
+
 (use-package haxe-mode       :mode "\\.hx\\'")
 (use-package json-mode       :mode "\\.json\\'")
 (use-package julia-mode      :mode "\\.jl\\'")

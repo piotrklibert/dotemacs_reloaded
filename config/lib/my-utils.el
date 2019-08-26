@@ -53,7 +53,7 @@
         (insert "\n")
         ;; makes message only display in echo area, but not write to log,
         ;; avoiding duplication
-        (let (message-log-max nil)
+        (let ((message-log-max nil))
           (message val))))))
 
 (defun my-log-info (fmt &rest things)

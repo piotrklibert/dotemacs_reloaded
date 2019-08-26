@@ -361,14 +361,3 @@ there's no active region."
                           (split-string s "_")) ""))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun ediff-with-revision (rev)
-  "Compare a file with itself, but from a specific revision. Uses
-ediff. I wrote this before I knew magit."
-  (interactive "s")
-  (let
-      ((fname (file-name-nondirectory (buffer-file-name)))
-       (buf (get-buffer-create (format "*Git revision %s*" rev))))
-    (shell-command (format "git show %s:./%s" rev fname) buf)
-    (let ((ediff-split-window-function 'split-window-horizontally))
-      (ediff-buffers buf (current-buffer)))))

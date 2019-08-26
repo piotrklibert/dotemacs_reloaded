@@ -10,7 +10,7 @@
 
 
 (use-package slime
-  :commands slime-connect
+  :commands slime-connect slime slime-mode
   :bind (("C-c !" . slime-connect))
   :config
   (load-many "~/quicklisp/slime-helper.el"
