@@ -2,7 +2,31 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((";; (define-key Info-mode-map [mouse-4]         'Info-history-back)"
+(("(global-set-key (kbd \"<f10>\")  (lambda ()  (delete-window (frame-selected-window))))"
+ (filename . "~/.emacs.d/config/my-keymaps-config.el")
+ (front-context-string . "window))))\n\n\n\n(p")
+ (rear-context-string . "(frame-selected-")
+ (position . 887))
+("  The following parameters are currently used by the window management\ncode:\n\n\342\200\230delete-window\342\200\231\n     This parameter affects the execution of \342\200\230delete-window\342\200\231 (*note\n     Deleting Windows::).\n\n\342\200\230delete-other-windows\342\200\231\n     This parameter affects the execution of \342\200\230delete-other-windows\342\200\231\n     (*note Deleting Windows::).\n\n\342\200\230no-delete-other-windows\342\200\231\n     This parameter marks the window as not deletable by\n     \342\200\230delete-other-windows\342\200\231 (*note Deleting Windows::).\n\n\342\200\230split-window\342\200\231\n     This parameter affects the execution of \342\200\230split-window\342\200\231 (*note\n     Splitting Windows::).\n\n\342\200\230other-window\342\200\231\n     This parameter affects the execution of \342\200\230other-window\342\200\231 (*note\n     Cyclic Window Ordering::).\n\n\342\200\230no-other-window\342\200\231\n     This parameter marks the window as not selectable by \342\200\230other-window\342\200\231\n     (*note Cyclic Window Ordering::).\n\n\342\200\230clone-of\342\200\231\n     This parameter specifies the window that this one has been cloned\n     from.  It is installed by \342\200\230window-state-get\342\200\231 (*note Window\n     Configurations::).\n\n\342\200\230window-preserved-size\342\200\231\n     This parameter specifies a buffer, a direction where \342\200\230nil\342\200\231 means\n     vertical and \342\200\230t\342\200\231 horizontal, and a size in pixels.  If this window\n     displays the specified buffer and its size in the indicated\n     direction equals the size specified by this parameter, then Emacs\n     will try to preserve the size of this window in the indicated\n     direction.  This parameter is installed and updated by the function\n     \342\200\230window-preserve-size\342\200\231 (*note Preserving Window Sizes::).\n\n\342\200\230quit-restore\342\200\231\n     This parameter is installed by the buffer display functions (*note\n     Choosing Window::) and consulted by \342\200\230quit-restore-window\342\200\231 (*note\n     Quitting Windows::).  It is a list of four elements, see the\n     description of \342\200\230quit-restore-window\342\200\231 in *note Quitting Windows::\n     for details.\n\n\342\200\230window-side\342\200\231\n\342\200\230window-slot\342\200\231\n     These parameters are used internally for implementing side windows\n     (*note Side Windows::).\n\n\342\200\230window-atom\342\200\231\n     This parameter is used internally for implementing atomic windows,\n     see *note Atomic Windows::.\n\n\342\200\230mode-line-format\342\200\231\n     This parameter replaces the value of the buffer-local variable\n     \342\200\230mode-line-format\342\200\231 (*note Mode Line Basics::) of this window\342\200\231s\n     buffer whenever this window is displayed.  The symbol \342\200\230none\342\200\231 means\n     to suppress display of a mode line for this window.  Display and\n     contents of the mode line on other windows showing this buffer are\n     not affected.\n\n\342\200\230header-line-format\342\200\231\n     This parameter replaces the value of the buffer-local variable\n     \342\200\230header-line-format\342\200\231 (*note Mode Line Basics::) of this window\342\200\231s\n     buffer whenever this window is displayed.  The symbol \342\200\230none\342\200\231 means\n     to suppress display of a header line for this window.  Display and\n     contents of the header line on other windows showing this buffer\n     are not affected.\n\n\342\200\230min-margins\342\200\231\n     The value of this parameter is a cons cell whose CAR and CDR, if\n     non-\342\200\230nil\342\200\231, specify the minimum values (in columns) for the left and\n     right margin of this window (*note Display Margins::.  When\n     present, Emacs will use these values instead of the actual margin\n     widths for determining whether a window can be split or shrunk\n     horizontally.\n\n     Emacs never auto-adjusts the margins of any window after splitting\n     or resizing it.  It is the sole responsibility of any application\n     setting this parameter to adjust the margins of this window as well\n     as those of any new window that inherits this window\342\200\231s margins due\n     to a split.  Both \342\200\230window-configuration-change-hook\342\200\231 and\n     \342\200\230window-size-change-functions\342\200\231 (*note Window Hooks::) should be\n     employed for this purpose.\n\n     This parameter was introduced in Emacs version 25.1 to support\n     applications that use large margins to center buffer text within a\n     window and should be used, with due care, exclusively by those\n     applications.  It might be replaced by an improved solution in\n     future versions of Emacs.\n\n"
+ (front-context-string)
+ (rear-context-string . "ions of Emacs.\n\n")
+ (position . 2068648)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Window Parameters")
+ (handler . Info-bookmark-jump))
+("(use-package groovy-mode"
+ (filename . "~/.emacs.d/config/langs/misc.el")
+ (front-context-string . "(use-package gro")
+ (rear-context-string . "config-mode))\n\n\n")
+ (position . 1244))
+("22.17.1 Defining Menus"
+ (front-context-string . "2.17.1 Defining ")
+ (rear-context-string . " Menu Keymaps\n\n2")
+ (position . 1322769)
+ (filename . "/usr/local/share/info/elisp")
+ (info-node . "Defining Menus")
+ (handler . Info-bookmark-jump))
+(";; (define-key Info-mode-map [mouse-4]         'Info-history-back)"
  (filename . "~/.emacs.d/plugins2/info+.el")
  (front-context-string . "  ;; (define-key")
  (rear-context-string . "ode-new-window)\n")
@@ -186,14 +210,14 @@
  (position . 3106))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO hydra dl")
- (rear-context-string . "1> info<2> etc\n\n")
- (position . 7690))
+ (front-context-string . "** TODO move fin")
+ (rear-context-string . "-projects.el]]\n\n")
+ (position . 17508))
 ("org-refile-last-stored"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO zoom a'l")
- (rear-context-string . "  :END:\n* EMACS\n")
- (position . 1367))
+ (filename . "~/todo/praca.org")
+ (front-context-string . "** CANCELED Anth")
+ (rear-context-string . "VENTS\n* ARCHIVE\n")
+ (position . 3090))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")
