@@ -11,6 +11,9 @@
 (require 'eshell)
 (require 'paredit)
 
+(use-package debug
+  :bind (:map debugger-mode-map
+              ("C-g" . debugger-quit)))
 
 (indent/tag-for-modes
     '(lisp-indent-function)

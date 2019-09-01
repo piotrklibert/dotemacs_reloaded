@@ -251,6 +251,7 @@
     (insert "\n\n=========================================\n")
     (save-buffer)))
 
+(defalias 'my-add-to-quotes 'add-to-quotes)
 (defun add-to-quotes ()
   (interactive)
   (if (region-active-p)
@@ -262,13 +263,13 @@
     (find-file-other-window "~/quotes.txt")
     (goto-char (point-max))
     (insert "\n=========================================\n")
-    (my-insert-now)
+    (my-insert-datetime)
     (insert "\n\n")
     (save-excursion
       (insert "\n\n=========================================\n"))))
 
-(define-key mode-specific-map (kbd "q") 'add-to-quotes)
-(define-key mode-specific-map (kbd "C-q") 'add-to-quotes)
+(define-key mode-specific-map (kbd "q") 'my-add-to-quotes)
+(define-key mode-specific-map (kbd "C-q") 'my-add-to-quotes)
 
 
 (defun forward-quarter-page (&optional arg)

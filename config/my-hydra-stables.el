@@ -52,12 +52,12 @@
 (defalias 'config-toggles 'hydra-toggle-simple/body)
 (defhydra hydra-toggle-simple (:color red :hint nil)
   "
-|_d_: debug-on-error - display traceback on error (%-3`debug-on-error)     ^^|    _f_: auto-fill-mode - (%-3`auto-fill-function)     |  _g_: show Git info (%`git-gutter+-mode)
-|_D_: debug-on-quit - display traceback on C-g (%-3`debug-on-quit) ^       ^^|    _W_: whitespace-mode (%-3`whitespace-mode)   ^^^   |  _G_: toggle Git markers style
-|                                                    ^    ^^^^^^^^^^^^^^^ ^^^|                              ^^^^^^^^^^^^^^^^^^^^^    |
-|_v_: visual-line - use wrapped lines for movement (%-3`visual-line-mode)    |    _\"_: my-toggle-quotes     ^^^^^^^^^^^^^^^^^^      |  _p_: picture mode (%(eq major-mode 'picture-mode))
-|_w_: word-wrap - wrap wrap whole words only (%-3`word-wrap)    ^^^^^^^      |    _b_: my-toggle-true-false-none ^^^^^^^^^^^^^^^^^^^ |  _C_: customize-symbol-at-pt
-|_l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |    _o_: overwrite-mode (%-3`overwrite-mode)      ^^^^ |
+| _d_: debug-on-error - display traceback on error (%-3`debug-on-error)     ^^ | _g_: show Git info (%`git-gutter+-mode) ^^      ^^ | _f_: auto-fill-mode - (%-3`auto-fill-function)
+| _D_: debug-on-quit - display traceback on C-g (%-3`debug-on-quit) ^       ^^ | _W_: whitespace-mode (%-3`whitespace-mode)   ^^^   | _G_: toggle Git markers style
+| ^    ^^^^^^^^^^^^^^^ ^^^                                                     | ^^^^^^^^^^^^^^^^^^^^^                              |
+| _v_: visual-line - use wrapped lines for movement (%-3`visual-line-mode)     | _\"_: my-toggle-quotes     ^^^^^^^^^^^^^^^^^^      | _p_: picture mode (%(eq major-mode 'picture-mode))
+| _w_: word-wrap - wrap wrap whole words only (%-3`word-wrap)    ^^^^^^^       | _b_: my-toggle-true-false-none ^^^^^^^^^^^^^^^^^^^ | _C_: customize-symbol-at-pt
+| _l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^  | _o_: overwrite-mode (%-3`overwrite-mode)      ^^^^ |
 "
   ;; TODO: add picture-mode
   ("q" nil) ("<esc>" nil)

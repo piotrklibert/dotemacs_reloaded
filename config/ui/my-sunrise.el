@@ -14,6 +14,7 @@
   (global-set-key (kbd "M-<f3>") 'sunrise-cd)
   :config
   (define-key sunrise-mode-map (kbd "C-<prior>") 'elscreen-previous)
+  (define-key sunrise-mode-map (kbd "C-c C-g") 'my-show-magit-status)
   (define-key sunrise-mode-map (kbd "C-<up>") 'sunrise-dired-prev-subdir)
   (define-key sunrise-mode-map (kbd "C-<f3>") 'sunrise-quit)
   (define-key sunrise-mode-map (kbd "M-x") 'my-helm-M-x-outside)

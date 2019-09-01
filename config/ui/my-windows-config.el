@@ -77,6 +77,19 @@
 (define-key my-wnd-keys (kbd "d <up>")       'windmove-delete-up)
 (define-key my-wnd-keys (kbd "d <down>")     'windmove-delete-down)
 
+(defun my-windows-delete-window-and-buffer-in-dir ()
+  (interactive)
+  (let* ((vec (this-command-keys-vector))
+         (dir (elt vec (1- (length vec))))
+         (dirname (s-replace "M-" "" (symbol-name dir))))
+    (funcall (intern (concat "windmove-" dirname)))
+    (kill-buffer-and-window)))
+
+(define-key my-wnd-keys (kbd "d M-<left>")     'my-windows-delete-window-and-buffer-in-dir)
+(define-key my-wnd-keys (kbd "d M-<right>")    'my-windows-delete-window-and-buffer-in-dir)
+(define-key my-wnd-keys (kbd "d M-<up>")       'my-windows-delete-window-and-buffer-in-dir)
+(define-key my-wnd-keys (kbd "d M-<down>")     'my-windows-delete-window-and-buffer-in-dir)
+
 
 (define-key my-wnd-keys (kbd "<right>")      'hydra-splitter/hydra-move-splitter-right)
 (define-key my-wnd-keys (kbd "<left>")       'hydra-splitter/hydra-move-splitter-left)

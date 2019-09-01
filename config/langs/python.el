@@ -85,6 +85,9 @@
 (defconst venv-dir-names '(".venv" "venv" "env" ".env"))
 
 (defun my-switch-venv (dir)
+  (require 'jedi-core)
+  (require 'pyvenv)
+  (require 'elpy)
   (when dir
     (jedi:stop-server)
     (pyvenv-activate dir)

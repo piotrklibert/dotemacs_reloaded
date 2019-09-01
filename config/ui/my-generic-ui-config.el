@@ -42,11 +42,15 @@
 (use-package kubernetes
   :commands kubernetes-overview)
 
-(use-package workgroups2
-  :bind (("<pause>" .     wg-reload-session)
-         ("C-S-<pause>" . wg-save-session)
-         ("s-z" .         wg-switch-to-workgroup)
-         ("s-/" .         wg-switch-to-previous-workgroup)))
+
+(require 'desktop)
+(desktop-save-mode 1)
+;; (use-package workgroups2
+;;   :commands wg-save-session wg-reload-session
+;;   :bind (("<pause>" .     wg-reload-session)
+;;          ("C-S-<pause>" . wg-save-session)
+;;          ("s-z" .         wg-switch-to-workgroup)
+;;          ("s-/" .         wg-switch-to-previous-workgroup)))
 
 (global-set-key (kbd "C-n") my-new-buffer-map)
 
