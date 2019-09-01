@@ -70,4 +70,40 @@ This requires the external program \"diff\" to be in your `exec-path'."
   )
 
 
+(defvar my-ibuffer-refreshing-p nil
+  "Set to t when refreshing is in progress, nil otherwise.")
+
+(defun my-refresh-ibuffer (&optional buf)
+  (interactive)
+  (unless (typep buf 'string)
+    (setq buf (buffer-name buf)))
+  (unless (or (not buf)
+              my-ibuffer-refreshing-p
+              (or (s-contains-p "helm" buf)
+                  (s-prefix-p " " buf)))
+    ;; (message "Refresh Ibuffer: %s" buf)
+    (let ((my-ibuffer-refreshing-p t))
+      (save-window-excursion
+        (cl-loop
+         for buf in (buffer-list)
+         when (s-prefix-p "*Ibuffer*" (buffer-name buf))
+         do (with-current-buffer buf
+              (let ((p (point)))
+                (ibuffer-update nil t)
+                (goto-char (min p (point-max)))))))))
+  )
+
+;; This is a HACK, it works solely by accident - neither hook nor advice
+;; actually passes buffer object or buffer name to the function; apparently some
+;; buffer is then randomly selected (via ido for some reason) and the function
+;; proceedes with it.
+(progn
+  (advice-add 'kill-buffer :after 'my-refresh-ibuffer)
+  (add-hook 'find-file-hook 'my-refresh-ibuffer))
+
+(when nil
+  (advice-remove 'kill-buffer 'my-refresh-ibuffer)
+  (remove-hook 'find-file-hook 'my-refresh-ibuffer))
+
+
 (provide 'my-ibuffer)

@@ -11,6 +11,7 @@
 (require 'my-new-buffers)
 (require 'my-messages-buffer)
 (require 'my-sidebars)
+(require 'my-sunrise)
 
 
 (use-package ov :ensure)
@@ -47,7 +48,13 @@
 (global-set-key (kbd "M-x")        'helm-M-x)
 (global-set-key (kbd "C-<f2>")     'helm-recentf)
 (global-set-key (kbd "<escape>")   'keyboard-quit)
-(global-set-key (kbd "M-n")        'my-new-buffer-helm)
+(global-set-key (kbd "M-n")        'clone-buffer)
+
+(defvar my-toggle-keys)
+(require 'my-datetime)
+(define-key my-toggle-keys (kbd "C-t") 'my-insert-datetime)
+(define-key my-toggle-keys (kbd "M-t") 'my-insert-today)
+(define-key my-toggle-keys (kbd "t") 'my-insert-now)
 
 
 (advice-add 'pop-to-mark-command :after #'my-recenter-and-blink)
@@ -78,7 +85,10 @@
   (require 'helm-projectile)
   (setq helm-M-x-fuzzy-match t)
   (define-key helm-map (kbd "DEL") 'helm-backspace)
-  (setq helm-for-files-preferred-list '(helm-source-buffers-list helm-source-recentf helm-source-files-in-current-dir)))
+  (setq helm-for-files-preferred-list '(helm-source-buffers-list
+                                        helm-source-recentf
+                                        helm-source-buffer-not-found
+                                        helm-source-files-in-current-dir)))
 
 
 (defun helm-backspace ()
@@ -91,18 +101,6 @@ without selecting."
 
 
 (use-package unbound :commands describe-unbound-keys)
-
-
-(use-package sunrise-commander
-  :commands sunrise sunrise-cd
-  :init
-  (global-set-key (kbd "C-<f3>") 'sunrise)
-  (global-set-key (kbd "M-<f3>") 'sunrise-cd)
-  :config
-  (define-key sr-mode-map (kbd "C-<prior>") 'elscreen-previous)
-  (require 'sunrise-x-tree)
-  (require 'sunrise-x-modeline))
-
 
 ;; Advice on advice(s):
 ;; (advice-mapc (lambda (a b) (message "%s :: %s" a b)) 'pop-to-mark-command)
@@ -149,12 +147,12 @@ without selecting."
 
 
 (use-package helpful
-  :bind (("C-h f" . helpful-function)))
+  :bind (("C-h f" . helpful-symbol)))
 
 
 (defun my-info-apropos (str)
   (interactive (list (read-from-minibuffer "Search manuals for: " (symbol-name (symbol-at-point)))))
-  (Info-index-entries-across-manuals str nil '("Elisp")))
+  (Info-index-entries-across-manuals str nil '("Elisp" "Emacs" "cl")))
 
 (define-key help-map (kbd "I") 'my-info-apropos)
 
@@ -174,14 +172,16 @@ without selecting."
 
 (autoload 'sr-dired-prev-subdir "sunrise-commander" "" t)
 
-(eval-after-load "dired"
-  '(progn
-     (require 'dired-x)
-     (require 'dired+)
-     (define-key dired-mode-map [remap beginning-of-buffer] 'my-dired-back-to-top)
-     (define-key dired-mode-map [remap end-of-buffer] 'my-dired-jump-to-bottom)
-     (define-key dired-mode-map (kbd "C-<up>") 'sr-dired-prev-subdir)
-     (define-key dired-mode-map (kbd "C-o") 'dired-omit-mode)))
+(use-package dired
+  :commands dired dired-at-point
+  :bind (:map dired-mode-map
+         ([remap beginning-of-buffer] . my-dired-back-to-top)
+         ([remap end-of-buffer] . my-dired-jump-to-bottom)
+         ("C-<up>" . dired-up-directory)
+         ("C-o" . dired-omit-mode))
+  :config
+  (require 'dired-x)
+  (require 'dired+))
 
 
 

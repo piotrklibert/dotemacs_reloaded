@@ -1,18 +1,15 @@
-(require 'org)
-(require 'org-table)
-(require 'org-agenda)
-(require 'helm)
-(require 'helm-regexp)
+(use-package org
+  :commands org-mode orgtbl-mode org-capture
+  :bind (("C-c c" . org-capture))
+  :config
+  (require 'org-table)
+  (require 'org-agenda))
 
 
 (defun my-org-clear-subtree ()
   (interactive)
   (org-mark-subtree) ;; mark the current subtree
   (kill-region (region-beginning) (region-end))) ;; delete the rest
-
-
-(defadvice org-shifttab (after org-shifttab-recenter activate)
-  (recenter nil))
 
 
 (defun my-org-fold-current ()
@@ -73,46 +70,6 @@
     (recenter)))
 
 
-;; Stolen from: http://www.emacswiki.org/cgi-bin/wiki/Journal
-;; because on my FreeBSD Org crashed with C-c C-s...
-
-(defun my-now ()
-  "Insert string for the current time formatted like '2:34 PM'."
-  (format-time-string "%H:%M"))
-
-(defun my-today ()
-  (format-time-string "%Y-%m-%d"))
-
-(defun my-insert-now ()
-  (interactive)
-  (insert (concat "<" (my-now) ">")))
-
-(defun my-insert-datetime ()
-  "Insert string for today's date in English, no matter what
-locale is set."
-  (interactive)
-  (let ((system-time-locale "en_GB.utf8"))
-    (insert (format-time-string "<%Y-%m-%d %a %H:%M>"))))
-
-
-(defvar my-dt-delims '("<" . ">")
-  "Date or datetime will be wrapped in these when inserted")
-
-(defun my-get-today ()
-  (let ((date (format-time-string "%Y-%m-%d") )
-        (my-dt-delims '("[" . "]")))
-    (concat (car my-dt-delims) date (cdr my-dt-delims))))
-
-(defun my-insert-today ()
-  (interactive)
-  (insert (my-get-today)))
-
-
-(defvar my-toggle-keys)
-(define-key my-toggle-keys (kbd "C-t") 'my-insert-datetime)
-(define-key my-toggle-keys (kbd "M-t") 'my-insert-today)
-(define-key my-toggle-keys (kbd "t") 'my-insert-now)
-
 (declare-function my-split-window-below "my-windows-config")
 
 (defun my-open-notes ()
@@ -164,11 +121,6 @@ locale is set."
 
 (require 'browse-url)
 
-;; Do not dim blocked tasks
-(setq org-agenda-dim-blocked-tasks nil)
-
-;; Compact the block agenda view
-(setq org-agenda-compact-blocks t)
 
 
 ;; (org-clock-persistence-insinuate)
@@ -176,35 +128,6 @@ locale is set."
 ;; (ol-elisp-symbol)
 
 ;; (setq org-capture-templates nil)
-
-(when nil
-  (cl-flet
-      ((jl (&rest args) (s-join "\n" args))
-       (tmpl (key desc dest tmpl &rest plist)
-             (let ((dest (cons 'file+headline (s-split "::" dest))))
-               `(,key ,desc entry ,dest ,tmpl :empty-lines 1 ,@plist))))
-    (let ((todo-tmpl (jl "* TODO %?"
-                         "  Added: %U"
-                         "  Origin: %a"
-                         ""
-                         "  %i"))
-          (event-tmpl (jl "* TODO %? :EVENT:"
-                          "  Added: %U"
-                          "  SCHEDULED: %^T"
-                          "  Origin: %a"))
-          (note-tmpl (jl "* %? :NOTE:"
-                         "  Added: %U"
-                         "  Origin: %a"
-                         ""
-                         "  %i")))
-      (customize-save-variable
-       'org-capture-templates
-       (list (tmpl "c" "task" "::INCOMING" todo-tmpl)
-             (tmpl "C" "work task" "praca.org::CURRENT" todo-tmpl :prepend t)
-             (tmpl "s" "scheduled event" "::EVENTS" event-tmpl)
-             (tmpl "S" "scheduled work event" "praca.org::EVENTS" event-tmpl)
-             (tmpl "n" "note" "::Notes" note-tmpl :prepend t)))    )))
-
 
 
 ;; More example capture templates:
@@ -228,7 +151,6 @@ locale is set."
 ;;      "  %a"))
 
 
-(global-set-key (kbd "C-c c") 'org-capture)
 
 (defvar alchemist-mode-map)
 (eval-after-load "alchemist"
