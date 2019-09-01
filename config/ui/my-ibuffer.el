@@ -12,39 +12,15 @@
   (goto-char (point-min))
   (ibuffer-skip-properties '(ibuffer-title ibuffer-filter-group-name) 1))
 
-;; Override - there was no simple way of changing the behavior to display diff
-;; in another window.
-(defun ibuffer-diff-with-file ()
-  "View the differences between marked buffers and their associated files.
-If no buffers are marked, use buffer at point.
-This requires the external program \"diff\" to be in your `exec-path'."
+
+(defun my-ibuffer-diff-with-file ()
+  "Same as original but in new window"
   (interactive)
-  (require 'diff)
-  (let ((marked-bufs (ibuffer-get-marked-buffers)))
-    (when (null marked-bufs)
-      (setq marked-bufs (list (ibuffer-current-buffer t))))
-    (with-current-buffer (get-buffer-create "*Ibuffer Diff*")
-      (setq buffer-read-only nil)
-      (buffer-disable-undo (current-buffer))
-      (erase-buffer)
-      (buffer-enable-undo (current-buffer))
-      (diff-mode)
-      (dolist (buf marked-bufs)
-	(unless (buffer-live-p buf)
-	  (error "Buffer %s has been killed" buf))
-	(ibuffer-diff-buffer-with-file-1 buf))
-      (setq buffer-read-only t)))
-  (switch-to-buffer-other-window "*Ibuffer Diff*"))
-
-
-;; (advice-add 'ibuffer-diff-with-file :before 'my-ibuffer-diff-with-file-advice)
-;; (defun ad-ibuffer+find-file-noselect (&rest args)
-;;   (message "ad-ibuffer+find-file-noselect: %s" args)
-;;   (with-current-buffer "*Ibuffer*"
-;;     (ibuffer-update nil)))
-
-;; (advice-add 'find-file :after 'ad-ibuffer+find-file-noselect)
-;; (advice-remove 'find-file 'ad-ibuffer+find-file-noselect)
+  (letf
+      ;; replace
+      (((symbol-function 'switch-to-buffer)
+        (symbol-function 'switch-to-buffer-other-window)))
+    (ibuffer-diff-with-file)))
 
 
 (defun my-ibuffer-mode-hook ()
@@ -53,6 +29,7 @@ This requires the external program \"diff\" to be in your `exec-path'."
   (define-key ibuffer-mode-map (kbd "M-f")    'ibuffer-jump-to-buffer) ; TODO: use HELM here!!
   (define-key ibuffer-mode-map (kbd "<down>") 'ibuffer-forward-line)
   (define-key ibuffer-mode-map (kbd "<up>")   'ibuffer-backward-line)
+  (define-key ibuffer-mode-map (kbd "=")   'my-ibuffer-diff-with-file)
 
   ;; (define-key ibuffer-mode-map (kbd "C-/")    nil)
   (define-key ibuffer-mode-map (kbd "/")      'hydra-ibuffer-filters/body)

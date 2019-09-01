@@ -22,8 +22,14 @@
  windmove-up windmove-down windmove-left windmove-right)
 ;; ==============================================================================
 
-;; (require 'minimap)
-;; (global-set-key (kbd "M-<f2>") 'minimap-mode)
+(use-package ace-window
+  :commands ace-window
+  :bind (:map my-wnd-keys ("'" . ace-window)))
+
+
+(use-package minimap
+  :bind ("<f5>" . minimap-mode))
+
 
 ;; (golden-ratio-mode t)
 
@@ -106,8 +112,6 @@
 (define-key my-wnd-keys (kbd "C-c")          'copy-to-register)
 
 (define-key my-wnd-keys (kbd "C-t")          'tiling-cycle)
-(define-key my-wnd-keys (kbd "C-'")          'ace-window)
-(define-key my-wnd-keys (kbd "'")            'ace-window)
 
 (define-key my-wnd-keys (kbd "C-f")           'delete-frame)
 (global-set-key (kbd "C-<f4>")                'delete-frame)

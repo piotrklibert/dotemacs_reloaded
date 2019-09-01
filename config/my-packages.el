@@ -7,7 +7,7 @@
 (require 'cm-mode-autoloads)
 (require 'deferred-autoloads)
 (require 'dired+-autoloads)
-(require 'epoch-view-autoloads)
+
 (require 'fic-ext-mode-autoloads)
 (require 'fill-column-indicator-autoloads)
 (require 'flymake-easy-autoloads)

@@ -67,8 +67,6 @@
   (global-set-key (kbd "C-<f10>") 'my-set-default-font))
 
 
-;; (setq show-paren-style 'parenthesis)    ; Highlight text between parens
-
 ;; Other basic editing settings.
 ;; TODO: move to `custom.el' and/or `my-generic-editing-config.el'
 (setq-default indent-tabs-mode nil) ; DON'T use tabs for indenting, use spaces only

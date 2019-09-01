@@ -75,6 +75,7 @@
         my-join-next-line
         my-join-prev-line
         my-toggle-quotes
+        neotree-toggle
         nim-electric-backspace
         nim-indent-electric-colon
         nxml-electric-slash

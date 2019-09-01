@@ -37,24 +37,14 @@
 (use-package swiper     :commands swiper)
 (use-package columnize  :commands columnize-text
                                   columnize-strings)
-(use-package ace-window :commands ace-window)
+
 
 
 
 
 (require 'my-hideshow)
 
-;; use with C-u to align by char instead of word
-(use-package align-by-current-symbol :commands align-by-current-symbol)
 
-(defun my-occur-mode-hook ()
-  (turn-on-occur-x-mode)
-  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
-(eval-after-load "replace"
-  '(progn
-     (require 'occur-x)
-     (require 'occur-default-current-word)
-     (add-hook 'occur-mode-hook 'my-occur-mode-hook)))
 
 (defun my-msg-mode-hook ()
   (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
@@ -159,12 +149,9 @@
 (define-prefix-command 'my-find-keys)
 (global-set-key (kbd "C-f") 'my-find-keys)
 
-(define-key my-find-keys (kbd "e") 'avy-goto-char-timer)
-(define-key my-find-keys (kbd "C-e") 'avy-goto-char-timer)
 
 (define-key my-find-keys (kbd "o")        'occur)
 (define-key my-find-keys (kbd "l")        'find-library-other-window)
-(define-key my-find-keys (kbd "C-l")      'avy-goto-line)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 

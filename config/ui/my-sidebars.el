@@ -5,11 +5,8 @@
 
 
 (use-package speedbar
-  :commands sr-speedbar-toggle
-  :config (require 'sr-speedbar))
+  :commands sr-speedbar-toggle)
 
-(use-package sidebar
-  :commands sidebar-open)
 
 (use-package sr-speedbar
   :after speedbar
@@ -18,6 +15,11 @@
          ("C-<up>"  . speedbar-up-directory)
          ("<tab>"   . speedbar-expand-line)
          ("S-<tab>" . speedbar-expand-line-descendants)))
+
+
+(use-package sidebar
+  :commands sidebar-open)
+
 
 (use-package treemacs
   :commands treemacs
@@ -49,6 +51,17 @@
     (when (f-dir? path)
       (add-to-list 'load-path path)
       (message "Added '%s' to `load-path'" path))))
+
+
+(defun neotree-open-file-in-eaf ()
+  "Open file on current line in an EAF instance. It uses browser
+widget when it's a HTML file and simply calls `eaf-open'
+otherwise."
+  (interactive)
+  (let ((fname (neo-buffer--get-filename-current-line)))
+    (if (s-suffix-p ".html" fname)
+        (eaf-open-url (concat "file://" fname))
+      (eaf-open fname))))
 
 
 (defun my-dirtree ()

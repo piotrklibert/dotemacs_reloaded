@@ -24,7 +24,7 @@
  '(auto-save-visited-file-name nil)
  '(avy-background t)
  '(avy-highlight-first t)
- '(avy-timeout-seconds 0.3)
+ '(avy-timeout-seconds 0.8)
  '(aw-ignored-buffers '("*Calc Trail*" "*LV*" "*elscreen-tabs*"))
  '(aw-keys '(102 100 115 104 106 107 97 108))
  '(backup-by-copying t)
@@ -148,7 +148,8 @@
  '(golden-ratio-mode nil)
  '(helm-M-x-always-save-history t)
  '(helm-adaptive-mode t nil (helm-adaptive))
- '(helm-ag-ignore-patterns '("#*"))
+ '(helm-ag-base-command "ag -u --nocolor --nogroup")
+ '(helm-ag-ignore-patterns '("#*" "!*!"))
  '(helm-ag-insert-at-point 'sexp)
  '(helm-ag-use-agignore t)
  '(helm-ag-use-grep-ignore-list t)
@@ -288,6 +289,12 @@
  '(lua-indent-string-contents t)
  '(magit-push-always-verify nil)
  '(magit-visit-ref-behavior '(create-branch checkout-branch))
+ '(minimap-automatically-delete-window nil)
+ '(minimap-minimum-width 17)
+ '(minimap-recreate-window nil)
+ '(minimap-update-delay 0.6)
+ '(minimap-width-fraction 0.1)
+ '(minimap-window-location 'right)
  '(mouse-avoidance-threshold 10)
  '(mumamo-background-colors nil)
  '(neo-auto-indent-point t)
@@ -324,35 +331,42 @@
    '(("c" "task" entry
       (file+headline "" "INCOMING")
       "* TODO %?
-  Added: %U
-  Origin: %a
-
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
   %i" :empty-lines 1)
      ("w" "work task" entry
       (file+headline "praca.org" "CURRENT")
       "* TODO %?
-  Added: %U
-  Origin: %a
-
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
   %i" :prepend t :empty-lines 1)
      ("s" "scheduled event" entry
       (file+headline "" "EVENTS")
       "* TODO %? :EVENT:
-  Added: %U
-  SCHEDULED: %^T
-  Origin: %a" :empty-lines 1)
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  SCHEDULED: %^T" :empty-lines 1)
      ("S" "scheduled work event" entry
       (file+headline "praca.org" "EVENTS")
       "* TODO %? :EVENT:
-  Added: %U
-  SCHEDULED: %^T
-  Origin: %a" :empty-lines 1)
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  SCHEDULED: %^T" :empty-lines 1)
      ("n" "note" entry
       (file+headline "nowe.org" "Notes")
       "* %? :NOTE:
-  Added: %U
-  Origin: %a
-
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
   %i" :prepend t :empty-lines 1)))
  '(org-catch-invisible-edits 'smart)
  '(org-clock-into-drawer t)
@@ -600,6 +614,7 @@
  '(sr-windows-locked nil)
  '(srecode-map-save-file "~/.emacs.d/data/srecode-map.el")
  '(starttls-extra-arguments '("--insecure"))
+ '(sunrise-windows-default-ratio 100)
  '(synosaurus-choose-method 'popup)
  '(tab-stop-list
    '(4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))
@@ -687,6 +702,7 @@
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray20"))))
  '(pulse-highlight-start-face ((t (:background "#AAAA33"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "cadet blue"))))
+ '(region ((t nil)))
  '(semantic-idle-symbol-highlight ((t (:inherit region))))
  '(show-paren-match ((t nil)))
  '(show-paren-match-expression ((t (:inherit show-paren-match :background "gray18"))))

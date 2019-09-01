@@ -1,3 +1,20 @@
+;; use with C-u to align by char instead of word
+(use-package align-by-current-symbol :commands align-by-current-symbol)
+
+(defun my-occur-mode-hook ()
+  (turn-on-occur-x-mode)
+  (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
+
+(use-package replace
+  :commands occur
+  :demand)
+
+(use-package occur-x
+  :after replace
+  :hook occur-hook)
+
+(use-package occur-default-current-word
+  :after replace)
 
 
 (require 'undo-tree-autoloads)          ; visualisation of undo/redo (C-x u)
@@ -166,10 +183,21 @@
   (undo-tree-mode 1)
   (turn-on-auto-fill)
   (linum-mode 1)
+
+  ;; (setq show-paren-style 'parenthesis)    ; Highlight text between parens
+  ;;     Valid styles are `parenthesis' (meaning show the matching paren),
+  ;;     `expression' (meaning show the entire expression enclosed by the paren) and
+  ;;     `mixed' (meaning show the matching paren if it is visible, and the expression
+  ;;     otherwise).
+  ;; (show-paren-mode nil)
+
   ;; (wrap-region 1)
   ;; This fucks up empty lines display in text modes, so
   ;; it's disabled
-)
+  )
+
+(add-hook 'minibuffer-inactive-mode-hook 'electric-pair-mode)
+;; (add-hook 'minibuffer-inactive-mode-hook 'wrap-region-hook)
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 

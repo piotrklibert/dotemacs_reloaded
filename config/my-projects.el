@@ -39,7 +39,7 @@
   (lc          . ("~/projects/lightcorn/"
                   "~/projects/harvester/"
                   "~/projects/truststamp/healthz/"
-                  "~/projects/s3downloader/peanut_s3downloader/"))
+                  "~/projects/s3downloader/"))
   ;; WORK RELATED
   ;; (nlu         . ("~/projects/nlu"))
   ;; (bu          . ("~/projects/bunsen"))

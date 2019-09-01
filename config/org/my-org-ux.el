@@ -1,9 +1,30 @@
+(require 'my-ox-html-styles)
+
 (use-package org
   :commands org-mode orgtbl-mode org-capture
-  :bind (("C-c c" . org-capture))
+  :bind (("C-c c" . org-capture)
+         ("C-c l" . org-store-link)
+         ("C-c C-l" . org-insert-link))
+
   :config
   (require 'org-table)
-  (require 'org-agenda))
+  (require 'org-agenda)
+  (require 'org-tempo)
+  (require 'org-goto)
+
+  ;; format: [[elisp-symbol:path::symbol]]
+  (require 'ol-elisp-symbol)
+  (require 'ox-md)
+  (require 'ox-html)
+  (require 'ob-shell)
+
+  (require 'helm-org)
+  (require 'helm-occur)
+
+  (require 'my-org-babel)
+  (require 'my-org-custom-id)
+
+  )
 
 
 (defun my-org-clear-subtree ()
@@ -100,23 +121,23 @@
 (defun my-org-occur-headers ()
   "Preconfigured Occur for Org headers."
   (interactive)
-  (helm-occur-init-source)
-  (let
-      ((bufs (list (buffer-name (current-buffer)))))
-
-    (helm-attrset 'moccur-buffers bufs helm-source-occur)
-    (helm-set-local-variable 'helm-multi-occur-buffer-list bufs)
-    (helm-set-local-variable 'helm-multi-occur-buffer-tick
-                             (cl-loop for b in bufs
-                                      collect (buffer-chars-modified-tick (get-buffer b)))))
-  (helm :sources 'helm-source-occur
-        :buffer "*helm occur*"
-        :input "^\\*\\*? "
-        :history 'helm-occur-history
-        :preselect (and (memq 'helm-source-occur helm-sources-using-default-as-input)
-                        (format "%s:%d:" (regexp-quote (buffer-name))
-                                (line-number-at-pos (point))))
-        :truncate-lines helm-moccur-truncate-lines))
+  (let* ((helm-org-show-filename t)
+         (bufs (org-buffer-list))
+         (heading-source (helm-make-source "Org Headings"
+                             'helm-org-headings-class
+                           :filtered-candidate-transformer 'helm-org-startup-visibility
+                           :parents nil
+                           :follow 1
+                           :requires-pattern 2
+                           :candidates bufs))
+         (occur-sources (helm-occur-build-sources bufs)))
+    (helm-set-local-variable 'helm-occur--buffer-list bufs
+                             'helm-occur--buffer-tick (mapcar 'buffer-chars-modified-tick bufs))
+    (helm :sources (cons heading-source occur-sources)
+          :candidate-number-limit helm-occur-candidate-number-limit
+          :preselect (helm-org-in-buffer-preselect)
+          :truncate-lines helm-org-truncate-lines
+          :buffer "*helm org inbuffer*")))
 
 
 (require 'browse-url)
@@ -124,11 +145,6 @@
 
 
 ;; (org-clock-persistence-insinuate)
-;; (require 'ol-elisp-symbol)
-;; (ol-elisp-symbol)
-
-;; (setq org-capture-templates nil)
-
 
 ;; More example capture templates:
 ;; ("r" "respond" entry (file "~/todo/refile.org")
@@ -150,14 +166,39 @@
 ;;      "  %U"
 ;;      "  %a"))
 
+;;
+;; Special properties - for display in column view, clock reports, agenda:
+;;
+;; ‘ALLTAGS’	All tags, including inherited ones.
+;; ‘BLOCKED’	t if task is currently blocked by children or siblings.
+;; ‘CATEGORY’	The category of an entry.
+;; ‘CLOCKSUM’	The sum of CLOCK intervals in the subtree. org-clock-sum
+;;              must be run first to compute the values in the current buffer.
+;; ‘CLOCKSUM_T’	The sum of CLOCK intervals in the subtree for today.
+;; 	            org-clock-sum-today must be run first to compute the
+;; 	            values in the current buffer.
+;; ‘CLOSED’	    When was this entry closed?
+;; ‘DEADLINE’	The deadline time string, without the angular brackets.
+;; ‘FILE’	    The filename the entry is located in.
+;; ‘ITEM’	    The headline of the entry.
+;; ‘PRIORITY’	The priority of the entry, a string with a single letter.
+;; ‘SCHEDULED’	The scheduling timestamp, without the angular brackets.
+;; ‘TAGS’	    The tags defined directly in the headline.
+;; ‘TIMESTAMP’	The first keyword-less timestamp in the entry.
+;;
+;; NOTE: My "Added: [timestamp]" is in this TIMESTAMP_IA category
+;; ‘TIMESTAMP_IA’	The first inactive timestamp in the entry.
+;;
+;; ‘TODO’	The TODO keyword of the entry.
 
 
 (defvar alchemist-mode-map)
 (eval-after-load "alchemist"
   '(define-key alchemist-mode-map (kbd "C-c c") 'org-capture))
-;; (require 'remember)
+
 ;; org-goto-interface
 ;; org-goto-auto-isearch
+;; helm-org-in-buffer-headings
 
 (eval-after-load "org"
   '(add-hook 'org-mode-hook 'my-org-hook))
@@ -202,15 +243,6 @@
   (recenter))
 
 (defun my-org-hook ()
-  (require 'org)
-  (require 'ox-md)
-  (require 'ox-html)
-  (require 'ob-shell)
-  (require 'org-tempo)
-  (require 'org-goto)
-  (require 'my-org-babel)
-  (require 'my-org-custom-id)
-
   (define-key org-mode-map (kbd "<return>")     'org-return-indent)
   (define-key org-mode-map (kbd "C-j")          'org-return)
 
@@ -220,12 +252,6 @@
   (define-key org-mode-map (kbd "C-c <up>")     'org-previous-visible-heading)
   (define-key org-mode-map (kbd "C-c <down>")   'org-next-visible-heading)
 
-  ;; Commented out because I don't have keypad on the keyboard anymore... ☻
-  ;; (define-key org-mode-map (kbd "<kp-up>")      'org-previous-visible-heading)
-  ;; (define-key org-mode-map (kbd "<kp-down>")    'org-next-visible-heading)
-  ;; (define-key org-mode-map (kbd "C-<kp-up>")    'org-previous-block)
-  ;; (define-key org-mode-map (kbd "C-<kp-down>")  'org-next-block)
-
   (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
   (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
 
@@ -233,13 +259,10 @@
 
   (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
 
-  (define-key org-mode-map (kbd "C-c C-j")      'my-org-occur-headers)
+  (define-key org-mode-map (kbd "C-f C-m")      'my-org-occur-headers)
 
   (define-key org-mode-map (kbd "C-c a")        'org-agenda)
   (define-key org-mode-map (kbd "C-c l")        'org-store-link)
-  (global-set-key (kbd "C-c l")                 'org-store-link)
-  (global-set-key (kbd "C-c C-l")               'org-insert-link)
-
   (define-key org-mode-map (kbd "C-c +")        'hydra-zoom/text-scale-increase)
   (define-key org-mode-map (kbd "C-c -")        'hydra-zoom/text-scale-decrease)
   (define-key org-mode-map (kbd "C-c =")        'hydra-zoom/body)
@@ -247,8 +270,9 @@
   (define-key org-mode-map (kbd "C-c M-=")      'my-org-show-current-heading-tidily)
   (define-key org-mode-map (kbd "C-c M-<up>")   'hydra-org-jump/my-org-show-prev-heading-tidily)
   (define-key org-mode-map (kbd "C-c M-<down>") 'hydra-org-jump/my-org-show-next-heading-tidily)
+
   ;; KILL, CUT & COPY whole subtrees
-  (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree)
+  ;; (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree) - Org uses C-c C-k to dismiss/close dialogs
   (define-key org-mode-map (kbd "C-c C-M-w")    'my-org-clear-subtree)
 
   (define-key org-mode-map (kbd "C-c M-w")      (lambda ()
@@ -258,198 +282,3 @@
                                                     (my-org-clear-subtree))
                                                   (read-only-mode 0)
                                                   (message "Subtree copied"))))
-
-
-
-
-(defconst org-html-style-default
-  "<style type=\"text/css\">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-json:before { content: 'JSON'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per \"defun org-babel-execute\"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf \" \")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-  }
-  .equation {
-    vertical-align: middle;
-  }
-  .equation-label {
-    display: table-cell;
-    text-align: right;
-    vertical-align: middle;
-  }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>"
-  "The default style specification for exported HTML files.
-You can use `org-html-head' and `org-html-head-extra' to add to
-this style.  If you don't want to include this default style,
-customize `org-html-head-include-default-style'."
-)

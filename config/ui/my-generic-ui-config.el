@@ -1,8 +1,25 @@
 (require 'generic-x)
-(require 'avy-autoloads)
-(require 'linum)
+
+
+(use-package avy
+  :bind (:map my-find-keys
+              ("e" . avy-goto-char-timer)
+              ("C-e" . avy-goto-char-timer)
+              ("C-l" . avy-goto-line)))
+
+
 (require 'counsel)
 
+(require 'my-customization-helpers)
+
+
+(use-package linum
+  ;; Hook esp. for Dockerfiles and some actual configs; prog-modes already have
+  ;; linum enabled.
+  :hook (conf-mode . linum-mode))
+
+(use-package epoch-view
+  :commands epoch-view-mode)
 
 (require 'blink-a-bit)
 (require 'my-powerline-config)
@@ -14,9 +31,10 @@
 (require 'my-sunrise)
 
 
-(use-package ov :ensure)
-(use-package frame-local :ensure)
+(use-package ov)
+(use-package frame-local)
 (use-package font-lock+)
+
 
 (use-package eaf
   :commands eaf-open eaf-open-url)
@@ -147,7 +165,8 @@ without selecting."
 
 
 (use-package helpful
-  :bind (("C-h f" . helpful-symbol)))
+  :bind (("C-h f" . helpful-symbol)
+         ("C-h k" . helpful-key)))
 
 
 (defun my-info-apropos (str)

@@ -42,16 +42,22 @@
 
 ;; ==============================================================================
 
+(defun my-toggle-picture-mode ()
+  (interactive)
+  (if (eq major-mode 'picture-mode)
+      (picture-mode-exit)
+    (picture-mode)))
 
+(require 'my-customization-helpers)
 (defalias 'config-toggles 'hydra-toggle-simple/body)
 (defhydra hydra-toggle-simple (:color red :hint nil)
   "
-_d_: debug-on-error - display traceback on error (%-3`debug-on-error)     ^^|    _f_: auto-fill-mode - (%-3`auto-fill-function)
-_D_: debug-on-quit - display traceback on C-g (%-3`debug-on-quit) ^       ^^|    _W_: whitespace-mode (%-3`whitespace-mode)
-                                                    ^    ^^^^^^^^^^^^^^^ ^^^|
-_v_: visual-line - use wrapped lines for movement (%-3`visual-line-mode)    |    _\"_: my-toggle-quotes
-_w_: word-wrap - wrap wrap whole words only (%-3`word-wrap)    ^^^^^^^      |    _b_: my-toggle-true-false-none
-_l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |    _o_: overwrite-mode (%-3`overwrite-mode)
+|_d_: debug-on-error - display traceback on error (%-3`debug-on-error)     ^^|    _f_: auto-fill-mode - (%-3`auto-fill-function)     |  _g_: show Git info (%`git-gutter+-mode)
+|_D_: debug-on-quit - display traceback on C-g (%-3`debug-on-quit) ^       ^^|    _W_: whitespace-mode (%-3`whitespace-mode)   ^^^   |  _G_: toggle Git markers style
+|                                                    ^    ^^^^^^^^^^^^^^^ ^^^|                              ^^^^^^^^^^^^^^^^^^^^^    |
+|_v_: visual-line - use wrapped lines for movement (%-3`visual-line-mode)    |    _\"_: my-toggle-quotes     ^^^^^^^^^^^^^^^^^^      |  _p_: picture mode (%(eq major-mode 'picture-mode))
+|_w_: word-wrap - wrap wrap whole words only (%-3`word-wrap)    ^^^^^^^      |    _b_: my-toggle-true-false-none ^^^^^^^^^^^^^^^^^^^ |  _C_: customize-symbol-at-pt
+|_l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |    _o_: overwrite-mode (%-3`overwrite-mode)      ^^^^ |
 "
   ;; TODO: add picture-mode
   ("q" nil) ("<esc>" nil)
@@ -59,6 +65,7 @@ _l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |   
   ("D" toggle-debug-on-quit)
 
   ("v" visual-line-mode)
+  ("p" my-toggle-picture-mode)
   ("l" toggle-truncate-lines)
   ("w" toggle-word-wrap)
 
@@ -68,7 +75,15 @@ _l_: truncate-lines - DON'T wrap too long lines (%-3`truncate-lines)     ^^ |   
   ("\"" my-toggle-quotes)
   ("b" my-toggle-true-false-none)
   ("o" overwrite-mode)
+
+  ("g" git-gutter+-mode)
+  ("G" git-gutter+-toggle-fringe)
+  ("C" customize-symbol-at-pt :color blue)
+
   )
+
+
+
 (require 'whitespace)
 (assert (functionp (symbol-function 'hydra-toggle-simple/body)))
 (define-key my-toggle-keys (kbd "C-s") 'config-toggles)
@@ -191,6 +206,21 @@ _o_: major mode      _E_: has process                  ^^|                  ^^|
   ;; ("|" ibuffer-or-filter)
   )
 
+;; `g' - Regenerate the list of all buffers.
+;;         Prefix arg means to toggle whether buffers that match
+;;         `ibuffer-maybe-show-predicates' should be displayed.
+
+;; ``' - Change the current display format.
+;; `SPC' - Move point to the next line.
+;; `C-p' - Move point to the previous line.
+;; `h' - This help.
+;; `M-x ibuffer-diff-with-file' - View the differences between this buffer
+;;         and its associated file.
+;; `RET' - View the buffer on this line.
+;; `o' - As above, but in another window.
+;; `C-o' - As both above, but don't select
+;;         the new window.
+;; `b' - Bury (not kill!) the buffer on this line.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

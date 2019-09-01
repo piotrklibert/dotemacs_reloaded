@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(global-set-key (kbd \"<f10>\")  (lambda ()  (delete-window (frame-selected-window))))"
+(("(defmacro let-alist (alist &rest body)\n  \"Let-bind dotted symbols to their cdrs in ALIST and execute BODY.\nDotted symbol is any symbol starting with a `.'.  Only those present\nin BODY are let-bound and this search is done at compile time.\n\nFor instance, the following code\n\n  (let-alist alist\n    (if (and .title .body)\n        .body\n      .site\n      .site.contents))\n\nessentially expands to\n\n  (let ((.title (cdr (assq \\\\='title alist)))\n        (.body  (cdr (assq \\\\='body alist)))\n        (.site  (cdr (assq \\\\='site alist)))\n        (.site.contents (cdr (assq \\\\='contents (cdr (assq \\\\='site alist))))))\n    (if (and .title .body)\n        .body\n      .site\n      .site.contents))\n\nIf you nest `let-alist' invocations, the inner one can't access\nthe variables of the outer one. You can, however, access alists\ninside the original alist by using dots inside the symbol, as\ndisplayed in the example above.\"\n  (declare (indent 1) (debug t))\n  (let ((var (make-symbol \"alist\")))\n    `(let ((,var ,alist))\n       (let ,(mapcar (lambda (x) `(,(car x) ,(let-alist--access-sexp (car x) var)))\n                     (delete-dups (let-alist--deep-dot-search body)))\n         ,@body))))"
+ (filename . "/usr/local/share/emacs/27.0.50/lisp/emacs-lisp/let-alist.el.gz")
+ (front-context-string . "\n\n(provide 'let-")
+ (rear-context-string . "      ,@body))))")
+ (position . 5331))
+("(global-set-key (kbd \"<f10>\")  (lambda ()  (delete-window (frame-selected-window))))"
  (filename . "~/.emacs.d/config/my-keymaps-config.el")
  (front-context-string . "window))))\n\n\n\n(p")
  (rear-context-string . "(frame-selected-")
@@ -210,14 +215,14 @@
  (position . 3106))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO move fin")
- (rear-context-string . "-projects.el]]\n\n")
- (position . 17508))
+ (front-context-string . "** TODO bind min")
+ (rear-context-string . "-transformer]]\n\n")
+ (position . 22227))
 ("org-refile-last-stored"
- (filename . "~/todo/praca.org")
- (front-context-string . "** CANCELED Anth")
- (rear-context-string . "VENTS\n* ARCHIVE\n")
- (position . 3090))
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** CANCELED [dup")
+ (rear-context-string . "ND:\n\n* ZROBIONE\n")
+ (position . 49407))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")

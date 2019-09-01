@@ -26,7 +26,11 @@
 ;; (find-my-bindings-for 'my-find-keys)
 ;; (find-my-bindings-for 'my-bookmarks-keys)
 
-(global-set-key (kbd "<f10>")  (lambda ()  (delete-window (frame-selected-window))))
+(defun delete-selected-window ()
+  (interactive)
+  (delete-window (frame-selected-window)))
+
+(global-set-key (kbd "<f10>")  'delete-selected-window)
 
 
 

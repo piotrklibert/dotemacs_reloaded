@@ -1,5 +1,5 @@
 (require 's)
-(require 'cl)
+(require 'cl-lib)
 (require 'dash)
 (require 'thingatpt)
 

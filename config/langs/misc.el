@@ -37,7 +37,8 @@
 
 (use-package groovy-mode
   :mode (("\\.groovy\\'" . groovy-mode)
-         ("Jenkinsfile\\'" . groovy-mode)))
+         ("Jenkinsfile\\'" . groovy-mode))
+  :custom ((groovy-indent-offset 4)))
 
 
 (use-package haxe-mode       :mode "\\.hx\\'")

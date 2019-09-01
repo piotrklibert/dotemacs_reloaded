@@ -1,10 +1,14 @@
 (require 's)
 
+(use-package git-gutter+
+  :commands git-gutter+-mode
+  ;; The toggle-things Hydra uses this as indicator, but it's unbound before the
+  ;; package is imported.
+  :init (setq git-gutter+-mode nil))
+
 (use-package git-gutter-fringe+
-  :if window-system
-  :ensure t
-  :config
-  (global-git-gutter+-mode t))
+  :after git-gutter+
+  :commands git-gutter+-toggle-fringe)
 
 (use-package gitignore-mode
   :ensure t)
@@ -16,19 +20,22 @@
 
 (use-package magit-blame
   :commands magit-blame magit-blame-addition
-  :after magit
+  :bind (:map mode-specific-map
+         ("C-M-g" . magit-file-dispatch))
   :config
   (define-key magit-blame-mode-map (kbd "q") 'magit-blame-quit))
 
 (use-package magit
   :commands magit-status
+  :bind (:map mode-specific-map
+         ("C-g" . my-show-magit-status))
   :config
   (require 'magit-patch)
   (require 'magit-diff)
   (require 'magit-subtree)
   (require 'magit-gitignore)
+  (require 'magit-blame)
   (define-key magit-mode-map (kbd "C-w") my-wnd-keys))
-
 
 
 (defun my-show-magit-status ()
@@ -36,18 +43,6 @@
   (when (fboundp 'neotree-hide)
     (neotree-hide))
   (call-interactively #'magit-status))
-
-(define-key mode-specific-map (kbd "C-g")   'my-show-magit-status) ; C-c C-g
-(define-key mode-specific-map (kbd "C-M-g") 'magit-blame-addition)  ; C-c C-M-g
-
-
-(defadvice magit-section-show (after my-magit-selection-show-hook activate)
-  (when (eq major-mode 'magit-status-mode)
-    (ignore-errors (recenter 5))))
-
-(defadvice magit-section-hide (after my-magit-selection-show-hook activate)
-  ;; (recenter)
-  )
 
 
 (defun my-magit-refresh-buffer-hook ()
