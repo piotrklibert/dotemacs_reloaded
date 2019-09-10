@@ -8,6 +8,9 @@
               ("C-l" . avy-goto-line)))
 
 
+(use-package docker
+  :commands docker)
+
 (require 'counsel)
 
 (require 'my-customization-helpers)
@@ -122,7 +125,10 @@ without selecting."
     (error (helm-keyboard-quit))))
 
 
-(use-package unbound :commands describe-unbound-keys)
+;; TODO: prettier display
+(use-package unbound
+  :bind ("C-h C-u" . describe-unbound-keys)
+  :commands describe-unbound-keys)
 
 ;; Advice on advice(s):
 ;; (advice-mapc (lambda (a b) (message "%s :: %s" a b)) 'pop-to-mark-command)

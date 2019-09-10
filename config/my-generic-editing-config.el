@@ -49,6 +49,7 @@
     ad-do-it))
 
 (define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
+(define-key isearch-mode-map (kbd "M-o") 'isearch-occur)
 
 
 (require 'textobjects)                  ; eg. C-x w { or C-x w "

@@ -66,7 +66,9 @@ otherwise."
 
 (defun my-dirtree ()
   (interactive)
-  (dirtree (f-dirname (buffer-file-name (current-buffer))) t))
+  (dirtree (aif (buffer-file-name (current-buffer))
+               (f-dirname it)
+             default-directory) t))
 
 
 (provide 'my-sidebars)

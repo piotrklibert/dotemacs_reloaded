@@ -2,17 +2,29 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(defmacro let-alist (alist &rest body)\n  \"Let-bind dotted symbols to their cdrs in ALIST and execute BODY.\nDotted symbol is any symbol starting with a `.'.  Only those present\nin BODY are let-bound and this search is done at compile time.\n\nFor instance, the following code\n\n  (let-alist alist\n    (if (and .title .body)\n        .body\n      .site\n      .site.contents))\n\nessentially expands to\n\n  (let ((.title (cdr (assq \\\\='title alist)))\n        (.body  (cdr (assq \\\\='body alist)))\n        (.site  (cdr (assq \\\\='site alist)))\n        (.site.contents (cdr (assq \\\\='contents (cdr (assq \\\\='site alist))))))\n    (if (and .title .body)\n        .body\n      .site\n      .site.contents))\n\nIf you nest `let-alist' invocations, the inner one can't access\nthe variables of the outer one. You can, however, access alists\ninside the original alist by using dots inside the symbol, as\ndisplayed in the example above.\"\n  (declare (indent 1) (debug t))\n  (let ((var (make-symbol \"alist\")))\n    `(let ((,var ,alist))\n       (let ,(mapcar (lambda (x) `(,(car x) ,(let-alist--access-sexp (car x) var)))\n                     (delete-dups (let-alist--deep-dot-search body)))\n         ,@body))))"
- (filename . "/usr/local/share/emacs/27.0.50/lisp/emacs-lisp/let-alist.el.gz")
- (front-context-string . "\n\n(provide 'let-")
- (rear-context-string . "      ,@body))))")
- (position . 5331))
+(("org-refile-last-stored"
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** DONE golden-r")
+ (rear-context-string . "ND:\n\n* ZROBIONE\n")
+ (position . 62881))
+("org-capture-last-stored"
+ (filename . "~/todo/nowe.org")
+ (front-context-string . "** TODO hydra - ")
+ (rear-context-string . "ns)\n\n* INCOMING\n")
+ (position . 322))
+("Org Scheduled & Repeating Tasks"
+ (front-context-string . "a task subtree, ")
+ (rear-context-string . "er of copies of\n")
+ (position . 252035)
+ (filename . "/usr/local/share/info/org")
+ (info-node . "Repeated tasks")
+ (handler . Info-bookmark-jump))
 ("(global-set-key (kbd \"<f10>\")  (lambda ()  (delete-window (frame-selected-window))))"
  (filename . "~/.emacs.d/config/my-keymaps-config.el")
  (front-context-string . "window))))\n\n\n\n(p")
  (rear-context-string . "(frame-selected-")
  (position . 887))
-("  The following parameters are currently used by the window management\ncode:\n\n\342\200\230delete-window\342\200\231\n     This parameter affects the execution of \342\200\230delete-window\342\200\231 (*note\n     Deleting Windows::).\n\n\342\200\230delete-other-windows\342\200\231\n     This parameter affects the execution of \342\200\230delete-other-windows\342\200\231\n     (*note Deleting Windows::).\n\n\342\200\230no-delete-other-windows\342\200\231\n     This parameter marks the window as not deletable by\n     \342\200\230delete-other-windows\342\200\231 (*note Deleting Windows::).\n\n\342\200\230split-window\342\200\231\n     This parameter affects the execution of \342\200\230split-window\342\200\231 (*note\n     Splitting Windows::).\n\n\342\200\230other-window\342\200\231\n     This parameter affects the execution of \342\200\230other-window\342\200\231 (*note\n     Cyclic Window Ordering::).\n\n\342\200\230no-other-window\342\200\231\n     This parameter marks the window as not selectable by \342\200\230other-window\342\200\231\n     (*note Cyclic Window Ordering::).\n\n\342\200\230clone-of\342\200\231\n     This parameter specifies the window that this one has been cloned\n     from.  It is installed by \342\200\230window-state-get\342\200\231 (*note Window\n     Configurations::).\n\n\342\200\230window-preserved-size\342\200\231\n     This parameter specifies a buffer, a direction where \342\200\230nil\342\200\231 means\n     vertical and \342\200\230t\342\200\231 horizontal, and a size in pixels.  If this window\n     displays the specified buffer and its size in the indicated\n     direction equals the size specified by this parameter, then Emacs\n     will try to preserve the size of this window in the indicated\n     direction.  This parameter is installed and updated by the function\n     \342\200\230window-preserve-size\342\200\231 (*note Preserving Window Sizes::).\n\n\342\200\230quit-restore\342\200\231\n     This parameter is installed by the buffer display functions (*note\n     Choosing Window::) and consulted by \342\200\230quit-restore-window\342\200\231 (*note\n     Quitting Windows::).  It is a list of four elements, see the\n     description of \342\200\230quit-restore-window\342\200\231 in *note Quitting Windows::\n     for details.\n\n\342\200\230window-side\342\200\231\n\342\200\230window-slot\342\200\231\n     These parameters are used internally for implementing side windows\n     (*note Side Windows::).\n\n\342\200\230window-atom\342\200\231\n     This parameter is used internally for implementing atomic windows,\n     see *note Atomic Windows::.\n\n\342\200\230mode-line-format\342\200\231\n     This parameter replaces the value of the buffer-local variable\n     \342\200\230mode-line-format\342\200\231 (*note Mode Line Basics::) of this window\342\200\231s\n     buffer whenever this window is displayed.  The symbol \342\200\230none\342\200\231 means\n     to suppress display of a mode line for this window.  Display and\n     contents of the mode line on other windows showing this buffer are\n     not affected.\n\n\342\200\230header-line-format\342\200\231\n     This parameter replaces the value of the buffer-local variable\n     \342\200\230header-line-format\342\200\231 (*note Mode Line Basics::) of this window\342\200\231s\n     buffer whenever this window is displayed.  The symbol \342\200\230none\342\200\231 means\n     to suppress display of a header line for this window.  Display and\n     contents of the header line on other windows showing this buffer\n     are not affected.\n\n\342\200\230min-margins\342\200\231\n     The value of this parameter is a cons cell whose CAR and CDR, if\n     non-\342\200\230nil\342\200\231, specify the minimum values (in columns) for the left and\n     right margin of this window (*note Display Margins::.  When\n     present, Emacs will use these values instead of the actual margin\n     widths for determining whether a window can be split or shrunk\n     horizontally.\n\n     Emacs never auto-adjusts the margins of any window after splitting\n     or resizing it.  It is the sole responsibility of any application\n     setting this parameter to adjust the margins of this window as well\n     as those of any new window that inherits this window\342\200\231s margins due\n     to a split.  Both \342\200\230window-configuration-change-hook\342\200\231 and\n     \342\200\230window-size-change-functions\342\200\231 (*note Window Hooks::) should be\n     employed for this purpose.\n\n     This parameter was introduced in Emacs version 25.1 to support\n     applications that use large margins to center buffer text within a\n     window and should be used, with due care, exclusively by those\n     applications.  It might be replaced by an improved solution in\n     future versions of Emacs.\n\n"
+("window parameters"
  (front-context-string)
  (rear-context-string . "ions of Emacs.\n\n")
  (position . 2068648)
@@ -36,11 +48,6 @@
  (front-context-string . "  ;; (define-key")
  (rear-context-string . "ode-new-window)\n")
  (position . 28417))
-(";; TODO: the format of quick templates changed in recent Org versions"
- (filename . "~/.emacs.d/config/org/my-org-ux.el")
- (front-context-string . ";; TODO: the for")
- (rear-context-string . "repend t :))))\n\n")
- (position . 5244))
 ("(defun my-ibuffer-mode-hook ()"
  (filename . "~/.emacs.d/config/my-generic-ui-config.el")
  (front-context-string . "defun my-ibuffer")
@@ -56,11 +63,6 @@
  (front-context-string . "    def write_ch")
  (rear-context-string . "mat(extension)\n\n")
  (position . 2352))
-("org-capture-last-stored-marker"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO zoom a'l")
- (rear-context-string . "  :END:\n* EMACS\n")
- (position . 1367))
 ("(global-set-key (kbd \"C-z\")         'mc/mark-all-like-this) ; TODO: needs better bindings"
  (filename . "~/.emacs.d/config/my-generic-editing-config.el")
  (front-context-string . "(global-set-key ")
@@ -76,7 +78,7 @@
  (front-context-string . "ing key t))\n    ")
  (rear-context-string . "       (key-bind")
  (position . 8924))
-("`(if (memq major-mode '(python-mode nim-mode livescript-mode)) comment-start (concat comment-start comment-start))` NOTE`(my-get-today)`(pk):"
+("Yasnippet sippet for NOTE"
  (filename . "~/.emacs.d/snippets/prog-mode/NOTE")
  (front-context-string . "`(if (memq major")
  (rear-context-string . "TE comment\n# --\n")
@@ -163,7 +165,7 @@
  (front-context-string . "el\n             ")
  (rear-context-string . "elscreen tab lab")
  (position . 29261))
-("copy-dir-locals-to-file-locals\342\200\231 copies directory-local variables to the"
+("Specifying File Variables"
  (front-context-string . "ocals\342\200\231 copies di")
  (rear-context-string . "locals-to-file-l")
  (position . 1578793)
@@ -213,16 +215,6 @@
  (front-context-string . "(defun export-li")
  (rear-context-string . "htcorn-docs ())\n")
  (position . 3106))
-("org-capture-last-stored"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO bind min")
- (rear-context-string . "-transformer]]\n\n")
- (position . 22227))
-("org-refile-last-stored"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** CANCELED [dup")
- (rear-context-string . "ND:\n\n* ZROBIONE\n")
- (position . 49407))
 ("(set-buffer buf)  ;In case timer/filter changed/killed it (bug#16029)!"
  (filename . "/usr/local/share/emacs/27.0.50/lisp/epa-file.el")
  (front-context-string . ")  ;In case time")
@@ -281,12 +273,12 @@
  (front-context-string . "Helm M-x\n\n** Tip")
  (rear-context-string)
  (position . 3))
-("{{- range $key, $val := .Values.farro.env.secret }}"
+("farro secrets in harvester"
  (filename . "~/projects/harvester/services/farro/templates/secret.yaml")
  (front-context-string . "{{- range $key, ")
  (rear-context-string . "EY | b64enc }}'\n")
  (position . 210))
-(";; 1. Pass non-nil second arg to `dired-get-filename' so we can include `.' and `..'."
+("dired+ commented out code which broke Emacs"
  (filename . "~/.emacs.d/elpa/dired+-21.2/dired+.el")
  (front-context-string . " second arg to `")
  (rear-context-string . " 1. Pass non-nil")
@@ -296,11 +288,6 @@
  (front-context-string . ";;; json-mode.el")
  (rear-context-string)
  (position . 1))
-(";; As a rough beginning, what I do is to keep my `remember-data-file' in"
- (filename . "/usr/local/share/emacs/27.0.50/lisp/textmodes/remember.el")
- (front-context-string . "ile' in\n;; outli")
- (rear-context-string . "`remember-data-f")
- (position . 5497))
 ("(let ((content (my-org-macro-replace-all-in-string (buffer-string) templates)))"
  (filename . "~/projects/lightcorn/docs/lisp/org-config.el")
  (front-context-string . "g (buffer-string")
@@ -311,7 +298,7 @@
  (front-context-string . "	Handle C stack ")
  (rear-context-string . "pov@yandex.ru>\n\n")
  (position . 185174))
-("nameserver 10.124.0.2"
+("/etc/resolv.conf via sudo"
  (filename .
            #("/sudo:root@f28:/etc/resolv.conf" 6 10
              (tramp-default t)))
@@ -357,7 +344,7 @@
  (filename . "/usr/local/share/info/elisp")
  (info-node . "Window Parameters")
  (handler . Info-bookmark-jump))
-("not delete any window whose \342\200\230no-delete-other-windows\342\200\231 parameter is"
+("delete-window and friends"
  (front-context-string . "-delete-other-wi")
  (rear-context-string . "window whose \342\200\230no")
  (position . 1817547)

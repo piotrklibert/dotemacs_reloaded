@@ -195,8 +195,6 @@
    '(("modified"
       (not starred-name)
       (modified))
-     ("asdasd"
-      (name . "org"))
      ("programming"
       (or
        (derived-mode . prog-mode)
@@ -243,6 +241,7 @@
  '(image-dired-thumb-height 250)
  '(image-dired-thumb-size 250)
  '(image-dired-thumb-width 250)
+ '(imenu-auto-rescan t)
  '(imenu-sort-function 'imenu--sort-by-name)
  '(imenu-use-popup-menu nil)
  '(indicate-buffer-boundaries nil)
@@ -302,6 +301,7 @@
  '(minimap-width-fraction 0.1)
  '(minimap-window-location 'right)
  '(mouse-avoidance-threshold 10)
+ '(mouse-yank-at-point t)
  '(mumamo-background-colors nil)
  '(neo-auto-indent-point t)
  '(neo-autorefresh nil)
@@ -317,8 +317,8 @@
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-dim-blocked-tasks t)
- '(org-agenda-files '("nowe.org" "praca.org"))
- '(org-archive-location "todo.archive::datetree/* From %s")
+ '(org-agenda-files '("~/todo/nowe.org" "~/todo/praca.org"))
+ '(org-archive-location "~/todo/archive/archive-2019.org::datetree/* From %s")
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
    '((emacs-lisp . t)
@@ -334,46 +334,86 @@
  '(org-babel-shell-names '("sh" "bash" "csh" "ash" "dash" "ksh" "mksh" "posh" "zsh"))
  '(org-babel-tangle-uncomment-comments nil)
  '(org-capture-templates
-   '(("c" "task" entry
+   '(("p" "Programming (non-Emacs) Task" entry
+      (file+headline "~/todo/nowe.org" "INCOMING")
+      "* TODO %? :programming:
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  %i" :prepend t)
+     ("z" "Something to buy when shopping" entry
+      (file+headline "~/todo/nowe.org" "INCOMING")
+      "* TODO %? :shopping:
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  %i" :prepend t)
+     ("e" "Emacs-related Task" entry
+      (file+headline "~/todo/nowe.org" "INCOMING")
+      "* TODO %? :emacs:
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  %i" :prepend t)
+     ("l" "RL Task" entry
+      (file+headline "~/todo/nowe.org" "ZYCIE")
+      "* TODO %? :life:
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:
+  %i" :prepend t)
+     ("c" "General Task" entry
       (file+headline "" "INCOMING")
       "* TODO %?
   :PROPERTIES:
   :Added: %U
   :Origin: %a
   :END:
-  %i" :empty-lines 1)
-     ("w" "work task" entry
+  %i" :prepend t)
+     ("w" "Work Task" entry
       (file+headline "praca.org" "CURRENT")
       "* TODO %?
   :PROPERTIES:
   :Added: %U
   :Origin: %a
   :END:
-  %i" :prepend t :empty-lines 1)
-     ("s" "scheduled event" entry
+  %i" :prepend t)
+     ("s" "Scheduled Event" entry
       (file+headline "" "EVENTS")
-      "* TODO %? :EVENT:
+      "* TODO %? :event:
+  SCHEDULED: %^T
   :PROPERTIES:
   :Added: %U
   :Origin: %a
-  :END:
-  SCHEDULED: %^T" :empty-lines 1)
+  :END:")
      ("S" "scheduled work event" entry
       (file+headline "praca.org" "EVENTS")
-      "* TODO %? :EVENT:
+      "* TODO %? :event:
   :PROPERTIES:
   :Added: %U
   :Origin: %a
   :END:
-  SCHEDULED: %^T" :empty-lines 1)
+  SCHEDULED: %^T")
      ("n" "note" entry
       (file+headline "nowe.org" "Notes")
-      "* %? :NOTE:
+      "* %? :note:
   :PROPERTIES:
   :Added: %U
   :Origin: %a
   :END:
-  %i" :prepend t :empty-lines 1)))
+  %i" :prepend t)
+     ("r" "Repeating Task" entry
+      (file+headline "~/todo/nowe.org" "EVENTS")
+      "* TODO %? :event:repeating:
+  SCHEDULED: %^T
+  :PROPERTIES:
+  :Added: %U
+  :Origin: %a
+  :END:" :prepend t)))
  '(org-catch-invisible-edits 'smart)
  '(org-clock-into-drawer t)
  '(org-clock-persist t)
@@ -439,11 +479,11 @@
  '(org-log-repeat 'note)
  '(org-log-states-order-reversed nil)
  '(org-loop-over-headlines-in-active-region 'start-level)
- '(org-lowest-priority 68)
  '(org-mark-ring-length 100)
  '(org-modules
    '(org-bbdb org-bibtex org-docview org-gnus org-habit org-id org-info org-inlinetask org-mouse org-tempo org-w3m org-eshell org-elisp-symbol org-eval org-toc))
- '(org-priority-start-cycle-with-default nil)
+ '(org-priority-faces '((49 :foreground "red" :height 1.8)))
+ '(org-priority-start-cycle-with-default t)
  '(org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))
  '(org-return-follows-link nil)
  '(org-reverse-note-order t)
@@ -597,6 +637,7 @@
  '(semantic-default-submodes
    '(global-semantic-highlight-func-mode global-semantic-idle-scheduler-mode global-semanticdb-minor-mode global-semantic-idle-summary-mode global-semantic-mru-bookmark-mode global-semantic-idle-local-symbol-highlight-mode))
  '(semanticdb-project-roots '("/home/cji/projects" "/home/cji/poligon"))
+ '(sentence-end-double-space nil)
  '(set-mark-command-repeat-pop t)
  '(sgml-basic-offset 2)
  '(shell-completion-execonly nil)
@@ -604,6 +645,7 @@
  '(shell-input-autoexpand t)
  '(show-paren-mode t)
  '(show-paren-style 'expression)
+ '(show-paren-when-point-in-periphery nil)
  '(slime-enable-evaluate-in-emacs t)
  '(slime-repl-history-file "~/.emacs.d/data/slime-history.eld")
  '(slime-repl-history-remove-duplicates t)
@@ -652,6 +694,16 @@
  '(web-mode-script-padding 4)
  '(web-mode-style-padding 4)
  '(web-mode-tag-auto-close-style 2)
+ '(wg-control-frames nil)
+ '(wg-restore-frame-position nil)
+ '(wg-restore-fringes nil)
+ '(wg-restore-margins nil)
+ '(wg-restore-mark nil)
+ '(wg-restore-point nil)
+ '(wg-restore-point-max nil)
+ '(wg-restore-remote-buffers nil)
+ '(wg-restore-scroll-bars nil)
+ '(wg-restore-window-dedicated-p nil)
  '(x-gtk-use-system-tooltips nil)
  '(yas-snippet-dirs
    '("/home/cji/.emacs.d/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/")))
@@ -711,7 +763,7 @@
  '(region ((t nil)))
  '(semantic-idle-symbol-highlight ((t (:inherit region))))
  '(show-paren-match ((t nil)))
- '(show-paren-match-expression ((t (:inherit show-paren-match :background "gray18"))))
+ '(show-paren-match-expression ((t (:inherit show-paren-match :background "#3c3947"))))
  '(sr-active-path-face ((t (:background "deep sky blue" :foreground "navy" :height 130))))
  '(swiper-line-face ((t (:inherit highlight :background "black"))))
  '(swiper-match-face-1 ((t (:inherit isearch-lazy-highlight-face :background "black"))))

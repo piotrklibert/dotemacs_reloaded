@@ -8,7 +8,7 @@
 
 (tool-bar-mode   -1)
 (scroll-bar-mode -1)
-(fringe-mode     '(4 . 8))
+;; (fringe-mode     '(18 . 8))
 (menu-bar-mode    -1)
 (load-theme       'wombat)
 (set-cursor-color "white")
@@ -40,6 +40,8 @@
 
 (require 'use-package)
 (setf use-package-verbose t)
+
+(require 'anaphora)
 
 (require 'my-utils)
 (require 'my-system-config)
@@ -80,13 +82,10 @@
 
 (setq next-line-add-newlines nil)       ; Don't add lines when <down> is pressed
                                         ; at the end of a file
-
-(setq-default imenu-auto-rescan           t
-              color-theme-is-global       t
-              mouse-yank-at-point         t
-              sentence-end-double-space   nil
-              whitespace-line-column      80
-              diff-switches              "-u")
+;; defaults:
+;; whitespace-line-column 80
+;; diff-switches "-u"
+(setq color-theme-is-global t)
 
 
 (put 'dired-find-alternate-file 'disabled nil)
@@ -123,6 +122,7 @@
 
 ;; Additional interfaces and functionalities activation and config
 (load-safe "my-generic-ui-config")
+
 (load-safe "my-hydra-stables")
 
 ;; Python, JavaScript, YAML, Rust, Racket and so on (and on, and on... 🙂) config

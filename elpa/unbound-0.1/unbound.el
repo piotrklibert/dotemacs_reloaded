@@ -87,11 +87,11 @@ Currently KEY must be of the [(control shift ?s) ...] format."
 (defvar unbound-keys nil
   "Used internally by `unbound-keys'.")
 
-(defun unbound-keys (max)
+(defun unbound-keys (max &optional map)
   "Return a list of unbound keystrokes of complexity no greater than MAX.
 Keys are sorted by their complexity; `key-complexity' determines it."
   (let (unbound-keys)
-    (unbound-keys-1 max nil nil)
+    (unbound-keys-1 max map nil)
     (mapcar 'car (sort unbound-keys (lambda (k l) (< (cdr k) (cdr l)))))))
 
 ;; Adds to `unbound-keys'.
@@ -128,12 +128,12 @@ Keys are sorted by their complexity; `key-complexity' determines it."
                     (res)
                     (t (push (cons total comp) unbound-keys))))))))))
 
-(defun describe-unbound-keys (max)
+(defun describe-unbound-keys (max &optional map)
   "Display a list of unbound keystrokes of complexity no greater than MAX.
 Keys are sorted by their complexity; `key-complexity' determines it."
   (interactive "nMaximum key complexity: ")
   (with-output-to-temp-buffer "*Unbound Keys*"
-    (let ((keys (unbound-keys max)))
+    (let ((keys (unbound-keys max map)))
       (princ (format "%s unbound keys with complexity at most %s:\n"
                      (length keys) max))
       (princ (mapconcat 'key-description keys "\n")))))
