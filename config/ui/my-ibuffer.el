@@ -32,7 +32,7 @@
   (define-key ibuffer-mode-map (kbd "=")   'my-ibuffer-diff-with-file)
 
   ;; (define-key ibuffer-mode-map (kbd "C-/")    nil)
-  (define-key ibuffer-mode-map (kbd "/")      'hydra-ibuffer-filters/body)
+  (define-key ibuffer-mode-map (kbd "/")      'my-hydra-ibuffer-filters/body)
   (define-key ibuffer-mode-map (kbd "m")      'hydra-ibuffer-marking/ibuffer-mark-forward)
   (define-key ibuffer-mode-map (kbd ".")      'hydra-ibuffer-marking/body)
   (define-key ibuffer-mode-map (kbd "*")      'hydra-ibuffer-marking/body)
