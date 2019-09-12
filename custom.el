@@ -192,7 +192,13 @@
  '(ibuffer-load-hook nil)
  '(ibuffer-mode-hook '(my-ibuffer-mode-hook))
  '(ibuffer-old-time 2)
- '(ibuffer-saved-filter-groups '(("std" ("m" (saved . "modified")) ("LC" (saved . "LC")))))
+ '(ibuffer-saved-filter-groups
+   '(("std"
+      ("Modified"
+       (modified)
+       (visiting-file))
+      ("LC"
+       (saved . "LC")))))
  '(ibuffer-saved-filters
    '(("LC"
       (filename . "lightcorn"))
@@ -321,7 +327,7 @@
  '(nxhtml-skip-welcome t)
  '(nxhtml-validation-header-mumamo-modes nil)
  '(org-agenda-dim-blocked-tasks t)
- '(org-agenda-files '("~/todo/nowe.org" "~/todo/praca.org"))
+ '(org-agenda-files '("~/todo/zycie.org" "~/todo/nowe.org" "~/todo/praca.org"))
  '(org-archive-location "~/todo/archive/archive-2019.org::datetree/* From %s")
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
@@ -346,13 +352,9 @@
   :Origin: %a
   :END:
   %i" :prepend t)
-     ("z" "Something to buy when shopping" entry
-      (file+headline "~/todo/nowe.org" "INCOMING")
-      "* TODO %? :shopping:
-  :PROPERTIES:
-  :Added: %U
-  :Origin: %a
-  :END:
+     ("z" "Something to buy when shopping" item
+      (file+headline "~/todo/zycie.org" "ZAKUPY")
+      "- %? (%u)
   %i" :prepend t)
      ("e" "Emacs-related Task" entry
       (file+headline "~/todo/nowe.org" "INCOMING")
@@ -363,8 +365,8 @@
   :END:
   %i" :prepend t)
      ("l" "RL Task" entry
-      (file+headline "~/todo/nowe.org" "ZYCIE")
-      "* TODO %? :life:
+      (file+headline "~/todo/zycie.org" "ZYCIE")
+      "* TODO %?
   :PROPERTIES:
   :Added: %U
   :Origin: %a
@@ -749,7 +751,7 @@
  '(elscreen-tab-other-screen-face ((t (:background "SkyBlue3" :foreground "black" :underline t))))
  '(font-lock-fic-face ((t (:background "wheat4" :foreground "cyan" :weight bold))))
  '(helm-ff-file ((t (:inherit nil))))
- '(hl-line ((t (:background "gray18"))))
+ '(hl-line ((t (:background "gray25"))))
  '(hl-sexp-face ((t (:background "gray23"))))
  '(j-verb-face ((t (:foreground "dark cyan"))))
  '(link ((t (:foreground "#8ac6f2" :underline nil))))
@@ -761,6 +763,7 @@
  '(mode-line ((t (:background "#444444" :foreground "#f6f3e8" :height 1.0))))
  '(neo-banner-face ((t (:foreground "SeaGreen3" :weight bold))))
  '(next-error ((t (:background "#AAAA33"))))
+ '(org-agenda-dimmed-todo-face ((t (:background "orange4"))))
  '(org-block-begin-line ((t (:foreground "#9ED5D5"))))
  '(org-block-end-line ((t (:foreground "#9ED5D5"))))
  '(org-level-1 ((t (:inherit outline-1))))
@@ -771,7 +774,7 @@
  '(powerline-inactive2 ((t (:inherit mode-line-inactive :background "gray20"))))
  '(pulse-highlight-start-face ((t (:background "#AAAA33"))))
  '(rainbow-delimiters-depth-7-face ((t (:foreground "cadet blue"))))
- '(region ((t nil)))
+ '(region ((t (:background "gray40" :foreground "#f6f3e8"))))
  '(semantic-idle-symbol-highlight ((t (:inherit region))))
  '(show-paren-match ((t nil)))
  '(show-paren-match-expression ((t (:inherit show-paren-match :background "#3c3947"))))
