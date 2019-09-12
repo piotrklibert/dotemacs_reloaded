@@ -1,11 +1,79 @@
 (require 'generic-x)
 
+;; NOTE: IMPORTANT: (customize-face-other-window 'hl-line)
+
 
 (use-package avy
   :bind (:map my-find-keys
               ("e" . avy-goto-char-timer)
               ("C-e" . avy-goto-char-timer)
-              ("C-l" . avy-goto-line)))
+              ("C-l" . avy-goto-line)
+              ("l" . avy-goto-line)))
+
+
+(require 'info)
+(defun Info-apropos-matches (string)
+  "Collect STRING matches from all known Info files on your system.
+Return a list of matches where each element is in the format
+\((FILENAME INDEXTEXT NODENAME LINENUMBER))."
+  (unless (string= string "")
+    (let ((pattern (format "\n\\* +\\([^\n]*\\(%s\\)[^\n]*\\):[ \t]+\\([^\n]+\\)\\.\\(?:[ \t\n]*(line +\\([0-9]+\\))\\)?"
+			   (regexp-quote string)))
+	  (ohist Info-history)
+	  (ohist-list Info-history-list)
+	  (current-node Info-current-node)
+	  (current-file Info-current-file)
+	  manuals matches node nodes)
+      (let ((Info-fontify-maximum-menu-size nil))
+	(Info-directory)
+	;; current-node and current-file are nil when they invoke info-apropos
+	;; as the first Info command, i.e. info-apropos loads info.el.  In that
+	;; case, we use (DIR)Top instead, to avoid signaling an error after
+	;; the search is complete.
+	(when (null current-node)
+	  (setq current-file Info-current-file)
+	  (setq current-node Info-current-node))
+	(message "Searching indices...")
+	(goto-char (point-min))
+	(re-search-forward "\\* Menu: *\n" nil t)
+	(while (re-search-forward "\\*.*: *(\\([^)]+\\))" nil t)
+	  ;; Make sure we don't have duplicates in `manuals',
+	  ;; so that the following dolist loop runs faster.
+	  (cl-pushnew (match-string 1) manuals :test #'equal))
+
+    (setq manuals '("elisp" "org" "emacs"))
+    (message ">>> %s <<<" manuals)
+
+	(dolist (manual (nreverse manuals))
+	  (message "Searching %s" manual)
+	  (condition-case err
+	      (if (setq nodes (Info-index-nodes (Info-find-file manual)))
+                  (save-excursion
+                    (Info-find-node manual (car nodes))
+                    (while
+                        (progn
+                          (goto-char (point-min))
+                          (while (re-search-forward pattern nil t)
+			    (let ((entry (match-string-no-properties 1))
+				  (nodename (match-string-no-properties 3))
+				  (line (match-string-no-properties 4)))
+			      (add-text-properties
+			       (- (match-beginning 2) (match-beginning 1))
+			       (- (match-end 2) (match-beginning 1))
+			       '(face info-index-match) entry)
+			      (setq matches (cons (list manual entry nodename line)
+						  matches))))
+                          (setq nodes (cdr nodes) node (car nodes)))
+                      (Info-goto-node node))))
+	    (error
+	     (message "%s" (if (eq (car-safe err) 'error)
+			       (nth 1 err) err))
+	     (sit-for 1 t)))))
+      (Info-find-node current-file current-node)
+      (setq Info-history ohist
+	    Info-history-list ohist-list)
+      (message "Searching indices...done")
+      (or (nreverse matches) t))))
 
 
 (use-package docker
