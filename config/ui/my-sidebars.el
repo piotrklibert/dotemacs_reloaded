@@ -5,16 +5,21 @@
 
 
 (use-package speedbar
-  :commands sr-speedbar-toggle)
+  :bind (
+         :map speedbar-mode-map
+         ([tab] . speedbar-toggle-line-expansion)
+         ("h" . speedbar-toggle-show-all-files)
+         ("C-<up>"  . speedbar-up-directory)
+         ("<backtab>" . speedbar-expand-line-descendants))
+  )
 
+;; TODO: customize - speedbar-file-unshown-regexp
+;; TODO: not all icons are displayed sometimes
 
 (use-package sr-speedbar
   :after speedbar
-  :bind (
-         :map speedbar-mode-map
-         ("C-<up>"  . speedbar-up-directory)
-         ("<tab>"   . speedbar-expand-line)
-         ("S-<tab>" . speedbar-expand-line-descendants)))
+  :commands sr-speedbar-toggle
+  :bind ("C-c <f1>" . sr-speedbar-toggle))
 
 
 (use-package sidebar
@@ -25,7 +30,9 @@
   :commands treemacs
   :bind (("<f1>" . treemacs)))
 
+
 (use-package neotree
+  :commands neotree-dir
   :bind (("C-<f1>" . neotree-toggle)
          :map neotree-mode-map
          ("C-d" .       'neotree-delete-node)
@@ -37,9 +44,14 @@
          ("l" .         'neotree-add-dir-to-load-path)))
 
 (use-package dirtree
-  :commands dirtree)
+  :commands dirtree
+  :bind (("C-c C-<f1>" . my-dirtree)
+         :map dirtree-mode-map
+         ([tab] . tree-mode-toggle-expand)
+         ("C-<up>" . my-dirtree-up)))
 
 (use-package ztree
+  ;; ztree-dir would need a lot of bindings to work; ztree-diff actually works
   :commands ztree-dir ztree-diff
   :config (setq ztree-draw-unicode-lines t))
 
@@ -63,6 +75,14 @@ otherwise."
         (eaf-open-url (concat "file://" fname))
       (eaf-open fname))))
 
+(defun my-dirtree-up ()
+  (interactive)
+  (save-excursion
+    (goto-char (+ (point-min) 4))
+    (let ((parent (f-parent (buffer-substring-no-properties (point) (line-end-position))))
+          (inhibit-read-only t))
+      (erase-buffer)
+      (dirtree parent t))))
 
 (defun my-dirtree ()
   (interactive)
