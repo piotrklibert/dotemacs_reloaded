@@ -6,6 +6,23 @@
 
 
 
+(defun pp-other-window (obj)
+  (interactive
+   (list (symbol-value (intern (thing-at-point 'symbol)))))
+  (let ((buf (get-buffer-create "*Pretty-Printer**")))
+    (with-current-buffer buf
+      (erase-buffer)
+      (emacs-lisp-mode)
+      (insert (pp-to-string obj))
+      (visual-line-mode))
+    (display-buffer buf)))
+
+;; (pp-other-window org-capture-templates)
+;; (pp-other-window extended-command-history)
+
+;; (setq extended-command-history (cl-loop for cmd in extended-command-history
+;;                                         unless (s-prefix? "custom" cmd)
+;;                                         collect cmd))
 
 
 (defmacro -> (&rest args)

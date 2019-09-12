@@ -12,6 +12,8 @@
  '(ac-quick-help-prefer-pos-tip t)
  '(ag-highlight-search t)
  '(ag-reuse-buffers t)
+ '(appt-display-interval 60)
+ '(appt-message-warning-time 90)
  '(auto-hscroll-mode 'current-line)
  '(auto-indent-backward-delete-char-behavior 'untabify)
  '(auto-indent-blank-lines-on-move nil)
@@ -190,9 +192,11 @@
  '(ibuffer-load-hook nil)
  '(ibuffer-mode-hook '(my-ibuffer-mode-hook))
  '(ibuffer-old-time 2)
- '(ibuffer-saved-filter-groups nil)
+ '(ibuffer-saved-filter-groups '(("std" ("m" (saved . "modified")) ("LC" (saved . "LC")))))
  '(ibuffer-saved-filters
-   '(("modified"
+   '(("LC"
+      (filename . "lightcorn"))
+     ("modified"
       (not starred-name)
       (modified))
      ("programming"
@@ -441,6 +445,7 @@
  '(org-export-creator-string "")
  '(org-export-use-babel t)
  '(org-export-with-statistics-cookies nil)
+ '(org-fancy-priorities-list '("⬆⬆⬆" "⬆⬆" "⬆" "⬇" "⬇⬇" "⬇⬇⬇"))
  '(org-global-properties
    '(("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00")))
  '(org-goto-interface 'outline-path-completion)
@@ -482,7 +487,13 @@
  '(org-mark-ring-length 100)
  '(org-modules
    '(org-bbdb org-bibtex org-docview org-gnus org-habit org-id org-info org-inlinetask org-mouse org-tempo org-w3m org-eshell org-elisp-symbol org-eval org-toc))
- '(org-priority-faces '((49 :foreground "red" :height 1.8)))
+ '(org-priority-faces
+   '((49 :foreground "red" :background "black" :box t)
+     (50 :foreground "yellow" :background "black" :box t)
+     (51 :foreground "orange" :background "black" :box t)
+     (52 :foreground "green" :background "black" :box t)
+     (53 :foreground "light sky blue" :background "black" :box t)
+     (54 :foreground "cadet blue" :background "black" :box t)))
  '(org-priority-start-cycle-with-default t)
  '(org-refile-targets '((nil :maxlevel . 3) (org-agenda-files :maxlevel . 1)))
  '(org-return-follows-link nil)
