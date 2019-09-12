@@ -1,32 +1,132 @@
 ;;; -*- coding: utf-8 -*-
-(("/home/cji/workspace/DragonPillZ/js/main-list-view.ls" . 3775)
- ("/home/cji/workspace/DragonPillZ/js/intakes.ls" . 2280)
- ("/home/cji/todo/nowe.org" . 57584)
- ("/home/cji/Downloads/newer-samsung/distributor.pwd" . 235)
- ("/home/cji/projects/lightcorn/lightcorn/checks.py" . 228)
- ("/home/cji/projects/lightcorn/lightcorn/settings/local.py" . 42)
- ("/home/cji/projects/lightcorn/tavern/Makefile" . 498)
- ("/home/cji/projects/lightcorn/lightcorn/settings/__init__.py" . 2473)
- ("/home/cji/projects/lightcorn/tavern/entrypoint.sh" . 19)
+(("/home/cji/projects/lightcorn/lightcorn/checks.py" . 228)
  ("/home/cji/mgmnt/commands.sh" . 328)
- ("/home/cji/workspace/DragonPillZ/js/main.ls" . 1430)
- ("/home/cji/workspace/DragonPillZ/package.json" . 298)
- ("/home/cji/.emacs.d/.cache/treemacs-persist" . 50)
- ("/home/cji/todo/praca.org" . 9746)
+ ("/home/cji/projects/lightcorn/lightcorn/settings/__init__.py" . 2473)
+ ("/home/cji/poligon/send-fast-mail.py" . 126)
+ ("/home/cji/portless/org-mode/lisp/org-inlinetask.el" . 1376)
+ ("/home/cji/.emacs.d/config/my-vcs-config.el" . 932)
+ ("/home/cji/.emacs.d/config/init.el" . 4280)
  ("/home/cji/projects/lightcorn/docker/backend.dockerfile" . 474)
+ ("/home/cji/todo/notes.org.gpg" . 63671)
+ ("/home/cji/projects/lightcorn/docker/docker-compose.tavern.yml" . 517)
+ ("/home/cji/projects/lightcorn/docker/scripts/backend.entrypoint.sh" . 2150)
+ ("/home/cji/projects/lightcorn/Jenkinsfile" . 1239)
+ ("/home/cji/projects/lightcorn/tavern/run-jenkins.sh" . 1414)
+ ("/usr/local/share/emacs/27.0.50/lisp/ibuffer-loaddefs.el" . 3855)
+ ("/usr/local/share/emacs/27.0.50/lisp/ibuffer.el.gz" . 6709)
+ ("/home/cji/projects/lightcorn/Makefile" . 6390)
+ (#("/usr/local/share/emacs/27.0.50/lisp/ibuf-ext.el.gz" 36 50
+    (face ido-first-match))
+  . 14098)
+ ("/home/cji/projects/lightcorn/tavern/Makefile" . 515)
+ ("/home/cji/.emacs.d/custom.el" . 30269)
+ ("/home/cji/.emacs.d/forked-plugins/major-mode-hydra-el/README.md" . 10871)
+ ("/home/cji/.emacs.d/config/ui/my-sidebars.el" . 552)
+ ("/home/cji/.emacs.d/config/my-keymaps-config.el" . 766)
+ ("/home/cji/.emacs.d/config/ui/my-generic-ui-config.el" . 229)
+ ("/home/cji/todo/nowe.org" . 318)
+ ("/home/cji/todo/praca.org" . 1226)
+ ("/home/cji/.emacs.d/config/org/my-org-ux.el" . 1641)
+ ("/home/cji/.emacs.d/config/my-hydra-stables.el" . 8206)
+ ("/home/cji/.aws/config" . 245)
+ ("/usr/local/share/emacs/27.0.50/lisp/info.el.gz" . 30523)
+ ("/home/cji/.emacs.d/diary" . 13)
+ ("/home/cji/projects/lightcorn/docker/docker-compose.yml" . 412)
+ ("/home/cji/projects/lightcorn/lightcorn/settings/local.py" . 42)
+ ("/home/cji/portless/org-mode/lisp/org-clock.el" . 52336)
+ ("/home/cji/.emacs.d/config/my-generic-programming-config.el" . 5634)
+ ("/usr/local/share/emacs/27.0.50/lisp/calendar/appt.el.gz" . 31757)
+ ("/home/cji/todo/old/"
+  (dired-filename . "/home/cji/todo/old/bartlomiej.txt.gpg"))
+ ("/home/cji/todo/"
+  (dired-filename . "/home/cji/todo/tips"))
+ ("/home/cji/.emacs.d/forked-plugins/org-fancy-priorities/org-fancy-priorities.el" . 4123)
+ ("/home/cji/.emacs.d/config/"
+  (dired-filename . "/home/cji/.emacs.d/config/.."))
+ ("/usr/local/share/info/"
+  (dired-filename . "/usr/local/share/info/ada-mode.info.gz"))
+ ("/home/cji/"
+  (dired-filename . "/home/cji/01-mouse.conf"))
+ ("/home/cji/workspace/DragonPillZ/js/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/js/utils.ls"))
+ ("/home/cji/portless/org-mode/lisp/org-agenda.el" . 250506)
+ ("/home/cji/portless/org-mode/lisp/org.el" . 168276)
+ ("/home/cji/workspace/DragonPillZ/watch_it.py" . 1253)
+ ("/home/cji/workspace/DragonPillZ/package.json" . 298)
+ ("/home/cji/workspace/DragonPillZ/js/power.ls" . 187)
+ ("/home/cji/workspace/DragonPillZ/js/main.ls" . 1430)
+ ("/home/cji/workspace/DragonPillZ/js/main-list-view.ls" . 3775)
+ ("/home/cji/workspace/DragonPillZ/js/intakes.ls" . 2280)
+ ("/home/cji/workspace/DragonPillZ/js/drugs.ls" . 1984)
+ ("/home/cji/workspace/DragonPillZ/js/alarms.ls" . 466)
+ ("/home/cji/workspace/DragonPillZ/Makefile" . 147)
+ ("/home/cji/workspace/.gitignore" . 13)
+ ("/home/cji/projects/lightcorn/tavern/entrypoint.sh" . 19)
+ ("/home/cji/todo/downloaded/"
+  (dired-filename . "/home/cji/todo/downloaded/StrangeLoop2012-StuartSierra-FunctionalDesignPatterns-StuartSierra.pdf"))
+ ("/home/cji/todo/archive/"
+  (dired-filename . "/home/cji/todo/archive/10c_todo_2015.org"))
+ ("/home/cji/todo/text/"
+  (dired-filename . "/home/cji/todo/text/ania_w_niewyslane.txt"))
+ ("/home/cji/todo/tips/"
+  (dired-filename . "/home/cji/todo/tips/org-keys.org"))
+ ("/home/cji/todo/praca_docs/"
+  (dired-filename . "/home/cji/todo/praca_docs/10clouds-20170809T091416Z-001.zip"))
+ ("/home/cji/todo/editors/"
+  (dired-filename . "/home/cji/todo/editors/index.org"))
+ ("/home/cji/todo/misc/"
+  (dired-filename . "/home/cji/todo/misc/browsing.org"))
+ ("/home/cji/workspace/NewsFeed/js/"
+  (dired-filename . "/home/cji/workspace/NewsFeed/js/tau-config.js"))
+ ("/home/cji/portless/emacs/src/data.c" . 118660)
+ ("/home/cji/workspace/NewsFeed/"
+  (dired-filename . "/home/cji/workspace/NewsFeed/js"))
+ ("/home/cji/workspace/"
+  (dired-filename . "/home/cji/workspace/NewsFeed"))
  ("/home/cji/workspace/HelloTizen/"
-  (dired-filename . "/home/cji/workspace/HelloTizen/js"))
+  (dired-filename . "/home/cji/workspace/HelloTizen/HelloTizen.wgt"))
+ ("/home/cji/workspace/HelloTizen/js/"
+  (dired-filename . "/home/cji/workspace/HelloTizen/js/tau-config.js"))
+ ("/home/cji/workspace/DragonPillZ/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/js"))
+ ("/home/cji/workspace/DPZService/"
+  (dired-filename . "/home/cji/workspace/DPZService/Debug"))
+ ("/home/cji/workspace/node_modules/"
+  (dired-filename . "/home/cji/workspace/node_modules/acorn-dynamic-import"))
+ ("/home/cji/projects/"
+  (dired-filename . "/home/cji/projects/lightcorn"))
+ ("/home/cji/projects/lightcorn/"
+  (dired-filename . "/home/cji/projects/lightcorn/scripts"))
+ ("/home/cji/projects/lightcorn/scripts/"
+  (dired-filename . "/home/cji/projects/lightcorn/scripts/watch_it.py"))
+ ("/home/cji/workspace/DragonPillZ/.metadata/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/.metadata/.plugins"))
+ ("/home/cji/workspace/DragonPillZ/.metadata/.plugins/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/.metadata/.plugins/org.eclipse.cdt.core"))
+ ("/home/cji/workspace/DragonPillZ/lib/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/lib/tau"))
+ ("/home/cji/workspace/HelloTizen/index.html" . 1661)
+ ("/home/cji/workspace/HelloTizen/lib/"
+  (dired-filename . "/home/cji/workspace/HelloTizen/lib/prelude-browser-min.js"))
+ ("/home/cji/workspace/DragonPillZ/node_modules/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/node_modules/dom-delegator"))
+ ("/home/cji/workspace/DragonPillZ/node_modules/dom-delegator/"
+  (dired-filename . "/home/cji/workspace/DragonPillZ/node_modules/dom-delegator/dom-delegator.js"))
+ ("/home/cji/workspace/DragonPillZ/node_modules/dom-delegator/dom-delegator.js" . 4396)
+ ("/home/cji/workspace/HelloTizen/lib/tau/"
+  (dired-filename . "/home/cji/workspace/HelloTizen/lib/tau/wearable"))
+ ("/home/cji/workspace/HelloTizen/lib/tau/wearable/"
+  (dired-filename . "/home/cji/workspace/HelloTizen/lib/tau/wearable/js"))
+ ("/home/cji/workspace/HelloTizen/lib/tau/wearable/js/"
+  (dired-filename . "/home/cji/workspace/HelloTizen/lib/tau/wearable/js/tau.js"))
+ ("/home/cji/.emacs.d/.cache/treemacs-persist" . 50)
  (#("/sudo:root@f28:/etc/resolv.conf" 6 10
     (tramp-default t))
   . 31)
  ("/home/cji/projects/harvester/services/farro/templates/secret.yaml" . 210)
  ("/home/cji/mgmnt/local.sh" . 681)
  ("/home/cji/mgmnt/zshrc" . 2130)
- ("/home/cji/projects/lightcorn/Jenkinsfile" . 965)
- ("/home/cji/projects/lightcorn/tavern/run-jenkins.sh" . 1168)
  ("/home/cji/mgmnt/zhist.sh" . 99)
- ("/home/cji/projects/lightcorn/Makefile" . 7126)
- ("/home/cji/todo/notes.org.gpg" . 64368)
  ("/home/cji/workspace/DragonPillZ/img/"
   (dired-filename . "/home/cji/workspace/DragonPillZ/img/icon.png"))
  ("/home/cji/workspace/store/"
@@ -34,39 +134,19 @@
  ("/home/cji/projects/lightcorn/tavern/envfiles/local.env" . 34)
  ("/home/cji/projects/lightcorn/tavern/envfiles/jenkins.env" . 2)
  ("/home/cji/projects/lightcorn/docker/jenkins-tavern.env" . 98)
- ("/home/cji/projects/lightcorn/docker/docker-compose.yml" . 412)
- ("/home/cji/projects/lightcorn/docker/docker-compose.tavern.yml" . 137)
  ("/home/cji/.emacs.d/plugins2/help+.el" . 8924)
- ("/home/cji/.emacs.d/config/org/my-org-ux.el" . 5357)
- ("/home/cji/.emacs.d/config/my-hydra-stables.el" . 11719)
- ("/home/cji/.emacs.d/config/my-generic-programming-config.el" . 5716)
- ("/home/cji/.emacs.d/config/init.el" . 298)
- ("/home/cji/.emacs.d/config/ui/my-generic-ui-config.el" . 110)
- ("/home/cji/workspace/DragonPillZ/Makefile" . 63)
- ("/home/cji/workspace/DragonPillZ/js/"
-  (dired-filename . "/home/cji/workspace/DragonPillZ/js/drug-details-view.ls"))
  ("/home/cji/workspace/HelloTizen/js/main.min.js" . 532)
  ("/home/cji/workspace/DragonPillZ/main.min.js" . 52326)
- ("/home/cji/workspace/"
-  (dired-filename . "/home/cji/workspace/HelloTizen"))
- ("/home/cji/workspace/DragonPillZ/lib/"
-  (dired-filename . "/home/cji/workspace/DragonPillZ/lib/.."))
  ("/home/cji/workspace/HelloTizen/css/"
   (dired-filename . "/home/cji/workspace/HelloTizen/css/.."))
  ("/home/cji/workspace/DragonPillZ/css/"
   (dired-filename . "/home/cji/workspace/DragonPillZ/css/.."))
- ("/home/cji/"
-  (dired-filename . "/home/cji/workspace"))
  ("/home/cji/workspace2/"
   (dired-filename . "/home/cji/workspace2/.."))
- ("/home/cji/todo/"
-  (dired-filename . "/home/cji/todo/notes.org.gpg"))
- ("/home/cji/workspace/DragonPillZ/js/power.ls" . 210)
  ("/home/cji/.emacs.d/forked-plugins/emacs-helm-ag/helm-ag.el" . 15019)
  ("/home/cji/.emacs.d/snippets/prog-mode/NOTE" . 95)
  ("/home/cji/portless/emacs/src/xdisp.c" . 1071078)
  ("/home/cji/.emacs.d/forked-plugins/wrap-region/wrap-region.el" . 11481)
- ("/home/cji/todo/bartlomiej.txt.gpg" . 4662)
  ("/home/cji/projects/lightcorn/lightcorn/settings/e2e.py" . 285)
  ("/home/cji/projects/lightcorn/asd.sh" . 407)
  (#("/usr/share/zsh/vendor-completions/_docker" 15 34
@@ -102,9 +182,6 @@
  ("/usr/local/share/emacs/27.0.50/lisp/desktop.el.gz" . 46874)
  ("/home/cji/.emacs.d/config/my-auto-completion.el" . 321)
  ("/home/cji/.emacs.d/config/ui/my-messages-buffer.el" . 1162)
- ("/home/cji/.emacs.d/forked-plugins/major-mode-hydra.el/major-mode-hydra.el" . 1327)
- ("/home/cji/.emacs.d/forked-plugins/major-mode-hydra.el/pretty-hydra.el" . 10258)
- ("/home/cji/.emacs.d/forked-plugins/major-mode-hydra.el/README.md" . 12139)
  ("/usr/local/share/emacs/27.0.50/lisp/cus-edit.el.gz" . 36469)
  (#("/usr/local/share/emacs/27.0.50/lisp/custom.el.gz" 36 48
     (face ido-first-match))
@@ -144,7 +221,6 @@
   (dired-filename . "/home/cji/projects/lightcorn/static/frontend_static/dist"))
  ("/home/cji/.emacs.d/forked-plugins/magit/lisp/magit-mode.el" . 10612)
  ("/home/cji/projects/s3downloader/Makefile" . 2453)
- ("/home/cji/.emacs.d/config/my-keymaps-config.el" . 921)
  ("/home/cji/projects/lightcorn/frontend/src/sf/package.json" . 1791)
  ("/home/cji/projects/lightcorn/frontend/Makefile" . 43)
  ("/home/cji/.emacs.d/config/my-generic-programming-init-hook.el" . 324)
@@ -167,7 +243,6 @@
  ("/home/cji/.emacs.d/forked-plugins/emacs-application-framework/app/browser/buffer.py" . 950)
  ("/home/cji/.emacs.d/forked-plugins/emacs-application-framework/docs/HACKING.md" . 700)
  ("/home/cji/.aws/credentials" . 131)
- ("/home/cji/.aws/config" . 187)
  ("/home/cji/.emacs.d/forked-plugins/magit-popup/magit-popup.el" . 17250)
  ("/home/cji/.emacs.d/forked-plugins/kubernetes-el/kubernetes-state.el" . 1230)
  ("/home/cji/.emacs.d/forked-plugins/kubernetes-el/kubernetes-logs.el" . 2886)
@@ -178,8 +253,6 @@
  ("/home/cji/.emacs.d/forked-plugins/kubernetes-el/kubernetes-pod-line.el" . 768)
  ("/home/cji/.emacs.d/config/my-projects.el" . 3374)
  ("/home/cji/.emacs.d/plugins2/help-fns+.el" . 30262)
- ("/home/cji/projects/"
-  (dired-filename . "/home/cji/projects/project_dir/Jenkinsfile"))
  ("/home/cji/projects/wubs/Jenkinsfile" . 421)
  ("/home/cji/projects/s3downloader/Jenkinsfile" . 1621)
  (#("/etc/hosts" 0 1
@@ -226,8 +299,6 @@
  ("/usr/local/share/emacs/27.0.50/lisp/net/browse-url.el.gz" . 3211)
  ("/home/cji/.emacs.d/config/ui/"
   (dired-filename . "/home/cji/.emacs.d/config/ui/.."))
- ("/home/cji/.emacs.d/config/"
-  (dired-filename . "/home/cji/.emacs.d/config/ui"))
  ("/home/cji/.emacs.d/forked-plugins/helm/helm-regexp.el" . 3851)
  ("/home/cji/.emacs.d/data/"
   (dired-filename . "/home/cji/.emacs.d/data/ac-comphist.dat"))
@@ -401,7 +472,6 @@
  ("/home/cji/.emacs.d/forked-plugins/swiper/"
   (dired-filename . "/home/cji/.emacs.d/forked-plugins/swiper/colir.el"))
  ("/home/cji/.emacs.d/forked-plugins/swiper/ivy-hydra.el" . 957)
- ("/usr/local/share/emacs/27.0.50/lisp/ibuf-ext.el.gz" . 63662)
  ("/usr/local/share/emacs/27.0.50/lisp/windmove.el.gz" . 21352)
  ("/home/cji/.emacs.d/plugins2/buffer-move.el" . 4513)
  ("/home/cji/.emacs.d/config/my-ffap-wrapper.el" . 2978)
@@ -443,47 +513,7 @@
  ("/usr/local/share/emacs/27.0.50/lisp/whitespace.el.gz" . 26604)
  ("/home/cji/.emacs.d/plugins2/info+.el" . 28825)
  ("/usr/local/share/emacs/27.0.50/lisp/ido.el.gz" . 13503)
- ("/usr/local/share/emacs/27.0.50/lisp/info.el.gz" . 158597)
  ("/usr/local/share/emacs/27.0.50/lisp/emacs-lisp/rx.el.gz" . 32092)
  ("/usr/local/share/emacs/27.0.50/lisp/progmodes/python.el.gz" . 82947)
  ("/home/cji/projects/s3downloader/tests/test_download.py" . 12)
- ("/home/cji/projects/s3downloader/tests/test_headers.py" . 145)
- ("/home/cji/projects/s3downloader/tests/test_limits.py" . 385)
- ("/home/cji/projects/s3downloader/peanut_s3downloader/downloader.py" . 4206)
- ("/home/cji/projects/s3downloader/CHANGELOG.md" . 121)
- ("/home/cji/poligon/modts/modts.org" . 32784)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/site-packages/jedi/third_party/typeshed/stdlib/3/typing.pyi" . 3173)
- ("/home/cji/projects/truststamp/hacking/guidelines.org" . 3832)
- ("/home/cji/projects/s3downloader/stubs/io.pyi" . 1554)
- ("/home/cji/projects/truststamp/healthz/peanut_healthz/config.py" . 46)
- ("/home/cji/projects/s3downloader/peanut_s3downloader/__init__.py" . 751)
- ("/home/cji/projects/s3downloader/peanut_s3downloader/version.py" . 21)
- ("/usr/local/share/emacs/27.0.50/lisp/minibuffer.el.gz" . 169255)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/mypy/typeshed/stdlib/3/io.pyi" . 3137)
- ("/home/cji/projects/s3downloader/stubs/boto3/s3/transfer.pyi" . 376)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/boto3/s3/transfer.py" . 5456)
- ("/home/cji/.pyenv/sources/3.7.3/Python-3.7.3/Modules/_io/bufferedio.c" . 1232)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/tempfile.py" . 26612)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/weakref.py" . 17343)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/s3transfer/bandwidth.py" . 8129)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/s3transfer/utils.py" . 7730)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/site-packages/s3transfer/manager.py" . 25117)
- ("/home/cji/.emacs.d/forked-plugins/flycheck-pycheckers/flycheck-pycheckers.el" . 10753)
- ("/home/cji/projects/s3downloader/scripts/entrypoint.sh" . 21)
- ("/home/cji/projects/s3downloader/scripts/ci_docker_test.sh" . 363)
- ("/home/cji/projects/s3downloader/scripts/ci_docker_build.sh" . 29)
- ("/home/cji/projects/s3downloader/scripts/Dockerfile" . 480)
- ("/home/cji/projects/s3downloader/pytest.ini" . 162)
- ("/home/cji/projects/s3downloader/mypy.ini" . 999)
- ("/home/cji/projects/s3downloader/.dockerignore" . 103)
- ("/home/cji/projects/s3downloader/.isort.cfg" . 113)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/site-packages/requests/exceptions.py" . 2068)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/io.py" . 3149)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/sre_parse.py" . 17756)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/fnmatch.py" . 4047)
- ("/home/cji/.pyenv/versions/3.7.3/lib/python3.7/site-packages/requests/models.py" . 26)
- ("/home/cji/projects/s3downloader/.venv/lib/python3.7/io.py" . 3469)
- ("/usr/local/share/emacs/27.0.50/lisp/progmodes/make-mode.el.gz" . 3380)
- ("/usr/local/share/emacs/27.0.50/lisp/register.el.gz" . 14376)
- ("/home/cji/projects/s3downloader/scripts/ci_docker_lint.sh" . 80)
- ("/home/cji/projects/s3downloader/scripts/ci_docker_package.sh" . 162))
+ ("/home/cji/projects/s3downloader/tests/test_headers.py" . 145))
