@@ -1,16 +1,32 @@
+(require 'use-package)
 (require 'my-ox-html-styles)
+
+
+(defun my-org-clock-in ()
+  (interactive)
+  (condition-case err
+      (org-clock-in)
+    (t (org-clock-in-last))))
+
 
 (use-package org
   :commands org-mode orgtbl-mode org-capture
   :bind (("C-c c" . org-capture)
          ("C-c l" . org-store-link)
-         ("C-c C-l" . org-insert-link))
-
+         ("C-c C-l" . org-insert-link)
+         ("C-c C-x C-i" . org-clock-in)
+         ("C-c C-x C-l" . org-clock-in-last)
+         ("C-c C-x C-o" . org-clock-out)
+         :map mode-specific-map
+         ("a" . org-agenda-list))
+  :hook my-org-hook org-fancy-priorities-mode org-bullets-mode
   :config
   (require 'org-table)
   (require 'org-agenda)
   (require 'org-tempo)
   (require 'org-goto)
+  (require 'org-fancy-priorities)
+  (require 'org-bullets)
 
   ;; format: [[elisp-symbol:path::symbol]]
   (require 'ol-elisp-symbol)
@@ -22,9 +38,77 @@
   (require 'helm-occur)
 
   (require 'my-org-babel)
-  (require 'my-org-custom-id)
+  (require 'my-org-custom-id))
 
-  )
+
+;; Fancy priorities - interesting custom variables
+;;
+;; (insert (pp-to-string org-priority-faces))
+;; org-faces-easy-properties
+;; org-fancy-priorities-list
+
+
+(require 'appt)
+(appt-activate 1)
+;; (customize-group 'appt)
+
+
+(defun my-appt-display-message-advice (fun string mins)
+  (interactive)
+  (pp string)
+  (call-process "noti" nil nil nil "-t" (car string))
+  ;; TODO:
+  ;; (call-process "python" nil nil nil "poligon/send-fast-mail.py")
+  (funcall fun string mins))
+
+(advice-add 'appt-display-message :around 'my-appt-display-message-advice)
+
+(use-package org-fancy-priorities
+  :after org)
+
+
+(defun my-org-hook ()
+  (org-fancy-priorities-mode)
+  (org-bullets-mode)
+  (define-key org-mode-map (kbd "<return>")     'org-return-indent)
+  (define-key org-mode-map (kbd "C-j")          'org-return)
+
+  (define-key org-mode-map (kbd "M-,")          'my-org-ring-goto)
+  (define-key org-mode-map (kbd "M-.")          'my-org-goto-def)
+
+  (define-key org-mode-map (kbd "C-c <up>")     'org-previous-visible-heading)
+  (define-key org-mode-map (kbd "C-c <down>")   'org-next-visible-heading)
+
+  (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
+  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
+
+  (define-key org-mode-map (kbd "<backtab>")    'my-org-fold-current)
+
+  (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
+
+  (define-key org-mode-map (kbd "C-f C-m")      'my-org-occur-headers)
+
+  (define-key org-mode-map (kbd "C-c a")        'org-agenda)
+  (define-key org-mode-map (kbd "C-c l")        'org-store-link)
+  (define-key org-mode-map (kbd "C-c +")        'hydra-zoom/text-scale-increase)
+  (define-key org-mode-map (kbd "C-c -")        'hydra-zoom/text-scale-decrease)
+  (define-key org-mode-map (kbd "C-c =")        'hydra-zoom/body)
+
+  (define-key org-mode-map (kbd "C-c M-=")      'my-org-show-current-heading-tidily)
+  (define-key org-mode-map (kbd "C-c M-<up>")   'hydra-org-jump/my-org-show-prev-heading-tidily)
+  (define-key org-mode-map (kbd "C-c M-<down>") 'hydra-org-jump/my-org-show-next-heading-tidily)
+
+  ;; KILL, CUT & COPY whole subtrees
+  ;; (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree) - Org uses C-c C-k to dismiss/close dialogs
+  (define-key org-mode-map (kbd "C-c C-M-w")    'my-org-clear-subtree)
+
+  (define-key org-mode-map (kbd "C-c M-w")      (lambda ()
+                                                  (interactive)
+                                                  (read-only-mode 1)
+                                                  (ignore-errors
+                                                    (my-org-clear-subtree))
+                                                  (read-only-mode 0)
+                                                  (message "Subtree copied"))))
 
 
 (defun my-org-clear-subtree ()
@@ -118,6 +202,10 @@
     (org-table-recalculate)))
 
 
+(defun disable-follow (helm-obj)
+  (setf (alist-get 'follow helm-obj) nil)
+  helm-obj)
+
 (defun my-org-occur-headers ()
   "Preconfigured Occur for Org headers."
   (interactive)
@@ -127,10 +215,10 @@
                              'helm-org-headings-class
                            :filtered-candidate-transformer 'helm-org-startup-visibility
                            :parents nil
-                           :follow 1
+                           :follow nil
                            :requires-pattern 2
                            :candidates bufs))
-         (occur-sources (helm-occur-build-sources bufs)))
+         (occur-sources (mapcar 'disable-follow (helm-occur-build-sources bufs))))
     (helm-set-local-variable 'helm-occur--buffer-list bufs
                              'helm-occur--buffer-tick (mapcar 'buffer-chars-modified-tick bufs))
     (helm :sources (cons heading-source occur-sources)
@@ -144,7 +232,6 @@
 
 
 
-;; (org-clock-persistence-insinuate)
 
 ;; More example capture templates:
 ;; ("r" "respond" entry (file "~/todo/refile.org")
@@ -200,8 +287,7 @@
 ;; org-goto-auto-isearch
 ;; helm-org-in-buffer-headings
 
-(eval-after-load "org"
-  '(add-hook 'org-mode-hook 'my-org-hook))
+
 
 (defun my-in-regexp (regexp)
   (catch :exit
@@ -241,44 +327,3 @@
   (interactive)
   (org-mark-ring-goto)
   (recenter))
-
-(defun my-org-hook ()
-  (define-key org-mode-map (kbd "<return>")     'org-return-indent)
-  (define-key org-mode-map (kbd "C-j")          'org-return)
-
-  (define-key org-mode-map (kbd "M-,")          'my-org-ring-goto)
-  (define-key org-mode-map (kbd "M-.")          'my-org-goto-def)
-
-  (define-key org-mode-map (kbd "C-c <up>")     'org-previous-visible-heading)
-  (define-key org-mode-map (kbd "C-c <down>")   'org-next-visible-heading)
-
-  (define-key org-mode-map (kbd "C-c C-<up>")   'org-backward-heading-same-level)
-  (define-key org-mode-map (kbd "C-c C-<down>") 'org-forward-heading-same-level)
-
-  (define-key org-mode-map (kbd "<backtab>")    'my-org-fold-current)
-
-  (define-key org-mode-map (kbd "s-c")          'my-tangle-and-run)
-
-  (define-key org-mode-map (kbd "C-f C-m")      'my-org-occur-headers)
-
-  (define-key org-mode-map (kbd "C-c a")        'org-agenda)
-  (define-key org-mode-map (kbd "C-c l")        'org-store-link)
-  (define-key org-mode-map (kbd "C-c +")        'hydra-zoom/text-scale-increase)
-  (define-key org-mode-map (kbd "C-c -")        'hydra-zoom/text-scale-decrease)
-  (define-key org-mode-map (kbd "C-c =")        'hydra-zoom/body)
-
-  (define-key org-mode-map (kbd "C-c M-=")      'my-org-show-current-heading-tidily)
-  (define-key org-mode-map (kbd "C-c M-<up>")   'hydra-org-jump/my-org-show-prev-heading-tidily)
-  (define-key org-mode-map (kbd "C-c M-<down>") 'hydra-org-jump/my-org-show-next-heading-tidily)
-
-  ;; KILL, CUT & COPY whole subtrees
-  ;; (define-key org-mode-map (kbd "C-c C-k")      'my-org-clear-subtree) - Org uses C-c C-k to dismiss/close dialogs
-  (define-key org-mode-map (kbd "C-c C-M-w")    'my-org-clear-subtree)
-
-  (define-key org-mode-map (kbd "C-c M-w")      (lambda ()
-                                                  (interactive)
-                                                  (read-only-mode 1)
-                                                  (ignore-errors
-                                                    (my-org-clear-subtree))
-                                                  (read-only-mode 0)
-                                                  (message "Subtree copied"))))
