@@ -31,9 +31,23 @@
   :bind (("<f1>" . treemacs)))
 
 
+(defun my-neotree-toggle (prefix-arg)
+  (interactive "p")
+  (if (not prefix-arg)
+      ;; no C-u
+      (call-interactively 'neotree-toggle)
+    (case prefix-arg
+      ;; C-u
+      (4 (neotree-dir (f-dirname (buffer-file-name))) )
+      ;; C-u C-u
+      (16 (neotree-dir (projectile-project-root)))
+      ;; 3+ x C-u or worse
+      (t  (call-interactively 'neotree-toggle)))))
+
+
 (use-package neotree
   :commands neotree-dir
-  :bind (("C-<f1>" . neotree-toggle)
+  :bind (("C-<f1>" . my-neotree-toggle)
          :map neotree-mode-map
          ("C-d" .       'neotree-delete-node)
          ("D" .         'neotree-delete-node)
