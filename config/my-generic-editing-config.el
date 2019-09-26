@@ -127,7 +127,11 @@
 ;; (global-set-key (kbd "C-s-c C-s-c") 'mc/edit-lines)
 
 ;; (global-set-key (kbd "C-x C-d")    'counsel-dired)
-(global-set-key (kbd "C-x C-d")    'dired-at-point)
+(defun my-dired-at-point ()
+  (interactive)
+  (let ((completing-read-function 'completing-read-default))
+    (dired-at-point)))
+(global-set-key (kbd "C-x C-d")    'my-dired-at-point)
 (global-set-key (kbd "C-x M-d")    'sr-dired)
 
 ;; (global-set-key (kbd "s-<SPC>")    'just-one-space)

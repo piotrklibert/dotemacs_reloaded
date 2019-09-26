@@ -74,133 +74,18 @@
     ("D" toggle-debug-on-quit "debug quits" :toggle (symbol-value 'debug-on-quit))
     ("g" git-gutter+-mode :toggle t)
     ("b" my-toggle-true-false-none "cycle python T/F/None")
-    ("\"" my-toggle-quotes "cycle surrounding \"/'"))))
+    ("\"" my-toggle-quotes "cycle surrounding \"/'"))
+   ""
+   (("t" my-insert-datetime)
+    ("T" my-insert-today))
+   ))
+
 
 
 (require 'whitespace)
 (assert (functionp (symbol-function 'hydra-toggle-simple/body)))
 (define-key my-toggle-keys (kbd "C-s") 'config-toggles)
 
-
-;; ===============================================================================
-
-
-(defhydra hydra-ibuffer-marking (:hint nil)
-  "
-Basic selection            ^^| Toggles             ^^^^^^^^^^^^^^^^^^^ | Searches
----------------------------^^+---------------------^^^^^^^^^^^^^^^^^^^-+---------------------------------
-_m_: mark current            |  _s_: special       ^^^^^^^^^^^^^^^^^   |  _n_: by buffer name (regexp) | _d_: mark for deletion
-_u_: unmark current          |  _e_: without file  ^^^^^^^^^^^^^^^^^   |  _f_: by filename (regexp)
-_<backspace>_: unmark prev   |  _u_: unsaved       ^^^^^^^^^^^^^^^^^   |  _g_: by content (regexp)
-_c_: clear all               |  _r_: read-only     ^^^^^^^^^^^^^^^^^   |  _M_: by major mode (regexp)
-_t_: reverse selection       |  _._: older than %`ibuffer-old-time h
----------------------------------------------------------------------------------------------------------
-"
-  ;; _* /_: Mark buffers in `dired-mode'.
-  ;; _* h_: Mark buffers in `help-mode', `apropos-mode', etc.
-  ;; _L_: Mark all locked buffers.
-  ;; _* c_: Change the mark used on marked buffers.
-  ("m" ibuffer-mark-forward)
-  ("d" ibuffer-mark-for-delete)
-  ("u" ibuffer-unmark-forward)
-  ("<backspace>" ibuffer-unmark-backward)
-  ("c" ibuffer-unmark-all-marks)
-  ("t" ibuffer-toggle-marks)
-
-  ("s" ibuffer-mark-special-buffers)
-  ("e" ibuffer-mark-dissociated-buffers)
-  ("u" ibuffer-mark-unsaved-buffers)
-  ("r" ibuffer-mark-read-only-buffers)
-  ("." ibuffer-mark-old-buffers)
-
-  ("n" ibuffer-mark-by-name-regexp)
-  ("f" ibuffer-mark-by-file-name-regexp)
-  ("g" ibuffer-mark-by-content-regexp)
-  ("M" ibuffer-mark-by-mode-regexp)
-
-  ("q" nil "dismiss")
-  ("<return>" nil "dismiss")
-
-  ;; ("L"             ibuffer-mark-by-locked)
-  ;; ("*"             ibuffer-unmark-all)
-  ;; ("/"             ibuffer-mark-dired-buffers)
-  ;; ("M"             ibuffer-mark-by-mode)
-  ;; ("c"             ibuffer-change-marks)
-  ;; ("h"             ibuffer-mark-help-buffers)
-  ;; ("m"             ibuffer-mark-modified-buffers)
-  ;; ("z"             ibuffer-mark-compressed-file-buffers)
-  )
-
-;; Sorting:
-;; s a             ibuffer-do-sort-by-alphabetic
-;; s f             ibuffer-do-sort-by-filename/process
-;; s i             ibuffer-invert-sorting
-;; s m             ibuffer-do-sort-by-major-mode
-;; s s             ibuffer-do-sort-by-size
-;; s v             ibuffer-do-sort-by-recency
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'ibuf-ext)
-(defun my-ibuffer-filter-by-modified ()
-  (interactive)
-  (setq ibuffer-filtering-qualifiers '((modified) (visiting-file)))
-  (ibuffer-update nil t))
-
-
-
-(pretty-hydra-define my-hydra-ibuffer-filters (:hint nil :quit-key "q")
-  ("Basic"
-   (("a" ibuffer-filter-by-filename "path")
-    ("n" ibuffer-filter-by-name "name")
-    ("c" ibuffer-filter-by-content "search")
-    ("." ibuffer-filter-by-file-extension "ext")
-    ("e" ibuffer-filter-by-predicate "expr"))
-
-   "Advanced"
-   (("v" ibuffer-filter-by-visiting-file "file?")
-    ("u" my-ibuffer-filter-by-modified "modified?")
-    ("s" ibuffer-filter-by-starred-name "starred?")
-    ("E" ibuffer-filter-by-process "process?")
-    ("o" ibuffer-filter-by-used-mode "mode"))
-
-   "Filters"
-   (("|" ibuffer-or-filter "or")
-    ("&" ibuffer-and-filter "and")
-    ("!" ibuffer-negate-filter "not")
-    ("p" ibuffer-pop-filter "pop")
-    ("/" ibuffer-filter-disable "clear all" :color blue))
-
-   ""
-   (("fs" ibuffer-save-filters "save")
-    ("fl" ibuffer-switch-to-saved-filters "load")
-    ("fa" ibuffer-add-saved-filters "load++")
-    ("fc" ibuffer-delete-saved-filters "del saved"))
-
-   "Groups"
-   (("gp" ibuffer-pop-filter-group "pop")
-    ("gg" ibuffer-filters-to-filter-group "create")
-    ("gs" ibuffer-save-filter-groups "save")
-    ("gl" ibuffer-switch-to-saved-filter-groups "load")
-    ("gc" ibuffer-delete-saved-filter-groups "del saved"))
-
-   "Misc"
-   (("fd" ibuffer-decompose-filter "decompose filter")
-    ("gd" ibuffer-decompose-filter-group "decompose group")
-    )))
-
-;; Disabled/alternative shortcuts:
-;; (">" ibuffer-filter-by-size-gt)
-;; ("<" ibuffer-filter-by-size-lt)
-;; ("b" ibuffer-filter-by-basename)
-;; ("M" ibuffer-filter-by-derived-mode)
-;; ("t" ibuffer-exchange-filters)
-;; ("<tab>" ibuffer-exchange-filters)
-;; ("<return>" ibuffer-filter-by-mode)
-;; ("<space>" ibuffer-clear-filter-groups)
-;; ("<up>" ibuffer-pop-filter)
-;; ("<S-up>" ibuffer-pop-filter-group)
-;; ("|" ibuffer-or-filter)
 
 
 (require 'pretty-hydra)
@@ -232,62 +117,6 @@ _t_: reverse selection       |  _._: older than %`ibuffer-old-time h
     ("=" zoom-in)
     ("-" zoom-out "out")
     ("0" jp-zoom-default "reset"))))
-
-
-
-;; `g' - Regenerate the list of all buffers.
-;;         Prefix arg means to toggle whether buffers that match
-;;         `ibuffer-maybe-show-predicates' should be displayed.
-
-;; ``' - Change the current display format.
-;; `SPC' - Move point to the next line.
-;; `C-p' - Move point to the previous line.
-;; `h' - This help.
-;; `M-x ibuffer-diff-with-file' - View the differences between this buffer
-;;         and its associated file.
-;; `RET' - View the buffer on this line.
-;; `o' - As above, but in another window.
-;; `C-o' - As both above, but don't select
-;;         the new window.
-;; `b' - Bury (not kill!) the buffer on this line.
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; Operations on marked buffers:
-
-;;   `S' - Save the marked buffers.
-;;   `A' - View the marked buffers in the selected frame.
-;;   `H' - View the marked buffers in another frame.
-;;   `V' - Revert the marked buffers.
-;;   `T' - Toggle read-only state of marked buffers.
-;;   `L' - Toggle lock state of marked buffers.
-;;   `D' - Kill the marked buffers.
-;;   `M-s a C-s' - Do incremental search in the marked buffers.
-;;   `M-s a C-M-s' - Isearch for regexp in the marked buffers.
-;;   `r' - Replace by regexp in each of the marked
-;;           buffers.
-;;   `Q' - Query replace in each of the marked buffers.
-;;   `I' - As above, with a regular expression.
-;;   `P' - Print the marked buffers.
-;;   `O' - List lines in all marked buffers which match
-;;           a given regexp (like the function `occur').
-;;   `X' - Pipe the contents of the marked
-;;           buffers to a shell command.
-;;   `N' - Replace the contents of the marked
-;;           buffers with the output of a shell command.
-;;   `!' - Run a shell command with the
-;;           buffer's file as an argument.
-;;   `E' - Evaluate a form in each of the marked buffers.  This
-;;           is a very flexible command.  For example, if you want to make all
-;;           of the marked buffers read-only, try using (read-only-mode 1) as
-;;           the input form.
-;;   `W' - As above, but view each buffer while the form
-;;           is evaluated.
-;;   `k' - Remove the marked lines from the *Ibuffer* buffer,
-;;           but don't kill the associated buffer.
-;;   `x' - Kill all buffers marked for deletion.
-
-;; TODO: HYYYYDRAAAA!!!! (for marking and searching)
 
 
 (require 'windmove)
@@ -481,10 +310,10 @@ _SPC_ cancel	_o_nly this   	_d_elete
                            :color pink
                            :post (deactivate-mark))
 "
-  ^_k_^     _d_elete    _s_tring     |\\     _,,,--,,_
-_h_   _l_   _o_k        _y_ank       /,`.-'`'   ._  \-;;,_
-  ^_j_^     _n_ew-copy  _r_eset     |,4-  ) )_   .;.(  `'-'
-^^^^        _e_xchange  _u_ndo     '---''(_/._)-'(_\_)
+  ^_k_^     _d_elete    _s_tring
+_h_   _l_   _o_k        _y_ank
+  ^_j_^     _n_ew-copy  _r_eset
+^^^^        _e_xchange  _u_ndo
 ^^^^        ^ ^         _p_aste
 "
   ("h" backward-char nil)

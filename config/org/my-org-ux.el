@@ -21,6 +21,7 @@
          ("a" . org-agenda-list))
   :hook ((org-mode . my-org-hook))
   :config
+  (setq org-ellipsis " ➤")
   (require 'org-table)
   (require 'org-agenda)
   (require 'org-tempo)
@@ -68,8 +69,9 @@
 
 
 (defun my-org-hook ()
-  (org-fancy-priorities-mode)
-  (org-bullets-mode)
+  (ignore-errors
+    (org-fancy-priorities-mode)
+    (org-bullets-mode))
 
   (linum-mode -1)
   (electric-pair-mode -1)

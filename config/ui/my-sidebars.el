@@ -46,12 +46,13 @@
 
 
 (use-package neotree
-  :commands neotree-dir
+  :commands neotree-dir neotree-toggle
   :bind (("C-<f1>" . my-neotree-toggle)
          :map neotree-mode-map
          ("C-d" .       'neotree-delete-node)
          ("D" .         'neotree-delete-node)
          ("C-<up>" .    'neotree-select-up-node)
+         ("C-<tab>" .    'neotree-select-up-node)
          ("C-o" .       'neotree-hidden-file-toggle)
          ("<delete>" .  'neotree-delete-node)
          ("r" .         'neotree-rename-node)

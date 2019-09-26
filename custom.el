@@ -198,7 +198,11 @@
        (modified)
        (visiting-file))
       ("LC"
-       (saved . "LC")))))
+       (saved . "LC"))
+      ("Emacs"
+       (used-mode . emacs-lisp-mode))
+      ("Org"
+       (used-mode . org-mode)))))
  '(ibuffer-saved-filters
    '(("LC"
       (filename . "lightcorn"))
@@ -329,6 +333,7 @@
  '(org-agenda-dim-blocked-tasks t)
  '(org-agenda-files '("~/todo/zycie.org" "~/todo/nowe.org" "~/todo/praca.org"))
  '(org-archive-location "~/todo/archive/archive-2019.org::datetree/* From %s")
+ '(org-archive-reversed-order t)
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
    '((emacs-lisp . t)
@@ -389,7 +394,7 @@
   :END:
   %i" :prepend t)
      ("s" "Scheduled Event" entry
-      (file+headline "" "EVENTS")
+      (file+headline "zycie.org" "EVENTS")
       "* TODO %? :event:
   SCHEDULED: %^T
   :PROPERTIES:
@@ -411,15 +416,7 @@
   :Added: %U
   :Origin: %a
   :END:
-  %i" :prepend t)
-     ("r" "Repeating Task" entry
-      (file+headline "~/todo/nowe.org" "EVENTS")
-      "* TODO %? :event:repeating:
-  SCHEDULED: %^T
-  :PROPERTIES:
-  :Added: %U
-  :Origin: %a
-  :END:" :prepend t)))
+  %i" :prepend t)))
  '(org-catch-invisible-edits 'smart)
  '(org-clock-into-drawer t)
  '(org-clock-persist t)
@@ -544,7 +541,7 @@
      ("Jenkins" . 106)
      ("Services" . 115)))
  '(org-tag-persistent-alist nil)
- '(org-tags-column -90)
+ '(org-tags-column -120)
  '(org-tags-sort-function 'org-string-collate-lessp)
  '(org-todo-keywords
    '((sequence "TODO(t!)" "INPROGRESS(i!)" "PAUSED(p!)" "BLOCKED(b@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
@@ -559,7 +556,7 @@
    '("~/.emacs.d/forked-plugins" "/usr/local/share/emacs/27.0.50/site-lisp/elpa" "/usr/local/share/emacs/site-lisp/elpa"))
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   '(font-lock+ frame-local ov pfuture anaphora elisp-refs project-root git-gutter-fringe+ gitignore-mode ox-minutes ox-slimhtml ox-rst orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
+   '(sbt-mode scala-mode font-lock+ frame-local ov pfuture anaphora elisp-refs project-root git-gutter-fringe+ gitignore-mode ox-minutes ox-slimhtml ox-rst orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
  '(powerline-default-separator 'rounded)
  '(powerline-height nil)
  '(powerline-text-scale-factor 1.9)
@@ -643,6 +640,7 @@
      (python-shell-interpreter-args . "/usr/www/tagasauris/tagasauris/manage.py shell")
      (python-shell-interpreter . "python")
      (whitespace-line-column . 80)))
+ '(scala-indent:step 4)
  '(scheme-program-name "csi -:c")
  '(scroll-conservatively 108)
  '(semantic-c-dependency-system-include-path

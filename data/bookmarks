@@ -2,16 +2,21 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("org-refile-last-stored"
+((";; Fancy priorities - interesting custom variables"
+ (filename . "~/.emacs.d/config/org/my-org-ux.el")
+ (front-context-string . "\n;;\n;; (insert (")
+ (rear-context-string . "custom variables")
+ (position . 1020))
+("org-refile-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** DONE golden-r")
+ (front-context-string . "** DONE customiz")
  (rear-context-string . "ND:\n\n* ZROBIONE\n")
- (position . 62881))
+ (position . 84592))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO hydra - ")
- (rear-context-string . "ns)\n\n* INCOMING\n")
- (position . 322))
+ (front-context-string . "** TODO make mag")
+ (rear-context-string . "hive\n* INCOMING\n")
+ (position . 2348))
 ("Org Scheduled & Repeating Tasks"
  (front-context-string . "a task subtree, ")
  (rear-context-string . "er of copies of\n")
