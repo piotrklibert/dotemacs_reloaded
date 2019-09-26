@@ -1,6 +1,11 @@
 (require 'f)
 (require 'ag-autoloads)
 
+(defvar my-find-keys)
+(define-prefix-command 'my-find-keys)
+(global-set-key (kbd "C-f") 'my-find-keys)
+
+
 (defun find-all-my-global-bindings ()
   (interactive)
   (ag-regexp "(global-set-|local-set-)key" "/home/cji/.emacs.d/config/"))

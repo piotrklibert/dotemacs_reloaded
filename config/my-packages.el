@@ -9,7 +9,6 @@
 (require 'dired+-autoloads)
 
 (require 'fic-ext-mode-autoloads)
-(require 'fill-column-indicator-autoloads)
 (require 'flymake-easy-autoloads)
 
 (require 'flymake-jshint-autoloads)

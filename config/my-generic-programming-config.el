@@ -145,19 +145,18 @@
 (define-key mode-specific-map (kbd "M-.") 'xref-find-definitions-other-window)
 
 ;; functions related to searching paths, files and everything else.
-(defvar my-find-keys)
-(define-prefix-command 'my-find-keys)
-(global-set-key (kbd "C-f") 'my-find-keys)
 
 
 (define-key my-find-keys (kbd "o")        'occur)
+(define-key my-find-keys (kbd "O")        'swiper)
 (define-key my-find-keys (kbd "l")        'find-library-other-window)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)
 
 
 (define-key my-find-keys (kbd "f")    'helm-projectile-find-file)
-(define-key my-find-keys (kbd "C-f")  'fuzzy-find-in-project)
+(define-key my-find-keys (kbd "C-f")    'helm-projectile-find-file)
+;; (define-key my-find-keys (kbd "C-f")  'fuzzy-find-in-project)
 (define-key my-find-keys (kbd "C-M-f")  'fuzzy-find-choose-root-set)
 ;; (define-key my-find-keys (kbd "C-c") 'fuzzy-find-choose-root-set)
 

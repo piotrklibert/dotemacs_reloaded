@@ -1,4 +1,5 @@
 (require 'generic-x)
+(require 'hydra)
 
 ;; NOTE: IMPORTANT: (customize-face-other-window 'hl-line)
 

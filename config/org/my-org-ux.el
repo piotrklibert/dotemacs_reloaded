@@ -19,7 +19,7 @@
          ("C-c C-x C-o" . org-clock-out)
          :map mode-specific-map
          ("a" . org-agenda-list))
-  :hook my-org-hook org-fancy-priorities-mode org-bullets-mode
+  :hook ((org-mode . my-org-hook))
   :config
   (require 'org-table)
   (require 'org-agenda)
@@ -38,17 +38,17 @@
   (require 'helm-occur)
 
   (require 'my-org-babel)
-  (require 'my-org-custom-id))
+  (require 'my-org-custom-id)
 
 
-;; Fancy priorities - interesting custom variables
-;;
-;; (insert (pp-to-string org-priority-faces))
-;; org-faces-easy-properties
-;; org-fancy-priorities-list
+  ;; Fancy priorities - interesting custom variables
+  ;;
+  ;; (insert (pp-to-string org-priority-faces))
+  ;; org-faces-easy-properties
+  ;; org-fancy-priorities-list
 
 
-(require 'appt)
+  (require 'appt))
 (appt-activate 1)
 ;; (customize-group 'appt)
 
@@ -70,6 +70,10 @@
 (defun my-org-hook ()
   (org-fancy-priorities-mode)
   (org-bullets-mode)
+
+  (linum-mode -1)
+  (electric-pair-mode -1)
+
   (define-key org-mode-map (kbd "<return>")     'org-return-indent)
   (define-key org-mode-map (kbd "C-j")          'org-return)
 

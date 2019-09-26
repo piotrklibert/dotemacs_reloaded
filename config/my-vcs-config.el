@@ -46,7 +46,8 @@
 
 
 (defun my-magit-refresh-buffer-hook ()
-  (when (eq major-mode 'magit-status-mode)
+  (when (and (eq major-mode 'magit-status-mode)
+             (get-buffer-window))
    (recenter)))
 
 (add-hook 'magit-refresh-buffer-hook 'my-magit-refresh-buffer-hook)

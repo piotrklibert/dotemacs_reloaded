@@ -5,6 +5,8 @@
   (turn-on-occur-x-mode)
   (add-hook 'xref-backend-functions #'(lambda () 'elisp)))
 
+(use-package define-word)
+
 (use-package replace
   :commands occur
   :demand)

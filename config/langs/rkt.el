@@ -76,7 +76,6 @@
 
 (defconst racket-file-exts '("\\.rkt\\'" "\\.rktd\\'"))
 (defun my-sanitize-auto-modes-racket ()
-  (message "IIIII'M SAAAANITIZING!")
   (setq auto-mode-alist (loop for x in auto-mode-alist
                               unless (s-contains? "rkt" (car x))
                               collect x)))
@@ -100,7 +99,8 @@
        (eval-after-load "paredit"
          '(define-key paredit-mode-map (kbd "M-[") 'paredit-wrap-square)))))
 
-;; (macroexpand '(make-scheme-great-again))
+
+;; (cl-macroexpand '(make-scheme-great-again))
 
 
 
