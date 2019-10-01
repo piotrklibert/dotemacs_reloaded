@@ -193,7 +193,17 @@
  '(ibuffer-mode-hook '(my-ibuffer-mode-hook))
  '(ibuffer-old-time 2)
  '(ibuffer-saved-filter-groups
-   '(("std"
+   '(("qldb1"
+      ("Modified"
+       (modified)
+       (visiting-file))
+      ("QLDB"
+       (saved . "qldb"))
+      ("Org"
+       (used-mode . org-mode))
+      ("Emacs"
+       (used-mode . emacs-lisp-mode)))
+     ("std"
       ("Modified"
        (modified)
        (visiting-file))
@@ -202,9 +212,21 @@
       ("Emacs"
        (used-mode . emacs-lisp-mode))
       ("Org"
-       (used-mode . org-mode)))))
+       (used-mode . org-mode)))
+     ("qldb"
+      ("Modified"
+       (modified)
+       (visiting-file))
+      ("QLDB"
+       (saved . "qldb"))
+      ("Org"
+       (used-mode . org-mode))
+      ("Emacs"
+       (used-mode . emacs-lisp-mode)))))
  '(ibuffer-saved-filters
-   '(("LC"
+   '(("qldb"
+      (filename . "ts-qldb"))
+     ("LC"
       (filename . "lightcorn"))
      ("modified"
       (not starred-name)
@@ -304,6 +326,14 @@
  '(less-css-indent-level 4)
  '(linum-delay t)
  '(livescript-tab-width 2)
+ '(lsp-groovy-server-install-dir "~/portless/groovy-language-server/")
+ '(lsp-ui-doc-alignment 'frame)
+ '(lsp-ui-doc-delay 0.7)
+ '(lsp-ui-doc-header t)
+ '(lsp-ui-doc-max-height 12)
+ '(lsp-ui-doc-max-width 60)
+ '(lsp-ui-doc-use-childframe t)
+ '(lsp-ui-doc-use-webkit nil)
  '(lua-indent-level 4)
  '(lua-indent-string-contents t)
  '(magit-push-always-verify nil)
@@ -753,6 +783,8 @@
  '(hl-sexp-face ((t (:background "gray23"))))
  '(j-verb-face ((t (:foreground "dark cyan"))))
  '(link ((t (:foreground "#8ac6f2" :underline nil))))
+ '(lsp-face-highlight-read ((t (:inherit nil :underline t))))
+ '(lsp-ui-doc-url ((t (:inherit link))))
  '(magit-item-highlight ((t (:background "gray19" :underline nil))))
  '(minimap-active-region-background ((t (:background "gray24"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face minimap-font-face) :background "#202414" :box (:line-width 1 :color "white") :height 4.75))))

@@ -4,6 +4,7 @@
 (require 'buffer-move)
 (require 'elscreen)
 
+(define-prefix-command 'my-wnd-keys)
 
 (elscreen-start)
 
@@ -36,7 +37,6 @@
 
 ;; C-w ... - keys related to moving, rearranging and killing buffers and
 ;; windows.
-(define-prefix-command 'my-wnd-keys)
 (global-set-key (kbd "C-w") 'my-wnd-keys)
 ;; (find-my-bindings-for 'my-wnd-keys)
 

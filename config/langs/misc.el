@@ -1,7 +1,5 @@
 ;; -*- mode: emacs-lisp -*-
-(require 'js2-mode-autoloads)
-(require 'rust-mode-autoloads)
-
+(require 'use-package)
 
 (add-to-list 'auto-mode-alist '("Dockerfile\\'" . conf-mode))
 
@@ -11,6 +9,7 @@
          ("\\.yml\\'" . yaml-mode))
   :hook (yaml-mode-hook . electric-pair-local-mode))
 
+
 (defvar markdown-mode-map)
 (use-package markdown-mode
   :mode "\\.\\(text\\|markdown\\|md\\)\\'"
@@ -19,6 +18,7 @@
          ("M-<right>" . forward-sexp)
          ("C-<left>" . left-word)
          ("C-<right>" . right-word)))
+
 
 (use-package tidy       :commands (tidy-buffer))
 (use-package js2-mode   :commands (js2-mode js2-minor-mode))
@@ -31,27 +31,22 @@
 
 (use-package clips-mode      :mode ("\\.clp\\'" . clips-mode))
 (use-package crontab-mode    :mode ("\\.pl\\'" . crontab-mode))
-(use-package fsharp-mode     :mode "\\.\\(fs\\|fsi\\|fsx\\)\\'")
 (use-package gitconfig-mode  :mode ("\\.gitconfig\\'" . gitconfig-mode))
-
-
-(use-package groovy-mode
-  :mode (("\\.groovy\\'" . groovy-mode)
-         ("Jenkinsfile\\'" . groovy-mode))
-  :custom ((groovy-indent-offset 4)))
-
-
-(use-package haxe-mode       :mode "\\.hx\\'")
+(use-package nginx-mode      :mode ".*nginx.*\\.conf\\'")
+(use-package rst             :mode "\\.rst\\'")
 (use-package json-mode       :mode "\\.json\\'")
+
+
+(use-package fsharp-mode     :mode "\\.\\(fs\\|fsi\\|fsx\\)\\'")
+(use-package haxe-mode       :mode "\\.hx\\'")
 (use-package julia-mode      :mode "\\.jl\\'")
 (use-package less-css-mode   :mode ("\\.less\\'" . less-css-mode))
 (use-package livescript-mode :mode "\\.ls\\'" :interpreter "lsc")
 (use-package lua-mode        :mode "\\.lua$"  :interpreter "lua")
-(use-package nginx-mode      :mode ".*nginx.*\\.conf\\'")
-(use-package rst             :mode "\\.rst\\'")
 (use-package rust-mode       :mode ("\\.rs\\'" . rust-mode))
 (use-package smalltalk-mode  :mode ("\\.st\\'" . smalltalk-mode))
 (use-package tuareg          :mode ("\\.\\(ml\\|mli\\)\\'" . tuareg-mode)) ; OCaml
+
 
 ;; SQL interactions mode
 ;; (require 'sql-completion)

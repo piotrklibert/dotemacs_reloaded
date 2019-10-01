@@ -15,6 +15,7 @@
            "~/.emacs.d/config/langs/c.el"
            "~/.emacs.d/config/langs/clj.el"
            "~/.emacs.d/config/langs/html.el"
+           "~/.emacs.d/config/langs/jvm.el"
            "~/.emacs.d/config/langs/python.el"
            "~/.emacs.d/config/langs/nim.el")
 

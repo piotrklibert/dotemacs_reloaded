@@ -19,6 +19,33 @@
 (require 'hippie-exp)
 ;; (require 'readline-complete)
 
+
+
+(defun my-lsp-completions-request ()
+  (lsp-request "textDocument/completion"
+               (plist-put (lsp--text-document-position-params)
+                          :context (ht ("triggerKind" 1)))))
+
+
+
+;; (loop for x across (ht-get ff "items")
+;;       collect (list
+;;                (ht-get* x "data" "symbol")
+;;                (ht-get x "detail")))
+;; (loop for k in '("data" "textEdit" "detail") collect (ht-get x k))
+;; (second (s-split "[.#]" (ht-get (ht-get x "data") "symbol")))
+
+;; (list "data" "textEdit" "insertTextFormat" "filterText" "sortText" "detail" "kind" "label")
+(defun my-lsp-completions ()
+  (loop for x across (ht-get (my-lsp-completions-request) "items")
+        collect (second (s-split "[.#]" (ht-get (ht-get x "data") "symbol")))))
+
+(ac-define-source lsp-completions
+  '((candidates . (my-lsp-completions))
+    (symbol . "x")))
+
+
+
 (ac-config-default)
 
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict/")

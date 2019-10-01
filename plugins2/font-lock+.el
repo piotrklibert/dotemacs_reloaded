@@ -388,7 +388,8 @@ LOUDLY, if non-nil, allows progress-meter bar."
                     (funcall matcher end))
                   ;; Beware empty string matches since they will
                   ;; loop indefinitely.
-                  (or (> (point) (match-beginning 0))  (progn (forward-char 1) t)))
+                  (or (> (point) (match-beginning 0))
+                      (progn (forward-char 1) t)))
         (when (and font-lock-multiline
                    (>= (point) (save-excursion (goto-char (match-beginning 0))
                                                (forward-line 1) (point))))

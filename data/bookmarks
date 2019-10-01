@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-((";; Fancy priorities - interesting custom variables"
+(("(defun lsp-ui-doc--extract-marked-string (marked-string &optional language)"
+ (filename . "~/.emacs.d/forked-plugins/lsp-ui/lsp-ui-doc.el")
+ (front-context-string . "(defun lsp-ui-do")
+ (rear-context-string . "        \"\\n\"))\n\n")
+ (position . 7496))
+(";; Fancy priorities - interesting custom variables"
  (filename . "~/.emacs.d/config/org/my-org-ux.el")
  (front-context-string . "\n;;\n;; (insert (")
  (rear-context-string . "custom variables")
@@ -14,7 +19,7 @@
  (position . 84592))
 ("org-capture-last-stored"
  (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO make mag")
+ (front-context-string . "** TODO jednak p")
  (rear-context-string . "hive\n* INCOMING\n")
  (position . 2348))
 ("Org Scheduled & Repeating Tasks"
