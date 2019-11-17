@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("(defun lsp-ui-doc--extract-marked-string (marked-string &optional language)"
+(("val q = '\"' // workaround for bug in s\"\" interpolator (\\\" doesn't work in it)- there's a lot of history behind this..."
+ (filename . "~/poligon/jvm/ts-qldb-prototype/src/test/scala/test.scala")
+ (front-context-string . " s\"\" interpolato")
+ (rear-context-string . "round for bug in")
+ (position . 1083))
+("(defun lsp-ui-doc--extract-marked-string (marked-string &optional language)"
  (filename . "~/.emacs.d/forked-plugins/lsp-ui/lsp-ui-doc.el")
  (front-context-string . "(defun lsp-ui-do")
  (rear-context-string . "        \"\\n\"))\n\n")
@@ -13,15 +18,15 @@
  (rear-context-string . "custom variables")
  (position . 1020))
 ("org-refile-last-stored"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** DONE customiz")
- (rear-context-string . "ND:\n\n* ZROBIONE\n")
- (position . 84592))
+ (filename . "~/todo/zycie.org")
+ (front-context-string . "** DONE okreslic")
+ (rear-context-string . " \305\274ycie\n  :END: \n")
+ (position . 33859))
 ("org-capture-last-stored"
- (filename . "~/todo/nowe.org")
- (front-context-string . "** TODO jednak p")
- (rear-context-string . "hive\n* INCOMING\n")
- (position . 2348))
+ (filename . "~/todo/zycie.org")
+ (front-context-string . "** TODO zapytac ")
+ (rear-context-string . " życie\n  :END: \n")
+ (position . 1802))
 ("Org Scheduled & Repeating Tasks"
  (front-context-string . "a task subtree, ")
  (rear-context-string . "er of copies of\n")

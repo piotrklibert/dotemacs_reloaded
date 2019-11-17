@@ -54,8 +54,11 @@
 
   (my-setup-hs-minor-mode))
 
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(defun my-delete-trailing-whitespace-unless-org-mode ()
+  (if (eq major-mode 'org-mode)
+      nil
+    (delete-trailing-whitespace)))
+(add-hook 'before-save-hook 'my-delete-trailing-whitespace-unless-org-mode)
 
 
 (provide 'my-generic-programming-init-hook)

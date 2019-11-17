@@ -25,6 +25,7 @@
         comment-dwim
         comment-or-uncomment-region-or-line
         company-abort
+        count-words-region
         delete-indentation
         duplicate-line-or-region
         electric-newline-and-maybe-indent
@@ -164,6 +165,7 @@
         global-occur
         helm-find-files
         helm-occur
+        helpful-key
         hydra-splitter/hydra-move-splitter-left
         hydra-splitter/hydra-move-splitter-right
         hydra-splitter/nil
@@ -187,6 +189,7 @@
         picture-self-insert
         read-only-mode
         repeat
+        save-some-buffers
         slime-eval-defun
         smex
         tfb-down

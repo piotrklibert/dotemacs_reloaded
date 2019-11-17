@@ -12,7 +12,6 @@
 ;; (use-package company-lsp)
 
 (use-package lsp-java
-  :after lsp-mode
   :hook ((java-mode . lsp)
          (java-mode . lsp-ui-mode)))
 

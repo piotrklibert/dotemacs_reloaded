@@ -147,8 +147,8 @@
 ;; functions related to searching paths, files and everything else.
 
 
-(define-key my-find-keys (kbd "o")        'occur)
-(define-key my-find-keys (kbd "O")        'swiper)
+(define-key my-find-keys (kbd "o")        'swiper)
+(define-key my-find-keys (kbd "O")        'occur)
 (define-key my-find-keys (kbd "l")        'find-library-other-window)
 (define-key my-find-keys (kbd "C-o")      'helm-occur)
 (define-key my-find-keys (kbd "C-g")      'global-occur)

@@ -88,7 +88,9 @@ If its `pos' is somehow out of range, wrap it before returning."
   "Override the local key map for jump char CHAR."
   (setq overriding-local-map
         (let ((map (make-sparse-keymap)))
+          (define-key map (kbd "C-M-<kp-next>")  #'tfb-up)
           (define-key map (kbd "C-M-<next>")  #'tfb-up)
+          (define-key map (kbd "C-M-<kp-prior>") #'tfb-down)
           (define-key map (kbd "C-M-<prior>") #'tfb-down)
           (define-key map [t]                 #'tfb-done)
           map)))

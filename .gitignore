@@ -95,3 +95,5 @@ data/bookmarks
 eaf
 session.*
 .cache
+workspace
+/.lsp-session-v1

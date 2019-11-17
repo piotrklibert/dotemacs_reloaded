@@ -193,39 +193,37 @@
  '(ibuffer-mode-hook '(my-ibuffer-mode-hook))
  '(ibuffer-old-time 2)
  '(ibuffer-saved-filter-groups
-   '(("qldb1"
+   '(("current"
       ("Modified"
        (modified)
        (visiting-file))
-      ("QLDB"
-       (saved . "qldb"))
+      ("Official"
+       (or (saved . "qldb")
+           (filename . "lightcorn")
+           (filename . "projects")))
+      ("JVM"
+       (or
+        (used-mode . scala-mode)
+        (used-mode . groovy-mode)
+        (used-mode . java-mode)
+        (filename . "gradle")))
       ("Org"
        (used-mode . org-mode))
-      ("Emacs"
-       (used-mode . emacs-lisp-mode)))
-     ("std"
-      ("Modified"
-       (modified)
-       (visiting-file))
-      ("LC"
-       (saved . "LC"))
       ("Emacs"
        (used-mode . emacs-lisp-mode))
-      ("Org"
-       (used-mode . org-mode)))
-     ("qldb"
-      ("Modified"
-       (modified)
-       (visiting-file))
-      ("QLDB"
-       (saved . "qldb"))
-      ("Org"
-       (used-mode . org-mode))
-      ("Emacs"
-       (used-mode . emacs-lisp-mode)))))
+      ("Private"
+       (filename . "todo")
+       (filename . "priv")
+       (filename . "poigon")
+       )
+      )))
  '(ibuffer-saved-filters
-   '(("qldb"
-      (filename . "ts-qldb"))
+   '(("scala+groovy"
+      (or
+       (used-mode . groovy-mode)
+       (used-mode . scala-mode)))
+     ("qldb"
+      (filename . "qldb-api"))
      ("LC"
       (filename . "lightcorn"))
      ("modified"
@@ -336,6 +334,7 @@
  '(lsp-ui-doc-use-webkit nil)
  '(lua-indent-level 4)
  '(lua-indent-string-contents t)
+ '(magit-no-confirm '(resurrect drop-stashes stage-all-changes))
  '(magit-push-always-verify nil)
  '(magit-visit-ref-behavior '(create-branch checkout-branch))
  '(minimap-automatically-delete-window nil)
@@ -354,6 +353,7 @@
  '(neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "_build"))
  '(neo-hide-cursor nil)
  '(neo-vc-integration '(face))
+ '(neo-window-fixed-size nil)
  '(ns-alternate-modifier 'super)
  '(ns-auto-hide-menu-bar nil)
  '(ns-command-modifier 'meta)
@@ -364,6 +364,9 @@
  '(org-agenda-files '("~/todo/zycie.org" "~/todo/nowe.org" "~/todo/praca.org"))
  '(org-archive-location "~/todo/archive/archive-2019.org::datetree/* From %s")
  '(org-archive-reversed-order t)
+ '(org-ascii-charset 'utf-8)
+ '(org-ascii-headline-spacing '(1 . 1))
+ '(org-ascii-table-use-ascii-art t)
  '(org-babel-js-cmd "/usr/local/bin/node")
  '(org-babel-load-languages
    '((emacs-lisp . t)
@@ -387,10 +390,9 @@
   :Origin: %a
   :END:
   %i" :prepend t)
-     ("z" "Something to buy when shopping" item
+     ("z" "Something to buy when shopping" entry
       (file+headline "~/todo/zycie.org" "ZAKUPY")
-      "- %? (%u)
-  %i" :prepend t)
+      "* TODO %? %i" :prepend t :tree-type week)
      ("e" "Emacs-related Task" entry
       (file+headline "~/todo/nowe.org" "INCOMING")
       "* TODO %? :emacs:
@@ -404,7 +406,6 @@
       "* TODO %?
   :PROPERTIES:
   :Added: %U
-  :Origin: %a
   :END:
   %i" :prepend t)
      ("c" "General Task" entry
@@ -412,7 +413,6 @@
       "* TODO %?
   :PROPERTIES:
   :Added: %U
-  :Origin: %a
   :END:
   %i" :prepend t)
      ("w" "Work Task" entry
@@ -420,7 +420,6 @@
       "* TODO %?
   :PROPERTIES:
   :Added: %U
-  :Origin: %a
   :END:
   %i" :prepend t)
      ("s" "Scheduled Event" entry
@@ -429,16 +428,15 @@
   SCHEDULED: %^T
   :PROPERTIES:
   :Added: %U
-  :Origin: %a
   :END:")
      ("S" "scheduled work event" entry
       (file+headline "praca.org" "EVENTS")
       "* TODO %? :event:
+  SCHEDULED: %^T
   :PROPERTIES:
   :Added: %U
-  :Origin: %a
   :END:
-  SCHEDULED: %^T")
+")
      ("n" "note" entry
       (file+headline "nowe.org" "Notes")
       "* %? :note:
@@ -473,7 +471,9 @@
  '(org-export-coding-system 'utf-8)
  '(org-export-creator-string "")
  '(org-export-use-babel t)
+ '(org-export-with-properties '("SCHEDULED" "DEADLINE" "Added"))
  '(org-export-with-statistics-cookies nil)
+ '(org-export-with-tables nil)
  '(org-fancy-priorities-list '("⬆⬆⬆" "⬆⬆" "⬆" "⬇" "⬇⬇" "⬇⬇⬇"))
  '(org-global-properties
    '(("Effort_ALL" . "0:05 0:15 0:30 1:00 1:30 2:00 4:00 6:00 8:00")))
@@ -571,10 +571,10 @@
      ("Jenkins" . 106)
      ("Services" . 115)))
  '(org-tag-persistent-alist nil)
- '(org-tags-column -120)
+ '(org-tags-column -95)
  '(org-tags-sort-function 'org-string-collate-lessp)
  '(org-todo-keywords
-   '((sequence "TODO(t!)" "INPROGRESS(i!)" "PAUSED(p!)" "BLOCKED(b@/!)" "|" "DONE(d@)" "CANCELED(c@)")))
+   '((sequence "TODO(t!)" "INPROGRESS(i!)" "PAUSED(p!)" "BLOCKED(b@/!)" "|" "DONE(d!)" "EXPIRED(e!)" "CANCELED(c!)")))
  '(org-treat-S-cursor-todo-selection-as-state-change t)
  '(org-use-sub-superscripts nil)
  '(package-archives
@@ -586,7 +586,7 @@
    '("~/.emacs.d/forked-plugins" "/usr/local/share/emacs/27.0.50/site-lisp/elpa" "/usr/local/share/emacs/site-lisp/elpa"))
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   '(sbt-mode scala-mode font-lock+ frame-local ov pfuture anaphora elisp-refs project-root git-gutter-fringe+ gitignore-mode ox-minutes ox-slimhtml ox-rst orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
+   '(dockerfile-mode sbt-mode scala-mode font-lock+ frame-local ov pfuture anaphora elisp-refs project-root git-gutter-fringe+ gitignore-mode ox-minutes ox-slimhtml ox-rst orgalist ecb ess color-theme epl ghub flycheck-pycheckers flycheck-mypy commenter flycheck-clang-analyzer flycheck bookmark+ with-editor groovy-mode function-args cmake-mode nasm-mode plantuml-mode alpha avy ace-window ac-geiser ac-js2 ac-slime ace-jump-buffer ack ag alchemist auto-complete-nxml auto-indent-mode buffer-stack cider clips-mode clj-mode clojure-mode coffee-mode col-highlight company-inf-python crontab-mode dired+ ein elixir-mode elnode epc epoch-view eshell-manual f fic-ext-mode fill-column-indicator find-file-in-git-repo find-file-in-project flymake-jshint flymake-python-pyflakes fringe-helper fsharp-mode fuzzy ggtags gh git-auto-commit-mode git-commit-mode git-rebase-mode gitconfig-mode haxe-mode highlight highlight-indentation highline hl-line+ hl-sentence hl-sexp hy-mode idle-highlight-mode ido-load-library ido-ubiquitous idomenu iedit ipython iy-go-to-char j-mode jabber jade-mode jira json-mode less-css-mode levenshtein livescript-mode loop macrostep main-line mmm-mode mo-git-blame neotree nginx-mode nose nurumacs occur-default-current-word occur-x outline-magic outlined-elisp-mode paredit-everywhere paredit-menu parenface parenface-plus pcre2el peg pep8 phi-rectangle phi-search-mc project pycomplete pyflakes pylint pymacs python-django python-pylint pyvirtualenv quack rainbow-delimiters rainbow-mode regex-dsl register-list rust-mode scala-mode2 sentence-highlight shampoo shell-here slamhound slime smex sr-speedbar synosaurus tidy tuareg unbound undo-tree virtualenv w3m xml-rpc yaml-mode zencoding-mode))
  '(powerline-default-separator 'rounded)
  '(powerline-height nil)
  '(powerline-text-scale-factor 1.9)
@@ -614,7 +614,9 @@
  '(recentf-menu-action 'find-file)
  '(recentf-save-file "~/.emacs.d/data/recentf")
  '(safe-local-variable-values
-   '((Package ITERATE :use "COMMON-LISP" :colon-mode :external)
+   '((eval add-hook 'after-save-hook 'org-html-export-to-html nil t)
+     (eval add-hook 'after-save-hook 'org-md-export-to-markdown nil t)
+     (Package ITERATE :use "COMMON-LISP" :colon-mode :external)
      (syntax . COMMON-LISP)
      (whitespace-style quote
                        (face trailing empty tabs))
@@ -670,7 +672,7 @@
      (python-shell-interpreter-args . "/usr/www/tagasauris/tagasauris/manage.py shell")
      (python-shell-interpreter . "python")
      (whitespace-line-column . 80)))
- '(scala-indent:step 4)
+ '(scala-indent:step 2)
  '(scheme-program-name "csi -:c")
  '(scroll-conservatively 108)
  '(semantic-c-dependency-system-include-path
@@ -748,6 +750,8 @@
  '(x-gtk-use-system-tooltips nil)
  '(yas-snippet-dirs
    '("/home/cji/.emacs.d/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/")))
+'(yas-snippet-dirs
+  '("/home/cji/.emacs.d/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/snippets" "/home/cji/.emacs.d/forked-plugins/yasnippet/snippets/"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
